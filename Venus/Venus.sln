@@ -23,6 +23,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "venus.presentation.web.cms.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Presentation.Web.Cms.Server", "src\Presentation\Web\Cms\Venus.Presentation.Web.Cms\Venus.Presentation.Web.Cms.Server\Venus.Presentation.Web.Cms.Server.csproj", "{83C73ECF-7162-4688-B2C5-518C3D7354AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{BBDFD838-8691-456D-9A2B-911A0ACAC3BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,7 @@ Global
 		{816F6054-7882-416B-B986-9A3282CD8F49} = {D8D5F8E9-E80B-4EC8-B8DE-B8275AF840E3}
 		{4C207D7F-14D1-228A-0451-8DEE29729E82} = {816F6054-7882-416B-B986-9A3282CD8F49}
 		{83C73ECF-7162-4688-B2C5-518C3D7354AF} = {816F6054-7882-416B-B986-9A3282CD8F49}
+		{BBDFD838-8691-456D-9A2B-911A0ACAC3BC} = {D8D5F8E9-E80B-4EC8-B8DE-B8275AF840E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED2749A1-FDCB-4233-9A9C-FFFE8A1F7D33}
