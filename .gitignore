@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Müşteri tarafını gönderme
+Venus/src/Presentation/Web/Client
