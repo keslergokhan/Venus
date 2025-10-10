@@ -1,0 +1,6 @@
+@Venus.Presentation.Web.Cms.Server_HostAddress = http://localhost:5219
+
+GET {{Venus.Presentation.Web.Cms.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
