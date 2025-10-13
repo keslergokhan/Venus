@@ -7,9 +7,9 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Domain.Entities.Interfaces
 {
-    public interface IEntityLanguage: IEntity
+    public interface IVenusEntityLanguage: IVenusEntity
     {
         public Guid LanguageId { get; set; }
-        public Language Language { get; set; }
+        public VenusLanguage Language { get; set; }
     }
 }

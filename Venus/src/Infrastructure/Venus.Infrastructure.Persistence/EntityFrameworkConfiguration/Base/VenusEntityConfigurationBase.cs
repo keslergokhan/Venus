@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Application.Entities.Interfaces;
+using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base
 {
-    public class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IEntity
+    public class VenusEntityConfigurationBase<T> : IEntityTypeConfiguration<T> where T : class, IVenusEntity
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
@@ -34,7 +34,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base
 
 
         protected void UrlConfigure<T>(EntityTypeBuilder<T> builder)
-            where T : class, IEntity, IUrlEntity
+            where T : class, IVenusEntity, IVenusUrlEntity
         {
             builder.HasOne(x => x.Url)
                 .WithMany()
@@ -42,7 +42,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
-        protected void ImageConfigure<T>(EntityTypeBuilder<T> builder) where T : class, IEntity, IEntityImage
+        protected void ImageConfigure<T>(EntityTypeBuilder<T> builder) where T : class, IVenusEntity, IVenusEntityImage
         {
             builder.Property(x => x.Image)
                 .IsRequired(false)

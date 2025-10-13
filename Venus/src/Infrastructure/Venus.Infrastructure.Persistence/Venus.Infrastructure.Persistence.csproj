@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="EntityFrameworkConfiguration\Interfaces\" />
-    <Folder Include="EntityFrameworkConfiguration\Systems\" />
   </ItemGroup>
 
   <ItemGroup>

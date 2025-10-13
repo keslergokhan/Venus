@@ -7,7 +7,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Base
 {
-    public abstract class EntityBase : IEntity
+    public abstract class VenusEntityBase : IVenusEntity
     {
         public Guid Id { get; set; }
         public byte State { get; set; }

@@ -7,7 +7,7 @@ using Venus.Core.Domain.Entities.Base;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public class Language : EntityBase
+    public class VenusLanguage : VenusEntityBase
     {
         public string Name { get; set; }
         public string CountryCode { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Domain.Entities.Interfaces
 {
-    public interface IEntity
+    public interface IVenusEntity
     {
         public Guid Id { get; set; }
         public byte State { get; set; }

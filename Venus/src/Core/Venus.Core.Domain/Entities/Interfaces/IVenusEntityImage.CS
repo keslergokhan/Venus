@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Domain.Entities.Interfaces
 {
-    public interface IUrlEntity
+    public interface IVenusEntityImage
     {
-        public Guid UrlId { get; set; }
-        public Url Url { get; set; }
+        public string Image { get; set; }
+    }
+
+    public interface IEntityMobilImage
+    {
+        public string ImageMobile { get; set; }
     }
 }

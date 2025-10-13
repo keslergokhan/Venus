@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Application.Entities.Systems;
+using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Constants;
 using Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base;
 
 namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
 {
-    public class UrlConfiguration : BaseEntityLanguageConfiguration<Url>
+    public class VenusUrlConfiguration : VenusEntityLanguageConfigurationBase<VenusUrl>
     {
-        public override void Configure(EntityTypeBuilder<Url> builder)
+        public override void Configure(EntityTypeBuilder<VenusUrl> builder)
         {
             base.Configure(builder);
 
