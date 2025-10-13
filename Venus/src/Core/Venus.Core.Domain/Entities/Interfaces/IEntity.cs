@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Core.Application.Entities.Interfaces
+namespace Venus.Core.Domain.Entities.Interfaces
 {
     public interface IEntity
     {

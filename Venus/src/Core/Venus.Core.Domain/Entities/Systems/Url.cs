@@ -31,4 +31,3 @@ namespace Venus.Core.Application.Entities.Systems
         public Guid PageTypeId { get; set; }
     }
 }
-}

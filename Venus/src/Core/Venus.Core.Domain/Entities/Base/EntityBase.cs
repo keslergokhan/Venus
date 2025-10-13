@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Application.Entities.Interfaces;
+using Venus.Core.Domain.Entities.Interfaces;
 
-namespace Venus.Core.Application.Entities.Base
+namespace Venus.Core.Domain.Entities.Base
 {
     public abstract class EntityBase : IEntity
     {

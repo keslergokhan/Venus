@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Application.Entities.Base;
+using Venus.Core.Domain.Entities.Base;
 
-namespace Venus.Core.Application.Entities.Systems
+namespace Venus.Core.Domain.Entities.Systems
 {
     public class PageType : EntityBase
     {
