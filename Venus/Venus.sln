@@ -26,6 +26,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{BBDFD838-8691-456D-9A2B-911A0ACAC3BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Presentation.Client.TestUI", "src\Presentation\Web\Client\Venus.Presentation.Client.TestUI\Venus.Presentation.Client.TestUI.csproj", "{986A910F-3395-40B5-ACF0-EF15F5BFBC8B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{018183CB-8A28-4BE8-9E97-268476E7640D} = {018183CB-8A28-4BE8-9E97-268476E7640D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Infrastructure.Persistence", "src\Infrastructure\Venus.Infrastructure.Persistence\Venus.Infrastructure.Persistence.csproj", "{7401DCD9-6790-4A41-B0EF-BDBE901770A9}"
 EndProject
