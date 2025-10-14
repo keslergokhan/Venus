@@ -7,7 +7,7 @@ namespace Venus.Infrastructure.Persistence
 {
     public static class ServiceRegistrationExtensions
     {
-        public static IServiceCollection AddPersistenceServiceRegistration(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddVenusPersistenceServiceRegistration(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddDbContext<VenusContext>(x=>x.UseSqlServer(configuration.GetConnectionString("VenusConnection")));
 

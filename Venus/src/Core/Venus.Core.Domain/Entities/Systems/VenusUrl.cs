@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public partial class VenusUrl : VenusEntityBase, IVenusEntity
+    public partial class VenusUrl : VenusEntityBase
     {
         public string Path { get; set; }
         public string FullPath { get; set; }

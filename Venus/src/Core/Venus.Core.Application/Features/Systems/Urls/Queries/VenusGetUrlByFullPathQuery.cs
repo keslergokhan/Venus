@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Core.Application.VenusFeatures.Urls
+namespace Venus.Core.Application.Features.Systems.Urls.Queries
 {
-    public class VenusGetUrlByFullPathQuery 
+    public class VenusGetUrlByFullPathQuery
     {
     }
 }

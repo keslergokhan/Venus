@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public class VenusEntityDataUrl:VenusEntityBase,IVenusEntity,IVenusUrlEntity
+    public class VenusEntityDataUrl:VenusEntityBase,IVenusUrlEntity
     {
         public Guid UrlId { get; set; }
         public VenusUrl Url { get; set; }
