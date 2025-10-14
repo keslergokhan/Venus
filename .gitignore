@@ -363,4 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Müşteri tarafını gönderme
-Venus/src/Presentation/Web/Client
+Venus/src/Presentation/Web/Client/Venus.Presentation.Client.TestUI
+
+#Migrations
+Venus/src/Infrastructure/Venus.Infrastructure.Persistence/Migrations/*
