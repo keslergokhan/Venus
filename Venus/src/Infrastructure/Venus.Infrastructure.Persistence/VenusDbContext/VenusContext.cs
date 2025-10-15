@@ -5,11 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.VenusDbContext.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Infrastructure.Persistence.VenusDbContext
 {
-    public class VenusContext : DbContext
+    public class VenusContext : DbContext, IVenusApplicationDbContext
     {
         public VenusContext(DbContextOptions<VenusContext> dbContextOptions) : base(dbContextOptions)
         {
