@@ -15,6 +15,5 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
         public string Controller { get; set; }
         public string Action { get; set; }
         public bool IsEntity { get; set; }
-        public List<ReadVenusPageDto> Pages { get; set; }
     }
 }

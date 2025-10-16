@@ -15,6 +15,5 @@ namespace Venus.Core.Domain.Entities.Systems
         public string Controller { get; set; }
         public string Action { get; set; }
         public bool IsEntity { get; set; }
-        public ICollection<VenusPage> Pages { get; set; }
     }
 }

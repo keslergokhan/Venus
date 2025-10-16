@@ -39,7 +39,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.PageAbout)
-                .WithMany(x => x.Pages)
+                .WithMany()
                 .HasForeignKey(x => x.PageAboutId)
                 .OnDelete(DeleteBehavior.NoAction);
 

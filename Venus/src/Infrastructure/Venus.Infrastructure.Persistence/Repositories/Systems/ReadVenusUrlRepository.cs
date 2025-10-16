@@ -18,14 +18,15 @@ namespace Venus.Infrastructure.Persistence.Repositories.Systems
         {
         }
 
-        public Task<VenusUrl> GetUrlByFullPathAsync(string fullPath)
+        public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
         {
             return base.GetCollection()
                 .Where(x => x.FullPath
-                .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Offline)
+                .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Online)
                 .Include(x => x.Pages).Include(x => x.ParentUrl)
                 .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout)
-                .FirstOrDefaultAsync();
+                .Include(x=>x.PageType)
+                .ToListAsync();
         }
     }
 }

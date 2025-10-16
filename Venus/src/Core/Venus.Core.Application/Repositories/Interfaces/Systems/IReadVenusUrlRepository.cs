@@ -10,6 +10,6 @@ namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
     public interface IReadVenusUrlRepository : IReadRepository<VenusUrl>
     {
-        public Task<VenusUrl> GetUrlByFullPathAsync(string fullPath);
+        public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath);
     }
 }
