@@ -16,6 +16,11 @@
     <ProjectReference Include="..\..\..\..\Infrastructure\Venus.Infrastructure.Persistence\Venus.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Base\" />
+    <Folder Include="Controllers\Interfaces\" />
+  </ItemGroup>
+
 
 
 </Project>

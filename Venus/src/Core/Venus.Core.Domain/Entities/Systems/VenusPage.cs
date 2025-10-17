@@ -11,6 +11,7 @@ namespace Venus.Core.Domain.Entities.Systems
     public partial class VenusPage :VenusEntityBase, IVenusUrlEntity
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public VenusUrl Url { get; set; }
         public Guid UrlId { get; set; }
     }

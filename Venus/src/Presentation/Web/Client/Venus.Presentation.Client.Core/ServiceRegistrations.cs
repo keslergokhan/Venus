@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 using Venus.Core.Application;
 using Venus.Infrastructure.Persistence;
 using Venus.Infrastructure.Persistence.VenusDbContext;
-using Venus.Presentation.Client.Core.Services.Routing;
+using Venus.Presentation.Client.Core.DynamicRoutes;
+using Venus.Presentation.Client.Core.PageTypeServices;
+using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
 
 namespace Venus.Presentation.Client.Core
 {
@@ -18,10 +20,12 @@ namespace Venus.Presentation.Client.Core
     {
         public static IServiceCollection AddVenusPresentationCoreServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpContextAccessor();
             services.AddDbContext<VenusContext>(x => x.UseSqlServer(configuration.GetConnectionString("VenusConnection")));
             services.AddVenusApplicationServiceRegistration(configuration);
             services.AddVenusPersistenceServiceRegistration(configuration);
-            services.AddScoped<DefaultDynamicRouteValueTransformer>();
+            services.AddScoped<VenusDynamicRouteValueTransformer>();
+            services.AddScoped<IVenusDefaultPageTypeServices, VenusDefaultPageTypeServices>();
             return services;
         }
     }

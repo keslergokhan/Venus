@@ -24,8 +24,9 @@ namespace Venus.Infrastructure.Persistence.Repositories.Systems
                 .Where(x => x.FullPath
                 .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Online)
                 .Include(x => x.Pages).Include(x => x.ParentUrl)
-                .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout)
-                .Include(x=>x.PageType)
+                .Include(x => x.Pages).ThenInclude(x => x.PageAbout)
+                .Include(x => x.PageType)
+                .Include(x=>x.Language)
                 .ToListAsync();
         }
     }

@@ -11,6 +11,7 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
     {
         public string Name { get; set; }
         public ReadVenusUrlDto Url { get; set; }
+        public string Description { get; set; } 
         public Guid UrlId { get; set; }
         public Guid LanguageId { get; set; }
         public ReadVenusLanguageDto Language { get; set; }

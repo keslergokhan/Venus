@@ -37,11 +37,8 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
             try
             {
                 List<VenusUrl> urlList = await this._urlRepo.GetUrlByFullPathAsync(request.FullPath);
-                if (urlList==null && !urlList.Any()){
-                    throw new VenusNotFoundUrlException(request.FullPath);
-                }
-
-                var sss = urlList.Select(x=>EntityConvertion.Instance.EntityToDto(x)).ToList();
+                List<ReadVenusUrlDto> listUrlData = urlList?.Select(x=>EntityConvertion.Instance.EntityToDto(x)).ToList();
+                result.SetData(listUrlData);
             }
             catch (Exception ex)
             {

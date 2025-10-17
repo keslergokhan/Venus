@@ -1,6 +1,6 @@
-﻿using Venus.Presentation.Client.Core.Services.Routing;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Venus.Presentation.Client.Core.DynamicRoutes;
 
 namespace Venus.Presentation.Client.Core.Extensions
 {
@@ -8,7 +8,7 @@ namespace Venus.Presentation.Client.Core.Extensions
     {
         public static void VenusDynamicRoute(this IEndpointRouteBuilder routeBuilder)
         {
-            routeBuilder.MapDynamicControllerRoute<DefaultDynamicRouteValueTransformer>("{**slug}");
+            routeBuilder.MapDynamicControllerRoute<VenusDynamicRouteValueTransformer>("{**slug}");
         } 
     }
 }

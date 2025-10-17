@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.HttpRequests;
+using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 
 namespace Venus.Core.Application
@@ -18,6 +20,7 @@ namespace Venus.Core.Application
             {
                 x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
+            services.AddScoped<IVenusHttpContext, VenusHttpContext>();
             return services;
         }
     }
