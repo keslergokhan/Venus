@@ -13,6 +13,5 @@ namespace Venus.Presentation.Client.Core.PageTypeServices
 {
     public class VenusDefaultPageTypeService : VenusPageTypeServiceBase, IVenusDefaultPageTypeService
     {
-        
     }
 }
