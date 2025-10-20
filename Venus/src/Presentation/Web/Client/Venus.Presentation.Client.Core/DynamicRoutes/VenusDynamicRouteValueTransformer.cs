@@ -28,7 +28,6 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
             _venusContext = venusContext;
             _serviceProvider = serviceProvider;
         }
-
         public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext context, RouteValueDictionary values)
         
         {
