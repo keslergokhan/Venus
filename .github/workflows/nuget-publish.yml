@@ -3,7 +3,7 @@ name: NuGet Publish on Push
 on:
   push:
     branches:
-      - main # veya hangi branch’te yayınlamak istiyorsan
+      - master # veya hangi branch’te yayınlamak istiyorsan
 
 jobs:
   publish:
