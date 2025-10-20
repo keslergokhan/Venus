@@ -13,7 +13,7 @@
 
     <!-- Paket metadata -->
     <PackageId>Venus.Presentation.Client.Core</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Gökhan Kesler</Authors>
     <Company>VenusLabs</Company>
     <Description>Venus dinamik sayfa yönetim sistemi.</Description>
