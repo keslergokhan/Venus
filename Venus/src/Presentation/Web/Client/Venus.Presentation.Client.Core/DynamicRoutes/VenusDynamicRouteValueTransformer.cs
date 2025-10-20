@@ -45,9 +45,7 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
             });
 
             if (!urlResult.IsSuccess || urlResult.Data.Count == 0)
-            {
                 throw new VenusNotFoundUrlException(FullPath);
-            }
 
             ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
             ReadVenusLanguageDto language = url.Language;
