@@ -17,7 +17,7 @@
     <Authors>Gökhan Kesler</Authors>
     <Company>VenusLabs</Company>
     <Description>Venus dinamik sayfa yönetim sistemi.</Description>
-    <RepositoryUrl>https://github.com/kullaniciadi/Venus</RepositoryUrl>
+    <RepositoryUrl>https://github.com/keslergokhan/Venus</RepositoryUrl>
     <PackageTags>Razor;UI;Venus;Components</PackageTags>
   </PropertyGroup>
 
