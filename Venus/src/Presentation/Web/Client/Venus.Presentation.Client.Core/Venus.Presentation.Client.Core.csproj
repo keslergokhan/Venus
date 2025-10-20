@@ -13,12 +13,13 @@
 
     <!-- Paket metadata -->
     <PackageId>Venus.Presentation.Client.Core</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.0</Version>
     <Authors>Gökhan Kesler</Authors>
     <Company>VenusLabs</Company>
     <Description>Venus dinamik sayfa yönetim sistemi.</Description>
     <RepositoryUrl>https://github.com/keslergokhan/Venus</RepositoryUrl>
     <PackageTags>Razor;UI;Venus;Components</PackageTags>
+    <Title>Venus UI Core</Title>
   </PropertyGroup>
 
   <ItemGroup>
