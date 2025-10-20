@@ -1,11 +1,11 @@
-name: Venus Publish NuGet Package
+name: Publish NuGet Package
 
 on:
   push:
     branches:
       - master
     paths:
-      - '../Venus/src/Presentation/Web/Client/Venus.Presentation.Client.Core'
+      - '/Venus/src/Presentation/Web/Client/Venus.Presentation.Client.Core'
 
 jobs:
   build:
