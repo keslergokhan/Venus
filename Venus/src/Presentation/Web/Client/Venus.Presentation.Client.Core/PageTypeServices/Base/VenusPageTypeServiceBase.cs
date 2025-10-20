@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
@@ -12,6 +13,10 @@ namespace Venus.Presentation.Client.Core.PageTypeServices.Base
 {
     public abstract class VenusPageTypeServiceBase : IVenusPageTypeService
     {
-        public abstract Task ExecuteAsync(IVenusHttpContext venusHttpContext);
+
+        public virtual async Task ExecuteAsync(IVenusHttpContext venusHttpContext,HttpContext httpContext)
+        {
+
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,6 @@ namespace Venus.Presentation.Client.Core.PageTypeServices
 {
     public class VenusDefaultPageTypeService : VenusPageTypeServiceBase, IVenusDefaultPageTypeService
     {
-        public override async Task ExecuteAsync(IVenusHttpContext venusHttpContext)
-        {
-            var ssss = venusHttpContext.Page.Name;
-        }
+        
     }
 }

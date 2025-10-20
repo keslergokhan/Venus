@@ -78,7 +78,7 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
 
             IVenusPageTypeService pageTypeService = (IVenusPageTypeService)context.RequestServices.GetService(pageTypeServiceType);
 
-            await pageTypeService.ExecuteAsync(this._venusContext);
+            await pageTypeService.ExecuteAsync(this._venusContext,context);
 
             values["controller"] = this._venusContext.Page.Controller.Replace("Controller","");
             values["action"] = this._venusContext.Page.Action;
