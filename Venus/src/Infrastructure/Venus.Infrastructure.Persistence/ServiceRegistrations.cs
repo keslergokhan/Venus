@@ -61,7 +61,7 @@ namespace Venus.Infrastructure.Persistence
 
                 VenusLanguage language = db.VenusLanguage.FirstOrDefault(x => x.CountryCode == "tr");
 
-                if (!db.VenusPageType.Any(x => x.InterfaceClassType == "IVenusDefaultPageTypeServices"))
+                if (!db.VenusPageType.Any(x => x.InterfaceClassType == "Venus.Presentation.Client.Core.PageTypeServices.Interfaces.IVenusDefaultPageTypeService"))
                 {
                     db.VenusPageType.Add(new Core.Domain.Entities.Systems.VenusPageType()
                     {
@@ -70,7 +70,7 @@ namespace Venus.Infrastructure.Persistence
                         Description = "Varsayılan temel içerik sayfası",
                         Id = Guid.NewGuid(),
                         State = (int)EntityStateEnum.Online,
-                        InterfaceClassType = "IVenusDefaultPageTypeServices",
+                        InterfaceClassType = "Venus.Presentation.Client.Core.PageTypeServices.Interfaces.IVenusDefaultPageTypeService",
                         ModifiedDate = null,
                     });
 

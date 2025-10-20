@@ -24,8 +24,8 @@ namespace Venus.Presentation.Client.Core
             services.AddDbContext<VenusContext>(x => x.UseSqlServer(configuration.GetConnectionString("VenusConnection")));
             services.AddVenusApplicationServiceRegistration(configuration);
             services.AddVenusPersistenceServiceRegistration(configuration);
+            services.AddScoped<IVenusDefaultPageTypeService, VenusDefaultPageTypeService>();
             services.AddScoped<VenusDynamicRouteValueTransformer>();
-            services.AddScoped<IVenusDefaultPageTypeServices, VenusDefaultPageTypeServices>();
             return services;
         }
     }

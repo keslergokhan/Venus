@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Venus.Presentation.Client.Core.PageTypeServices.Interfaces
 {
-    public interface IVenusDefaultPageTypeServices
+    public interface IVenusDefaultPageTypeService : IVenusPageTypeService
     {
     }
 }
