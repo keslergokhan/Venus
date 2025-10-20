@@ -22,7 +22,6 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
         private readonly IMediator _m;
         private readonly IVenusHttpContext _venusContext;
         public required IServiceProvider _serviceProvider;
-
         public VenusDynamicRouteValueTransformer(IMediator m, IVenusHttpContext venusContext, IServiceProvider serviceProvider)
         {
             _m = m;
