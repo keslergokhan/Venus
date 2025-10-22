@@ -35,6 +35,9 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --output ./nupkg
 
+      - name: Remove existing nuget-v3 source if exists
+        run: dotnet nuget remove source nuget-v3 || true
+
       - name: Add NuGet v3 source explicitly
         run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget-v3 --store-password-in-clear-text --username anything --password ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }}
 
