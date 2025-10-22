@@ -8,5 +8,6 @@ namespace Venus.Presentation.Client.Core
 {
     public static class ApplicationRegistrationExtensions
     {
+
     }
 }
