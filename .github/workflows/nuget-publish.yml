@@ -35,7 +35,10 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --output ./nupkg
 
+      - name: Add NuGet v3 source explicitly
+        run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget-v3 --store-password-in-clear-text --username anything --password ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }}
+
       - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }} --url https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }} --source nuget-v3 --skip-duplicate
 
      
