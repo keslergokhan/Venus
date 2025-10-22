@@ -25,7 +25,7 @@ jobs:
         run: dotnet nuget remove source nuget.org || true
 
       - name: Add NuGet v3 source explicitly
-        run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget-v3
+        run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
 
       - name: Restore & Build
         run: |
@@ -35,13 +35,8 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --output ./nupkg
 
-      - name: Remove existing nuget-v3 source if exists
-        run: dotnet nuget remove source nuget-v3 || true
-
-      - name: Add NuGet v3 source explicitly
-        run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget-v3 --store-password-in-clear-text --username anything --password ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }}
-
       - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }} --source nuget-v3 --skip-duplicate
-
-     
+        run: dotnet nuget push ./nupkg/*.nupkg \
+          --api-key ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }} \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
