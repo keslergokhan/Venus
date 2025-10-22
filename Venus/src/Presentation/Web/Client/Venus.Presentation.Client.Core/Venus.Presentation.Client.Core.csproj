@@ -35,10 +35,13 @@
   <ItemGroup>
     <None Include="..\..\..\..\Core\Venus.Core.Application\bin\Release\net9.0\Venus.Core.Application.dll"
           Pack="true"
-          PackagePath="lib/net9.0/" />
+          PackagePath="lib/net8.0/" />
+    <None Include="..\..\..\..\Core\Venus.Core.Domain\bin\Release\net9.0\Venus.Core.Domain.dll"
+          Pack="true"
+          PackagePath="lib/net8.0/" />
     <None Include="..\..\..\..\Infrastructure\Venus.Infrastructure.Persistence\bin\Release\net9.0\Venus.Infrastructure.Persistence.dll"
           Pack="true"
-          PackagePath="lib/net9.0/" />
+          PackagePath="lib/net8.0/" />
   </ItemGroup>
   
   <ItemGroup>
