@@ -8,9 +8,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .
 
     steps:
       - name: Checkout repo
@@ -30,16 +27,16 @@ jobs:
       - name: Restore & Build
         run: |
           dotnet restore
-          dotnet build Venus/src/Presentation/Web/Client/Venus.Presentation.Client.Core --configuration Release
+          dotnet build --configuration Release
 
-      - name: Pack all projects
+      - name: Pack Domain, Application, Persistence
         run: |
           dotnet pack Venus/src/Core/Venus.Core.Domain --configuration Release --output ./nupkg
           dotnet pack Venus/src/Core/Venus.Core.Application --configuration Release --output ./nupkg
           dotnet pack Venus/src/Infrastructure/Venus.Infrastructure.Persistence --configuration Release --output ./nupkg
 
-      - name: Pack
+      - name: Pack Client.Core
         run: dotnet pack Venus/src/Presentation/Web/Client/Venus.Presentation.Client.Core --configuration Release --output ./nupkg
-    
+
       - name: Push to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.VENUS_PRESENTATION_CLIENT_CORE }} --source https://api.nuget.org/v3/index.json --skip-duplicate
