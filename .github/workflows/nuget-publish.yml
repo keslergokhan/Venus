@@ -34,7 +34,6 @@ jobs:
 
       - name: Pack all projects
         run: |
-          dotnet pack Venus/src/Core/Venus.Core.Domain --configuration Release --output ./nupkg
           dotnet pack Venus/src/Core/Venus.Core.Application --configuration Release --output ./nupkg
           dotnet pack Venus/src/Infrastructure/Venus.Infrastructure.Persistence --configuration Release --output ./nupkg
 
