@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,34 @@ namespace Venus.Core.Application
                 x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
             services.AddScoped<IVenusHttpContext, VenusHttpContext>();
+            return services;
+        }
+
+
+        public static IServiceCollection AddVenusApplicationAuthenticationServiceRegistration(this IServiceCollection services, IConfiguration configuration)
+        {
+            var key = Encoding.UTF8.GetBytes("super-secret-key-very-long-12345!");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "yourapp",
+                    ValidAudience = "yourapp",
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+            services.AddAuthorization();
             return services;
         }
     }

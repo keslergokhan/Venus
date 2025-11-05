@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Languages;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
+using Venus.Core.Application.Dtos.Systems.Users;
 using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Helpers
@@ -141,6 +142,22 @@ namespace Venus.Core.Application.Helpers
             };
         }
 
+
+        public ReadVenusUserDto EntityToDto(VenusUser venusUser)
+        {
+            if (venusUser == null)
+                return null;
+
+
+            return new ReadVenusUserDto()
+            {
+                Email = venusUser.Email,
+                Name = venusUser.Name,
+                Id = venusUser.Id,
+                Password = venusUser.Password,
+                Surname = venusUser.Surname 
+            };
+        }
 
     }
 }

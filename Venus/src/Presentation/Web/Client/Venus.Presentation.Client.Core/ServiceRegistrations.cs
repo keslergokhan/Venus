@@ -21,7 +21,6 @@ namespace Venus.Presentation.Client.Core
         public static IServiceCollection AddVenusPresentationCoreServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpContextAccessor();
-            services.AddDbContext<VenusContext>(x => x.UseSqlServer(configuration.GetConnectionString("VenusConnection")));
             services.AddVenusApplicationServiceRegistration(configuration);
             services.AddVenusPersistenceServiceRegistration(configuration);
             services.AddScoped<IVenusDefaultPageTypeService, VenusDefaultPageTypeService>();

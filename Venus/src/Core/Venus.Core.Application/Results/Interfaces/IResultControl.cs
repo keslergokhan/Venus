@@ -9,6 +9,7 @@ namespace Venus.Core.Application.Results.Interfaces
     public interface IResultControl
     {
         public bool IsSuccess { get; }
+        public Exception Exception { get; }
         public IResultControl Success();
         public IResultControl Fail();
         public IResultControl Fail(string title, string message);

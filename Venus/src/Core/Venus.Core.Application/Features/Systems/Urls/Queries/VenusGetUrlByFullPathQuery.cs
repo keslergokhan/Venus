@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Dtos.Systems.Languages;
+using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Systems;
@@ -34,10 +36,33 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
         public async Task<IResultDataControl<List<ReadVenusUrlDto>>> Handle(VenusGetUrlByFullPathQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadVenusUrlDto>> result = new ResultDataControl<List<ReadVenusUrlDto>>();
+
             try
             {
                 List<VenusUrl> urlList = await this._urlRepo.GetUrlByFullPathAsync(request.FullPath);
                 List<ReadVenusUrlDto> listUrlData = urlList?.Select(x=>EntityConvertion.Instance.EntityToDto(x)).ToList();
+
+                if (listUrlData.Count == 0)
+                    throw new VenusNotFoundUrlException(request.FullPath);
+
+                ReadVenusUrlDto url = listUrlData.FirstOrDefault();
+                ReadVenusLanguageDto language = url.Language;
+                ReadVenusPageDto page = url.Pages.FirstOrDefault();
+                ReadVenusPageAboutDto pageAbout = page.PageAbout;
+                ReadVenusPageTypeDto pageType = url.PageType;
+
+                if (language == null)
+                    throw new VenusNotFoundLanguageException();
+
+                if (page == null)
+                    throw new VenusNotFoundPageException(request.FullPath);
+
+                if (pageAbout == null)
+                    throw new VenusNotFoundPageAboutException(page.Id, page.Name);
+
+                if (pageType == null)
+                    throw new VenusNotFoundPageTypeException();
+
                 result.SetData(listUrlData);
             }
             catch (Exception ex)

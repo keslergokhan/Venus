@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Core\Venus.Core.Application\Venus.Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Infrastructure\Venus.Infrastructure.Persistence\Venus.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\venus.presentation.web.cms.client\venus.presentation.web.cms.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

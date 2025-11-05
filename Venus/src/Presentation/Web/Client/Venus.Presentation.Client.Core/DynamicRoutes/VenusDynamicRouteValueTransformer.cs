@@ -42,8 +42,8 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
                 FullPath = Path
             });
 
-            if (!urlResult.IsSuccess || urlResult.Data.Count == 0)
-                throw new VenusNotFoundUrlException(FullPath);
+            if (!urlResult.IsSuccess)
+                throw urlResult.Exception;
 
             ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
             ReadVenusLanguageDto language = url.Language;
@@ -51,17 +51,6 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
             ReadVenusPageAboutDto pageAbout = page.PageAbout;
             ReadVenusPageTypeDto pageType = url.PageType;
 
-            if (language == null)
-                throw new VenusNotFoundLanguageException();
-
-            if (page == null)
-                throw new VenusNotFoundPageException(FullPath);
-
-            if (pageAbout==null)
-                throw new VenusNotFoundPageAboutException(page.Id,page.Name);
-
-            if (pageType == null)
-                throw new VenusNotFoundPageTypeException();
 
             this._venusContext.Url = new VenusHttpUrl(url.Id,FullPath,Schema,Host,Path,BaseUrl,url.ParentUrlId,url.IsEntity);
             this._venusContext.Language = new VenusHttpLanguage(language.Name,language.CountryCode,language.Culture,language.Currency,language.Id);

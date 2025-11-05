@@ -14,6 +14,8 @@ namespace Venus.Core.Application.Results.Base
     {
         protected bool _isSuccess;
         public bool IsSuccess => _isSuccess;
+        private Exception _exception;
+        public Exception Exception => _exception;
 
         public BaseResultControl()
         {
@@ -40,6 +42,7 @@ namespace Venus.Core.Application.Results.Base
         public virtual IResultControl Fail(Exception exception)
         {
             this._isSuccess = false;
+            this._exception = exception;
             return this;
         }
     }

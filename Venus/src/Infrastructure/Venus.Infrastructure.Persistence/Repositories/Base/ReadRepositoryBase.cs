@@ -12,20 +12,17 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories.Base
 {
-    public abstract class ReadRepositoryBase<T>: IReadRepository<T> 
+    public abstract class ReadRepositoryBase<T>: RepositoryBase,IReadRepository<T> 
         where T :class,IVenusEntity
         
     {
-        private readonly VenusContext _db;
-
-        public ReadRepositoryBase(VenusContext db)
+        protected ReadRepositoryBase(VenusContext db) : base(db)
         {
-            _db = db;
         }
 
         protected IQueryable<T> GetCollection()
         {
-            return _db.Set<T>().AsQueryable();
+            return base.GetCollection<T>();
         }
 
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null)

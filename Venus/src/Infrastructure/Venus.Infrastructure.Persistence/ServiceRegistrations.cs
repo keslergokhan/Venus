@@ -4,10 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces;
+using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
+using Venus.Infrastructure.Persistence.Repositories.Cms;
 using Venus.Infrastructure.Persistence.Repositories.Systems;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
@@ -21,7 +23,6 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IVenusApplicationDbContext, VenusContext>();
             services.AddScoped<VenusContext>();
             services.AddVenusPersistenceServiceRegistration();
-
             return services;
         }
 
@@ -31,6 +32,7 @@ namespace Venus.Infrastructure.Persistence
         private static void AddVenusPersistenceServiceRegistration(this IServiceCollection services)
         {
             services.AddScoped<IReadVenusUrlRepository, ReadVenusUrlRepository>();
+            services.AddScoped<IVenusAuthenticationRepository, VenusAuthenticationRepository>();
             services.AddStartData();
         }
 
@@ -41,6 +43,22 @@ namespace Venus.Infrastructure.Persistence
                 IServiceProvider serviceProvider = services.BuildServiceProvider();
 
                 VenusContext db = serviceProvider.GetService<VenusContext>();
+
+                if (!db.VenusUser.Any(x=>x.Email == "gokhan@gmail.com"))
+                {
+                    db.VenusUser.Add(new VenusUser()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Gökhan",
+                        Surname = "Kesler",
+                        Email = "gokhan@gmail.com",
+                        CreateDate = DateTime.Now,
+                        ModifiedDate = null,
+                        Password = "123456",
+                        State = 1
+                    });
+                    db.SaveChanges();
+                }
 
                 if (!db.VenusLanguage.Any(x => x.CountryCode == "tr"))
                 {
