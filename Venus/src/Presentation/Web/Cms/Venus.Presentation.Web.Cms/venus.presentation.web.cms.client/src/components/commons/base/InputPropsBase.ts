@@ -1,3 +1,5 @@
+import type { FieldError, UseFormRegister, UseFormRegisterReturn } from "react-hook-form"
+
 export interface InputPropsBase {
     id: string,
     name: string,
@@ -5,5 +7,8 @@ export interface InputPropsBase {
     placeholder?: string
     required?: boolean,
     label?: string,
-    variant?: "standard" | "outlined"
+    variant?: "standard" | "outlined",
+    formRegister?:UseFormRegisterReturn,
+    FieldErrors?:FieldError
+    
 }
