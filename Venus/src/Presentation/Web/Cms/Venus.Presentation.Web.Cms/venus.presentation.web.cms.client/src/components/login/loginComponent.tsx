@@ -3,8 +3,16 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CTextField } from "../commons";
 
+export interface LoginFormValues {
+    email: string;
+    password: string;
+}
 
-export function LoginComponent() {
+export interface LoginComponentProps {
+    onSubmitAsync: (data: LoginFormValues) => Promise<void>;
+}
+
+export function LoginComponent(props: LoginComponentProps) {
 
   // Zod şeması (kurallar burada)
   const schema = z.object({
@@ -23,15 +31,11 @@ export function LoginComponent() {
     formState: { errors },
   } = useForm<FormValues>({resolver: zodResolver(schema)});
  
-  const onSubmit = (data: FormValues) => {
-    console.log("başarılı");
-    console.log('Form verileri:', data);
-  };
 
   return (
     <div className="mx-auto mt-[60px] max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" action="#">
+        <form onSubmit={handleSubmit(props.onSubmitAsync)} className="space-y-6" action="#">
           
             <h5 className="text-xl font-medium text-gray-900 dark:text-white">Venus Cms</h5>
             <CTextField type="email" id="email" name="email" label="Kullanıcı Adı" key="email" formRegister={register('email')} FieldErrors={errors.email}  ></CTextField>

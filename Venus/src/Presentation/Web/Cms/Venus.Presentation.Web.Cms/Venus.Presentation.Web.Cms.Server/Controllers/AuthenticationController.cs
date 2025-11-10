@@ -22,7 +22,12 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             });
 
 
-            return Ok(result.Data);
+            if (!result.IsSuccess)
+            {
+                return Unauthorized(new { message = "Kullanıcı bulunamadı." }); 
+            }
+
+            return Ok(result);
         }
 
 

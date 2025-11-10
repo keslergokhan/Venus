@@ -45,8 +45,8 @@ namespace Venus.Core.Application
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
 
-                    ValidIssuer = "yourapp",
-                    ValidAudience = "yourapp",
+                    ValidIssuer = "venusapp",
+                    ValidAudience = "venusapp",
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
