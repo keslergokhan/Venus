@@ -31,11 +31,20 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
 
+
         [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> Test()
+        [HttpPost]
+        public async Task<IActionResult> Validate()
         {
-            return Ok("başarılı");
+            if (!Request.Headers.TryGetValue("Authorization", out var authHeader))
+                return Unauthorized(new { message = "Kullanıcı bulunamadı." });
+
+            var result = await base.Mediator.Send(new VenusAuthenticationValidateQuery()
+            {
+                JwtToken = authHeader.ToString().Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase)
+            });
+
+            return Ok(result);
         }
     }
 }

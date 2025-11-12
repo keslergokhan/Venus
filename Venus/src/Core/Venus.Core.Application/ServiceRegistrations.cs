@@ -29,7 +29,9 @@ namespace Venus.Core.Application
 
         public static IServiceCollection AddVenusApplicationAuthenticationServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
-            var key = Encoding.UTF8.GetBytes("super-secret-key-very-long-12345!");
+            string symmetricSecurityKey = configuration.GetValue<string>("SymmetricSecurityKey");
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricSecurityKey));
 
             services.AddAuthentication(options =>
             {
@@ -40,14 +42,14 @@ namespace Venus.Core.Application
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-
+                    IssuerSigningKey = securityKey,
+                    ValidateIssuer = false,
                     ValidIssuer = "venusapp",
+                    ValidateAudience = true,
                     ValidAudience = "venusapp",
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5) // süresi dolmuş token hemen geçersiz olsun
                 };
             });
             services.AddAuthorization();

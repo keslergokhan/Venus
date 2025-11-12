@@ -17,7 +17,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             _db = db;
         }
 
-        protected IQueryable<T> GetCollection<T>() where T : class, IVenusEntity
+        protected IQueryable<T> GetQueryable<T>() where T : class, IVenusEntity
         {
             return _db.Set<T>().AsQueryable();
         }

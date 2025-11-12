@@ -20,7 +20,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Systems
 
         public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
         {
-            return base.GetCollection()
+            return base.GetQueryable()
                 .Where(x => x.FullPath
                 .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Online)
                 .Include(x => x.Pages).Include(x => x.ParentUrl)

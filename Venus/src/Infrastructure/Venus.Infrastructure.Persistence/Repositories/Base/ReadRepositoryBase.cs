@@ -20,14 +20,14 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
         {
         }
 
-        protected IQueryable<T> GetCollection()
+        protected IQueryable<T> GetQueryable()
         {
-            return base.GetCollection<T>();
+            return base.GetQueryable<T>();
         }
 
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null)
         {
-            var query = this.GetCollection();
+            var query = this.GetQueryable();
             if (where!=null)
             {
                 query.Where(where);

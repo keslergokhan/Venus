@@ -21,12 +21,17 @@ namespace Venus.Infrastructure.Persistence.Repositories.Cms
 
         public Task<VenusUser> FindUserAsync(string email, string password)
         {
-            return base.GetCollection<VenusUser>()
+            return base.GetQueryable<VenusUser>()
                 .Where(x => 
                 x.Email.Trim().ToLower() == email.ToLower().Trim() 
                 && x.Password.Trim() == password.Trim()
                 && x.State == (int)EntityStateEnum.Online)
                 .FirstOrDefaultAsync();
+        }
+
+        public Task<VenusUser> FindUserByIdAsync(Guid id)
+        {
+            return base.GetQueryable<VenusUser>().FirstOrDefaultAsync(x=>x.Id == id);
         }
     }
 }

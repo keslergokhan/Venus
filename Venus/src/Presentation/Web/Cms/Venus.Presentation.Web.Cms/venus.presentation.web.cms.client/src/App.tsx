@@ -5,29 +5,15 @@ import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import DefaultLayout from './layouts/defaultLayout';
 import { useEffect, useState } from 'react';
-import { AuthenticationContext, AuthenticationContextProps } from './contexts/AuthenticationContext';
+import { AuthenticationContext, AuthenticationContextProps, AuthenticationContextProvider } from './contexts/AuthenticationContext';
 
 function App() {
 
     
-    const [state, setState] = useState<boolean>(false);
-    const context = new AuthenticationContextProps();
-
-    context.IsAuth = state;
-    context.login = () => {
-        context.IsAuth = true;
-        setState(true);
-    }
-
-    context.logaut = () => {
-        context.IsAuth = false;
-        setState(false);
-    }
-
 
     return (
         <>
-            <AuthenticationContext.Provider value={context}>
+            <AuthenticationContextProvider>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
@@ -42,7 +28,7 @@ function App() {
 
                     <Toaster position="top-right" />
                 </BrowserRouter>
-            </AuthenticationContext.Provider>
+            </AuthenticationContextProvider>
         </>
     )
 }

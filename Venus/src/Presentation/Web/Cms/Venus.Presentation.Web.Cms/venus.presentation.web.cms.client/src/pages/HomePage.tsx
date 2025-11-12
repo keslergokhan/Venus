@@ -1,14 +1,16 @@
-import { useContext, type JSX } from "react";
+import { useContext, useEffect, type JSX } from "react";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 const LoginPage = (): JSX.Element => {
 
-    const context = useContext(AuthenticationContext);
+    const autContext = useContext(AuthenticationContext);
 
-
+    useEffect(() => {
+        console.log(autContext.authenticationState);
+    })
     return (
         <>
-            <button onClick={() => { context.logaut() }}>Çýk buradan</button>
+            <button onClick={() => { autContext.authenticationAction({ type: "Logaut" }); }}>Çýk buradan</button>
             anasayfa
         </>
     )

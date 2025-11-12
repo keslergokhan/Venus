@@ -46,6 +46,7 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
             {
 
                 string domain = this._config.GetValue<string>("domain");
+                string symmetricSecurityKey = this._config.GetValue<string>("SymmetricSecurityKey");
 
                 if (string.IsNullOrEmpty(domain))
                 {
@@ -66,13 +67,14 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
                     new System.Security.Claims.Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-secret-key-very-long-12345!"));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricSecurityKey));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
                     claims: claims,
                     issuer: "venusapp",
                     audience: "venusapp",
+                    notBefore:DateTime.Now,
                     expires: DateTime.Now.AddDays(1),
                     signingCredentials: creds
                 );
@@ -80,19 +82,8 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
                 ReadVenusUserDto userDto = EntityConvertion.Instance.EntityToDto(user);
 
                 userDto.JwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-                var sss = this._httpAccessor.HttpContext.Request.Cookies["venus_user"];
 
-                var cookieOptions = new CookieOptions
-                {
-                    Secure = false,               // localhost için
-                    HttpOnly = true,
-                    Domain = null,                // localhost’ta boş bırak
-                    Path = "/",
-                    SameSite = SameSiteMode.None, // cross-origin
-                    Expires = DateTime.UtcNow.AddDays(1)
-                };
 
-                this._httpAccessor.HttpContext.Response.Cookies.Append("venus_user",userDto.JwtToken, cookieOptions);
                 result.SuccessSetData(userDto);
             }
             catch (Exception ex)

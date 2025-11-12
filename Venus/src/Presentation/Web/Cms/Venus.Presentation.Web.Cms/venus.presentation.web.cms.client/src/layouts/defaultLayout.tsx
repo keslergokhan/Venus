@@ -1,31 +1,58 @@
 import { useContext, useEffect, type JSX } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { AuthenticationService } from "../services";
+import { ToastHelper } from "../helpers/ToastHelper";
 
 const DefaultLayout = (): JSX.Element => {
-    const navigate = useNavigate();
-    const context = useContext(AuthenticationContext);
+    const autContext = useContext(AuthenticationContext);
+    const service = new AuthenticationService();
+    const navigation = useNavigate();
 
     useEffect(() => {
-        console.log("calis");
-        console.log(context.IsAuth);
-        if (!context.IsAuth) {
+
+        const jwtToken = service.userJwtToken();
+
+        if (jwtToken == null) {
+            if (autContext.authenticationState.isAuth) {
+                autContext.authenticationAction({ type: "Logaut" });
+            }
             
-            console.log("yönlendir");
-            navigate("/login");
+            navigation("/login");
+        } else {
+            if (!autContext.authenticationState.isAuth) {
+                console.log("iþlem baþladý");
+                service.loginValidation({ userJwt: jwtToken })
+                    .then(x => {
+                        if (x.isSuccess && x.data != null) {
+                            autContext.authenticationAction({ type: "Login", user: x.data });
+                            navigation("/home");
+                        }
+                    }).catch(x => {
+                        ToastHelper.DefaultError();
+                        autContext.authenticationAction({ type: "Logaut" });
+                        navigation("/login");
+                    })
+            }
         }
+
     });
 
-    if (!context.IsAuth) {
-        return (<>Yükleniyor...</>);
-    }
     return (
         <>
-            <p>header</p>
-            <Outlet />
-            <p>footer</p>
+            {
+                (!autContext.authenticationState.isAuth) ?
+                <>Yükleniyor...</>
+                :
+                <>
+                    <p>header</p>
+                    <Outlet />
+                    <p>footer</p>
+                </>
+
+            }
         </>
-    );
+    )
 }
 
 export default DefaultLayout;

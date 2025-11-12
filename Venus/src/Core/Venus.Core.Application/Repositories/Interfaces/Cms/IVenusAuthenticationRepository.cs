@@ -10,5 +10,6 @@ namespace Venus.Core.Application.Repositories.Interfaces.Cms
     public interface IVenusAuthenticationRepository
     {
         public Task<VenusUser> FindUserAsync(string email,string password);
+        public Task<VenusUser> FindUserByIdAsync(Guid id);
     }
 }
