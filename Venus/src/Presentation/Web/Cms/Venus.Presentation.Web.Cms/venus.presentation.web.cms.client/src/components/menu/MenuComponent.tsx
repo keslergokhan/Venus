@@ -9,11 +9,14 @@ import {
     NavbarToggle,
 } from "flowbite-react";
 
+
+
 export const MenuComponent = (): JSX.Element => {
     return (
 
         
         <MegaMenu>
+
             <NavbarBrand href="/">
                 <img alt="" src="/favicon.svg" className="mr-3 h-6 sm:h-9" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
