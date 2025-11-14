@@ -1,11 +1,10 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import DefaultLayout from './layouts/defaultLayout';
-import { useEffect, useState } from 'react';
-import { AuthenticationContext, AuthenticationContextProps, AuthenticationContextProvider } from './contexts/AuthenticationContext';
+import { AuthenticationContextProvider } from './contexts/AuthenticationContext';
 
 function App() {
 

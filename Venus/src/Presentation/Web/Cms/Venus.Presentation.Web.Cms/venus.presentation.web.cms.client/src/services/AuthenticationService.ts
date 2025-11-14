@@ -12,7 +12,7 @@ export class AuthenticationService extends ServiceBase{
 
     public loginAsync = async (props: LoginFormRequest): Promise<IResultDataControl<ReadUserDto>> => {
 
-        return axios.post<IResultDataControl<ReadUserDto>>("https://localhost:7002/api/Authentication/Login", props, { withCredentials: true })
+        return axios.post<IResultDataControl<ReadUserDto>>(this.GetFullPath("Authentication/Login"), props, { withCredentials: true })
             .then(data => {
 
                 return data.data as ResultDataControl<ReadUserDto>;
@@ -23,8 +23,7 @@ export class AuthenticationService extends ServiceBase{
     }
 
     public loginValidation = async (props: LoginValidationReuqest) => {
-        return axios.post<IResultDataControl<ReadUserDto>>(
-            "https://localhost:7002/api/Authentication/Validate",
+        return axios.post<IResultDataControl<ReadUserDto>>(this.GetFullPath("Authentication/Validate"),
             null,  // ? Request body yoksa null veya boþ obje
             {
                 headers: {

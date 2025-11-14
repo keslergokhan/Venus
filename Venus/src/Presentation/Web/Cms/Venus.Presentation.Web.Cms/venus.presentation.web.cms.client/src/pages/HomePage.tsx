@@ -1,7 +1,7 @@
 import { useContext, useEffect, type JSX } from "react";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
-const LoginPage = (): JSX.Element => {
+const HomePage = (): JSX.Element => {
 
     const autContext = useContext(AuthenticationContext);
 
@@ -10,10 +10,8 @@ const LoginPage = (): JSX.Element => {
     })
     return (
         <>
-            <button onClick={() => { autContext.authenticationAction({ type: "Logaut" }); }}>Çýk buradan</button>
-            anasayfa
         </>
     )
 }
 
-export default LoginPage;
+export default HomePage;
