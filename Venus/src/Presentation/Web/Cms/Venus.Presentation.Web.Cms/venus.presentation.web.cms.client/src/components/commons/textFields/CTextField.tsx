@@ -10,7 +10,7 @@ export interface CTextFieldProps extends InputPropsBase {
 
 export const CTextField = (props: CTextFieldProps): JSX.Element => {
 
-    let className = `bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500${props.className} `;
+    let className = `bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5 ${props.className} `;
     
     if(props.variant && props.variant == "outlined"){
     }else{
@@ -20,7 +20,22 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
         return props.Icon;
     }
 
-    const Input = () =>{
+    const Input = ()=>{
+        return (
+            <input
+                    onClick={(e)=>{(props.onClick && props?.onClick(e))}}
+                    {...props.formRegister}
+                    type={props.type}
+                    name={props.name}
+                    id={props.id}
+                    value={props.value}
+                    className={`${className} ${(props.Icon) && "pl-7.5"}`}
+                    placeholder={!props.placeholder ? "":props.placeholder}
+                    disabled={(props.disabled && true)}
+                    />
+        )
+    }
+    const InputGroup = () =>{
         if(props.Icon){
             return (
                 <div className="relative">
@@ -29,26 +44,12 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
                         <Icon></Icon>
                     </div>
     
-                    <input
-                        {...props.formRegister}
-                        type={props.type}
-                        name={props.name}
-                        id={props.id}
-                        className={`${className} pl-7.5`}
-                        placeholder={!props.placeholder ? "":props.placeholder}
-                        />
+                    <Input/>
                 </div>
             )
         }else{
             return (
-                <input
-                    {...props.formRegister}
-                    type={props.type}
-                    name={props.name}
-                    id={props.id}
-                    className={className}
-                    placeholder={!props.placeholder ? "":props.placeholder}
-                    />
+                <Input/>
             )
         }
         
@@ -66,7 +67,7 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
                 :
                 <></>
             }
-            <Input></Input>
+            <InputGroup></InputGroup>
             {props.FieldErrors && <p className="text-red-500 text-sm mt-1">{props.FieldErrors.message}</p>}
         </div>
     )
