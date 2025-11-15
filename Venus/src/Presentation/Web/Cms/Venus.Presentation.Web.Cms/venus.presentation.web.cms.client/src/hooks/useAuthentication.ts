@@ -14,7 +14,7 @@ export const useAuthentication = (): AuthenticationContextProps => {
 
     useEffect(() => {
 
-        const jwtToken = service.userJwtToken();
+        const jwtToken = service.GetUserJwtToken();
         if (jwtToken == null) {
             if (autContext.authenticationState.isAuth) {
                 autContext.authenticationAction({ type: "Logaut" });
@@ -23,7 +23,7 @@ export const useAuthentication = (): AuthenticationContextProps => {
             navigation(PageRoute.Login);
         } else {
             if (!autContext.authenticationState.isAuth) {
-                service.loginValidation({ userJwt: jwtToken })
+                service.loginValidation()
                     .then(x => {
                         if (x.isSuccess && x.data != null) {
                             autContext.authenticationAction({ type: "Login", user: x.data });

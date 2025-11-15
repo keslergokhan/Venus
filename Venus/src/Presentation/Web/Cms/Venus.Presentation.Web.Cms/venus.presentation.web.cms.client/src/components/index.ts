@@ -5,3 +5,6 @@ export { FileManagerComponent } from "./fileManager/FileManagerComponent"
 export {CTextField} from "./commons/index"
 export type { CTextFieldProps } from "./commons/index"
 
+export {LoadingComponent} from "./loading/LoadingComponent"
+export type {LoadingComponentProps} from "./loading/LoadingComponent"
+

@@ -6,10 +6,6 @@ import axios from "axios";
 
 export class AuthenticationService extends ServiceBase{
 
-    public userJwtToken = ():string|null => {
-        return localStorage.getItem("cms_user");
-    }
-
     public loginAsync = async (props: LoginFormRequest): Promise<IResultDataControl<ReadUserDto>> => {
 
         return axios.post<IResultDataControl<ReadUserDto>>(this.GetFullPath("Authentication/Login"), props, { withCredentials: true })
@@ -22,15 +18,8 @@ export class AuthenticationService extends ServiceBase{
             });
     }
 
-    public loginValidation = async (props: LoginValidationReuqest) => {
-        return axios.post<IResultDataControl<ReadUserDto>>(this.GetFullPath("Authentication/Validate"),
-            null,  // ? Request body yoksa null veya boþ obje
-            {
-                headers: {
-                    'Authorization': `Bearer ${props.userJwt}`,
-                },
-                withCredentials: true
-            })
+    public loginValidation = async () => {
+        return axios.post<IResultDataControl<ReadUserDto>>(this.GetFullPath("Authentication/Validate"),{},this.GetAxiosHeader())
             .then(data => {
                 return data.data as ResultDataControl<ReadUserDto>;
             }).catch(() => {

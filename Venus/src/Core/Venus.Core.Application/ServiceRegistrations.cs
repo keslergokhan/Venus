@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.HttpRequests;
 using Venus.Core.Application.HttpRequests.Interfaces;
+using Venus.Core.Application.Services;
+using Venus.Core.Application.Services.Interfaces;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 
 namespace Venus.Core.Application
@@ -23,6 +25,7 @@ namespace Venus.Core.Application
                 x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
             services.AddScoped<IVenusHttpContext, VenusHttpContext>();
+            services.AddScoped<IFileManagerService,FileManagerService>();
             return services;
         }
 
