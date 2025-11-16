@@ -17,11 +17,9 @@ export const AuthenticationReducer = (state: AuthenticationReducerState,action: 
     const actionType = action.type;
 
     if (actionType == "Login") {
-        console.log("login olduk");
         return { isAuth: true, user: action.user };
     }
     else if (actionType == "Logaut") {
-        console.log("çýkýþ yapýldý");
         localStorage.removeItem("cms_user");
         return { isAuth: false, user: null };
     }

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useAuthentication } from "../hooks";
 import { HeaderContainer } from "../containers";
 import { FileManagerComponent } from "../components";
+import { FileManagerInputComponent } from "../components/fileManager/FileManagerInputComponent";
 const DefaultLayout = (): JSX.Element => {
     
     const authentication = useAuthentication();
@@ -16,8 +17,8 @@ const DefaultLayout = (): JSX.Element => {
                 <>
                     <HeaderContainer></HeaderContainer>
                     <Outlet />
-                    <FileManagerComponent></FileManagerComponent>
-                    <br></br>
+                    <FileManagerInputComponent></FileManagerInputComponent>
+                    <FileManagerInputComponent></FileManagerInputComponent>
                     <FileManagerComponent></FileManagerComponent>
                 </>
 

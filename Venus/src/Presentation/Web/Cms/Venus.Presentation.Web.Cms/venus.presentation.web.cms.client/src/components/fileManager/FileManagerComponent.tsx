@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import * as Flowbite from "flowbite-react";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CTextField, } from "../commons";
 import { IconOpenFolder2, IconFile2, IconArrow, IconArrowLeft, IconClose } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
@@ -11,21 +11,26 @@ import { FileManagerGetFolderRes } from "../../models";
 import { ToastHelper } from "../../helpers";
 import { LoadingComponent } from "../loading/LoadingComponent";
 import { IconRefresh } from "../commons/icons/IconRefresh";
-import { da } from "zod/locales";
+import { AppContext } from "../../contexts/AppContext";
 
 export interface FileManagerComponentProps {
     selectFilenName:string
 }
 
 export const FileManagerComponent = (): JSX.Element => {
+    const appContext = useContext(AppContext);
     const [fileName,setFileName] = useState<string>("");
     const fileManagerService = new FileManagerService;
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [loading,setLoading] = useState<boolean>(false);
     const currentPath = useRef<string[]>([""]);
 
     let folderAndFileData = useRef<FileManagerGetFolderRes>(new FileManagerGetFolderRes([],[]));
 
+    useEffect(()=>{
+        if(appContext.fileManagerState == true){
+            getFolderAndFileAsync();
+        }
+    },[appContext.fileManagerState]);
     const ClearPath = () =>{
         currentPath.current = [""];
     }
@@ -70,7 +75,7 @@ export const FileManagerComponent = (): JSX.Element => {
 
     const InputClickHandlerAsync = () =>{
         ClearPath();
-        setOpenModal(true);
+        appContext.fileManagerStateHandler(true);
         getFolderAndFileAsync();
     }
 
@@ -79,9 +84,10 @@ export const FileManagerComponent = (): JSX.Element => {
         ClearPath();
     }
     const SelectFileClickHandlerAsync = async (data:ReadFileDto) =>{
-        setFileName(fullPath(data.fileName));
         ClearPath();
-        setOpenModal(false);
+        setFileName(fullPath(data.fileName));
+        appContext.fileManagerSelectHandler.current(data.fileName);
+        appContext.fileManagerStateHandler(false);
     }
 
 
@@ -111,28 +117,9 @@ export const FileManagerComponent = (): JSX.Element => {
     
     return (
         <>
-            <div className="flex">
-                <div className="">
-                    <CTextField
-                        className="max-w-[230px]"
-                        value={fileName} 
-                        onClick={ (e) => { InputClickHandlerAsync() }}
-                        placeholder={"Dosya Seç"} 
-                        Icon={<IconOpenFolder2  
-                        height={24} 
-                        width={24} 
-                        color="#104e64"></IconOpenFolder2>}
-                        type="email" id="email" name="email" label="Kullan�c� Ad�" key="email"   ></CTextField>
-                </div>
-                
-                <div className="flex items-center mt-6">
-                    {
-                        fileName !== "" && <div className="cursor-pointer" onClick={()=>{ClearInputClickHandler()}}><IconClose height={50} width={50} color="red"></IconClose></div>
-                    }
-                </div>
-            </div>
+           
             
-            <Flowbite.Modal show={openModal} position={"center"} onClose={() => setOpenModal(false)} >
+            <Flowbite.Modal show={appContext.fileManagerState} position={"center"} onClose={() => appContext.fileManagerStateHandler(false)} >
                 <Flowbite.Card className="!bg-amber-50 ">
                     <Flowbite.ModalHeader className="p-1">
                         <span className="text-black">Dosya Yöneticisi</span>

@@ -28,6 +28,7 @@ export function LoginComponent(props: LoginComponentProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({resolver: zodResolver(schema)});
  
