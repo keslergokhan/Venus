@@ -40,7 +40,7 @@ namespace Venus.Core.Application.Services
                 {
                     path = "";
                 }
-                string fullPath = Path.Combine(this.GetBaseFolder, path);
+                string fullPath = this.GetBaseFolder.Replace("/","\\") + path.Replace("/", "\\");
                 string[] directories = Directory.GetDirectories(fullPath);
 
                 data.Path = fullPath;
@@ -61,13 +61,6 @@ namespace Venus.Core.Application.Services
                 {
                     FileInfo info = new FileInfo(file);
 
-                    Console.WriteLine($"Dosya Adı: {info.Name}");
-                    Console.WriteLine($"Tam Yol: {info.FullName}");
-                    Console.WriteLine($"Boyut: {info.Length:N0} byte");
-                    Console.WriteLine($"Oluşturma Tarihi: {info.CreationTime}");
-                    Console.WriteLine($"Son Değişiklik: {info.LastWriteTime}");
-                    Console.WriteLine(new string('-', 40));
-
                     data.Files.Add(new ReadFileDto()
                     {
                         FilePath = $"/{BaseFolderName}{(string.IsNullOrEmpty(path) ? path : "")}/{info.Name}",
@@ -77,6 +70,8 @@ namespace Venus.Core.Application.Services
                     });
                 }
 
+                data.Folders = data.Folders.OrderBy(x => x.Name).ToList();
+                data.Files = data.Files.OrderBy(x => x.FileName).ToList();
                 result.SetData(data);
             }
             catch (Exception ex)

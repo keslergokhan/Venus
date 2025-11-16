@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 import * as Flowbite from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CTextField, } from "../commons";
-import { IconOpenFolder2, IconFile2, IconArrow } from "../commons/icons"
+import { IconOpenFolder2, IconFile2, IconArrow, IconArrowLeft, IconClose } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
 import { FileManagerService } from "../../services";
 import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
@@ -11,62 +11,125 @@ import { FileManagerGetFolderRes } from "../../models";
 import { ToastHelper } from "../../helpers";
 import { LoadingComponent } from "../loading/LoadingComponent";
 import { IconRefresh } from "../commons/icons/IconRefresh";
+import { da } from "zod/locales";
 
 export interface FileManagerComponentProps {
     selectFilenName:string
 }
 
 export const FileManagerComponent = (): JSX.Element => {
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [fileName,setFileName] = useState<string>("Dosya Seç");
+    const [fileName,setFileName] = useState<string>("");
     const fileManagerService = new FileManagerService;
+    const [openModal, setOpenModal] = useState<boolean>(false);
     const [loading,setLoading] = useState<boolean>(false);
+    const currentPath = useRef<string[]>([""]);
 
-    const getFolderAndFileAsync = async ():Promise<FileManagerGetFolderRes>=>{
+    let folderAndFileData = useRef<FileManagerGetFolderRes>(new FileManagerGetFolderRes([],[]));
+
+    const ClearPath = () =>{
+        currentPath.current = [""];
+    }
+    const fullPath = (fileName?:string):string => {
+        let fullPath:string = "";
+        currentPath.current.forEach(x=>{
+            fullPath +=(x==""?"":"/")+x;
+        });
+
+        if(fileName && currentPath.current.length>1){
+            return fullPath +"/"+ fileName;
+        }else if(fileName){
+            return fileName;
+        }
+        return fullPath;
+    }
+
+    const getFolderAndFileAsync = async ():Promise<void> =>{
         setLoading(true);
-        return await fileManagerService.GetFoldersAsync({path:"/"}).then(x=>{
+        await fileManagerService.GetFoldersAsync({path:fullPath()}).then(x=>{
             if(x.isSuccess){
-                return new FileManagerGetFolderRes(x.data.files,x.data.folder);
+                folderAndFileData.current = new FileManagerGetFolderRes(x.data.files as Array<ReadFileDto>,x.data.folders as Array<ReadFolderDto>);
             }else{
                 ToastHelper.DefaultError();
             }
-            return new FileManagerGetFolderRes([],[]);
         }).finally(()=>{
             setLoading(false);
         });
     }
-    useEffect(()=>{
-        
-    },[]);
+
+    const FolderOpenPath = (data:ReadFolderDto) =>{
+        currentPath.current = [...currentPath.current,data.name];
+        console.log(currentPath.current);
+        console.log(fullPath());
+        getFolderAndFileAsync();
+    }
+
+    const FolderBackClickHandler = () =>{
+        currentPath.current.pop();
+        getFolderAndFileAsync();
+    }
+
+    const InputClickHandlerAsync = () =>{
+        ClearPath();
+        setOpenModal(true);
+        getFolderAndFileAsync();
+    }
+
+    const ClearInputClickHandler = () => {
+        setFileName("");
+        ClearPath();
+    }
+    const SelectFileClickHandlerAsync = async (data:ReadFileDto) =>{
+        setFileName(fullPath(data.fileName));
+        ClearPath();
+        setOpenModal(false);
+    }
+
 
     const FileItem = (item:ReadFileDto) => {
         return (
-            <li>
+            <li className="cursor-pointer" onClick={async ()=>{await SelectFileClickHandlerAsync(item)}}>
+                <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
+                    <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
+                    <span className="flex-1 ms-3 ">{item.fileName}</span>
+                </a>
+            </li>
+        );
+        
+    }
+
+    const FolderItem = (item:ReadFolderDto) =>{
+        return (
+            <li onClick={()=>{FolderOpenPath(item)}}>
                 <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
                     <IconOpenFolder2 height={10} width={10}></IconOpenFolder2>
-                    <span className="flex-1 ms-3">/MetaMask</span>
+                    <span className="flex-1 ms-3">/{item.name}</span>
                     <IconArrow height={10} width={10}></IconArrow>
                 </a>
             </li>
         )
     }
-
-    const FolderItem = (item:ReadFolderDto) =>{
-        return (
-            <li>
-                <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
-                    <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
-                    <span className="flex-1 ms-3 ">MetaMask</span>
-                </a>
-            </li>
-        );
-    }
-
+    
     return (
         <>
-            <div className="w-[300px]">
-                <CTextField value={fileName} onClick={() => { setOpenModal(true) }} placeholder={fileName} Icon={<IconOpenFolder2 height={24} width={24} color="#104e64"></IconOpenFolder2>}
-                type="email" id="email" name="email" label="Kullan�c� Ad�" key="email"   ></CTextField>
+            <div className="flex">
+                <div className="">
+                    <CTextField
+                        className="max-w-[230px]"
+                        value={fileName} 
+                        onClick={ (e) => { InputClickHandlerAsync() }}
+                        placeholder={"Dosya Seç"} 
+                        Icon={<IconOpenFolder2  
+                        height={24} 
+                        width={24} 
+                        color="#104e64"></IconOpenFolder2>}
+                        type="email" id="email" name="email" label="Kullan�c� Ad�" key="email"   ></CTextField>
+                </div>
+                
+                <div className="flex items-center mt-6">
+                    {
+                        fileName !== "" && <div className="cursor-pointer" onClick={()=>{ClearInputClickHandler()}}><IconClose height={50} width={50} color="red"></IconClose></div>
+                    }
+                </div>
             </div>
             
             <Flowbite.Modal show={openModal} position={"center"} onClose={() => setOpenModal(false)} >
@@ -74,30 +137,38 @@ export const FileManagerComponent = (): JSX.Element => {
                     <Flowbite.ModalHeader className="p-1">
                         <span className="text-black">Dosya Yöneticisi</span>
                     </Flowbite.ModalHeader>
-                    <Flowbite.ModalBody className="!p-1 !min-h-[300px] !max-h[300px] !h-[300px] relative " >
-                        <div onClick={async ()=>{await getFolderAndFileAsync()}}><IconRefresh height={50} width={50} color="black"></IconRefresh></div>
+                    <Flowbite.ModalBody className="!p-1 !min-h-[300px] !max-h[300px] !h-[300px] relative !p-0" >
+                        <div className="grid grid-cols-2">
+                            <div className="">
+                                Dizin : {fullPath()}
+                            </div>
+                            <div className="">
+                                <div className="grid grid-cols-2">
+                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await FolderBackClickHandler()}}>
+                                        {
+                                            currentPath.current.length > 1 && <><IconArrowLeft height={50} width={50}></IconArrowLeft> Geri Çık</>
+                                        }
+                                        
+                                    </div>
+                                    <div className="flex cursor-pointer justify-end " onClick={async ()=>{await getFolderAndFileAsync()}}>
+                                        <IconRefresh height={50} width={50} color="black"></IconRefresh><span>Yenile</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
                         <LoadingComponent loading={loading} size="xl">
-                            <ul className="my-6 space-y-1">
-                                <li>
-                                    <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
-                                        <IconOpenFolder2 height={10} width={10}></IconOpenFolder2>
-                                        <span className="flex-1 ms-3">/MetaMask</span>
-                                        <IconArrow height={10} width={10}></IconArrow>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
-                                        <IconOpenFolder2 height={10} width={10}></IconOpenFolder2>
-                                        <span className="flex-1 ms-3 ">/MetaMask</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
-                                        <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
-                                        <span className="flex-1 ms-3 ">MetaMask</span>
-                                    </a>
-                                </li>
+                            <ul className="my-2 space-y-1">
+                                {
+                                    folderAndFileData.current.folders?.map((x,i) =>{
+                                        return <FolderItem key={i} {...x}></FolderItem>
+                                    })
+                                }
+                                {
+                                    folderAndFileData.current.files?.map((x,i) =>{
+                                        return <FileItem key={i} {...x}></FileItem>
+                                    })
+                                }
                             </ul>
                         </LoadingComponent>
                     </Flowbite.ModalBody>
@@ -106,3 +177,4 @@ export const FileManagerComponent = (): JSX.Element => {
         </>
     );
 }
+

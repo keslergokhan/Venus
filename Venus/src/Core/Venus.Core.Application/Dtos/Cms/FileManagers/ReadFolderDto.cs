@@ -10,7 +10,6 @@ namespace Venus.Core.Application.Dtos.Cms.FileManagers
         public Guid Id { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
-        public List<ReadFileDto> Files { get; set; }
 
     }
 }

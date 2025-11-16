@@ -5,9 +5,10 @@ export class FileManagerGetFolderRes {
     /**
      *
      */
-    constructor(files:Array<ReadFileDto>,folder:Array<ReadFolderDto>) {
-        
+    constructor(files:Array<ReadFileDto>,folders:Array<ReadFolderDto>) {
+        this.files = files;
+        this.folders = folders;
     }
     files:Array<ReadFileDto>;
-    folder:Array<ReadFolderDto>
-}
+    folders:Array<ReadFolderDto>
+}   

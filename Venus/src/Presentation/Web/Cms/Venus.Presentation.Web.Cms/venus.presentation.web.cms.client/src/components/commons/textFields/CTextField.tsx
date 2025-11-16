@@ -28,7 +28,7 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
                     type={props.type}
                     name={props.name}
                     id={props.id}
-                    value={props.value}
+                    defaultValue={props.value}
                     className={`${className} ${(props.Icon) && "pl-7.5"}`}
                     placeholder={!props.placeholder ? "":props.placeholder}
                     disabled={(props.disabled && true)}
@@ -60,7 +60,7 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
             {
                 props.label ?
                 <label
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 text-blue-950"
                 >
                 {props.label}
                 </label>

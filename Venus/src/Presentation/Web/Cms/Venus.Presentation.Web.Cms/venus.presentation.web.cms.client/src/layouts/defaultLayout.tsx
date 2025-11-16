@@ -11,11 +11,13 @@ const DefaultLayout = (): JSX.Element => {
         <>
             {
                 (!authentication.authenticationState.isAuth) ?
-                <>Yükleniyor...</>
+                <>Yï¿½kleniyor...</>
                 :
                 <>
                     <HeaderContainer></HeaderContainer>
                     <Outlet />
+                    <FileManagerComponent></FileManagerComponent>
+                    <br></br>
                     <FileManagerComponent></FileManagerComponent>
                 </>
 

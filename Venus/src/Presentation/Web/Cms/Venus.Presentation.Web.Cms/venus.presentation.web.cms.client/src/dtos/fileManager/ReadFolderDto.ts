@@ -2,5 +2,6 @@
 export class ReadFolderDto{
     id:string;
     name:string;
-    CreateDate:Date;
+    createDate:Date;
+    files:Array<ReadFolderDto>;
 }
