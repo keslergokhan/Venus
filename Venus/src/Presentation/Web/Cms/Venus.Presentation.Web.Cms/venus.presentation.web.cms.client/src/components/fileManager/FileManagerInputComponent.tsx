@@ -10,10 +10,10 @@ export const FileManagerInputComponent = () =>{
     
 
     const onClickHandler = () =>{
-        appContext.fileManagerStateHandler(true);
-        appContext.fileManagerSelectHandler.current = (fileName:string)=>{
+        appContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileName:string)=>{
             setFileName(fileName);
-        }
+        }})
+        
     }
 
     const clearClickHandler = () =>{

@@ -19,7 +19,6 @@ export interface FileManagerComponentProps {
 
 export const FileManagerComponent = (): JSX.Element => {
     const appContext = useContext(AppContext);
-    const [fileName,setFileName] = useState<string>("");
     const fileManagerService = new FileManagerService;
     const [loading,setLoading] = useState<boolean>(false);
     const currentPath = useRef<string[]>([""]);
@@ -27,14 +26,16 @@ export const FileManagerComponent = (): JSX.Element => {
     let folderAndFileData = useRef<FileManagerGetFolderRes>(new FileManagerGetFolderRes([],[]));
 
     useEffect(()=>{
-        if(appContext.fileManagerState == true){
+        if(appContext.fileManagerState.fileManagerModal == true){
             getFolderAndFileAsync();
         }
     },[appContext.fileManagerState]);
-    const ClearPath = () =>{
+
+    const currentClearPath = () =>{
         currentPath.current = [""];
     }
-    const fullPath = (fileName?:string):string => {
+
+    const getFullPath = (fileName?:string):string => {
         let fullPath:string = "";
         currentPath.current.forEach(x=>{
             fullPath +=(x==""?"":"/")+x;
@@ -50,7 +51,7 @@ export const FileManagerComponent = (): JSX.Element => {
 
     const getFolderAndFileAsync = async ():Promise<void> =>{
         setLoading(true);
-        await fileManagerService.GetFoldersAsync({path:fullPath()}).then(x=>{
+        await fileManagerService.getFoldersAsync({path:getFullPath()}).then(x=>{
             if(x.isSuccess){
                 folderAndFileData.current = new FileManagerGetFolderRes(x.data.files as Array<ReadFileDto>,x.data.folders as Array<ReadFolderDto>);
             }else{
@@ -61,39 +62,26 @@ export const FileManagerComponent = (): JSX.Element => {
         });
     }
 
-    const FolderOpenPath = (data:ReadFolderDto) =>{
+    const folderOpenPath = (data:ReadFolderDto) =>{
         currentPath.current = [...currentPath.current,data.name];
-        console.log(currentPath.current);
-        console.log(fullPath());
         getFolderAndFileAsync();
     }
 
-    const FolderBackClickHandler = () =>{
+    const folderBackClickHandler = () =>{
         currentPath.current.pop();
         getFolderAndFileAsync();
     }
 
-    const InputClickHandlerAsync = () =>{
-        ClearPath();
-        appContext.fileManagerStateHandler(true);
-        getFolderAndFileAsync();
-    }
-
-    const ClearInputClickHandler = () => {
-        setFileName("");
-        ClearPath();
-    }
-    const SelectFileClickHandlerAsync = async (data:ReadFileDto) =>{
-        ClearPath();
-        setFileName(fullPath(data.fileName));
-        appContext.fileManagerSelectHandler.current(data.fileName);
-        appContext.fileManagerStateHandler(false);
+    const selectFileClickHandlerAsync = async (data:ReadFileDto) =>{
+        currentClearPath();
+        appContext.fileManagerState.selectFileEvent(data.fileName);
+        appContext.fileManagerAction({type:"FileManagerModal",state:false});
     }
 
 
     const FileItem = (item:ReadFileDto) => {
         return (
-            <li className="cursor-pointer" onClick={async ()=>{await SelectFileClickHandlerAsync(item)}}>
+            <li className="cursor-pointer" onClick={async ()=>{await selectFileClickHandlerAsync(item)}}>
                 <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
                     <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
                     <span className="flex-1 ms-3 ">{item.fileName}</span>
@@ -105,7 +93,7 @@ export const FileManagerComponent = (): JSX.Element => {
 
     const FolderItem = (item:ReadFolderDto) =>{
         return (
-            <li onClick={()=>{FolderOpenPath(item)}}>
+            <li onClick={()=>{folderOpenPath(item)}}>
                 <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
                     <IconOpenFolder2 height={10} width={10}></IconOpenFolder2>
                     <span className="flex-1 ms-3">/{item.name}</span>
@@ -119,7 +107,7 @@ export const FileManagerComponent = (): JSX.Element => {
         <>
            
             
-            <Flowbite.Modal show={appContext.fileManagerState} position={"center"} onClose={() => appContext.fileManagerStateHandler(false)} >
+            <Flowbite.Modal show={appContext.fileManagerState.fileManagerModal} position={"center"} onClose={() => appContext.fileManagerAction({type:"FileManagerModal",state:false})} >
                 <Flowbite.Card className="!bg-amber-50 ">
                     <Flowbite.ModalHeader className="p-1">
                         <span className="text-black">Dosya Yöneticisi</span>
@@ -127,11 +115,11 @@ export const FileManagerComponent = (): JSX.Element => {
                     <Flowbite.ModalBody className="!p-1 !min-h-[300px] !max-h[300px] !h-[300px] relative !p-0" >
                         <div className="grid grid-cols-2">
                             <div className="">
-                                Dizin : {fullPath()}
+                                Dizin : {getFullPath()}
                             </div>
                             <div className="">
                                 <div className="grid grid-cols-2">
-                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await FolderBackClickHandler()}}>
+                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await folderBackClickHandler()}}>
                                         {
                                             currentPath.current.length > 1 && <><IconArrowLeft height={50} width={50}></IconArrowLeft> Geri Çık</>
                                         }

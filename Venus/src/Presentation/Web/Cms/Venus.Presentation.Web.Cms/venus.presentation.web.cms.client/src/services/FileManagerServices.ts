@@ -5,7 +5,7 @@ import type { FileManagerGetFolderRes } from "../models";
 
 export class FileManagerService extends ServiceBase{
 
-    public GetFoldersAsync = async (props:{path:string}):Promise<IResultDataControl<FileManagerGetFolderRes>> => {
+    public getFoldersAsync = async (props:{path:string}):Promise<IResultDataControl<FileManagerGetFolderRes>> => {
         return axios.post<IResultDataControl<FileManagerGetFolderRes>>(this.GetFullPath("FileManager/GetFolders"),props,this.GetAxiosHeader())
         .then(x=>{
             return x.data as ResultDataControl<FileManagerGetFolderRes>;

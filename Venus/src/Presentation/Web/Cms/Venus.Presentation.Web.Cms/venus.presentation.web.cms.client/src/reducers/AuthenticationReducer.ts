@@ -1,5 +1,4 @@
 import type { ReadUserDto } from "../dtos";
-import { AuthenticationService } from "../services";
 
 export type AuthenticationReducerAction =
     | { type: "Login", user: ReadUserDto }
@@ -13,7 +12,6 @@ export interface AuthenticationReducerState {
 
 export const AuthenticationReducer = (state: AuthenticationReducerState,action: AuthenticationReducerAction): AuthenticationReducerState => {
 
-    const service = new AuthenticationService();
     const actionType = action.type;
 
     if (actionType == "Login") {
