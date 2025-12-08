@@ -1,12 +1,13 @@
+import type { ReadFileDto } from "../dtos/fileManager/ReadFileDto";
 
 export type FileManagerReducerAction = 
 | {type:"FileManagerModal",state:boolean}
-| {type:"FileManagerModalAndSelectEvent",state:boolean,selectFileEvent:(fileName:string)=>void|null}
-| {type:"FileManagerSetSelectEvent",selectFileEvent:(fileName:string)=>void}
+| {type:"FileManagerModalAndSelectEvent",state:boolean,selectFileEvent:(fileItem:ReadFileDto)=>void|null}
+| {type:"FileManagerSetSelectEvent",selectFileEvent:(fileItem:ReadFileDto)=>void}
 
 export type FileManagerReducerState = {
     fileManagerModal:boolean;
-    selectFileEvent:(fileName:string)=>void;
+    selectFileEvent:(fileItem:ReadFileDto)=>void;
 }
 
 export const FileManagerReducer = (state:FileManagerReducerState,action:FileManagerReducerAction):FileManagerReducerState => {

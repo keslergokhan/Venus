@@ -63,7 +63,7 @@ namespace Venus.Core.Application.Services
 
                     data.Files.Add(new ReadFileDto()
                     {
-                        FilePath = $"/{BaseFolderName}{(string.IsNullOrEmpty(path) ? path : "")}/{info.Name}",
+                        FilePath = $"/{BaseFolderName}{(!string.IsNullOrEmpty(path) ? path : "")}/{info.Name}",
                         FileName=info.Name,
                         CreateDate =info.CreationTime,
                         Extension = info.Extension,

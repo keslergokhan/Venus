@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CTextField, IconClose, IconOpenFolder2 } from "../commons";
 import { AppContext } from "../../contexts/AppContext";
+import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
 
 export const FileManagerInputComponent = () =>{
 
@@ -10,8 +11,9 @@ export const FileManagerInputComponent = () =>{
     
 
     const onClickHandler = () =>{
-        appContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileName:string)=>{
-            setFileName(fileName);
+        appContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileItem:ReadFileDto)=>{
+            console.log(fileItem);
+            setFileName(fileItem.filePath);
         }})
         
     }

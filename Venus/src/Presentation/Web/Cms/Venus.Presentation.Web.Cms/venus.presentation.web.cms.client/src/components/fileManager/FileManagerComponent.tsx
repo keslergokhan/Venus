@@ -1,7 +1,6 @@
 import type { JSX } from "react";
 import * as Flowbite from "flowbite-react";
 import { useContext, useEffect, useRef, useState } from "react";
-import { CTextField, } from "../commons";
 import { IconOpenFolder2, IconFile2, IconArrow, IconArrowLeft, IconClose } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
 import { FileManagerService } from "../../services";
@@ -31,10 +30,18 @@ export const FileManagerComponent = (): JSX.Element => {
         }
     },[appContext.fileManagerState]);
 
+    /**
+     * Mevcut dizini temizle
+     */
     const currentClearPath = () =>{
         currentPath.current = [""];
     }
 
+    /**
+     * Dosya yöneticisinin mevcut dizini döner
+     * @param fileName Mevcut dizine dosya adı dahilet
+     * @returns 
+     */
     const getFullPath = (fileName?:string):string => {
         let fullPath:string = "";
         currentPath.current.forEach(x=>{
@@ -49,6 +56,9 @@ export const FileManagerComponent = (): JSX.Element => {
         return fullPath;
     }
 
+    /**
+     * Mevcut dizinin dosya ve klasörlerini getir.
+     */
     const getFolderAndFileAsync = async ():Promise<void> =>{
         setLoading(true);
         await fileManagerService.getFoldersAsync({path:getFullPath()}).then(x=>{
@@ -62,30 +72,48 @@ export const FileManagerComponent = (): JSX.Element => {
         });
     }
 
-    const folderOpenPath = (data:ReadFolderDto) =>{
+    /**
+     * Seçilen dosyanın içerisine gir.
+     * @param data 
+     */
+    const folderOpenClickPathHandlerAsync = async (data:ReadFolderDto) =>{
         currentPath.current = [...currentPath.current,data.name];
-        getFolderAndFileAsync();
+        await getFolderAndFileAsync();
     }
 
-    const folderBackClickHandler = () =>{
+    /**
+     * Mevcut dosyadan geri çık
+     */
+    const folderBackClickHandlerAsync = async () =>{
         currentPath.current.pop();
-        getFolderAndFileAsync();
+        await getFolderAndFileAsync();
     }
 
+    /**
+     * Dosyayı seç.
+     * @param data 
+     */
     const selectFileClickHandlerAsync = async (data:ReadFileDto) =>{
         currentClearPath();
-        appContext.fileManagerState.selectFileEvent(data.fileName);
+        appContext.fileManagerState.selectFileEvent(data);
         appContext.fileManagerAction({type:"FileManagerModal",state:false});
     }
 
 
     const FileItem = (item:ReadFileDto) => {
         return (
-            <li className="cursor-pointer" onClick={async ()=>{await selectFileClickHandlerAsync(item)}}>
-                <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
-                    <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
-                    <span className="flex-1 ms-3 ">{item.fileName}</span>
-                </a>
+            <li className="border-gray-400 border-1 rounded-lg"  onClick={async ()=>{await selectFileClickHandlerAsync(item)}}>
+                <div className="grid grid-cols-10">
+                    <div className="col-span-9">
+                        <a href="#" className="flex  text-gray-800 pl-5 items-center p-1 rounded-base group">
+                            <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
+                            <span className="flex-1 ms-3 cursor-pointer w-1/2 ">{item.fileName}</span>
+                        </a>
+                    </div>
+                    <div className="col-span-1 flex justify-center items-center cursor-pointer">
+                        <IconClose height={15} width={15} color="red" ></IconClose>
+                    </div>
+                </div>
             </li>
         );
         
@@ -93,7 +121,7 @@ export const FileManagerComponent = (): JSX.Element => {
 
     const FolderItem = (item:ReadFolderDto) =>{
         return (
-            <li onClick={()=>{folderOpenPath(item)}}>
+            <li onClick={async ()=>{await folderOpenClickPathHandlerAsync(item)}}>
                 <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
                     <IconOpenFolder2 height={10} width={10}></IconOpenFolder2>
                     <span className="flex-1 ms-3">/{item.name}</span>
@@ -119,7 +147,7 @@ export const FileManagerComponent = (): JSX.Element => {
                             </div>
                             <div className="">
                                 <div className="grid grid-cols-2">
-                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await folderBackClickHandler()}}>
+                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await folderBackClickHandlerAsync()}}>
                                         {
                                             currentPath.current.length > 1 && <><IconArrowLeft height={50} width={50}></IconArrowLeft> Geri Çık</>
                                         }

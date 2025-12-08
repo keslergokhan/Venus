@@ -12,7 +12,7 @@ const DefaultLayout = (): JSX.Element => {
         <>
             {
                 (!authentication.authenticationState.isAuth) ?
-                <>Y�kleniyor...</>
+                <>Yükleniyor...</>
                 :
                 <>
                     <HeaderContainer></HeaderContainer>

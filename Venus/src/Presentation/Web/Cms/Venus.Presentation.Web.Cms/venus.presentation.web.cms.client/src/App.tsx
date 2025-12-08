@@ -23,8 +23,8 @@ function App() {
                             <Route element={<DefaultLayout />}>
                                 <Route path="/home" element={<HomePage />} />
                                 {/* ba�ka child sayfalar buraya */}
-
                             </Route>
+                            
                         </Routes>
                         <Toaster position="top-right" />
                     </BrowserRouter>
