@@ -12,6 +12,7 @@ namespace Venus.Core.Application.Results.Interfaces
         public bool IsSuccess { get; }
         [JsonIgnore]
         public Exception Exception { get; }
+        public string ErrorMessage { get; }
         public IResultControl Success();
         public IResultControl Fail();
         public IResultControl Fail(string title, string message);

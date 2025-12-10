@@ -65,8 +65,10 @@ export const FileManagerComponent = (): JSX.Element => {
             if(x.isSuccess){
                 folderAndFileData.current = new FileManagerGetFolderRes(x.data.files as Array<ReadFileDto>,x.data.folders as Array<ReadFolderDto>);
             }else{
-                ToastHelper.DefaultError();
+                throw new Error("Dizin çekiler beklenmedik bir problem yaşandı !");
             }
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
         }).finally(()=>{
             setLoading(false);
         });
@@ -99,18 +101,31 @@ export const FileManagerComponent = (): JSX.Element => {
         appContext.fileManagerAction({type:"FileManagerModal",state:false});
     }
 
+    const removeClickHandlerAsync = async (data:ReadFileDto) =>{
+
+        await fileManagerService.removeFileAsync({path:data.filePath}).then(x=>{
+            if(x.isSuccess){
+                ToastHelper.Success(`${data.fileName} silindi !`);
+                getFolderAndFileAsync();
+            }else{
+                throw new Error("Dosya silme işleminde beklenmedik bir problem yaşandı !");
+            }
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        })
+    }
 
     const FileItem = (item:ReadFileDto) => {
         return (
-            <li className="border-gray-400 border-1 rounded-lg"  onClick={async ()=>{await selectFileClickHandlerAsync(item)}}>
+            <li className="border-gray-400 border-1 rounded-lg"  >
                 <div className="grid grid-cols-10">
                     <div className="col-span-9">
-                        <a href="#" className="flex  text-gray-800 pl-5 items-center p-1 rounded-base group">
+                        <a href="javascript:void(0)" onClick={async ()=>{await selectFileClickHandlerAsync(item)}} className="flex  text-gray-800 pl-5 items-center p-1 rounded-base group">
                             <IconTypeFile height={10} width={10} type={".png"}></IconTypeFile>
                             <span className="flex-1 ms-3 cursor-pointer w-1/2 ">{item.fileName}</span>
                         </a>
                     </div>
-                    <div className="col-span-1 flex justify-center items-center cursor-pointer">
+                    <div className="col-span-1 flex justify-center items-center cursor-pointer" onClick={()=>{removeClickHandlerAsync(item)}}>
                         <IconClose height={15} width={15} color="red" ></IconClose>
                     </div>
                 </div>
@@ -133,8 +148,6 @@ export const FileManagerComponent = (): JSX.Element => {
     
     return (
         <>
-           
-            
             <Flowbite.Modal show={appContext.fileManagerState.fileManagerModal} position={"center"} onClose={() => appContext.fileManagerAction({type:"FileManagerModal",state:false})} >
                 <Flowbite.Card className="!bg-amber-50 ">
                     <Flowbite.ModalHeader className="p-1">

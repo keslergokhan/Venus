@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ServiceBase } from "./base/ServiceBase";
-import { ResultDataControl, type IResultDataControl } from "../results";
+import { ResultControl, ResultDataControl, type IResultControl, type IResultDataControl } from "../results";
 import type { FileManagerGetFolderRes } from "../models";
 
 export class FileManagerService extends ServiceBase{
@@ -12,5 +12,13 @@ export class FileManagerService extends ServiceBase{
         }).catch(()=>{
             return new ResultDataControl<FileManagerGetFolderRes>();
         });
-    } 
+    }
+
+    public removeFileAsync = async (props:{path:string}):Promise<ResultControl> =>{
+        return axios.post<IResultControl>(this.GetFullPath("FileManager/RemoveFilter"),props,this.GetAxiosHeader()).then(x=>{
+            return x.data as ResultControl;
+        }).catch(()=>{
+            return new ResultControl();
+        });
+    }
 }

@@ -69,4 +69,13 @@ export class ToastHelper {
     public static DefaultError = () => {
         toast.custom((x) => (ToastHelper.ToastJSX(x, "error", "Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !")), { duration: 1800 });
     }
+
+    public static DefaultCatchError = (error:any) => {
+        if(error instanceof Error){
+            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", error.message)), { duration: 1800 });
+        }else{
+            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", "Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !")), { duration: 1800 });
+        }
+    }
+   
 }

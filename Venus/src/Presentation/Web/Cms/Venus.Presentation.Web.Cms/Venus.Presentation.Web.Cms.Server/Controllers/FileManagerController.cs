@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Venus.Core.Application.Exceptions.Systems;
+using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Application.Services.Interfaces;
+using Venus.Core.Application.Services.Models;
 using Venus.Presentation.Web.Cms.Server.Models.FileManagers;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
@@ -18,9 +21,15 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetFolders([FromBody] GetFoldersReq req)
+        public async Task<IResultDataControl<GetFoldersOnPathResponse>> GetFolders([FromBody] GetFoldersReq req)
         {
-            return Ok(await _fileManager.GetFoldersOnPathAsync(req.Path));
+            return await _fileManager.GetFoldersOnPathAsync(req.Path);
+        }
+
+        [HttpPost]
+        public async Task<IResultControl> RemoveFilter([FromBody] RemoveFilterReq req)
+        {
+            return await _fileManager.RemoveFileAsync(req.Path);
         }
     }
 }

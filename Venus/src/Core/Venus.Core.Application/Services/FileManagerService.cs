@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Cms.FileManagers;
+using Venus.Core.Application.Exceptions.Cms;
+using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Application.Services.Interfaces;
@@ -25,10 +28,33 @@ namespace Venus.Core.Application.Services
         public string GetBaseFolder { 
             get {
                 string wwwrootPath = _env.WebRootPath;
-                return $"{wwwrootPath}/{BaseFolderName}";
+                return $"{wwwrootPath}/{BaseFolderName}".Replace("/", "\\");
             } 
         }
+        
+        public string GetFileManagerFilePath(string filePath)
+        {
 
+
+            if (filePath.StartsWith(@"\\"))
+            {
+                filePath = filePath.Substring(2);
+            }
+            else if (filePath.StartsWith("//"))
+            {
+                filePath = filePath.Substring(2);
+            }
+            else if (filePath.StartsWith("/"))
+            {
+                filePath = filePath.Substring(1);
+            }else if (filePath.StartsWith("\\"))
+            {
+                filePath = filePath.Substring(1);
+            }
+            filePath = filePath.Replace("/", "\\");
+            return Path.Combine(this.GetBaseFolder, filePath);
+        }
+      
 
         public async Task<IResultDataControl<GetFoldersOnPathResponse>> GetFoldersOnPathAsync(string path)
         {
@@ -40,7 +66,13 @@ namespace Venus.Core.Application.Services
                 {
                     path = "";
                 }
-                string fullPath = this.GetBaseFolder.Replace("/","\\") + path.Replace("/", "\\");
+                string fullPath = this.GetBaseFolder + path.Replace("/", "\\");
+
+                if (!Directory.Exists(fullPath))
+                {
+                    throw new FileNotFoundException("Dosya bulunamadı.", path);
+                }
+
                 string[] directories = Directory.GetDirectories(fullPath);
 
                 data.Path = fullPath;
@@ -63,7 +95,7 @@ namespace Venus.Core.Application.Services
 
                     data.Files.Add(new ReadFileDto()
                     {
-                        FilePath = $"/{BaseFolderName}{(!string.IsNullOrEmpty(path) ? path : "")}/{info.Name}",
+                        FilePath = $"{(!string.IsNullOrEmpty(path) ? path : "")}/{info.Name}",
                         FileName=info.Name,
                         CreateDate =info.CreationTime,
                         Extension = info.Extension,
@@ -79,6 +111,34 @@ namespace Venus.Core.Application.Services
                 result.Fail(ex);
             }
 
+            return result;
+        }
+
+        public async Task<IResultControl> RemoveFileAsync(string fullPath)
+        {
+            IResultControl result = new ResultControl();
+            try
+            {
+                fullPath = this.GetFileManagerFilePath(fullPath);
+                if (!File.Exists(fullPath))
+                {
+                    throw new FileNotFoundException("Dosya bulunamadı.", fullPath);
+                }
+                File.Delete(fullPath);
+
+                if (File.Exists(fullPath))
+                {
+                    throw new VenusCmsGlobalException("Dosya silinemedi");
+                }
+                else
+                {
+                    result.Success();
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Fail(ex);
+            }
             return result;
         }
     }

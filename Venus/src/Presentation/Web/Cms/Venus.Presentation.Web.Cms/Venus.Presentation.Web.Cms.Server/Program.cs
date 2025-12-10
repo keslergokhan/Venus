@@ -1,4 +1,5 @@
 using Venus.Core.Application;
+using Venus.Core.Application.Middlewares;
 using Venus.Infrastructure.Persistence;
 
 
@@ -11,7 +12,15 @@ builder.Services.AddVenusApplicationServiceRegistration(builder.Configuration);
 builder.Services.AddVenusPersistenceServiceRegistration(builder.Configuration);
 builder.Services.AddVenusApplicationAuthenticationServiceRegistration(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CustomResultFilterMiddleware>();
+}).AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition =
+        System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

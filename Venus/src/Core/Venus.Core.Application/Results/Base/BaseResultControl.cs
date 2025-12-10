@@ -15,7 +15,10 @@ namespace Venus.Core.Application.Results.Base
         protected bool _isSuccess;
         public bool IsSuccess => _isSuccess;
         private Exception _exception;
+        [JsonIgnore]
         public Exception Exception => _exception;
+        public string _errorMessage;
+        public string ErrorMessage => _errorMessage;
 
         public BaseResultControl()
         {
@@ -43,6 +46,7 @@ namespace Venus.Core.Application.Results.Base
         {
             this._isSuccess = false;
             this._exception = exception;
+            this._errorMessage = exception.Message;
             return this;
         }
     }

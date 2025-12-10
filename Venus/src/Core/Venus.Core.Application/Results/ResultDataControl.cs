@@ -8,6 +8,11 @@ using Venus.Core.Application.Results.Interfaces;
 
 namespace Venus.Core.Application.Results
 {
+    public class ResultControl : BaseResultControl
+    {
+
+    }
+
     public class ResultDataControl<T> : BaseResultControl, IResultDataControl<T>
     {
         public ResultDataControl()
