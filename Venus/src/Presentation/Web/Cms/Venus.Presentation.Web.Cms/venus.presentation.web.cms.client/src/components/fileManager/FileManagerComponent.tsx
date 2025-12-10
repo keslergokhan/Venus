@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import * as Flowbite from "flowbite-react";
 import { useContext, useEffect, useRef, useState } from "react";
-import { IconOpenFolder2, IconFile2, IconArrow, IconArrowLeft, IconClose } from "../commons/icons"
+import { IconOpenFolder2, IconFile2, IconArrow, IconArrowLeft, IconClose, IconRefresh } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
 import { FileManagerService } from "../../services";
 import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
@@ -9,19 +9,19 @@ import type { ReadFolderDto } from "../../dtos/fileManager/ReadFolderDto";
 import { FileManagerGetFolderRes } from "../../models";
 import { ToastHelper } from "../../helpers";
 import { LoadingComponent } from "../loading/LoadingComponent";
-import { IconRefresh } from "../commons/icons/IconRefresh";
 import { AppContext } from "../../contexts/AppContext";
+import { CSmButtonField } from "../commons";
 
 export interface FileManagerComponentProps {
     selectFilenName:string
 }
 
 export const FileManagerComponent = (): JSX.Element => {
+    const fileUploadInput = useRef<HTMLInputElement>(null);
     const appContext = useContext(AppContext);
     const fileManagerService = new FileManagerService;
     const [loading,setLoading] = useState<boolean>(false);
     const currentPath = useRef<string[]>([""]);
-
     let folderAndFileData = useRef<FileManagerGetFolderRes>(new FileManagerGetFolderRes([],[]));
 
     useEffect(()=>{
@@ -115,6 +115,10 @@ export const FileManagerComponent = (): JSX.Element => {
         })
     }
 
+    const uploadFileButtonClickHandler = async () =>{
+        fileUploadInput.current?.click();
+    }
+
     const FileItem = (item:ReadFileDto) => {
         return (
             <li className="border-gray-400 border-1 rounded-lg"  >
@@ -155,20 +159,30 @@ export const FileManagerComponent = (): JSX.Element => {
                     </Flowbite.ModalHeader>
                     <Flowbite.ModalBody className="!p-1 !min-h-[300px] !max-h[300px] !h-[300px] relative !p-0" >
                         <div className="grid grid-cols-2">
-                            <div className="">
+                            <div className="col-span-1 ">
                                 Dizin : {getFullPath()}
                             </div>
-                            <div className="">
-                                <div className="grid grid-cols-2">
-                                    <div className="justify-end flex cursor-pointer" onClick={async ()=>{await folderBackClickHandlerAsync()}}>
-                                        {
-                                            currentPath.current.length > 1 && <><IconArrowLeft height={50} width={50}></IconArrowLeft> Geri Çık</>
-                                        }
-                                        
+                            <div className="col-span-1">
+                                <div className="grid grid-cols-4 mt-0.5">
+                                    <div className="col-span-1 text-sm">
+                                        <div className="justify-center flex cursor-pointer" onClick={async ()=>{await folderBackClickHandlerAsync()}}>
+                                            {
+                                                currentPath.current.length > 1 && <><IconArrowLeft height={50} width={50}></IconArrowLeft> Geri Çık</>
+                                            }
+                                        </div>
                                     </div>
-                                    <div className="flex cursor-pointer justify-end " onClick={async ()=>{await getFolderAndFileAsync()}}>
-                                        <IconRefresh height={50} width={50} color="black"></IconRefresh><span>Yenile</span>
+                                    <div className="col-span-2 justify-center flex">
+                                        <div className="">
+                                            <CSmButtonField id="add-file" onClick={async (e)=>{await uploadFileButtonClickHandler()}}>Yeni Dosya Ekle</CSmButtonField>
+                                            <input ref={fileUploadInput} id="dropzone-file" type="file" className="hidden" />
+                                        </div>
                                     </div>
+                                    <div className="col-span-1 ">
+                                        <div className="flex cursor-pointer justify-center text-sm" onClick={async ()=>{await getFolderAndFileAsync()}}>
+                                            <IconRefresh height={50} width={50} color="black"></IconRefresh><span>Yenile</span>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                                 
                             </div>
