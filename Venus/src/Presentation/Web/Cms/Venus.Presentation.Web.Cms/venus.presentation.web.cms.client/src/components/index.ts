@@ -12,3 +12,5 @@ export type {CSmButtonField} from "./commons/index"
 export {LoadingComponent} from "./loading/LoadingComponent"
 export type {LoadingComponentProps} from "./loading/LoadingComponent"
 
+export {MultiLoadingComponent} from "./loading/MultiLoadingComponent"
+export type {MultiLoadingComponentProps} from "./loading/MultiLoadingComponent"
