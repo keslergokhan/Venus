@@ -21,4 +21,24 @@ export class FileManagerService extends ServiceBase{
             return new ResultControl();
         });
     }
+
+    public uploadFileAsync = async (props:{path:string,file:File})=>{
+
+        const conf = {
+            headers: {
+                'Authorization': `Bearer ${this.GetUserJwtToken()}`,
+            },
+            withCredentials: true
+        };
+
+        var formData = new FormData();
+        formData.append("Path",props.path);
+        formData.append("File",props.file);
+        
+        return axios.post<IResultControl>(this.GetFullPath("FileManager/UploadFile"),formData,conf).then(x=>{
+            return x.data as ResultControl;
+        }).catch(()=>{
+            return new ResultControl();
+        })
+    }
 }

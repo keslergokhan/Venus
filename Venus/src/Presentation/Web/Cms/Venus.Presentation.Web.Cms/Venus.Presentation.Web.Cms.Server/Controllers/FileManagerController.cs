@@ -31,5 +31,11 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         {
             return await _fileManager.RemoveFileAsync(req.Path);
         }
+
+        [HttpPost]
+        public async Task<IResultControl> UploadFile([FromForm] UploadFileReq req) 
+        {
+            return await _fileManager.UploadFileAsync(Path.Combine(!string.IsNullOrEmpty(req.Path) ? req.Path:"/",req.File.FileName), req.File.OpenReadStream());
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -139,6 +140,31 @@ namespace Venus.Core.Application.Services
             {
                 result.Fail(ex);
             }
+            return result;
+        }
+
+        public async Task<IResultControl> UploadFileAsync(string path, Stream stream)
+        {
+            IResultControl result = new ResultControl();
+            string fullPath = this.GetFileManagerFilePath(Path.Combine(path));
+            try {
+
+                await using FileStream fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                fileStream.Close();
+                if (File.Exists(fullPath))
+                {
+                    result.Success();
+                }
+                else
+                {
+                    throw new VenusCmsGlobalException("Dosya yüklenemedi !");
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Fail(ex);
+            }
+           
             return result;
         }
     }

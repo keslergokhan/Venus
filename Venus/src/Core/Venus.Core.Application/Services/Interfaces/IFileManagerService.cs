@@ -14,5 +14,6 @@ namespace Venus.Core.Application.Services.Interfaces
         public string GetBaseFolder { get; }
         public Task<IResultDataControl<GetFoldersOnPathResponse>> GetFoldersOnPathAsync(string path);
         public Task<IResultControl> RemoveFileAsync(string fullPath);
+        public Task<IResultControl> UploadFileAsync(string path, Stream stream);
     }
 }

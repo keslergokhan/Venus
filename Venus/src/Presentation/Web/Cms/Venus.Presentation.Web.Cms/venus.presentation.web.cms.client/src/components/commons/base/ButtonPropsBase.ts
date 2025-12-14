@@ -4,7 +4,7 @@ export interface ButtonPropsBase{
     required?: boolean,
     label?: string,
     children:React.ReactNode,
-    variant?: "standard" | "outlined",
+    variant?: "error" | "warning",
     disabled?:boolean,
     onClick?:(e: React.MouseEvent<HTMLButtonElement>)=>void
 }
