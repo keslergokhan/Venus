@@ -39,7 +39,7 @@ export const FileManagerInputComponent = () =>{
                 
                 <div className="flex items-center mt-6">
                     {
-                        fileName !== "" && <div className="cursor-pointer" onClick={()=>{clearClickHandler()}} ><IconClose height={50} width={50} color="red"></IconClose></div>
+                        fileName !== "" && <div className="cursor-pointer" onClick={()=>{clearClickHandler()}} ><IconClose height={25} width={25} color="red"></IconClose></div>
                     }
                 </div>
             </div>
