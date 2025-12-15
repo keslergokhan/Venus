@@ -6,7 +6,6 @@ import HomePage from './pages/HomePage';
 import DefaultLayout from './layouts/defaultLayout';
 import { AuthenticationContextProvider } from './contexts/AuthenticationContext';
 import { AppContextProvider } from './contexts/AppContext';
-
 function App() {
 
     
