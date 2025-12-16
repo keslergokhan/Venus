@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import DefaultLayout from './layouts/defaultLayout';
 import { AuthenticationContextProvider } from './contexts/AuthenticationContext';
 import { AppContextProvider } from './contexts/AppContext';
+import PageManagerPage from './pages/PageManager';
 function App() {
 
     
@@ -21,6 +22,7 @@ function App() {
                             {/* DefaultLayout i�inde olacak sayfalar */}
                             <Route element={<DefaultLayout />}>
                                 <Route path="/home" element={<HomePage />} />
+                                <Route path='/page-manager' element={<PageManagerPage/>}></Route>
                                 {/* ba�ka child sayfalar buraya */}
                             </Route>
                             

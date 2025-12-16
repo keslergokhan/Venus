@@ -34,7 +34,7 @@ export function LoginComponent(props: LoginComponentProps) {
  
 
   return (
-    <div className="mx-auto mt-[50px] max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="mx-auto bg-r mt-[50px] max-w-sm p-4 bg-gray-300 border border-gray-200 rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       
         <form onSubmit={handleSubmit(props.onSubmitAsync)} className="space-y-6" action="#">
           

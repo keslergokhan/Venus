@@ -1,4 +1,4 @@
-export { LoginComponent, type LoginComponentProps, type LoginFormValues } from "./login/LoginComponent"
+export { LoginComponent, type LoginComponentProps, type LoginFormValues } from "./login/loginComponent"
 export { MenuComponent } from "./menu/MenuComponent"
 export { FileManagerComponent } from "./fileManager/FileManagerComponent"
 
@@ -14,3 +14,6 @@ export type {LoadingComponentProps} from "./loading/LoadingComponent"
 
 export {MultiLoadingComponent} from "./loading/MultiLoadingComponent"
 export type {MultiLoadingComponentProps} from "./loading/MultiLoadingComponent"
+
+export {PageTypeListComponent} from "./pageManager/PageTypeListComponent";
+export type {PageTypeListComponentProps} from "./pageManager/PageTypeListComponent"

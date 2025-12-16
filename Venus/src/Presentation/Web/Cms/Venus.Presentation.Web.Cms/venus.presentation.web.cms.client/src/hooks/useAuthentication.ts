@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthenticationContext, AuthenticationContextProps } from "../contexts/AuthenticationContext";
 import { AuthenticationService } from "../services";
 import { useContext, useEffect } from "react";
@@ -11,6 +11,7 @@ export const useAuthentication = (): AuthenticationContextProps => {
     const autContext = useContext(AuthenticationContext);
     const service = new AuthenticationService();
     const [navigation] = useCustomNavigate();
+    const location = useLocation();
 
     useEffect(() => {
 
@@ -27,7 +28,9 @@ export const useAuthentication = (): AuthenticationContextProps => {
                     .then(x => {
                         if (x.isSuccess && x.data != null) {
                             autContext.authenticationAction({ type: "Login", user: x.data });
-                            navigation(PageRoute.Home);
+                            if(location.pathname == PageRoute.Login){
+                                navigation(PageRoute.Home);
+                            }
                         }
                     }).catch(() => {
                         ToastHelper.DefaultError();

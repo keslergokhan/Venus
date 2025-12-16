@@ -1,16 +1,10 @@
-import { useContext, useEffect, type JSX } from "react";
-import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { type JSX } from "react";
+import { HomeContainer } from "../containers";
 
 const HomePage = (): JSX.Element => {
-
-    const autContext = useContext(AuthenticationContext);
-
-    useEffect(() => {
-        console.log(autContext.authenticationState);
-    })
+   
     return (
-        <>
-        </>
+        <HomeContainer></HomeContainer>
     )
 }
 
