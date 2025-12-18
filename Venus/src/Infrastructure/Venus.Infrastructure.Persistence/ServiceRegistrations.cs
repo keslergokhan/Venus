@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Repositories.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
-using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.Repositories.Cms;
 using Venus.Infrastructure.Persistence.Repositories.Systems;
 using Venus.Infrastructure.Persistence.VenusDbContext;
@@ -33,7 +31,8 @@ namespace Venus.Infrastructure.Persistence
         {
             services.AddScoped<IReadVenusUrlRepository, ReadVenusUrlRepository>();
             services.AddScoped<IVenusAuthenticationRepository, VenusAuthenticationRepository>();
-            services.AddStartData();
+            services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
+            //services.AddStartData();
         }
 
         private static void AddStartData(this IServiceCollection services)
@@ -104,21 +103,22 @@ namespace Venus.Infrastructure.Persistence
                         Action = "Index",
                         CreateDate = DateTime.Now,
                         Description = "Varsayılan İçerik Altyapısı",
-                        IsEntity = false,
                         ModifiedDate = null,
                         Name = "DefaultPage",
                         State = (int)EntityStateEnum.Online,
+                        PageTypeId = db.VenusPageType.FirstOrDefault(x=>x.Title == "VenusDefaultPage").Id,
+                        EntityDataUrl = null,
                     });
                     db.SaveChanges();
                 }
 
                 VenusPageAbout pageAbout = db.VenusPageAbout.FirstOrDefault(x => x.Controller == "VenusDefaultPageController");
 
-                VenusPageType pageType = db.VenusPageType.FirstOrDefault(x => x.InterfaceClassType == "IVenusDefaultPageTypeServices");
+                VenusPageType pageType = db.VenusPageType.FirstOrDefault(x => x.Title == "VenusDefaultPage");
 
                 if (!db.VenusUrl.Any(x => x.FullPath == "/hakkimizda"))
                 {
-                    db.VenusUrl.Add(new VenusUrl()
+                    var url = new VenusUrl()
                     {
                         FullPath = "/hakkimizda",
                         CreateDate = DateTime.Now,
@@ -131,20 +131,23 @@ namespace Venus.Infrastructure.Persistence
                         SubUrls = null,
                         Path = "/hakkimizda",
                         Pages = new List<VenusPage>()
-                    {
-                        new VenusPage()
                         {
-                            Id = pageType.Id,
-                            LanguageId = language.Id,
-                            Name = "Hakkimizda",
-                            CreateDate= DateTime.Now,
-                            PageAboutId = pageAbout.Id,
-                            State= (int)EntityStateEnum.Online,
-                            ParentPage = null,
-                            SubPages = null,
+                            new VenusPage()
+                            {
+                                Id = pageType.Id,
+                                Description = "Hakkimizda",
+                                LanguageId = language.Id,
+                                Name = "Hakkimizda",
+                                CreateDate= DateTime.Now,
+                                PageAboutId = pageAbout.Id,
+                                State= (int)EntityStateEnum.Online,
+                                ParentPage = null,
+                                SubPages = null,
+                            }
                         }
-                    }
-                    });
+                    };
+
+                    db.VenusUrl.Add(url);
                     db.SaveChanges();
                 }
             }

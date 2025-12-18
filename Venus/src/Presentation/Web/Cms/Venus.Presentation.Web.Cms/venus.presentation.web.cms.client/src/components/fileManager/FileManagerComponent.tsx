@@ -4,14 +4,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { IconOpenFolder2, IconArrow, IconArrowLeft, IconClose, IconRefresh, IconSpinner } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
 import { FileManagerService } from "../../services";
-import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
-import type { ReadFolderDto } from "../../dtos/fileManager/ReadFolderDto";
 import { FileManagerGetFolderRes } from "../../models";
 import { ToastHelper } from "../../helpers";
 import { LoadingComponent } from "../loading/LoadingComponent";
 import { AppContext } from "../../contexts/AppContext";
 import { CSmButtonField } from "../commons";
-import { MultiLoadingComponent } from "../loading/MultiLoadingComponent";
+import type { ReadFileDto, ReadFolderDto } from "../../dtos";
 
 export interface FileManagerComponentProps {
     selectFilenName:string

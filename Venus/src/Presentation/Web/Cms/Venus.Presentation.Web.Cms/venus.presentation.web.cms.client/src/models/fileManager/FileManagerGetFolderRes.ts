@@ -1,5 +1,4 @@
-import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
-import { ReadFolderDto } from "../../dtos/fileManager/ReadFolderDto";
+import type { ReadFileDto, ReadFolderDto } from "../../dtos";
 
 export class FileManagerGetFolderRes {
     /**

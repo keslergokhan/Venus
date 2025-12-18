@@ -36,9 +36,11 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasColumnOrder(4)
                 .HasMaxLength(EntityConfigurationConstants.MaxStringLv3);
 
-            builder.Property(x => x.IsEntity).IsRequired(true).HasDefaultValue<bool>(false);
+            builder.HasOne(x => x.PageType).WithOne(x => x.PageAbout)
+                .HasForeignKey<VenusPageAbout>(x => x.PageTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-         
+            builder.HasOne(x => x.EntityDataUrl).WithMany(x => x.PageAbouts).HasForeignKey(x => x.EntityDataUrlId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

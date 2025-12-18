@@ -1,4 +1,4 @@
-import type { ReadFileDto } from "../dtos/fileManager/ReadFileDto";
+import type { ReadFileDto } from "../dtos";
 
 export type FileManagerReducerAction = 
 | {type:"FileManagerModal",state:boolean}

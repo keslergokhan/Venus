@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { CTextField, IconClose, IconOpenFolder2 } from "../commons";
 import { AppContext } from "../../contexts/AppContext";
-import type { ReadFileDto } from "../../dtos/fileManager/ReadFileDto";
+import type { ReadFileDto } from "../../dtos";
 
 export const FileManagerInputComponent = () =>{
 

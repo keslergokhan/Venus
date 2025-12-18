@@ -28,9 +28,6 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .IsRequired(true)
                 .HasColumnOrder(3);
 
-            builder.HasOne(x=>x.Url).WithMany()
-                .HasForeignKey(x=>x.UrlId)
-                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
         }
     }
 }

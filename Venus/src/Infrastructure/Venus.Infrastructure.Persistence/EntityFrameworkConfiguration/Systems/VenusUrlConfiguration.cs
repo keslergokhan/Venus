@@ -32,6 +32,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
 
             builder.Property(x => x.IsEntity).IsRequired(true).HasDefaultValue<bool>(false);
 
+            builder.HasOne(x => x.PageType).WithMany(x => x.Urls).HasForeignKey(x => x.PageTypeId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

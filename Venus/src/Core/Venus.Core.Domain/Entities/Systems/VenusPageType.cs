@@ -16,6 +16,7 @@ namespace Venus.Core.Domain.Entities.Systems
 
     public partial class VenusPageType
     {
-        public ICollection<VenusPageAbout> PageAbouts { get; set; }
+        public VenusPageAbout PageAbout { get; set; }
+        public ICollection<VenusUrl> Urls { get; set; }
     }
 }

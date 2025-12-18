@@ -11,7 +11,6 @@ using System.Security.Claims;
 using System.Text;
 using Venus.Core.Application.Dtos.Systems.Users;
 using Venus.Core.Application.Exceptions.Cms;
-using Venus.Core.Application.Helpers;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
@@ -79,7 +78,14 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
                     signingCredentials: creds
                 );
 
-                ReadVenusUserDto userDto = EntityConvertion.Instance.EntityToDto(user);
+                ReadVenusUserDto userDto = new ReadVenusUserDto()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Password = request.Password,
+                    Name = user.Name,
+                    Surname = user.Surname, 
+                };
 
                 userDto.JwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 

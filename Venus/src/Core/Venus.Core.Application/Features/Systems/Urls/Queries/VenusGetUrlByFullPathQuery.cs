@@ -10,7 +10,7 @@ using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Systems;
-using Venus.Core.Application.Helpers;
+using Venus.Core.Application.Mappers.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
@@ -27,10 +27,11 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
     public class VenusGetUrlByFullPathQueryHandler : IRequestHandler<VenusGetUrlByFullPathQuery, IResultDataControl<List<ReadVenusUrlDto>>>
     {
         private readonly IReadVenusUrlRepository _urlRepo;
-
-        public VenusGetUrlByFullPathQueryHandler(IReadVenusUrlRepository urlRepo)
+        private readonly IMapperProvider _mapperProvider;
+        public VenusGetUrlByFullPathQueryHandler(IReadVenusUrlRepository urlRepo, IMapperProvider ıMapperProvider)
         {
             _urlRepo = urlRepo;
+            _mapperProvider = ıMapperProvider;
         }
 
         public async Task<IResultDataControl<List<ReadVenusUrlDto>>> Handle(VenusGetUrlByFullPathQuery request, CancellationToken cancellationToken)
@@ -40,7 +41,11 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
             try
             {
                 List<VenusUrl> urlList = await this._urlRepo.GetUrlByFullPathAsync(request.FullPath);
-                List<ReadVenusUrlDto> listUrlData = urlList?.Select(x=>EntityConvertion.Instance.EntityToDto(x)).ToList();
+                foreach (var item in urlList)
+                {
+                    //var sss1 = item.Pages.Select(x => this._mapperProvider.VenusPageMapper.ToDto(x)).ToList();
+                }
+                List<ReadVenusUrlDto> listUrlData = urlList.Select(x=> _mapperProvider.VenusUrlMapping.ToDto(x)).ToList();
 
                 if (listUrlData.Count == 0)
                     throw new VenusNotFoundUrlException(request.FullPath);
