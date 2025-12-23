@@ -18,33 +18,41 @@ namespace Venus.Core.Application.Mappings
         [MapPropertyFromSource(nameof(ReadVenusPageDto.ParentPage), Use = nameof(VenusPageMapper.MapParentPage))]
         public partial ReadVenusPageDto ToDto(VenusPage venusPage);
 
-        private ReadVenusPageDto MapParentPage(VenusPage venusPage)
+        private ReadVenusPageDto MapParentPage(VenusPage page)
         {
-            if (venusPage.ParentPage == null)
+            if (page.ParentPage == null)
                 return null;
 
-            return ToDto(venusPage.ParentPage);
+            return ToDto(page.ParentPage);
         }
 
-        private ReadVenusUrlDto MapUrl(VenusUrl Url)
+        private ReadVenusUrlDto MapUrl(VenusPage page)
         {
             return new ReadVenusUrlDto()
             {
-                LanguageId = Url.LanguageId,
-                Id = Url.Id,
-                Path = Url.Path,
-                PageTypeId = Url.PageTypeId,
+                LanguageId = page.Url.LanguageId,
+                Id = page.Url.Id,
+                Path = page. Url.Path,
+                PageTypeId = page.Url.PageTypeId,
+                FullPath = page.Url.FullPath,
             };
         }
 
-        private List<ReadVenusPageDto> MapSubPages(VenusPage venusPages)
+        private List<ReadVenusPageDto> MapSubPages(VenusPage page)
         {
-            if (venusPages.SubPages == null)
+            if (page.SubPages == null)
             {
                 return null;
             }
 
-            return venusPages.SubPages.Select(x => ToDto(x)).ToList();
+            return page.SubPages.Select(x => new ReadVenusPageDto()
+            {
+                Url = MapUrl(x),
+                Description = x.Description,
+                LanguageId = x.LanguageId,  
+                Id = x.Id,
+                Name = x.Name,  
+            }).ToList();
         }
     }
 }

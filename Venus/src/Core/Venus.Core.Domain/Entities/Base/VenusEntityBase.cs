@@ -14,4 +14,5 @@ namespace Venus.Core.Domain.Entities.Base
         public DateTime CreateDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
+
 }

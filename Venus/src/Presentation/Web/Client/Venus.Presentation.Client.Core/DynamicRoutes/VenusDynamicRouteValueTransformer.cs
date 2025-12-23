@@ -45,11 +45,25 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
             if (!urlResult.IsSuccess)
                 throw urlResult.Exception;
 
+            var urlData = urlResult.Data.Where(x => x.PageType.InterfaceClassType != typeof(IVenusEntityDetailPageTypeService).FullName).ToList();
+
             ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
             ReadVenusLanguageDto language = url.Language;
             ReadVenusPageDto page = url.Pages.FirstOrDefault();
             ReadVenusPageAboutDto pageAbout = page.PageAbout;
             ReadVenusPageTypeDto pageType = url.PageType;
+
+            if(language == null)
+                    throw new VenusNotFoundLanguageException();
+
+            if (page == null)
+                throw new VenusNotFoundPageException(FullPath);
+
+            if (pageAbout == null)
+                throw new VenusNotFoundPageAboutException(page.Id, page.Name);
+
+            if (pageType == null)
+                throw new VenusNotFoundPageTypeException();
 
 
             this._venusContext.Url = new VenusHttpUrl(url.Id,FullPath,Schema,Host,Path,BaseUrl,url.ParentUrlId,url.IsEntity);

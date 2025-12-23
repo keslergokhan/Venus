@@ -24,6 +24,7 @@ namespace Venus.Presentation.Client.Core
             services.AddVenusApplicationServiceRegistration(configuration);
             services.AddVenusPersistenceServiceRegistration(configuration);
             services.AddScoped<IVenusDefaultPageTypeService, VenusDefaultPageTypeService>();
+            services.AddScoped<IVenusEntityListPageTypeService, VenusEntityListPageTypeService>();
             services.AddScoped<VenusDynamicRouteValueTransformer>();
             return services;
         }

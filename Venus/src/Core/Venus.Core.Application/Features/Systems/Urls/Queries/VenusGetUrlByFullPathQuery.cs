@@ -41,10 +41,7 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
             try
             {
                 List<VenusUrl> urlList = await this._urlRepo.GetUrlByFullPathAsync(request.FullPath);
-                foreach (var item in urlList)
-                {
-                    //var sss1 = item.Pages.Select(x => this._mapperProvider.VenusPageMapper.ToDto(x)).ToList();
-                }
+               
                 List<ReadVenusUrlDto> listUrlData = urlList.Select(x=> _mapperProvider.VenusUrlMapping.ToDto(x)).ToList();
 
                 if (listUrlData.Count == 0)

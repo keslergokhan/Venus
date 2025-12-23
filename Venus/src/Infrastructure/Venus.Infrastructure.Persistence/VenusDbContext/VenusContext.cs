@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.VenusDbContext.Interfaces;
+using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Infrastructure.Persistence.VenusDbContext
@@ -22,6 +23,7 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
             base.OnModelCreating(modelBuilder);
         }
 
+        #region VenusSystems
         public DbSet<VenusEntityDataUrl> VenusEntityDataUrl { get; set; }
         public DbSet<VenusLanguage> VenusLanguage { get; set; }
         public DbSet<VenusLocalization> VenusLocalization { get; set; }
@@ -30,5 +32,7 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         public DbSet<VenusPageType> VenusPageType { get; set; }
         public DbSet<VenusUrl> VenusUrl { get; set; }
         public DbSet<VenusUser> VenusUser { get; set; }
+        #endregion VenusSystems End
+        public DbSet<Blog> Blogs { get; set; }  
     }
 }

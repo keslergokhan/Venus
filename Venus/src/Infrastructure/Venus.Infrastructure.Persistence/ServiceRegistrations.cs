@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Enums.Systems;
+using Venus.Core.Application.Repositories.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.VenusDbContext.Interfaces;
+using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
+using Venus.Infrastructure.Persistence.Repositories;
 using Venus.Infrastructure.Persistence.Repositories.Cms;
 using Venus.Infrastructure.Persistence.Repositories.Systems;
 using Venus.Infrastructure.Persistence.VenusDbContext;
@@ -32,6 +35,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IReadVenusUrlRepository, ReadVenusUrlRepository>();
             services.AddScoped<IVenusAuthenticationRepository, VenusAuthenticationRepository>();
             services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
+            services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
             //services.AddStartData();
         }
 
@@ -149,6 +153,147 @@ namespace Venus.Infrastructure.Persistence
 
                     db.VenusUrl.Add(url);
                     db.SaveChanges();
+                }
+
+                if (!db.Blogs.Any(x=>x.Title == "test-blog"))
+                {
+                    if (!db.VenusPageType.Any(x=>x.Title == "VenusEntityListPage"))
+                    {
+                        db.VenusPageType.Add(new VenusPageType()
+                        {
+                            Id = Guid.NewGuid(),
+                            Title = "VenusEntityListPage",
+                            InterfaceClassType = "Venus.Presentation.Client.Core.PageTypeServices.Interfaces.IVenusEntityListPageTypeService",
+                            CreateDate = DateTime.Now,
+                            Description = "Varsayılan list sayfası",
+                            State = (int)EntityStateEnum.Online,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    if (!db.VenusPageType.Any(x => x.Title == "VenusEntityDetailPage"))
+                    {
+                        db.VenusPageType.Add(new VenusPageType()
+                        {
+                            Id = Guid.NewGuid(),
+                            Title = "VenusEntityDetailPage",
+                            InterfaceClassType = "Venus.Presentation.Client.Core.PageTypeServices.Interfaces.IVenusEntityDetailPageTypeService",
+                            CreateDate = DateTime.Now,
+                            Description = "Varsayılan list sayfası",
+                            State = (int)EntityStateEnum.Online,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    Type blog = typeof(Blog);
+                    if (!db.VenusEntityDataUrl.Any(x=>x.EntityName == "Blog"))
+                    {
+                        db.VenusEntityDataUrl.Add(new VenusEntityDataUrl()
+                        {
+                            Id = Guid.NewGuid(),
+                            EntityName = blog.Name,
+                            EntityClassType = blog.FullName,
+                            CreateDate = DateTime.Now,
+                            State = (int)EntityStateEnum.Online,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    VenusPageType VenusEntityListPage = db.VenusPageType.FirstOrDefault(x => x.Title == "VenusEntityListPage");
+                    VenusPageType VenusEntityDetailPage = db.VenusPageType.FirstOrDefault(x => x.Title == "VenusEntityDetailPage");
+                    VenusEntityDataUrl VenusEntityDataUrl = db.VenusEntityDataUrl.FirstOrDefault(x => x.EntityName == blog.Name);
+
+                    if (!db.VenusPageAbout.Any(x=>x.Name == "BlogList"))
+                    {
+                        db.VenusPageAbout.Add(new VenusPageAbout()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "BlogList",
+                            Controller = "BlogController",
+                            Action = "List",
+                            CreateDate= DateTime.Now,
+                            Description = "BLog Liste sayfası",
+                            State = (int)EntityStateEnum.Online,
+                            PageTypeId = VenusEntityListPage.Id,
+                            EntityDataUrl = VenusEntityDataUrl,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    if (!db.VenusPageAbout.Any(x => x.Name == "BlogDetail"))
+                    {
+                        db.VenusPageAbout.Add(new VenusPageAbout()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "BlogDetail",
+                            Controller = "BlogController",
+                            Action = "Detail",
+                            CreateDate = DateTime.Now,
+                            Description = "BLog detay sayfası",
+                            State = (int)EntityStateEnum.Online,
+                            PageTypeId = VenusEntityDetailPage.Id,
+                            EntityDataUrl = VenusEntityDataUrl,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    VenusPageAbout BlogDetailAbout = db.VenusPageAbout.FirstOrDefault(x => x.Name == "BlogDetail");
+                    VenusPageAbout BlogListAbout = db.VenusPageAbout.FirstOrDefault(x => x.Name == "BlogList");
+
+                    if (!db.VenusUrl.Any(x=>x.PageTypeId == VenusEntityListPage.Id))
+                    {
+                        db.VenusUrl.Add(new VenusUrl()
+                        {
+                            Id = Guid.NewGuid(),
+                            CreateDate = DateTime.Now,
+                            FullPath = "/blog",
+                            Path = "/blog",
+                            PageTypeId = VenusEntityListPage.Id,
+                            State = (int)EntityStateEnum.Online,
+                            LanguageId = language.Id,
+                            IsEntity = false,
+                            Pages = new List<VenusPage>()
+                            {
+                                new VenusPage()
+                                {
+                                    Id = Guid.NewGuid(),
+                                    LanguageId = language.Id,
+                                    CreateDate= DateTime.Now,
+                                    State = (int)EntityStateEnum.Online,
+                                    Description = "Blog list sayfası",
+                                    Name = "Bloglar",
+                                    PageAboutId = BlogListAbout.Id,
+                                    SubPages = new List<VenusPage>()
+                                    {
+                                        new VenusPage()
+                                        {
+                                            Id = Guid.NewGuid(),
+                                            PageAboutId = BlogDetailAbout.Id,
+                                            Name = "Blog Detay",
+                                            CreateDate = DateTime.Now,
+                                            State = (int)EntityStateEnum.Online,
+                                            Description = "Blog Detay",
+                                            LanguageId = language.Id,
+                                            Url = new VenusUrl()
+                                            {
+                                                Id = Guid.NewGuid(),
+                                                CreateDate = DateTime.Now,
+                                                FullPath = "/blog",
+                                                Path = "/blog",
+                                                PageTypeId = VenusEntityDetailPage.Id,
+                                                State = (int)EntityStateEnum.Online,
+                                                LanguageId = language.Id,
+                                                IsEntity = true,
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        db.SaveChanges();
+                    }
+
+                   
                 }
             }
             catch (Exception ex)

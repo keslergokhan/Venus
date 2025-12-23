@@ -1,4 +1,5 @@
-﻿using Riok.Mapperly.Abstractions;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Riok.Mapperly.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,34 +23,35 @@ namespace Venus.Core.Application.Mappings
             _pageMapping = pageMapping;
         }
 
-        [MapPropertyFromSource(nameof(ReadVenusUrlDto.Pages), Use = nameof(VenusUrlMapping.MapPages))]
         [MapPropertyFromSource(nameof(ReadVenusUrlDto.ParentUrl), Use = nameof(VenusUrlMapping.MapParentUrl))]
         [MapPropertyFromSource(nameof(ReadVenusUrlDto.SubUrls), Use = nameof(VenusUrlMapping.MapSubUrls))]
+        [MapPropertyFromSource(nameof(ReadVenusUrlDto.Pages), Use = nameof(VenusUrlMapping.MapPages))]
         public partial ReadVenusUrlDto ToDto(VenusUrl venusUrl);
 
 
-        private List<ReadVenusPageDto> MapPages(VenusUrl ParentUrl)
+        private ReadVenusUrlDto MapParentUrl(VenusUrl url)
         {
-            return ParentUrl.Pages.Select(x => this._pageMapping.ToDto(x)).ToList();
-        }
-
-        private ReadVenusUrlDto MapParentUrl(VenusUrl ParentUrl)
-        {
-            if (ParentUrl.ParentUrl == null)
+            if (url.ParentUrl == null)
                 return null;
 
-            return ToDto(ParentUrl.ParentUrl);
+            return ToDto(url.ParentUrl);
         }
 
-        private List<ReadVenusUrlDto> MapSubUrls(VenusUrl ParentUrl)
+        private List<ReadVenusUrlDto> MapSubUrls(VenusUrl url)
         {
-            if (ParentUrl.SubUrls == null)
+            if (url.SubUrls == null)
                 return null;
 
-            return ParentUrl.SubUrls.Select(x=>ToDto(x)).ToList();
+            return url.SubUrls.Select(x=>ToDto(x)).ToList();
         }
 
-        
+        public List<ReadVenusPageDto> MapPages(VenusUrl url)
+        {
+            if (url.Pages == null)
+                return null;
+
+            return url.Pages.Select(x => _pageMapping.ToDto(x)).ToList();
+        }
 
 
     }
