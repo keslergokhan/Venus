@@ -30,7 +30,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasForeignKey(x => x.ParentUrlId)
                 .IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.IsEntity).IsRequired(true).HasDefaultValue<bool>(false);
+            builder.Property(x => x.UrlType).IsRequired(true).HasDefaultValue<short>(0);
 
             builder.HasOne(x => x.PageType).WithMany(x => x.Urls).HasForeignKey(x => x.PageTypeId).OnDelete(DeleteBehavior.NoAction);
         }

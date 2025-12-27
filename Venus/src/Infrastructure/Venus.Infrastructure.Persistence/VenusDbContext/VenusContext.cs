@@ -11,7 +11,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Infrastructure.Persistence.VenusDbContext
 {
-    public class VenusContext : DbContext, IVenusApplicationDbContext
+    public partial class VenusContext : DbContext, IVenusApplicationDbContext
     {
         public VenusContext(DbContextOptions<VenusContext> dbContextOptions) : base(dbContextOptions)
         {
@@ -33,6 +33,6 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         public DbSet<VenusUrl> VenusUrl { get; set; }
         public DbSet<VenusUser> VenusUser { get; set; }
         #endregion VenusSystems End
-        public DbSet<Blog> Blogs { get; set; }  
+        public DbSet<Blog> Blog { get; set; }  
     }
 }

@@ -8,11 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Dtos.Systems.Languages;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Systems.Urls.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
+using Venus.Presentation.Client.Core.RequestHandler.Interfaces;
+using Venus.Presentation.Client.Core.RouterHandler;
 using static Venus.Core.Application.HttpRequests.VenusHttpContext;
 
 namespace Venus.Presentation.Client.Core.DynamicRoutes
@@ -21,16 +24,21 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
     {
         private readonly IMediator _m;
         private readonly IVenusHttpContext _venusContext;
-        public required IServiceProvider _serviceProvider;
-        public VenusDynamicRouteValueTransformer(IMediator m, IVenusHttpContext venusContext, IServiceProvider serviceProvider)
+        public VenusDynamicRouteValueTransformer(IMediator m, IVenusHttpContext venusContext)
         {
             _m = m;
             _venusContext = venusContext;
-            _serviceProvider = serviceProvider;
         }
         public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext context, RouteValueDictionary values)
-        
         {
+
+
+            RouterHandlerBase urlHandler = new RouterUrlHandler();
+            urlHandler.Next(new RoutePageHandler()).Next(new RouterPageTypeServiceHandler());
+
+            await urlHandler.HandleAsync(context);
+
+
             string Path = context.Request.Path;
             string Schema = context.Request.Scheme;
             string FullPath = $"{context.Request.Scheme}://{context.Request.Host}{Path}";
@@ -45,7 +53,7 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
             if (!urlResult.IsSuccess)
                 throw urlResult.Exception;
 
-            var urlData = urlResult.Data.Where(x => x.PageType.InterfaceClassType != typeof(IVenusEntityDetailPageTypeService).FullName).ToList();
+            var urlData = urlResult.Data.Where(x => x.UrlType != (short)UrlTypeEnum.Detail).ToList();
 
             ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
             ReadVenusLanguageDto language = url.Language;

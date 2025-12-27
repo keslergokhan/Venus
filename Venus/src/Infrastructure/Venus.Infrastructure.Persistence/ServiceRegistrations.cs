@@ -37,6 +37,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
             services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
             //services.AddStartData();
+            
         }
 
         private static void AddStartData(this IServiceCollection services)
@@ -127,12 +128,12 @@ namespace Venus.Infrastructure.Persistence
                         FullPath = "/hakkimizda",
                         CreateDate = DateTime.Now,
                         Id = Guid.NewGuid(),
-                        IsEntity = false,
                         LanguageId = language.Id,
                         State = (int)EntityStateEnum.Online,
                         PageTypeId = pageType.Id,
                         ParentUrl = null,
                         SubUrls = null,
+                        UrlType = (short)UrlTypeEnum.Content,
                         Path = "/hakkimizda",
                         Pages = new List<VenusPage>()
                         {
@@ -155,7 +156,7 @@ namespace Venus.Infrastructure.Persistence
                     db.SaveChanges();
                 }
 
-                if (!db.Blogs.Any(x=>x.Title == "test-blog"))
+                if (!db.Blog.Any(x=>x.Title == "test-blog"))
                 {
                     if (!db.VenusPageType.Any(x=>x.Title == "VenusEntityListPage"))
                     {
@@ -248,10 +249,10 @@ namespace Venus.Infrastructure.Persistence
                             CreateDate = DateTime.Now,
                             FullPath = "/blog",
                             Path = "/blog",
+                            UrlType = (short)UrlTypeEnum.List,
                             PageTypeId = VenusEntityListPage.Id,
                             State = (int)EntityStateEnum.Online,
                             LanguageId = language.Id,
-                            IsEntity = false,
                             Pages = new List<VenusPage>()
                             {
                                 new VenusPage()
@@ -279,11 +280,11 @@ namespace Venus.Infrastructure.Persistence
                                                 Id = Guid.NewGuid(),
                                                 CreateDate = DateTime.Now,
                                                 FullPath = "/blog",
+                                                UrlType = (short)UrlTypeEnum.Detail,
                                                 Path = "/blog",
                                                 PageTypeId = VenusEntityDetailPage.Id,
                                                 State = (int)EntityStateEnum.Online,
                                                 LanguageId = language.Id,
-                                                IsEntity = true,
                                             }
                                         }
                                     }
@@ -293,7 +294,33 @@ namespace Venus.Infrastructure.Persistence
                         db.SaveChanges();
                     }
 
-                   
+
+                    VenusUrl blogBaseUrl = db.VenusUrl.Where(x => x.UrlType == (short)UrlTypeEnum.Detail && x.PageType.PageAbout.EntityDataUrl.EntityName == nameof(Blog)).FirstOrDefault();
+
+                    db.Blog.Add(new Blog()
+                    {
+                        Url = new VenusUrl()
+                        {
+                            Id = Guid.NewGuid(),
+                            FullPath = $"{blogBaseUrl.FullPath}/test-blog",
+                            Path = "/test-blog",
+                            UrlType = (short)UrlTypeEnum.Entity,
+                            LanguageId = language.Id,
+                            State = (int)EntityStateEnum.Online,
+                            PageTypeId = VenusEntityDetailPage.Id,
+                            CreateDate = DateTime.Now,
+                            ModifiedDate = null,
+                            ParentUrlId = blogBaseUrl.Id,
+                        },
+                        CreateDate = DateTime.Now,
+                        Description = "Test blog içeriği",
+                        Id = Guid.NewGuid(),
+                        State = (int)EntityStateEnum.Online,
+                        ModifiedDate = null,
+                        Title = "test-blog",
+
+                    });
+                    db.SaveChanges();
                 }
             }
             catch (Exception ex)

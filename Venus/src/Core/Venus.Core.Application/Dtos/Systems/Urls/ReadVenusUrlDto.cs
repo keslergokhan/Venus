@@ -24,6 +24,7 @@ namespace Venus.Core.Application.Dtos.Systems.Urls
         public List<ReadVenusUrlDto> SubUrls { get; set; }
         public ReadVenusPageTypeDto PageType { get; set; }
         public Guid PageTypeId { get; set; }
+        public short UrlType { get; set; }
 
         public List<ReadVenusPageDto> Pages { get; set; }
     }

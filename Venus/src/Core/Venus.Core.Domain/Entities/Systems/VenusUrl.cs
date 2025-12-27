@@ -12,7 +12,7 @@ namespace Venus.Core.Domain.Entities.Systems
     {
         public string Path { get; set; }
         public string FullPath { get; set; }
-        public bool IsEntity { get; set; }
+        public short UrlType { get;set; }
 
         public Guid? ParentUrlId { get; set; }
         public VenusUrl ParentUrl { get; set; }
