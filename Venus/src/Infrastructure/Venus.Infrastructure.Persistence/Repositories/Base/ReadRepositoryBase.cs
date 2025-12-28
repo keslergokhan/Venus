@@ -22,7 +22,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
 
         protected IQueryable<T> GetQueryable()
         {
-            return base.GetQueryable<T>();
+            return base.GetQueryable<T>().AsNoTracking();
         }
 
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null)

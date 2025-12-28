@@ -8,10 +8,8 @@ namespace Venus.Core.Application.Exceptions.Systems
 {
     public class VenusNotFoundPageException : Exception
     {
-        public string FullPath { get; }
-        public VenusNotFoundPageException(string fullPath) : base($"{fullPath}, adresine bağlı sayfa bulunamadı !")
+        public VenusNotFoundPageException() : base($"Sayfa bulunamadı !")
         {
-            this.FullPath = fullPath;
         }
     }
 }

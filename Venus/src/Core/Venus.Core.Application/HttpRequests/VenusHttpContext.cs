@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Dtos.Systems.Languages;
+using Venus.Core.Application.Dtos.Systems.Pages;
+using Venus.Core.Application.Dtos.Systems.Urls;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.HttpRequests.Base;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.VenusDbContext.Interfaces;
@@ -20,13 +24,14 @@ namespace Venus.Core.Application.HttpRequests
         {
             public Guid Id { get; }
 
-            public VenusHttpPage(Guid ıd, string name, string description, string controller, string action)
+            public VenusHttpPage(ReadVenusPageDto readVenusPageDto)
             {
-                Id = ıd;
-                Name = name;
-                Description = description;
-                Controller = controller;
-                Action = action;
+                var pageAbout = readVenusPageDto.PageAbout;
+                Id = pageAbout.Id;
+                Name = readVenusPageDto.Name;
+                Description = readVenusPageDto.Description;
+                Controller = pageAbout.Controller;
+                Action = pageAbout.Action;
             }
 
             public string Name { get; }
@@ -44,13 +49,13 @@ namespace Venus.Core.Application.HttpRequests
             public string CountryCode { get; }
             public string Culture { get; }
             public string Currency { get; }
-            public VenusHttpLanguage(string name, string countryCode, string culture, string currency, Guid id)
+            public VenusHttpLanguage(ReadVenusLanguageDto readVenusLanguageDto)
             {
-                Name = name;
-                CountryCode = countryCode;
-                Culture = culture;
-                Currency = currency;
-                Id = id;
+                Name = readVenusLanguageDto.Name;
+                CountryCode = readVenusLanguageDto.CountryCode;
+                Culture = readVenusLanguageDto.Culture;
+                Currency = readVenusLanguageDto.Currency;
+                Id = readVenusLanguageDto.Id;
             }
         }
         public class VenusHttpUrl
@@ -63,24 +68,23 @@ namespace Venus.Core.Application.HttpRequests
             public string FullPath { get; }
             public string BaseUrl { get; }
             public Guid Id { get; }
-            public Guid? ParentUrlId { get; }
-            public VenusHttpUrl(Guid id,
+            public Guid? ParentId { get; }
+            public short UrlType { get; set; }
+            public VenusHttpUrl(
                 string fullPath,
                 string schema,
                 string host,
                 string path,
-                string baseUrl,
-                Guid? parentUrlId,
-                bool ısEntity)
+                string baseUrl,ReadVenusUrlDto readVenusUrlDto)
             {
-                Id = id;
                 FullPath = fullPath;
                 Schema = schema;
                 Host = host;
                 Path = path;
                 BaseUrl = baseUrl;
-                ParentUrlId = parentUrlId;
-                IsEntity = ısEntity;
+                Id = readVenusUrlDto.Id;
+                ParentId = readVenusUrlDto.ParentUrlId;
+                UrlType = readVenusUrlDto.UrlType;  
             }
         }
     }

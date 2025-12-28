@@ -12,7 +12,7 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories.Cms
 {
-    public class VenusAuthenticationRepository : RepositoryBase, IVenusAuthenticationRepository
+    public class VenusAuthenticationRepository : RepositoryBase, IVenusAuthenticationCmsRepository
     {
         public VenusAuthenticationRepository(VenusContext db) : base(db)
         {

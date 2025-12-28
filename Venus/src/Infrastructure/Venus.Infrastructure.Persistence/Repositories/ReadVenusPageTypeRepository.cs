@@ -8,11 +8,11 @@ using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
-namespace Venus.Infrastructure.Persistence.Repositories.Cms
+namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class VenusPageTypeRepository : ReadRepositoryBase<VenusPageType>, IVenusPageTypeRepository
+    public class ReadVenusPageTypeRepository : ReadRepositoryBase<VenusPageType>, IReadVenusPageTypeCmsRepository
     {
-        public VenusPageTypeRepository(VenusContext db) : base(db)
+        public ReadVenusPageTypeRepository(VenusContext db) : base(db)
         {
         }
     }

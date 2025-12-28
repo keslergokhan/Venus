@@ -26,12 +26,12 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
 
     public class VenusAuthenticationHandlerQuery : IRequestHandler<VenusAuthenticationQuery, IResultDataControl<ReadVenusUserDto>>
     {
-        private readonly IVenusAuthenticationRepository _venusAuth;
+        private readonly IVenusAuthenticationCmsRepository _venusAuth;
         private readonly IHttpContextAccessor _httpAccessor;
         private readonly IConfiguration _config;
 
 
-        public VenusAuthenticationHandlerQuery(IVenusAuthenticationRepository venusAuth, IHttpContextAccessor httpAccessor, IConfiguration config)
+        public VenusAuthenticationHandlerQuery(IVenusAuthenticationCmsRepository venusAuth, IHttpContextAccessor httpAccessor, IConfiguration config)
         {
             _venusAuth = venusAuth;
             _httpAccessor = httpAccessor;

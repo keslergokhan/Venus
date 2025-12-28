@@ -11,6 +11,6 @@ namespace Venus.Core.Application.Dtos.Interfaces
     public interface IVenusUrlEntityDto
     {
         public Guid UrlId { get; set; }
-        public ReadVenusUrlDto Url { get; set; }
+        public ReadVenusUrlSummaryDto Url { get; set; }
     }
 }

@@ -20,10 +20,10 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
 
     public class VenusGetPageTypesQueryHandler : IRequestHandler<VenusGetPageTypesQuery, IResultDataControl<List<ReadVenusPageTypeDto>>>
     {
-        private readonly IVenusPageTypeRepository _venusPageTypeRepository;
+        private readonly IReadVenusPageTypeCmsRepository _venusPageTypeRepository;
         private readonly IMapperProvider _mapperProvider;
 
-        public VenusGetPageTypesQueryHandler(IVenusPageTypeRepository venusPageTypeRepository, IMapperProvider mapperProvider)
+        public VenusGetPageTypesQueryHandler(IReadVenusPageTypeCmsRepository venusPageTypeRepository, IMapperProvider mapperProvider)
         {
             _venusPageTypeRepository = venusPageTypeRepository;
             _mapperProvider = mapperProvider;

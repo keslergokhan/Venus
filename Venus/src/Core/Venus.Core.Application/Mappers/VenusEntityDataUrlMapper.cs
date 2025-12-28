@@ -13,5 +13,15 @@ namespace Venus.Core.Application.Mappers
     public partial class VenusEntityDataUrlMapper
     {
         public partial ReadVenusEntityDataUrlDto ToDto(VenusEntityDataUrl venusEntityDataUrl);
+
+        public static ReadVenusEntityDataUrlDto StaticToDto(VenusEntityDataUrl venusEntityData)
+        {
+            return venusEntityData == null ? null : new ReadVenusEntityDataUrlDto
+            {
+                Id = venusEntityData.Id,
+                EntityName = venusEntityData.EntityName,
+                EntityClassType = venusEntityData.EntityClassType
+            };
+        }
     }
 }

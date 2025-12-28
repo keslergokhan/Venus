@@ -9,7 +9,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Cms
 {
-    public interface IVenusPageTypeRepository : IReadRepository<VenusPageType>
+    public interface IReadVenusPageTypeCmsRepository : IReadRepository<VenusPageType>
     {
     }
 }

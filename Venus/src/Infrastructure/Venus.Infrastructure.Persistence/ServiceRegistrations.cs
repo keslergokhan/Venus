@@ -11,7 +11,6 @@ using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories;
 using Venus.Infrastructure.Persistence.Repositories.Cms;
-using Venus.Infrastructure.Persistence.Repositories.Systems;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence
@@ -32,9 +31,10 @@ namespace Venus.Infrastructure.Persistence
         
         private static void AddVenusPersistenceServiceRegistration(this IServiceCollection services)
         {
-            services.AddScoped<IReadVenusUrlRepository, ReadVenusUrlRepository>();
-            services.AddScoped<IVenusAuthenticationRepository, VenusAuthenticationRepository>();
-            services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
+            services.AddScoped<IReadVenusUrlSystemRepository, ReadVenusUrlRepository>();
+            services.AddScoped<IVenusAuthenticationCmsRepository, VenusAuthenticationRepository>();
+            services.AddScoped<IReadVenusPageTypeCmsRepository, ReadVenusPageTypeRepository>();
+            services.AddScoped<IReadVenusPageSystemRepository, ReadVenusPageRepository>();
             services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
             //services.AddStartData();
             

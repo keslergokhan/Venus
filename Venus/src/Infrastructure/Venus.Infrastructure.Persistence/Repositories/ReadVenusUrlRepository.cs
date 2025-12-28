@@ -10,9 +10,9 @@ using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
-namespace Venus.Infrastructure.Persistence.Repositories.Systems
+namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class ReadVenusUrlRepository : ReadRepositoryBase<VenusUrl>, IReadVenusUrlRepository
+    public class ReadVenusUrlRepository : ReadRepositoryBase<VenusUrl>, IReadVenusUrlSystemRepository
     {
         public ReadVenusUrlRepository(VenusContext db) : base(db)
         {
@@ -20,12 +20,9 @@ namespace Venus.Infrastructure.Persistence.Repositories.Systems
 
         public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
         {
-            return base.GetQueryable()
+            return GetQueryable()
                 .Where(x => x.FullPath
                 .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Online)
-                .Include(x => x.Pages).Include(x => x.ParentUrl)
-                .Include(x => x.Pages).ThenInclude(x => x.PageAbout)
-                .Include(x => x.PageType)
                 .Include(x=>x.Language)
                 .ToListAsync();
         }

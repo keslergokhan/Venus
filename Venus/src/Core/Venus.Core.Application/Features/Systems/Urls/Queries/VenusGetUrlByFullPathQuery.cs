@@ -26,9 +26,9 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
 
     public class VenusGetUrlByFullPathQueryHandler : IRequestHandler<VenusGetUrlByFullPathQuery, IResultDataControl<List<ReadVenusUrlDto>>>
     {
-        private readonly IReadVenusUrlRepository _urlRepo;
+        private readonly IReadVenusUrlSystemRepository _urlRepo;
         private readonly IMapperProvider _mapperProvider;
-        public VenusGetUrlByFullPathQueryHandler(IReadVenusUrlRepository urlRepo, IMapperProvider ıMapperProvider)
+        public VenusGetUrlByFullPathQueryHandler(IReadVenusUrlSystemRepository urlRepo, IMapperProvider ıMapperProvider)
         {
             _urlRepo = urlRepo;
             _mapperProvider = ıMapperProvider;
@@ -48,22 +48,6 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
                     throw new VenusNotFoundUrlException(request.FullPath);
 
                 ReadVenusUrlDto url = listUrlData.FirstOrDefault();
-                ReadVenusLanguageDto language = url.Language;
-                ReadVenusPageDto page = url.Pages.FirstOrDefault();
-                ReadVenusPageAboutDto pageAbout = page.PageAbout;
-                ReadVenusPageTypeDto pageType = url.PageType;
-
-                if (language == null)
-                    throw new VenusNotFoundLanguageException();
-
-                if (page == null)
-                    throw new VenusNotFoundPageException(request.FullPath);
-
-                if (pageAbout == null)
-                    throw new VenusNotFoundPageAboutException(page.Id, page.Name);
-
-                if (pageType == null)
-                    throw new VenusNotFoundPageTypeException();
 
                 result.SetData(listUrlData);
             }

@@ -29,9 +29,9 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
         IRequestHandler<VenusAuthenticationValidateQuery, IResultDataControl<ReadVenusUserDto>>
     {
         private readonly IConfiguration _configuration;
-        private readonly IVenusAuthenticationRepository _authRepo;
+        private readonly IVenusAuthenticationCmsRepository _authRepo;
 
-        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationRepository authRepo)
+        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationCmsRepository authRepo)
         {
             this._configuration = configuration;
             this._authRepo = authRepo;

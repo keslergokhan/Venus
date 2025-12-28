@@ -13,5 +13,6 @@ namespace Venus.Core.Application.Mappers
     public partial class VenusLanguageMapper
     {
         public partial ReadVenusLanguageDto ToDto(VenusLanguage venusLanguage);
+
     }
 }
