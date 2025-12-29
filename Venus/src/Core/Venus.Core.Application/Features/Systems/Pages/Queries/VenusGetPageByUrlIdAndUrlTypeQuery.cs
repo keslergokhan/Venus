@@ -1,13 +1,8 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MapsterMapper;
+using MediatR;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Systems;
-using Venus.Core.Application.Mappers.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
@@ -25,12 +20,12 @@ namespace Venus.Core.Application.Features.Systems.Pages.Queries
     public class VenusGetPageByUrlIdAndUrlTypeQueryHandler : IRequestHandler<VenusGetPageByUrlIdAndUrlTypeQuery, IResultDataControl<ReadVenusPageDto>>
     {
         private readonly IReadVenusPageSystemRepository _readVenusPageSystemRepository;
-        private readonly IMapperProvider _mapperProvider;
+        private readonly IMapper _mapper;
 
-        public VenusGetPageByUrlIdAndUrlTypeQueryHandler(IReadVenusPageSystemRepository readVenusPageSystemRepository, IMapperProvider mapperProvider)
+        public VenusGetPageByUrlIdAndUrlTypeQueryHandler(IReadVenusPageSystemRepository readVenusPageSystemRepository, IMapper mapper)
         {
             _readVenusPageSystemRepository = readVenusPageSystemRepository;
-            _mapperProvider = mapperProvider;
+            _mapper = mapper;
         }
 
         public async Task<IResultDataControl<ReadVenusPageDto>> Handle(VenusGetPageByUrlIdAndUrlTypeQuery request, CancellationToken cancellationToken)
@@ -40,7 +35,7 @@ namespace Venus.Core.Application.Features.Systems.Pages.Queries
             {
                 VenusPage page = null;
 
-                if (request.UrlType == (short)UrlTypeEnum.Detail)
+                if (request.UrlType == (short)UrlTypeEnum.Entity)
                 {
                     page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.ParentUrlId.Value);
                 }
@@ -55,7 +50,7 @@ namespace Venus.Core.Application.Features.Systems.Pages.Queries
                     throw new VenusNotFoundPageException();
                 }
 
-                ReadVenusPageDto pageDto = _mapperProvider.VenusPageMapper.ToDto(page);
+                ReadVenusPageDto pageDto = this._mapper.Map<ReadVenusPageDto>(page);
                 result.SetData(pageDto);
             }
             catch (Exception ex)

@@ -18,12 +18,9 @@ namespace Venus.Presentation.Client.Core.RouterHandler
 {
     public class RoutePageHandler : RouterHandlerBase
     {
-        public RoutePageHandler(HttpContext context)
+        public override async Task<IVenusHttpContext> HandleAsync(HttpContext context,object request = null)
         {
             base.ServiceRegistration(context);
-        }
-        public override async Task<IVenusHttpContext> HandleAsync(HttpContext context)
-        {
             IResultDataControl<ReadVenusPageDto> result = await base.Mediator.Send(new VenusGetPageByUrlIdAndUrlTypeQuery()
             {
                 ParentUrlId = base.VenusContext.Url.ParentId,
@@ -47,11 +44,10 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             if (page.PageAbout.PageType == null)
                 throw new VenusNotFoundPageTypeException();
 
-            base.CurrentPageTypeService = page.PageAbout.PageType;
+            ReadVenusPageTypeDto pageType = page.PageAbout.PageType;
+            base.VenusContext.Page = new VenusHttpPage(page);
 
-            this.VenusContext.Page = new VenusHttpPage(page);
-
-            return await base.HandleAsync(context);
+            return await base.HandleAsync(context, pageType);
         }
     }
 }

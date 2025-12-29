@@ -31,54 +31,13 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
         }
         public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext context, RouteValueDictionary values)
         {
-
-
             RouterHandlerBase urlHandler = new RouterUrlHandler();
-            urlHandler.Next(new RoutePageHandler(context)).Next(new RouterPageTypeServiceHandler());
+
+            urlHandler // Request üzerinde url parçalandı ve db kaydına erişildi
+                .Next(new RoutePageHandler()) //Url bağlı sayfa ve sayfanın ayarlarına ulaşıldı.
+                .Next(new RouterPageTypeServiceHandler()); //sayfa tipi servisi çalıştırıldı.   
 
             await urlHandler.HandleAsync(context);
-
-
-            //string Path = context.Request.Path;
-            //string Schema = context.Request.Scheme;
-            //string FullPath = $"{context.Request.Scheme}://{context.Request.Host}{Path}";
-            //string BaseUrl = $"{context.Request.Scheme}://{context.Request.Host}";
-            //string Host = context.Request.Host.Value;
-
-            //IResultDataControl<List<ReadVenusUrlDto>> urlResult = await this._m.Send(new VenusGetUrlByFullPathQuery()
-            //{
-            //    FullPath = Path
-            //});
-
-            //if (!urlResult.IsSuccess)
-            //    throw urlResult.Exception;
-
-
-            //var urlData = urlResult.Data.Where(x => x.UrlType != (short)UrlTypeEnum.Detail).ToList();
-
-            //ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
-            //ReadVenusLanguageDto language = url.Language;
-            //ReadVenusPageDto page = url.Pages.FirstOrDefault();
-            //ReadVenusPageAboutDto pageAbout = page.PageAbout;
-            //ReadVenusPageTypeDto pageType = url.PageType;
-
-            //if(language == null)
-            //        throw new VenusNotFoundLanguageException();
-
-            //if (page == null)
-            //    throw new VenusNotFoundPageException(FullPath);
-
-            //if (pageAbout == null)
-            //    throw new VenusNotFoundPageAboutException(page.Id, page.Name);
-
-            //if (pageType == null)
-            //    throw new VenusNotFoundPageTypeException();
-
-
-            //this._venusContext.Url = new VenusHttpUrl(FullPath,Schema,Host,Path,BaseUrl,url);
-            //this._venusContext.Language = new VenusHttpLanguage(language);
-            //this._venusContext.Page = new VenusHttpPage(page.Id,page.Name,page.Description,page.PageAbout.Controller,page.PageAbout.Action);
-
             
 
             values["controller"] = this._venusContext.Page.Controller.Replace("Controller","");

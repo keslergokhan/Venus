@@ -1,22 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Venus.Core.Application.HttpRequests;
 using Venus.Core.Application.HttpRequests.Interfaces;
-using Venus.Core.Application.Mappers;
-using Venus.Core.Application.Mappers.Interfaces;
-using Venus.Core.Application.Mappings;
 using Venus.Core.Application.Services;
 using Venus.Core.Application.Services.Interfaces;
-using Venus.Core.Application.VenusDbContext.Interfaces;
-using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application
 {
@@ -26,17 +18,7 @@ namespace Venus.Core.Application
         {
             services.AddScoped<IVenusHttpContext, VenusHttpContext>();
             services.AddScoped<IFileManagerService,FileManagerService>();
-            services.AddScoped<VenusUrlMapping>();
-            services.AddScoped<VenusLanguageMapper>();
-            services.AddScoped<VenusPageMapper>();
-            services.AddScoped<VenusUserMapper>();
-            services.AddScoped<VenusLocalizationMapper>();
-            services.AddScoped<VenusLanguageMapper>();
-            services.AddScoped<VenusPageTypeMapper>();
-            services.AddScoped<VenusPageAboutMapper>();
-            services.AddScoped<VenusEntityDataUrlMapper>();
-            services.AddScoped<IMapperProvider,MapperProvider>();
-
+            services.AddMapster();
             services.AddMediatR(x =>
             {
                 x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());

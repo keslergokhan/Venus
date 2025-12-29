@@ -32,16 +32,17 @@ namespace Venus.Core.Application.HttpRequests
                 Description = readVenusPageDto.Description;
                 Controller = pageAbout.Controller;
                 Action = pageAbout.Action;
+                EntityClassType = pageAbout.EntityDataUrl != null ? pageAbout.EntityDataUrl.EntityClassType : string.Empty;
+                Entity = pageAbout.EntityDataUrl != null ? pageAbout.EntityDataUrl.EntityName : string.Empty;
             }
 
             public string Name { get; }
             public string Description { get; }
             public string Controller { get;}
             public string Action { get; }
-            public bool IsEntity { get; set; }
+            public string EntityClassType { get; }
+            public string Entity { get; }
         }
-
-
         public class VenusHttpLanguage
         {
             public Guid Id { get; }
@@ -87,5 +88,6 @@ namespace Venus.Core.Application.HttpRequests
                 UrlType = readVenusUrlDto.UrlType;  
             }
         }
+        
     }
 }

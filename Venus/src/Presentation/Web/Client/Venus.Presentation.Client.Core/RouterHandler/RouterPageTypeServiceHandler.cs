@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.HttpRequests.Interfaces;
@@ -14,13 +15,14 @@ namespace Venus.Presentation.Client.Core.RouterHandler
 {
     public class RouterPageTypeServiceHandler : RouterHandlerBase
     {
-
-        public override async Task<IVenusHttpContext> HandleAsync(HttpContext context)
+        public override async Task<IVenusHttpContext> HandleAsync(HttpContext context, object reqeust)
         {
-            Type pageTypeServiceType = Type.GetType(base.CurrentPageTypeService.InterfaceClassType);
+            base.ServiceRegistration(context);
+            ReadVenusPageTypeDto pageTypeDto = (ReadVenusPageTypeDto)reqeust;
+            Type pageTypeServiceType = Type.GetType(pageTypeDto.InterfaceClassType);
 
             if (pageTypeServiceType == null)
-                throw new VenusNotFoundPageTypeServiceException(base.CurrentPageTypeService.InterfaceClassType);
+                throw new VenusNotFoundPageTypeServiceException(pageTypeDto.InterfaceClassType);
 
             IVenusPageTypeService pageTypeService = (IVenusPageTypeService)context.RequestServices.GetService(pageTypeServiceType);
 

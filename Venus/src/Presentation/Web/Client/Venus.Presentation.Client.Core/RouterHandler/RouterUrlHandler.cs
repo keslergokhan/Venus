@@ -17,7 +17,7 @@ namespace Venus.Presentation.Client.Core.RouterHandler
 {
     public class RouterUrlHandler : RouterHandlerBase
     {
-        public override async Task<IVenusHttpContext> HandleAsync(HttpContext httpContext)
+        public override async Task<IVenusHttpContext> HandleAsync(HttpContext httpContext,object request = null)
         {
             base.ServiceRegistration(httpContext);
             string Path = httpContext.Request.Path;

@@ -13,6 +13,7 @@ namespace Venus.Presentation.Client.Core.RequestHandler.Interfaces
     public interface IRouterHandler
     {
         public IRouterHandler Next(IRouterHandler routerHandler);
-        public Task<IVenusHttpContext> HandleAsync(HttpContext context);
+        public Task<IVenusHttpContext> HandleAsync(HttpContext context,object request = null);
     }
+
 }

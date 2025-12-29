@@ -1,12 +1,7 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MapsterMapper;
+using MediatR;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Mappers.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
@@ -21,12 +16,12 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
     public class VenusGetPageTypesQueryHandler : IRequestHandler<VenusGetPageTypesQuery, IResultDataControl<List<ReadVenusPageTypeDto>>>
     {
         private readonly IReadVenusPageTypeCmsRepository _venusPageTypeRepository;
-        private readonly IMapperProvider _mapperProvider;
+        private readonly IMapper _mapper;
 
-        public VenusGetPageTypesQueryHandler(IReadVenusPageTypeCmsRepository venusPageTypeRepository, IMapperProvider mapperProvider)
+        public VenusGetPageTypesQueryHandler(IReadVenusPageTypeCmsRepository venusPageTypeRepository, IMapper mapper)
         {
             _venusPageTypeRepository = venusPageTypeRepository;
-            _mapperProvider = mapperProvider;
+            _mapper = mapper;
         }
 
         public async Task<IResultDataControl<List<ReadVenusPageTypeDto>>> Handle(VenusGetPageTypesQuery request, CancellationToken cancellationToken)
@@ -37,7 +32,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
             {
                 List<VenusPageType> list = await this._venusPageTypeRepository.GetAllAsync(x => x.State == (int)EntityStateEnum.Online);
 
-                List<ReadVenusPageTypeDto> dtoList = list.Select(x => this._mapperProvider.VenusPageTypeMapper.ToDto(x)).ToList();
+                List<ReadVenusPageTypeDto> dtoList = this._mapper.Map<List<ReadVenusPageTypeDto>>(list);
                 result.SuccessSetData(dtoList);
             }
             catch (Exception ex)

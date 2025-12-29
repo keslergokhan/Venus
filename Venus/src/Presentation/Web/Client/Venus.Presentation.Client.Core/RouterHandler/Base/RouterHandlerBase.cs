@@ -17,7 +17,6 @@ namespace Venus.Presentation.Client.Core.RequestHandler.Interfaces
         private IRouterHandler _nextHandler;
         protected IVenusHttpContext VenusContext;
         protected IMediator Mediator;
-        protected ReadVenusPageTypeDto CurrentPageTypeService;
 
         public virtual void ServiceRegistration(HttpContext context)
         {
@@ -31,12 +30,12 @@ namespace Venus.Presentation.Client.Core.RequestHandler.Interfaces
                 this.VenusContext = context.RequestServices.GetRequiredService<IVenusHttpContext>();
             }
         }
-        public virtual async Task<IVenusHttpContext> HandleAsync(HttpContext context)
+        public virtual async Task<IVenusHttpContext> HandleAsync(HttpContext context, object reqeust = null)
         {
             ServiceRegistration(context);
             if (this._nextHandler != null)
             {
-                return await this._nextHandler.HandleAsync(context);
+                return await this._nextHandler.HandleAsync(context, reqeust);
             }
             return this.VenusContext;
         }
