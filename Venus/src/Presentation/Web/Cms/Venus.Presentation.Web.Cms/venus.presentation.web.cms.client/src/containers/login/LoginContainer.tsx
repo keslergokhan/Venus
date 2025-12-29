@@ -6,11 +6,8 @@ import { ToastHelper } from "../../helpers";
 
 
 const LoginContainers = ():JSX.Element =>{
-
-
     const [navigate] = useCustomNavigate();
     const authentication =  useAuthentication();
-   
 
     const onSubmitAsync = async (data: LoginFormValues): Promise<void> => {
 

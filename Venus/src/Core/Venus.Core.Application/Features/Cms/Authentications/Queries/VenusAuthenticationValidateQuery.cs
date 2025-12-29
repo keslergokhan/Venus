@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -30,11 +31,13 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
     {
         private readonly IConfiguration _configuration;
         private readonly IVenusAuthenticationCmsRepository _authRepo;
+        private readonly IMapper _mapper;
 
-        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationCmsRepository authRepo)
+        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationCmsRepository authRepo, IMapper mapper)
         {
             this._configuration = configuration;
             this._authRepo = authRepo;
+            _mapper = mapper;
         }
 
         public async Task<IResultDataControl<ReadVenusUserDto>> Handle(VenusAuthenticationValidateQuery request, CancellationToken cancellationToken)
@@ -77,7 +80,7 @@ namespace Venus.Core.Application.Features.Cms.Authentications.Queries
                     throw new VenusCmsUserNotFoundException();
                 }
 
-                ReadVenusUserDto userDto = null;
+                ReadVenusUserDto userDto = this._mapper.Map<ReadVenusUserDto>(user);
 
                 result.SuccessSetData(userDto);
 
