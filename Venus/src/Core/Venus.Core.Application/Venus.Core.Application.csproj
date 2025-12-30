@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Dtos\Cms\PageManagers\" />
     <Folder Include="Services\Base\" />
   </ItemGroup>
 

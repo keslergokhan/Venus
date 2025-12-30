@@ -12,20 +12,20 @@ export const PageTypeListComponent = (props:PageTypeListComponentProps):JSX.Elem
 
     const PageAboutItemJsx = ({name,description}:{name:string,description:string}):JSX.Element =>{
         return (
-            <div className=" border py-2 px-2 border-gray-200 max-w-sm min-h-[100px] shadow-lg block bg-gray-300 rounded-xl ">
+            <div className="col-span-12 md:col-span-3 border py-2 px-2 border-gray-200 min-h-[100px] shadow-lg block bg-gray-300 rounded-xl ">
                 <div className="text-lx text-base font-bold flex justify-center">
                     <h5>{name}</h5>
                 </div>
                 <div className="text-sm font-light flex justify-center mt-2 flex-col items-center gap-3">
                     <p>{description}</p>
-                    <CSmButtonField className="max-w-[150px] text-[12px]" id="add-page"  >Yeni Sayfa</CSmButtonField>
+                    <CSmButtonField className="max-w-[150px] text-[12px]" id="add-page" >Detay</CSmButtonField>
                 </div>
             </div>
         )
     }
 
     return (    
-        <div className="grid-cols-4 grid gap-2">
+        <div className="grid-cols-12 grid gap-2 justify-center">
             {
                 props.pageAbouts.map((x,i)=>{
                     return <PageAboutItemJsx {...x} key={i}></PageAboutItemJsx>

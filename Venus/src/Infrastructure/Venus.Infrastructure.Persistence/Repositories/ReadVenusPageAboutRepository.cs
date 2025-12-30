@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
@@ -14,6 +11,15 @@ namespace Venus.Infrastructure.Persistence.Repositories
     {
         public ReadVenusPageAboutRepository(VenusContext db) : base(db)
         {
+        }
+
+        public Task<List<VenusPageAbout>> GetPageTypeAndRelations()
+        {
+            return base.GetQueryable()
+                .Where(x => x.State == (byte)EntityStateEnum.Online)
+                .Include(x => x.EntityDataUrl)
+                .Include(x => x.PageType).ThenInclude(x=>x.Urls)
+                .ToListAsync();
         }
     }
 }

@@ -1,4 +1,4 @@
-import { useEffect, type JSX } from "react";
+import { useContext, useEffect, type JSX } from "react";
 import { Outlet } from "react-router-dom";
 import { useAuthentication } from "../hooks";
 import { HeaderContainer } from "../containers";
