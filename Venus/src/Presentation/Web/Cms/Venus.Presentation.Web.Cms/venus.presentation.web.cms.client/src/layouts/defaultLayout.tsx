@@ -6,7 +6,7 @@ import { FileManagerComponent } from "../components";
 const DefaultLayout = (): JSX.Element => {
     
     const authentication = useAuthentication();
-
+    
     useEffect(()=>{
         console.log("merhaba dünya");
     },[])

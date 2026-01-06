@@ -12,9 +12,16 @@ import {
 } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 
+export interface MenuComponentProps {
+}
 
 
 export const MenuComponent = (): JSX.Element => {
+
+    const languageOnChangeEvent = (language:string)=>{
+        console.log(language);
+    }
+
     return (
         <MegaMenu className="shadow-lg">
             <NavbarBrand href="/">
@@ -22,9 +29,9 @@ export const MenuComponent = (): JSX.Element => {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
             </NavbarBrand>
             <div className="order-2 hidden items-center md:flex gap-2">
-                <Dropdown label="Türkçe" inline>
-                    <DropdownItem>Türkçe</DropdownItem>
-                    <DropdownItem>İngilizce</DropdownItem>
+                <Dropdown label="Türkçe" inline >
+                    <DropdownItem onClick={()=>{languageOnChangeEvent("tr-TR")}}>Türkçev</DropdownItem>
+                    <DropdownItem onClick={()=>{languageOnChangeEvent("en-US")}}>İngilizce</DropdownItem>
                 </Dropdown>
                 <Button href="#">Sign up</Button>
             </div>

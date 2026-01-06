@@ -24,7 +24,7 @@ namespace Venus.Core.Application.Middlewares
                     // Response tipi MyResponse mı?
                     if (!response.IsSuccess)
                     {
-                        result.StatusCode = 500;
+                        result.StatusCode = 400;
                     }
                 }
             }

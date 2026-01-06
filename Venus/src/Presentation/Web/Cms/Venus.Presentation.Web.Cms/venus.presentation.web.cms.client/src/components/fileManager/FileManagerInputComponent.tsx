@@ -2,16 +2,17 @@ import { useContext, useState } from "react";
 import { CTextField, IconClose, IconOpenFolder2 } from "../commons";
 import { AppContext } from "../../contexts/AppContext";
 import type { ReadFileDto } from "../../dtos";
+import { FileManagerContext } from "../../contexts/FileManagerContext";
 
 export const FileManagerInputComponent = () =>{
 
-    const appContext = useContext(AppContext);
+    const fileManagerContext = useContext(FileManagerContext);
     const [fileName,setFileName] = useState<string>("");
 
     
 
     const onClickHandler = () =>{
-        appContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileItem:ReadFileDto)=>{
+        fileManagerContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileItem:ReadFileDto)=>{
             console.log(fileItem);
             setFileName(fileItem.filePath);
         }})

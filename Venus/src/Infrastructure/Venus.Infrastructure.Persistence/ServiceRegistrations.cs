@@ -37,6 +37,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IReadVenusPageSystemRepository, ReadVenusPageRepository>();
             services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
             services.AddScoped<IReadVenusPageAboutCmsRepository, ReadVenusPageAboutRepository>();
+            services.AddScoped<IReadVenusLanguageCmsRepository, ReadVenusLanguageRepository>();
 
             //services.AddStartData();
 

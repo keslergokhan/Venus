@@ -10,6 +10,7 @@ import { LoadingComponent } from "../loading/LoadingComponent";
 import { AppContext } from "../../contexts/AppContext";
 import { CSmButtonField } from "../commons";
 import type { ReadFileDto, ReadFolderDto } from "../../dtos";
+import { FileManagerContext } from "../../contexts/FileManagerContext";
 
 export interface FileManagerComponentProps {
     selectFilenName:string
@@ -22,7 +23,7 @@ interface FileItem{
 
 export const FileManagerComponent = (): JSX.Element => {
     const fileManagerService = new FileManagerService;
-    const appContext = useContext(AppContext);
+    const fileManagerContext = useContext(FileManagerContext);
     const [loading,setLoading] = useState<boolean>(false);
 
     /** Dosya yöneticisi mevcut dizin */
@@ -32,10 +33,10 @@ export const FileManagerComponent = (): JSX.Element => {
     
 
     useEffect(()=>{
-        if(appContext.fileManagerState.fileManagerModal == true){
+        if(fileManagerContext.fileManagerState.fileManagerModal == true){
             getFolderAndFileAsync();
         }
-    },[appContext.fileManagerState]);
+    },[fileManagerContext.fileManagerState]);
 
     /**
      * Mevcut dizini temizle
@@ -104,8 +105,8 @@ export const FileManagerComponent = (): JSX.Element => {
      */
     const selectFileClickHandlerAsync = async (data:ReadFileDto) =>{
         currentClearPath();
-        appContext.fileManagerState.selectFileEvent(data);
-        appContext.fileManagerAction({type:"FileManagerModal",state:false});
+        fileManagerContext.fileManagerState.selectFileEvent(data);
+        fileManagerContext.fileManagerAction({type:"FileManagerModal",state:false});
     }
 
     /** Dosya yöneticisi dosya sil */
@@ -170,7 +171,7 @@ export const FileManagerComponent = (): JSX.Element => {
     //#endregion JSX Items END
     return (
         <>
-            <Flowbite.Modal show={appContext.fileManagerState.fileManagerModal} position={"center"} onClose={() => appContext.fileManagerAction({type:"FileManagerModal",state:false})} >
+            <Flowbite.Modal show={fileManagerContext.fileManagerState.fileManagerModal} position={"center"} onClose={() => fileManagerContext.fileManagerAction({type:"FileManagerModal",state:false})} >
                 <Flowbite.Card className="!bg-amber-50 ">
                     <Flowbite.ModalHeader className="p-1">
                         <span className="text-black">Dosya Yöneticisi</span>
