@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import * as Flowbite from "flowbite-react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { IconOpenFolder2, IconArrow, IconArrowLeft, IconClose, IconRefresh, IconSpinner } from "../commons/icons"
 import { IconTypeFile } from "../commons/icons/IconFile";
 import { FileManagerService } from "../../services";
@@ -30,13 +30,12 @@ export const FileManagerComponent = (): JSX.Element => {
     const currentPath = useRef<string[]>([""]);
     /** Mevcut dizinde bulunan dosya ve klasörler */
     const folderAndFileData = useRef<FileManagerGetFolderRes>(new FileManagerGetFolderRes([],[]));
-    
 
     useEffect(()=>{
         if(fileManagerContext.fileManagerState.fileManagerModal == true){
             getFolderAndFileAsync();
         }
-    },[fileManagerContext.fileManagerState]);
+    },[fileManagerContext]);
 
     /**
      * Mevcut dizini temizle
@@ -70,11 +69,7 @@ export const FileManagerComponent = (): JSX.Element => {
     const getFolderAndFileAsync = async ():Promise<void> =>{
         setLoading(true);
         await fileManagerService.getFoldersAsync({path:getFullPath()}).then(x=>{
-            if(x.isSuccess){
-                folderAndFileData.current = new FileManagerGetFolderRes(x.data.files as Array<ReadFileDto>,x.data.folders as Array<ReadFolderDto>);
-            }else{
-                throw new Error("Dizin çekiler beklenmedik bir problem yaşandı !");
-            }
+            folderAndFileData.current = new FileManagerGetFolderRes(x.files as Array<ReadFileDto>,x.folders as Array<ReadFolderDto>);
         }).catch(x=>{
             ToastHelper.DefaultCatchError(x);
         }).finally(()=>{
@@ -113,12 +108,7 @@ export const FileManagerComponent = (): JSX.Element => {
     const removeClickHandlerAsync = async (data:ReadFileDto) =>{
 
         await fileManagerService.removeFileAsync({path:data.filePath}).then(x=>{
-            if(x.isSuccess){
-                ToastHelper.Success(`${data.fileName} silindi !`);
-               
-            }else{
-                throw new Error("Dosya silme işleminde beklenmedik bir problem yaşandı !");
-            }
+            ToastHelper.Success(`${data.fileName} silindi !`);
         }).catch(x=>{
             ToastHelper.DefaultCatchError(x);
         })
@@ -248,23 +238,21 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
     }
 
     useEffect(()=>{
-        console.log(uploadedFiles);
-        uploadedFiles.forEach(async (item) => {
-            await fileManagerService.uploadFileAsync({file:item.file,path:props.getFullPath()})
-            .then(x=>{
-                if(x.isSuccess){
+        if(uploadedFiles.length > 0){
+            console.log(uploadedFiles);
+            uploadedFiles.forEach(async (item) => {
+                await fileManagerService.uploadFileAsync({file:item.file,path:props.getFullPath()})
+                .then(x=>{
                     setUploadedFiles([...uploadedFiles.filter(x=>x.file.name != item.file.name)]);
                     ToastHelper.Success(`${item.file.name} başarıyla yüklendi`);
-                }else{
-                    throw new Error("Dosya yüklenirken beklenmedik bir problem yaşandı !");
-                }
-            }).catch(x=>{
-                ToastHelper.DefaultCatchError(x);
+                }).catch(x=>{
+                    ToastHelper.DefaultCatchError(x);
+                });
             });
-        });
-        setTimeout(() => {
-            props.getFolderAndFileAsync();
-        }, (100));
+            setTimeout(() => {
+                props.getFolderAndFileAsync();
+            }, (100));
+        }
     },[uploadedFiles])
    
     /** Yükleme işlemini başlat */

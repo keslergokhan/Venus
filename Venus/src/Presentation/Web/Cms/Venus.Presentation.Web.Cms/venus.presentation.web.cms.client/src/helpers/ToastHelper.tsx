@@ -1,6 +1,7 @@
 ﻿import type React from "react";
 import type { JSX } from "react";
 import toast, { type Toast } from "react-hot-toast";
+import type { IResultControl } from "../results";
 
 export class ToastHelper {
 
@@ -39,8 +40,17 @@ export class ToastHelper {
     }
 
     public static ToastJSX = (t:Toast, alertType:"success"|"error"|"warning",jsx:React.ReactNode):JSX.Element => {
+        let color="";
+        if (alertType === "success") {
+        color = "bg-green-300";
+        } else if (alertType === "error") {
+        color = "bg-red-300";
+        } else if (alertType === "warning") {
+        color = "bg-amber-300";
+        }
+        
         return (
-            <div id="toast-success" className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-green-300 rounded-lg shadow-sm" role="alert">
+            <div id="toast-success" className={`flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 rounded-lg shadow-sm ${color}`} role="alert">
                     {ToastHelper.ToasIconJSX(alertType)}
                     <div className="ms-3 text-sm font-normal">{jsx}</div>
                 <button onClick={()=>{toast.dismiss(t.id)}} type="button" className="cursor-pointer ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
@@ -70,8 +80,11 @@ export class ToastHelper {
     }
 
     public static DefaultCatchError = (error:any) => {
-        if(error instanceof Error){
-            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", error.message)), { duration: 1800 });
+        const result = error.response?.data as IResultControl;
+        if(result){
+            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>{result.errorMessage}<br></br>{result.errorCode}</>)), { duration: 1800 });
+        }else if(error instanceof Error){
+            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>{error.message}<br></br></>)), { duration: 1800 });
         }else{
             toast.custom((x) => (ToastHelper.ToastJSX(x, "error", "Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !")), { duration: 1800 });
         }

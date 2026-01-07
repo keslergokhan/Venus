@@ -13,7 +13,6 @@ export const FileManagerInputComponent = () =>{
 
     const onClickHandler = () =>{
         fileManagerContext.fileManagerAction({type:"FileManagerModalAndSelectEvent",state:true,selectFileEvent:(fileItem:ReadFileDto)=>{
-            console.log(fileItem);
             setFileName(fileItem.filePath);
         }})
         

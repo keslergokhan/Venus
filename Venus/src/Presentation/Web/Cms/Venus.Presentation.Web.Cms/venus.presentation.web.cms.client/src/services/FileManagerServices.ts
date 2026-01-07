@@ -5,24 +5,18 @@ import type { FileManagerGetFolderRes } from "../models";
 
 export class FileManagerService extends ServiceBase{
 
-    public getFoldersAsync = async (props:{path:string}):Promise<IResultDataControl<FileManagerGetFolderRes>> => {
-        return axios.post<IResultDataControl<FileManagerGetFolderRes>>(this.GetFullPath("FileManager/GetFolders"),props,this.GetAxiosHeader())
+    public getFoldersAsync = (props:{path:string}):Promise<FileManagerGetFolderRes> => {
+        return axios.post<FileManagerGetFolderRes>(this.GetFullPath("FileManager/GetFolders"),props,this.GetAxiosHeader())
         .then(x=>{
-            return x.data as ResultDataControl<FileManagerGetFolderRes>;
-        }).catch(()=>{
-            return new ResultDataControl<FileManagerGetFolderRes>();
-        });
+            return x.data as FileManagerGetFolderRes;
+        })
     }
 
-    public removeFileAsync = async (props:{path:string}):Promise<ResultControl> =>{
-        return axios.post<IResultControl>(this.GetFullPath("FileManager/RemoveFilter"),props,this.GetAxiosHeader()).then(x=>{
-            return x.data as ResultControl;
-        }).catch(()=>{
-            return new ResultControl();
-        });
+    public removeFileAsync = (props:{path:string}):Promise<void> =>{
+        return axios.post(this.GetFullPath("FileManager/RemoveFilter"),props,this.GetAxiosHeader())
     }
 
-    public uploadFileAsync = async (props:{path:string,file:File})=>{
+    public uploadFileAsync = (props:{path:string,file:File})=>{
 
         const conf = {
             headers: {
@@ -35,10 +29,6 @@ export class FileManagerService extends ServiceBase{
         formData.append("Path",props.path);
         formData.append("File",props.file);
         
-        return axios.post<IResultControl>(this.GetFullPath("FileManager/UploadFile"),formData,conf).then(x=>{
-            return x.data as ResultControl;
-        }).catch(()=>{
-            return new ResultControl();
-        })
+        return axios.post(this.GetFullPath("FileManager/UploadFile"),formData,conf)
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Venus.Core.Application.Exceptions.Base;
 using Venus.Core.Application.Results.Interfaces;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -19,6 +20,19 @@ namespace Venus.Core.Application.Results.Base
         public Exception Exception => _exception;
         public string _errorMessage;
         public string ErrorMessage => _errorMessage;
+        public string ErrorCode {
+            get
+            {
+                if (this.Exception is VenusExceptionBase)
+                {
+                    return (this.Exception as VenusExceptionBase).ErrorCode;
+                }
+                else
+                {
+                    return "UNKNOWN_ERROR";
+                }
+            }
+        }
 
         public BaseResultControl()
         {

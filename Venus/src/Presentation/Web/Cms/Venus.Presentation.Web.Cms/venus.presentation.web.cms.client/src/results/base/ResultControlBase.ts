@@ -1,5 +1,7 @@
 export interface IResultControl {
     isSuccess: boolean;
+    errorMessage:string;
+    errorCode:string;
     Success(): IResultControl;
     Fail(): IResultControl
 }
@@ -12,6 +14,8 @@ export interface IResultDataControl<T> extends IResultControl {
 
 export abstract class ResultControlBase implements IResultControl {
     public isSuccess: boolean;
+    public errorMessage:string;
+    public errorCode:string;
     /**
      *
      */
