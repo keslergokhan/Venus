@@ -24,14 +24,12 @@ export const useAuthentication = (): AuthenticationContextProps => {
             navigation(PageRoute.Login);
         } else {
             if (!autContext.authenticationState.isAuth) {
-                service.loginValidation()
+                service.loginValidationAsync()
                     .then(x => {
-                        if (x.isSuccess && x.data != null) {
-                            autContext.authenticationAction({ type: "Login", user: x.data });
+                        autContext.authenticationAction({ type: "Login", user: x });
                             if(location.pathname == PageRoute.Login){
                                 navigation(PageRoute.Home);
                             }
-                        }
                     }).catch(() => {
                         ToastHelper.DefaultError();
                         autContext.authenticationAction({ type: "Logaut" });

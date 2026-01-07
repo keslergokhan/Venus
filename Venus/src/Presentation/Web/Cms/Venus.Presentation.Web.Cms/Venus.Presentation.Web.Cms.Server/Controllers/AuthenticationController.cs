@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Features.Cms.Authentications.Queries;
+using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Models.Authentications;
 
@@ -27,7 +28,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 return Unauthorized(new { message = "Kullanıcı bulunamadı." }); 
             }
 
-            return Ok(result);
+            return result.ToActionResult(this);
         }
 
 
@@ -44,7 +45,12 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 JwtToken = authHeader.ToString().Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase)
             });
 
-            return Ok(result);
+            if (!result.IsSuccess)
+            {
+                return Unauthorized(new { message = "Kullanıcı bulunamadı." });
+            }
+
+            return result.ToActionResult(this);
         }
     }
 }

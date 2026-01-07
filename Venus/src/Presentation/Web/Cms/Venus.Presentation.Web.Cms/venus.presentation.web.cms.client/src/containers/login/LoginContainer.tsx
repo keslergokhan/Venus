@@ -13,10 +13,10 @@ const LoginContainers = ():JSX.Element =>{
 
         const service = new AuthenticationService();
         await service.loginAsync(data).then(x => {
-            authentication.authenticationAction({ type: "Login", user: x.data });
+            authentication.authenticationAction({ type: "Login", user: x });
             
-            localStorage.setItem("cms_user", x.data.jwtToken);
-            ToastHelper.Success(`${x.data.name} ${x.data.surname} hoşgeldin.`);
+            localStorage.setItem("cms_user", x.jwtToken);
+            ToastHelper.Success(`${x.name} ${x.surname} hoşgeldin.`);
             setTimeout(() => {
                 navigate(PageRoute.Home);
             },100)
