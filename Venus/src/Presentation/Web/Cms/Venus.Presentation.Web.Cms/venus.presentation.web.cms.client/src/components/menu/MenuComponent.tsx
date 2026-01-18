@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import {
     Button,
     Dropdown,
@@ -11,6 +11,9 @@ import {
     NavbarToggle,
 } from "flowbite-react";
 import { NavLink } from "react-router-dom";
+import { LanguageService } from "../../services";
+import type { ReadLanguageDto } from "../../dtos";
+import { ToastHelper } from "../../helpers";
 
 export interface MenuComponentProps {
 }
@@ -18,9 +21,20 @@ export interface MenuComponentProps {
 
 export const MenuComponent = (): JSX.Element => {
 
+    const languageService = new LanguageService();
+    const [langaugeList,setLanguage] = useState<Array<ReadLanguageDto>>(new Array<ReadLanguageDto>());
+    
     const languageOnChangeEvent = (language:string)=>{
-        console.log(language);
+        console.log(langaugeList);
     }
+
+    useEffect(()=>{
+        languageService.getLanguageAsync().then(x=>{
+            setLanguage(x);
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        });
+    },[]);
 
     return (
         <MegaMenu className="shadow-lg">
@@ -30,8 +44,13 @@ export const MenuComponent = (): JSX.Element => {
             </NavbarBrand>
             <div className="order-2 hidden items-center md:flex gap-2">
                 <Dropdown label="Türkçe" inline >
-                    <DropdownItem onClick={()=>{languageOnChangeEvent("tr-TR")}}>Türkçev</DropdownItem>
-                    <DropdownItem onClick={()=>{languageOnChangeEvent("en-US")}}>İngilizce</DropdownItem>
+
+                    {
+                        langaugeList.map((x:ReadLanguageDto,i)=>{
+                            return <DropdownItem key={i} onClick={()=>{languageOnChangeEvent(x.culture)}}>{x.name}</DropdownItem>
+                        })
+                    }
+                    
                 </Dropdown>
                 <Button href="#">Sign up</Button>
             </div>
