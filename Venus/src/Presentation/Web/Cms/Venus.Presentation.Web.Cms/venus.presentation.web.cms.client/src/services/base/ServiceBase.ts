@@ -14,6 +14,7 @@ export abstract class ServiceBase {
         const conf = {
             headers: {
                 'Authorization': `Bearer ${this.GetUserJwtToken()}`,
+                "Language":localStorage.getItem("cms_language"),
             },
             withCredentials: true
         } as AxiosRequestConfig;

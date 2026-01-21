@@ -13,7 +13,8 @@ export const AppContext = createContext<AppContextContextProps>(new AppContextCo
 export const AppContextProvider = ({ children }: { children: React.ReactNode }):JSX.Element =>{
 
     var [languageReducerState,languageReducerAction] = useReducer(LanguageReducerReducer,{
-        language:"tr-TR"
+        language:"tr-TR",
+        languages : []
     });
     
     

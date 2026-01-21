@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,13 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
     {
         private readonly IReadVenusPageAboutCmsRepository _venusPageAboutRepository;
         private readonly IMapper _mapper;
-        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _venusPageAboutRepository = venusPageAboutRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IResultDataControl<List<ReadVenusPageAboutDto>>> Handle(VenusGetPageAboutQuery request, CancellationToken cancellationToken)
@@ -34,7 +38,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
 
             try
             {
-                List<VenusPageAbout> venusPageAboutList = await this._venusPageAboutRepository.GetAllAsync(x=>x.State == (int)EntityStateEnum.Offline);
+                List<VenusPageAbout> venusPageAboutList = await this._venusPageAboutRepository.GetPageTypeAndRelations();
 
                 List<ReadVenusPageAboutDto> venusPageAboutDtoList = this._mapper.Map<List<ReadVenusPageAboutDto>>(venusPageAboutList);
 

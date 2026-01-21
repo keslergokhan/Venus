@@ -1,12 +1,15 @@
+import type { ReadLanguageDto } from "../dtos";
 
 
 export type LanguageReducerAction = 
  {type:"SetLanguage",language:string}
 | {type:"GetLanguage"}
+| {type:"SetLanguages",languages:Array<ReadLanguageDto>}
 
 
 export interface LanguageReducerState{
     language:string;
+    languages:Array<ReadLanguageDto>
 }
 
 const key = "cms_language";
@@ -24,7 +27,6 @@ const GetLanguageAndSetDefault = () =>{
 const SetLangauge = (language:string) =>{
    
     localStorage.setItem(key,language);
-
     return GetLanguageAndSetDefault;
 }
 
@@ -38,8 +40,12 @@ export const LanguageReducerReducer = (state:LanguageReducerState,action:Languag
         return {...state,language:languageLocalStorage}
     }
 
-    if(actionType == "SetLanguage"){
+    if(actionType == "SetLanguages"){
+        return {...state,languages:action.languages}
+    }
 
+    if(actionType == "SetLanguage"){
+        SetLangauge(action.language);
         return {...state,language:action.language};
     }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Dtos.Systems.Languages;
+using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Cms.Languages.Queries;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
@@ -13,13 +14,12 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
     {
         public static List<ReadVenusLanguageDto> LanguagesCache = new List<ReadVenusLanguageDto>();
 
-        [HttpPost]
-        public async Task<IActionResult> SetLanguage([FromBody] SetLanguageReq req)
+        private readonly IConfiguration _configuration;
+        public LanguageController(IConfiguration configuration)
         {
-            var result = await base.Mediator.Send(new VenusGetLanguageQuery());
-
-            return result.ToActionResult(this);
+            this._configuration = configuration;
         }
+
 
         [HttpPost]
         public async Task<IActionResult> GetLanguage()

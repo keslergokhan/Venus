@@ -18,9 +18,8 @@ export const PageManagerContainer = () =>{
             return x;
         })
         .then(x=>{
-            console.log(x);
-                pageAboutList.current = x;
-                setLoading(false);
+            pageAboutList.current = x;
+            setLoading(false);
         }).catch(err=>{
             ToastHelper.DefaultCatchError(err);
         })

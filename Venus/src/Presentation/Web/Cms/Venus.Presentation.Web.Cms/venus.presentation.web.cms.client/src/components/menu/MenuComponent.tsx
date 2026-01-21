@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useContext, useEffect, useState, type JSX } from "react";
 import {
     Button,
     Dropdown,
@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { LanguageService } from "../../services";
 import type { ReadLanguageDto } from "../../dtos";
 import { ToastHelper } from "../../helpers";
+import { AppContext } from "../../contexts/AppContext";
 
 export interface MenuComponentProps {
 }
@@ -22,18 +23,30 @@ export interface MenuComponentProps {
 export const MenuComponent = (): JSX.Element => {
 
     const languageService = new LanguageService();
-    const [langaugeList,setLanguage] = useState<Array<ReadLanguageDto>>(new Array<ReadLanguageDto>());
-    
+    const [langaugeList,setLanguageList] = useState<Array<ReadLanguageDto>>(new Array<ReadLanguageDto>());
+    const [language,setLanguage] = useState<string>("Türkçe");
+    const appContext = useContext(AppContext);
+
     const languageOnChangeEvent = (language:string)=>{
-        console.log(langaugeList);
+        const selectLanguage = appContext.languageState.languages.find(x=>x.culture == language);
+        if(selectLanguage){
+            appContext.languageAction({type:"SetLanguage",language:language})
+            setLanguage(selectLanguage.name);
+        }else{
+            ToastHelper.Error(<>Teknik bir sorun yaşandı, {language} mevcut değil !</>);
+        }
     }
 
     useEffect(()=>{
-        languageService.getLanguageAsync().then(x=>{
-            setLanguage(x);
-        }).catch(x=>{
-            ToastHelper.DefaultCatchError(x);
-        });
+        if(appContext.languageState.languages && appContext.languageState.languages.length <= 0){
+            languageService.getLanguageAsync().then(x=>{
+                setLanguageList(x);
+                appContext.languageAction({"type":"SetLanguages",languages:x});
+            }).catch(x=>{
+                ToastHelper.DefaultCatchError(x);
+            });
+        }
+        
     },[]);
 
     return (
@@ -43,14 +56,12 @@ export const MenuComponent = (): JSX.Element => {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
             </NavbarBrand>
             <div className="order-2 hidden items-center md:flex gap-2">
-                <Dropdown label="Türkçe" inline >
-
+                <Dropdown label={language} inline >
                     {
                         langaugeList.map((x:ReadLanguageDto,i)=>{
                             return <DropdownItem key={i} onClick={()=>{languageOnChangeEvent(x.culture)}}>{x.name}</DropdownItem>
                         })
                     }
-                    
                 </Dropdown>
                 <Button href="#">Sign up</Button>
             </div>
@@ -72,7 +83,6 @@ export const MenuComponent = (): JSX.Element => {
                                 </svg>
                                 Yeni Sayfa
                             </NavLink>
-                           
                         </div>
                         <div className="space-y-4 p-4">
                             <li>
