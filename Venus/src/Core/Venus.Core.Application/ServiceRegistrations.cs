@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using Venus.Core.Application.HttpRequests;
 using Venus.Core.Application.HttpRequests.Interfaces;
+using Venus.Core.Application.MapsterConfigs;
 using Venus.Core.Application.Services;
 using Venus.Core.Application.Services.Interfaces;
 
@@ -29,6 +30,7 @@ namespace Venus.Core.Application
 
         public static IServiceCollection AddVenusApplicationAuthenticationServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
+            SystemAdapterConfig.Register();
             string symmetricSecurityKey = configuration.GetValue<string>("SymmetricSecurityKey");
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricSecurityKey));

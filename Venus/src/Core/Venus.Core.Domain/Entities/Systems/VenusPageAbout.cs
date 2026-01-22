@@ -17,10 +17,9 @@ namespace Venus.Core.Domain.Entities.Systems
     }
     public partial class VenusPageAbout
     {
-        public VenusPageType PageType { get; set; }
         public Guid PageTypeId { get; set; }
 
-        public VenusEntityDataUrl? EntityDataUrl { get; set; }
-        public Guid? EntityDataUrlId { get; set; }
+        public VenusEntityPage? EntityPage { get; set; }
+        public Guid? EntityPageId { get; set; }
     }
 }

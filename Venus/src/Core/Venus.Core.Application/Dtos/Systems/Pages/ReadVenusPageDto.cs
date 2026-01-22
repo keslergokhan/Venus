@@ -13,13 +13,12 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
         public Guid LanguageId { get; set; }
         public Guid PageAboutId { get; set; }
         public Guid? ParentPageId { get; set; }
-        public ReadVenusPageAboutDto PageAbout { get; set; } = new ReadVenusPageAboutDto();
         public ReadVenusUrlSummaryDto Url { get; set; } = new ReadVenusUrlSummaryDto();
     }
     public class ReadVenusPageDto : ReadVenusPageSummaryDto, IVenusUrlEntityDto,IVenusEntityLanguageDto
     {
-        public ReadVenusLanguageDto Language { get; set; } = new ReadVenusLanguageDto();
-        public ReadVenusPageSummaryDto ParentPage { get; set; } = new ReadVenusPageSummaryDto();
-        public List<ReadVenusPageSummaryDto> SubPages { get; set; } = new List<ReadVenusPageSummaryDto>();
+        public ReadVenusLanguageDto Language { get; set; }
+        public ReadVenusPageSummaryDto ParentPage { get; set; } 
+        public List<ReadVenusPageSummaryDto> SubPages { get; set; } 
     }
 }

@@ -24,16 +24,15 @@ namespace Venus.Core.Application.HttpRequests
         {
             public Guid Id { get; }
 
-            public VenusHttpPage(ReadVenusPageDto readVenusPageDto)
+            public VenusHttpPage(ReadVenusPageDto readVenusPageDto,ReadVenusPageAboutDto readVenusPageAboutDto)
             {
-                var pageAbout = readVenusPageDto.PageAbout;
-                Id = pageAbout.Id;
+                Id = readVenusPageAboutDto.Id;
                 Name = readVenusPageDto.Name;
                 Description = readVenusPageDto.Description;
-                Controller = pageAbout.Controller;
-                Action = pageAbout.Action;
-                EntityClassType = pageAbout.EntityDataUrl != null ? pageAbout.EntityDataUrl.EntityClassType : string.Empty;
-                Entity = pageAbout.EntityDataUrl != null ? pageAbout.EntityDataUrl.EntityName : string.Empty;
+                Controller = readVenusPageAboutDto.Controller;
+                Action = readVenusPageAboutDto.Action;
+                EntityClassType = readVenusPageAboutDto.EntityPage != null ? readVenusPageAboutDto.EntityPage.EntityClassType : string.Empty;
+                Entity = readVenusPageAboutDto.EntityPage != null ? readVenusPageAboutDto.EntityPage.EntityName : string.Empty;
             }
 
             public string Name { get; }

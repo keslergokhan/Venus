@@ -31,7 +31,7 @@ namespace Venus.Presentation.Client.Core.RouterHandler
 
             var urlData = urlResult.Data.Where(x => x.UrlType != (short)UrlTypeEnum.Detail).ToList();
 
-            ReadVenusUrlDto url = urlResult.Data.FirstOrDefault();
+            ReadVenusUrlDto url = urlData.FirstOrDefault();
 
             if (url.Language == null)
                 throw new VenusNotFoundLanguageException();
@@ -39,7 +39,7 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             this.VenusContext.Url = new VenusHttpUrl(FullPath, Schema, Host, Path, BaseUrl, url);
             this.VenusContext.Language = new VenusHttpLanguage(url.Language);
 
-            return await base.HandleAsync(httpContext);
+            return await base.HandleAsync(httpContext,url);
         }
     }
 }

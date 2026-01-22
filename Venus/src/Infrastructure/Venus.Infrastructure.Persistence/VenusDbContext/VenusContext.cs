@@ -24,7 +24,7 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         }
 
         #region VenusSystems
-        public DbSet<VenusEntityDataUrl> VenusEntityDataUrl { get; set; }
+        public DbSet<VenusEntityPage> VenusEntityPage { get; set; }
         public DbSet<VenusLanguage> VenusLanguage { get; set; }
         public DbSet<VenusLocalization> VenusLocalization { get; set; }
         public DbSet<VenusPage> VenusPage { get; set; }

@@ -21,9 +21,8 @@ namespace Venus.Infrastructure.Persistence.Repositories
         public async Task<VenusPage> GetPageByUrlIdAsync(Guid urlId)
         {
             return base.GetQueryable()
-                .Include(x=>x.PageAbout.EntityDataUrl)
-                .Include(x=>x.PageAbout)
-                .ThenInclude(x=>x.PageType)
+                .Include(x=>x.Url)
+                .ThenInclude(x=>x.PageType).ThenInclude(x=>x.PageAbout)
                 .FirstOrDefault(p => p.UrlId == urlId);
         }
     }

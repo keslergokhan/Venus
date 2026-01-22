@@ -13,15 +13,16 @@ namespace Venus.Core.Application.Dtos.Systems.Urls
         public Guid? ParentUrlId { get; set; }
         public Guid LanguageId { get; set; }
         public Guid PageTypeId { get; set; }
+        public ReadVenusPageTypeDto PageType { get; set; }
 
 
     }
     public class ReadVenusUrlDto : ReadVenusUrlSummaryDto, IVenusEntityLanguageDto
     {
         public ReadVenusUrlSummaryDto ParentUrl { get; set; }
-        public ReadVenusLanguageDto Language { get; set; } = new ReadVenusLanguageDto();
-        public List<ReadVenusUrlSummaryDto> SubUrls { get; set; } = new List<ReadVenusUrlSummaryDto>();
-        public ReadVenusPageTypeDto PageType { get; set; } = new ReadVenusPageTypeDto();
-        public List<ReadVenusPageSummaryDto> Pages { get; set; } = new List<ReadVenusPageSummaryDto>();
+        public ReadVenusLanguageDto Language { get; set; }
+        public List<ReadVenusUrlSummaryDto> SubUrls { get; set; }
+        
+        public List<ReadVenusPageSummaryDto> Pages { get; set; }
     }
 }

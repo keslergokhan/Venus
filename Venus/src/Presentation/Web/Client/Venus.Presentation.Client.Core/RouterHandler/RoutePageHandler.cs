@@ -38,14 +38,14 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             if (page == null)
                 throw new VenusNotFoundPageException();
 
-            if (page.PageAbout == null)
+            if (page.Url.PageType.PageAbout == null)
                 throw new VenusNotFoundPageAboutException(page.Id, page.Name);
 
-            if (page.PageAbout.PageType == null)
+            if (page.Url.PageType == null)
                 throw new VenusNotFoundPageTypeException();
 
-            ReadVenusPageTypeDto pageType = page.PageAbout.PageType;
-            base.VenusContext.Page = new VenusHttpPage(page);
+            ReadVenusPageTypeDto pageType = page.Url.PageType;
+            base.VenusContext.Page = new VenusHttpPage(page, page.Url.PageType.PageAbout);
 
             return await base.HandleAsync(context, pageType);
         }

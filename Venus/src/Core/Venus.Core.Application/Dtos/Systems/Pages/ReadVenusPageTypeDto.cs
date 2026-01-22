@@ -15,6 +15,7 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
 
     public partial class ReadVenusPageTypeDto : ReadVenusDtoBase
     {
-        public List<ReadVenusUrlDto> Urls { get; set; } = new List<ReadVenusUrlDto>();
+        public ReadVenusPageAboutDto PageAbout { get; set; }
+        public List<ReadVenusUrlDto> Urls { get; set; }
     }
 }

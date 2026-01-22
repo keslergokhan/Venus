@@ -12,9 +12,9 @@ using Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base;
 
 namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
 {
-    public class VenusEntityDataUrlConfiguration : VenusEntityConfigurationBase<VenusEntityDataUrl>
+    public class VenusEntityDataUrlConfiguration : VenusEntityConfigurationBase<VenusEntityPage>
     {
-        public override void Configure(EntityTypeBuilder<VenusEntityDataUrl> builder)
+        public override void Configure(EntityTypeBuilder<VenusEntityPage> builder)
         {
             base.Configure(builder);
 

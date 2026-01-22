@@ -2,7 +2,7 @@
 
 namespace Venus.Core.Application.Dtos.Systems.EntityDatas
 {
-    public class ReadVenusEntityDataUrlDto : ReadVenusDtoBase
+    public class ReadVenusEntityPageDto : ReadVenusDtoBase
     {
         public string EntityName { get; set; }
         public string EntityClassType { get; set; }

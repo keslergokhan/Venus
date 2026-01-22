@@ -11,5 +11,6 @@ namespace Venus.Core.Application.Repositories.Interfaces.Cms
 {
     public interface IReadVenusPageTypeCmsRepository : IReadRepository<VenusPageType>
     {
+        public Task<List<VenusPageType>> GetPageTypeAndRelations();
     }
 }

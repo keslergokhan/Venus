@@ -24,10 +24,6 @@ namespace Venus.Core.Domain.Entities.Systems
 
     public partial class VenusPage
     {
-        public Guid PageAboutId { get; set; }
-        public VenusPageAbout PageAbout { get; set; }
-
-
         public Guid? ParentPageId { get; set; }
         public VenusPage ParentPage { get; set; }
 

@@ -12,9 +12,9 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
         public string Action { get; set; }
         public Guid PageTypeId { get; set; }
         public Guid? EntityDataUrlId { get; set; }
-        public ReadVenusPageTypeDto PageType { get; set; } = new ReadVenusPageTypeDto();
-        public ReadVenusEntityDataUrlDto? EntityDataUrl { get; set; } = new ReadVenusEntityDataUrlDto();
-        
+        public ReadVenusEntityPageDto? EntityPage { get; set; }
+        public ReadVenusPageTypeDto? PageType { get; set; }
+
     }
    
 }

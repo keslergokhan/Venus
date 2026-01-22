@@ -22,14 +22,16 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
     public class VenusGetPageAboutQueryHandler : IRequestHandler<VenusGetPageAboutQuery, IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
         private readonly IReadVenusPageAboutCmsRepository _venusPageAboutRepository;
+        private readonly IReadVenusPageTypeCmsRepository _ff;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, IReadVenusPageTypeCmsRepository ff)
         {
             _venusPageAboutRepository = venusPageAboutRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _ff = ff;
         }
 
         public async Task<IResultDataControl<List<ReadVenusPageAboutDto>>> Handle(VenusGetPageAboutQuery request, CancellationToken cancellationToken)
@@ -41,12 +43,11 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
                 List<VenusPageAbout> venusPageAboutList = await this._venusPageAboutRepository.GetPageTypeAndRelations();
 
                 List<ReadVenusPageAboutDto> venusPageAboutDtoList = this._mapper.Map<List<ReadVenusPageAboutDto>>(venusPageAboutList);
-
                 result.SuccessSetData(venusPageAboutDtoList);
             }
             catch (Exception ex)
             {
-                result.Fail(ex);
+                result.Fail(ex); 
             }
 
             return result;
