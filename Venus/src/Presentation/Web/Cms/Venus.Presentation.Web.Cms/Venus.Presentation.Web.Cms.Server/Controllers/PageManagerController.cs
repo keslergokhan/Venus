@@ -11,7 +11,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
     {
 
         [HttpGet()]
-        public async Task<IActionResult> GetPageAbouts()
+        public async Task<IActionResult> GetPageTypes()
         {
             var pageAboutList = await base.Mediator.Send(new VenusGetPageTypesQuery());
             return pageAboutList.ToActionResult(this);

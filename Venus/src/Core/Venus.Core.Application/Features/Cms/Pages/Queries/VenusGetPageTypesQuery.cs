@@ -30,7 +30,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
 
             try
             {
-                List<VenusPageType> list = await this._venusPageTypeRepository.GetAllAsync(x => x.State == (int)EntityStateEnum.Online);
+                List<VenusPageType> list = await this._venusPageTypeRepository.GetPageTypeAndRelations();
 
                 List<ReadVenusPageTypeDto> dtoList = this._mapper.Map<List<ReadVenusPageTypeDto>>(list);
                 result.SuccessSetData(dtoList);

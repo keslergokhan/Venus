@@ -12,7 +12,7 @@ namespace Venus.Core.Application.MapsterConfigs
         public static void Register()
         {
             TypeAdapterConfig.GlobalSettings.Default
-            .MaxDepth(10);
+            .PreserveReference(true);
         }
     }
 }
