@@ -13,9 +13,4 @@ namespace Venus.Core.Domain.Entities.Systems
         public string EntityName {  get; set; }
         public string EntityClassType { get; set; }
     }
-
-    public partial class VenusEntityPage
-    {
-        public ICollection<VenusPageAbout> PageAbouts { get; set; }
-    }
 }

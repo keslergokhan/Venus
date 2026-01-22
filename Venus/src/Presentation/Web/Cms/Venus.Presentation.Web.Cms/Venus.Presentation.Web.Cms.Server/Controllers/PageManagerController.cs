@@ -13,7 +13,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetPageAbouts()
         {
-            var pageAboutList = await base.Mediator.Send(new VenusGetPageAboutQuery());
+            var pageAboutList = await base.Mediator.Send(new VenusGetPageTypesQuery());
             return pageAboutList.ToActionResult(this);
         }
     }

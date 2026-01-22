@@ -14,16 +14,24 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
         public override void Configure(EntityTypeBuilder<VenusPageType> builder)
         {
             base.Configure(builder);
-            
+
+            builder.Property(x => x.Title)
+                .IsRequired(true)
+                .HasMaxLength(250);
+
             builder.Property(x => x.InterfaceClassType)
                 .HasMaxLength(250)
                 .IsRequired(true);
 
-            builder.Property(x => x.Title).IsRequired(true).HasMaxLength(250);
+            builder.Property(x => x.Description)
+                .IsRequired(true)
+                .HasMaxLength(1000);
+
 
             builder.HasOne(x => x.PageAbout)
                 .WithOne()
-                .HasForeignKey<VenusPageAbout>(x=>x.PageTypeId).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
+                .HasForeignKey<VenusPageAbout>(x=>x.PageTypeId)
+                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
         }
     }
 }

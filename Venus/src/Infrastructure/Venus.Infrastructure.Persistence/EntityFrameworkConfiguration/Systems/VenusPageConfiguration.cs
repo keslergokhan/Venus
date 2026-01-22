@@ -20,6 +20,10 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasMaxLength(EntityConfigurationConstants.MaxStringLv5)
                 .IsRequired(true);
 
+            builder.Property(x => x.Description)
+                .HasMaxLength(EntityConfigurationConstants.MaxStringLv6)
+                .IsRequired(true);
+
             builder.HasOne(x => x.Url)
                 .WithMany(x=>x.Pages)
                 .HasForeignKey(x => x.UrlId)
@@ -37,7 +41,6 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasForeignKey(x => x.ParentPageId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
-
 
         }
     }

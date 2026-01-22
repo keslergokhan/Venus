@@ -40,7 +40,10 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasForeignKey<VenusPageAbout>(x => x.PageTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(x => x.EntityPage).WithMany(x => x.PageAbouts).HasForeignKey(x => x.EntityPageId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.EntityPage)
+                .WithMany()
+                .HasForeignKey(x => x.EntityPageId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

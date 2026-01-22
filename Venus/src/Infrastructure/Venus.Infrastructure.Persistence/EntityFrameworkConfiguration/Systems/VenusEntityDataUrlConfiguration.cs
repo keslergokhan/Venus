@@ -27,7 +27,6 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .HasMaxLength(EntityConfigurationConstants.MaxStringLv6)
                 .IsRequired(true)
                 .HasColumnOrder(3);
-
         }
     }
 }

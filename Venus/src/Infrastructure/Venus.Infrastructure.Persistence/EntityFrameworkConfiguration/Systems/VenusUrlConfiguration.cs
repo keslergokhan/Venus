@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Constants;
 using Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base;
@@ -25,14 +26,23 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
                 .IsRequired(true)
                 .HasMaxLength(EntityConfigurationConstants.MaxStringLv7);
 
+            builder.Property(x=>x.UrlType)
+                .IsRequired(true)
+                .HasDefaultValue<short>((int)UrlTypeEnum.Content);
+
             builder.HasOne(x => x.ParentUrl)
                 .WithMany(x => x.SubUrls)
                 .HasForeignKey(x => x.ParentUrlId)
                 .IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.UrlType).IsRequired(true).HasDefaultValue<short>(0);
+            builder.Property(x => x.UrlType)
+                .IsRequired(true)
+                .HasDefaultValue<short>(0);
 
-            builder.HasOne(x => x.PageType).WithMany(x => x.Urls).HasForeignKey(x => x.PageTypeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.PageType)
+                .WithMany(x => x.Urls)
+                .HasForeignKey(x => x.PageTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
