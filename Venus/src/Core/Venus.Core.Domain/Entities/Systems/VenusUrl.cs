@@ -12,8 +12,6 @@ namespace Venus.Core.Domain.Entities.Systems
     {
         public string Path { get; set; }
         public string FullPath { get; set; }
-        public short UrlType { get;set; }
-
         public Guid? ParentUrlId { get; set; }
         public VenusUrl ParentUrl { get; set; }
     }
@@ -27,9 +25,6 @@ namespace Venus.Core.Domain.Entities.Systems
     public partial class VenusUrl
     {
         public ICollection<VenusUrl> SubUrls { get; set; }
-        public VenusPageType PageType { get; set; }
-        public Guid PageTypeId { get; set; }
-
         public ICollection<VenusPage> Pages { get; set; }
     }
 }

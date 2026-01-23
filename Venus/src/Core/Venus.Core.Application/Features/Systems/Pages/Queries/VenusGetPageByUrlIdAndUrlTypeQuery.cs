@@ -35,14 +35,14 @@ namespace Venus.Core.Application.Features.Systems.Pages.Queries
             {
                 VenusPage page = null;
 
-                if (request.UrlType == (short)UrlTypeEnum.Entity)
-                {
-                    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.ParentUrlId.Value);
-                }
-                else
-                {
-                    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.UrlId);
-                }
+                //if (request.UrlType == (short)PageTypeEnum.Entity)
+                //{
+                //    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.ParentUrlId.Value);
+                //}
+                //else
+                //{
+                //    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.UrlId);
+                //}
 
 
                 if (page == null)

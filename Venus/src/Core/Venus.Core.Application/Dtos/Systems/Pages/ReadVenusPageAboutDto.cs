@@ -11,8 +11,8 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
         public string Controller { get; set; }
         public string Action { get; set; }
         public Guid PageTypeId { get; set; }
-        public Guid? EntityDataUrlId { get; set; }
-        public ReadVenusEntityPageDto? EntityPage { get; set; }
+        public Guid? PageEntityId { get; set; }
+        public ReadVenusEntityPageDto? PageEntity { get; set; }
         public ReadVenusPageTypeDto? PageType { get; set; }
 
     }

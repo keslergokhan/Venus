@@ -26,12 +26,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
             builder.Property(x => x.Description)
                 .IsRequired(true)
                 .HasMaxLength(1000);
-
-
-            builder.HasOne(x => x.PageAbout)
-                .WithOne()
-                .HasForeignKey<VenusPageAbout>(x=>x.PageTypeId)
-                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
+           
         }
     }
 }

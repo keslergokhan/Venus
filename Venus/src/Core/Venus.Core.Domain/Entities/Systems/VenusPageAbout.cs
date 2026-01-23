@@ -18,8 +18,8 @@ namespace Venus.Core.Domain.Entities.Systems
     public partial class VenusPageAbout
     {
         public Guid PageTypeId { get; set; }
-
-        public VenusEntityPage? EntityPage { get; set; }
-        public Guid? EntityPageId { get; set; }
+        public VenusPageType? PageType { get; set; }
+        public Guid? PageEntityId { get; set; }
+        public VenusPageEntity? PageEntity { get; set; }
     }
 }

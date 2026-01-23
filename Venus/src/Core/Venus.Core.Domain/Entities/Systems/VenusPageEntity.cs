@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public partial class VenusEntityPage:VenusEntityBase
+    public partial class VenusPageEntity:VenusEntityBase
     {
         public string EntityName {  get; set; }
         public string EntityClassType { get; set; }

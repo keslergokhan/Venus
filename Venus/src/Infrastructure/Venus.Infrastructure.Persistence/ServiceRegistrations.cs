@@ -115,7 +115,7 @@ namespace Venus.Infrastructure.Persistence
                         Name = "İçerik Sayfası",
                         State = (int)EntityStateEnum.Online,
                         PageTypeId = db.VenusPageType.FirstOrDefault(x=>x.Title == "VenusDefaultPage").Id,
-                        EntityPage = null,
+                        PageEntity = null,
                     });
                     db.SaveChanges();
                 }
@@ -133,10 +133,8 @@ namespace Venus.Infrastructure.Persistence
                         Id = Guid.NewGuid(),
                         LanguageId = language.Id,
                         State = (int)EntityStateEnum.Online,
-                        PageTypeId = pageType.Id,
                         ParentUrl = null,
                         SubUrls = null,
-                        UrlType = (short)UrlTypeEnum.Content,
                         Path = "/hakkimizda",
                         Pages = new List<VenusPage>()
                         {
@@ -146,6 +144,7 @@ namespace Venus.Infrastructure.Persistence
                                 Description = "Hakkimizda",
                                 LanguageId = language.Id,
                                 Name = "Hakkimizda",
+                                PageAboutId = pageAbout.Id,
                                 CreateDate= DateTime.Now,
                                 State= (int)EntityStateEnum.Online,
                                 ParentPage = null,
@@ -189,9 +188,9 @@ namespace Venus.Infrastructure.Persistence
                     }
 
                     Type blog = typeof(Blog);
-                    if (!db.VenusEntityPage.Any(x=>x.EntityName == "Blog"))
+                    if (!db.VenusPageEntity.Any(x=>x.EntityName == "Blog"))
                     {
-                        db.VenusEntityPage.Add(new VenusEntityPage()
+                        db.VenusPageEntity.Add(new VenusPageEntity()
                         {
                             Id = Guid.NewGuid(),
                             EntityName = blog.Name,
@@ -204,7 +203,7 @@ namespace Venus.Infrastructure.Persistence
 
                     VenusPageType VenusEntityListPage = db.VenusPageType.FirstOrDefault(x => x.Title == "VenusEntityListPage");
                     VenusPageType VenusEntityDetailPage = db.VenusPageType.FirstOrDefault(x => x.Title == "VenusEntityDetailPage");
-                    VenusEntityPage VenusEntityPage = db.VenusEntityPage.FirstOrDefault(x => x.EntityName == blog.Name);
+                    VenusPageEntity VenusPageEntity = db.VenusPageEntity.FirstOrDefault(x => x.EntityName == blog.Name);
 
                     if (!db.VenusPageAbout.Any(x=>x.Name == "BlogList"))
                     {
@@ -218,7 +217,7 @@ namespace Venus.Infrastructure.Persistence
                             Description = "BLog Liste sayfası",
                             State = (int)EntityStateEnum.Online,
                             PageTypeId = VenusEntityListPage.Id,
-                            EntityPage = VenusEntityPage,
+                            PageEntity = VenusPageEntity,
                         });
                         db.SaveChanges();
                     }
@@ -235,15 +234,16 @@ namespace Venus.Infrastructure.Persistence
                             Description = "BLog detay sayfası",
                             State = (int)EntityStateEnum.Online,
                             PageTypeId = VenusEntityDetailPage.Id,
-                            EntityPage = VenusEntityPage,
+                            PageEntity = VenusPageEntity,
                         });
                         db.SaveChanges();
                     }
 
                     VenusPageAbout BlogDetailAbout = db.VenusPageAbout.FirstOrDefault(x => x.Name == "BlogDetail");
-                    VenusPageAbout BlogListAbout = db.VenusPageAbout.FirstOrDefault(x => x.Name == "BlogList");
+                    VenusPageAbout BlogListAbout = db.VenusPageAbout.FirstOrDefault(x => x.Name == "Bloglar Sayfası");
 
-                    if (!db.VenusUrl.Any(x=>x.PageTypeId == VenusEntityListPage.Id))
+                    
+                    if (!db.VenusUrl.Any(x=>x.Path=="/blog"))
                     {
                         db.VenusUrl.Add(new VenusUrl()
                         {
@@ -251,8 +251,6 @@ namespace Venus.Infrastructure.Persistence
                             CreateDate = DateTime.Now,
                             FullPath = "/blog",
                             Path = "/blog",
-                            UrlType = (short)UrlTypeEnum.List,
-                            PageTypeId = VenusEntityListPage.Id,
                             State = (int)EntityStateEnum.Online,
                             LanguageId = language.Id,
                             Pages = new List<VenusPage>()
@@ -262,6 +260,7 @@ namespace Venus.Infrastructure.Persistence
                                     Id = Guid.NewGuid(),
                                     LanguageId = language.Id,
                                     CreateDate= DateTime.Now,
+                                    PageAboutId = BlogListAbout.Id,
                                     State = (int)EntityStateEnum.Online,
                                     Description = "Blog list sayfası",
                                     Name = "Bloglar",
@@ -274,15 +273,14 @@ namespace Venus.Infrastructure.Persistence
                                             CreateDate = DateTime.Now,
                                             State = (int)EntityStateEnum.Online,
                                             Description = "Blog Detay",
+                                            PageAboutId = BlogDetailAbout.Id,
                                             LanguageId = language.Id,
                                             Url = new VenusUrl()
                                             {
                                                 Id = Guid.NewGuid(),
                                                 CreateDate = DateTime.Now,
                                                 FullPath = "/blog",
-                                                UrlType = (short)UrlTypeEnum.Detail,
                                                 Path = "/blog",
-                                                PageTypeId = VenusEntityDetailPage.Id,
                                                 State = (int)EntityStateEnum.Online,
                                                 LanguageId = language.Id,
                                             }
@@ -295,7 +293,7 @@ namespace Venus.Infrastructure.Persistence
                     }
 
 
-                    VenusUrl blogBaseUrl = db.VenusUrl.Where(x => x.UrlType == (short)UrlTypeEnum.Detail && x.PageType.PageAbout.EntityPage.EntityName == nameof(Blog)).FirstOrDefault();
+                    VenusUrl blogBaseUrl = db.VenusUrl.Where(x => x.Pages.Any(i=>i.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString())).FirstOrDefault();
 
                     db.Blog.Add(new Blog()
                     {
@@ -304,10 +302,8 @@ namespace Venus.Infrastructure.Persistence
                             Id = Guid.NewGuid(),
                             FullPath = $"{blogBaseUrl.FullPath}/test-blog",
                             Path = "/test-blog",
-                            UrlType = (short)UrlTypeEnum.Entity,
                             LanguageId = language.Id,
                             State = (int)EntityStateEnum.Online,
-                            PageTypeId = VenusEntityDetailPage.Id,
                             CreateDate = DateTime.Now,
                             ModifiedDate = null,
                             ParentUrlId = blogBaseUrl.Id,

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Venus.Core.Application.Dtos.Systems.Urls;
-using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Systems.Urls.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
@@ -29,17 +28,15 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             if (!urlResult.IsSuccess)
                 throw urlResult.Exception;
 
-            var urlData = urlResult.Data.Where(x => x.UrlType != (short)UrlTypeEnum.Detail).ToList();
+            if (urlResult.Data.Count == 0)
+            {
+                throw new VenusNotFoundUrlException(Path);
+            }
 
-            ReadVenusUrlDto url = urlData.FirstOrDefault();
-
-            if (url.Language == null)
+            if (urlResult.Data.Any(x=>x.Language == null))
                 throw new VenusNotFoundLanguageException();
-
-            this.VenusContext.Url = new VenusHttpUrl(FullPath, Schema, Host, Path, BaseUrl, url);
-            this.VenusContext.Language = new VenusHttpLanguage(url.Language);
-
-            return await base.HandleAsync(httpContext,url);
+           
+            return await base.HandleAsync(httpContext,urlResult.Data);
         }
     }
 }

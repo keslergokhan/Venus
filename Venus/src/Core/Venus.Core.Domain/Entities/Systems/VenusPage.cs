@@ -28,5 +28,8 @@ namespace Venus.Core.Domain.Entities.Systems
         public VenusPage ParentPage { get; set; }
 
         public ICollection<VenusPage> SubPages { get; set; }
+
+        public Guid PageAboutId { get; set; }
+        public VenusPageAbout PageAbout { get; set; }
     }
 }

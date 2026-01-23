@@ -22,9 +22,16 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
             return GetQueryable()
                 .Where(x => x.FullPath
-                .Trim() == fullPath.Trim() && x.State == (int)EntityStateEnum.Online)
+                .Trim() == fullPath.Trim() 
+                    && x.State == (int)EntityStateEnum.Online
+                    && x.Pages.Any(p=>p.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString() && (p.ParentPageId != null || p.ParentPageId == default(Guid))) == false
+                )
                 .Include(x=>x.Language)
-                .ToListAsync();
+                .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageType)
+                .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageEntity)
+                .Include(x=>x.ParentUrl).ThenInclude(x=>x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageType)
+                .Include(x => x.ParentUrl).ThenInclude(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageEntity)
+                .AsSplitQuery().ToListAsync();
         }
     }
 }

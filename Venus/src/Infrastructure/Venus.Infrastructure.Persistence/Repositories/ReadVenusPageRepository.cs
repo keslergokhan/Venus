@@ -22,7 +22,6 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
             return base.GetQueryable()
                 .Include(x=>x.Url)
-                .ThenInclude(x=>x.PageType).ThenInclude(x=>x.PageAbout)
                 .FirstOrDefault(p => p.UrlId == urlId);
         }
     }

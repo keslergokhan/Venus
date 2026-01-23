@@ -23,8 +23,6 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
             return base.GetQueryable()
                 .Where(x=>x.State == (int)EntityStateEnum.Online)
-                .Include(x=>x.PageAbout)
-                .Include(x=>x.Urls)
                 .ToListAsync();
         }
     }
