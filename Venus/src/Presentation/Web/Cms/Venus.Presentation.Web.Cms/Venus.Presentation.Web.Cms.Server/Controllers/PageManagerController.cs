@@ -11,10 +11,13 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
     {
 
         [HttpGet()]
-        public async Task<IActionResult> GetPageTypes()
+        public async Task<IActionResult> GetPageAbouts()
         {
-            var pageAboutList = await base.Mediator.Send(new VenusGetPageTypesQuery());
+            var pageAboutList = await base.Mediator.Send(new VenusGetPageAboutQuery());
             return pageAboutList.ToActionResult(this);
         }
+
+
     }
 }
+ 

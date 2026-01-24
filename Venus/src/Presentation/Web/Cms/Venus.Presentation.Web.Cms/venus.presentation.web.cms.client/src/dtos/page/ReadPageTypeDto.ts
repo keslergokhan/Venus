@@ -13,6 +13,5 @@ export class ReadPageTypeDto extends DtoBase{
     title:string;
     interfaceClassType:string;
     description:string
-    pageAbout:ReadPageAboutDto
     urls:ReadUrlDto[]
 }

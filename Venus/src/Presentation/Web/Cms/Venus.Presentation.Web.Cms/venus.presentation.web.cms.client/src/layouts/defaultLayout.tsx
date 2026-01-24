@@ -19,7 +19,7 @@ const DefaultLayout = (): JSX.Element => {
                 :
                 <>
                     <HeaderContainer></HeaderContainer>
-                    <div className="container px-4 py-4">
+                    <div className="w-screen px-4 py-4">
                         <Outlet />
                     </div>
                     <FileManagerComponent></FileManagerComponent>

@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react"
-import { LoadingComponent, PageTypeListComponent } from "../../components"
+import { LoadingComponent, PageAbourtListComponent } from "../../components"
 import { PageTypeManagerService } from "../../services";
 import { ToastHelper } from "../../helpers";
 import { ReadPageAboutDto, ReadPageTypeDto } from "../../dtos";
 
 
-export const PageManagerContainer = () =>{
+export const PageManagerListContainer = () =>{
 
     const [loading,setLoading] = useState<boolean>(true);
-    const pageAboutList = useRef<ReadPageTypeDto[]>(new Array<ReadPageTypeDto>());
+    const pageAboutList = useRef<ReadPageAboutDto[]>(new Array<ReadPageAboutDto>());
 
     const pageTypeManagerService = new PageTypeManagerService();
 
     useEffect(()=>{
-        pageTypeManagerService.getPageTypeListAsync()
+        pageTypeManagerService.getPageAboutListAsync()
         .then(x=>{
             console.log(x);
             pageAboutList.current = x;
@@ -25,7 +25,7 @@ export const PageManagerContainer = () =>{
 
     return <>
         <LoadingComponent loading={loading}>
-            <PageTypeListComponent pageAbouts={pageAboutList.current}></PageTypeListComponent>
+            <PageAbourtListComponent pageAbouts={pageAboutList.current}></PageAbourtListComponent>
         </LoadingComponent>
     </>
 }

@@ -4,10 +4,9 @@ import { ReadPageAboutDto, ReadPageTypeDto } from "../dtos";
 
 export class PageTypeManagerService extends ServiceBase{
 
-    public getPageTypeListAsync = ():Promise<ReadPageTypeDto[]> =>{
-        
-        return axios.get<ReadPageTypeDto[]>(this.GetFullPath("PageManager/GetPageTypes")).then(x=>{
-            return x.data as ReadPageTypeDto[];
+    public getPageAboutListAsync = ():Promise<ReadPageAboutDto[]> =>{
+        return axios.get<ReadPageAboutDto[]>(this.GetFullPath("PageManager/GetPageAbouts")).then(x=>{
+            return x.data as ReadPageAboutDto[];
         })
 
     } 

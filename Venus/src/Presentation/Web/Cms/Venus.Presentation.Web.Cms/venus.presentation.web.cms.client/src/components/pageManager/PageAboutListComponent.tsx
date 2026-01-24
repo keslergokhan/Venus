@@ -4,22 +4,21 @@ import type { ReadPageAboutDto, ReadPageTypeDto } from "../../dtos"
 import { Link } from "react-router-dom"
 
 
-export interface PageTypeListComponentProps {
-    pageAbouts:ReadPageTypeDto[]
+export interface PageAboutListComponentProps {
+    pageAbouts:ReadPageAboutDto[]
 }
 
-export const PageTypeListComponent = (props:PageTypeListComponentProps):JSX.Element =>{
+export const PageAbourtListComponent = (props:PageAboutListComponentProps):JSX.Element =>{
 
 
-    const PageAboutItemJsx = ({item}:{item:ReadPageTypeDto}):JSX.Element =>{
+    const PageAboutItemJsx = ({item}:{item:ReadPageAboutDto}):JSX.Element =>{
         return (
             <div className="col-span-12 md:col-span-3 border py-2 px-2 border-gray-200 min-h-[100px] shadow-lg block bg-gray-300 rounded-xl ">
                 <div className="text-lx text-base font-bold flex justify-center">
-                    <h5>{item.pageAbout.name}</h5>
+                    <h5>{item.name}</h5>
                 </div>
                 <div className="text-sm font-light flex justify-center mt-2 flex-col items-center gap-3">
-                    <p>{item.pageAbout.description}</p>
-                    <p>{item.urls.length} Sayfa mevcut</p>
+                    <p>{item.description}</p>
                     <div className="w-2/3 gap-1 flex">
                         <CSmButtonField className="max-w-[150px] text-[12px]" id="add-page" >
                             <Link className="block" to={`add?pageTypeId=${item.id}`}>Yeni Sayfa Ekle</Link>
