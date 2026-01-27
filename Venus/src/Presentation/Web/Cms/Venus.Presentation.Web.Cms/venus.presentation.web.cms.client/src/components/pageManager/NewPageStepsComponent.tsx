@@ -2,6 +2,7 @@ import { useEffect, useState, type JSX } from "react"
 import { CButtonField, IconArrow, IconCheck } from "../commons";
 import { bool } from "yup";
 import { LoadingComponent } from "../loading/LoadingComponent";
+import { PageAboutCheckListComponent } from "./PageAboutCheckListComponent";
 
 export interface NewPageStepsComponentProps {
 
@@ -9,34 +10,35 @@ export interface NewPageStepsComponentProps {
 
 
 interface Step {
-    StepContent:({step,steps}:{step:Step,steps?:Step[]|undefined})=>JSX.Element;
+    StepContent:React.ComponentType<{step:Step,steps?:Step[]|undefined}>;
     Title:string;
     Key:string;
     FormFinsh:boolean;
     NextStep:(key:string)=>void;
-    FormSutmitHandler:()=>void;
+    FormSutmitHandler:(step:Step)=>void;
 }
 
 const Step1 = ({step,steps}:{step:Step,steps?:Step[]|undefined}):JSX.Element =>{
-
-   
+    
     return (
     <div className="container">
         <div className="">
-        Bir
+         
             <CButtonField id="form-submit" onClick={()=>{
-                step.FormSutmitHandler();
+                step.FormSutmitHandler(step);
             }}>Tamam </CButtonField>
         </div>
     </div>)
 }
 
 const Step2 = ({step,steps}:{step:Step,steps?:Step[]|undefined}):JSX.Element =>{
-    
+    useEffect(()=>{
+        alert("fsdf");
+    },[]);
     return (
     <>ikinci adım
         <CButtonField id="form-submit" onClick={()=>{
-                step.FormSutmitHandler();
+                step.FormSutmitHandler(step);
             }}>Tamam </CButtonField>
     </>)
 }
@@ -45,7 +47,7 @@ const Step3 = ({step,steps}:{step:Step,steps?:Step[]|undefined}):JSX.Element =>{
     return (
     <>üçüncü adım
         <CButtonField id="form-submit" onClick={()=>{
-                step.FormSutmitHandler();
+                step.FormSutmitHandler(step);
             }}>Tamam </CButtonField>
     </>)
 }
@@ -57,9 +59,9 @@ const Steps:Step[] = [
         Title:"Sayfa Tipi",
         FormFinsh:false,
         NextStep:()=>{},
-        FormSutmitHandler:function(){
-            this.FormFinsh = true;
-            this.NextStep("page_about");
+        FormSutmitHandler:(step:Step)=>{
+            step.FormFinsh = true;
+            step.NextStep("page_about");
         }
     },
     {
@@ -68,9 +70,9 @@ const Steps:Step[] = [
         Title:"Sayfa Bilgileri",
         FormFinsh:false,
         NextStep:()=>{},
-        FormSutmitHandler:function(){
-            this.FormFinsh = true;
-            this.NextStep("page_control");
+        FormSutmitHandler:(step:Step)=>{
+            step.FormFinsh = true;
+            step.NextStep("page_control");
         }
     },
     {
@@ -79,9 +81,9 @@ const Steps:Step[] = [
         Title:"Bilgileri Doğrula",
         FormFinsh:false,
         NextStep:()=>{},
-        FormSutmitHandler:function(){
-            this.FormFinsh = true;
-            this.NextStep("page_save");
+        FormSutmitHandler:(step:Step)=>{
+            step.FormFinsh = true;
+            step.NextStep("page_save");
         }
     },
     {
@@ -90,13 +92,17 @@ const Steps:Step[] = [
         Title:"Kaydet",
         FormFinsh:false,
         NextStep:()=>{},
-        FormSutmitHandler:function(){
+        FormSutmitHandler:(step:Step)=>{
+            step.FormFinsh = true;
+            step.NextStep("");
+            setTimeout(() => {
+                step.NextStep("page_save");
+            }, (10));
         }
     }
 ]
 
 export const NewPageStepsComponent = (props:NewPageStepsComponentProps) =>{
-
 
     const findStep = Steps.find(x=>x.Key=="page_category");
     const [currentStep,setCurrentStep] = useState<Step | undefined>(findStep);
@@ -134,6 +140,7 @@ export const NewPageStepsComponent = (props:NewPageStepsComponentProps) =>{
         </div>
       }
 
+    const StepContentFun = currentStep?.StepContent;
     return (
         <div className="w-full flex justify-center" id="newpage-Steps-component">
             <div className="container">
@@ -147,11 +154,11 @@ export const NewPageStepsComponent = (props:NewPageStepsComponentProps) =>{
             
 
                 <div className="">
-                    {currentStep?.StepContent({step:currentStep,steps:Steps})}
+                    {StepContentFun && <StepContentFun key={3} step={currentStep} steps={Steps}></StepContentFun>}
                 </div>
 
                 <div className="w-[100px] hidden">
-                    <CButtonField id="form-submit" onClick={()=>{currentStep?.FormSutmitHandler()}}>Tamam </CButtonField>
+                    <CButtonField id="form-submit" onClick={()=>{currentStep?.FormSutmitHandler(currentStep)}}>Tamam </CButtonField>
                 </div>
             </div>
         </div>
