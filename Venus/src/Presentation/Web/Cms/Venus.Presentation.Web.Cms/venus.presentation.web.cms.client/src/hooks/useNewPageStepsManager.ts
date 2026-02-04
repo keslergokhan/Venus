@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import type { Step } from "../components/pageStepsComponents/NewPageStepsManagerComponent"
+import type { Step, StepData } from "../components/pageStepsComponents/NewPageStepsManagerComponent"
 import { Step1, Step2, Step3, Step4 } from "../components/pageStepsComponents/StepsComponents"
 import type { ReadPageAboutDto } from "../dtos";
 import { PageTypeManagerService } from "../services";
 import { ToastHelper } from "../helpers";
 
 
-export const useNewPageStepsManager = ():{Steps:Step[],loading:boolean} =>{
+export const useNewPageStepsManager = ():{Steps:Step[],loading:boolean,stepData:StepData} =>{
 
     const [loading,setLoading] = useState<boolean>(true);
     const pageAboutList = useRef<ReadPageAboutDto[]>(new Array<ReadPageAboutDto>());
@@ -16,7 +16,6 @@ export const useNewPageStepsManager = ():{Steps:Step[],loading:boolean} =>{
     useEffect(()=>{
         pageTypeManagerService.getPageAboutListAsync()
         .then(x=>{
-            console.log(x);
             pageAboutList.current = x;
             setLoading(false);
         }).catch(err=>{
@@ -26,7 +25,10 @@ export const useNewPageStepsManager = ():{Steps:Step[],loading:boolean} =>{
     
     return {
         Steps:[Step1,Step2,Step3,Step4],
-        loading:loading
+        loading:loading,
+        stepData:{
+            pageAbouts :pageAboutList.current
+        }
     }
 }
 

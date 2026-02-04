@@ -3,13 +3,13 @@ import type { Step, StepProp } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
 
 
-
-
 const StepContent = (props:StepProp):JSX.Element =>{
     return (
     <div className="container">
         <div className="">
-            1 component
+            {props.data.pageAbouts.map((x,i)=>{
+                return <p key={i}>{x.name}</p>
+            })}
             <CButtonField id="form-submit" onClick={()=>{
                 props.step.FormSutmitHandler(props.step)
             }}>Tamam </CButtonField>

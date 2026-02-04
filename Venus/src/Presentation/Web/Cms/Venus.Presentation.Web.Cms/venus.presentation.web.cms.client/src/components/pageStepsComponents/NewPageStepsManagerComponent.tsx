@@ -2,10 +2,14 @@ import { useState, type JSX } from "react"
 import { CButtonField, IconArrow, IconCheck } from "../commons";
 import type { ReadPageAboutDto } from "../../dtos";
 
+
+export interface StepData{
+    pageAbouts:ReadPageAboutDto[]
+}
 export interface StepProp{
     step:Step;
     steps?:Step[]|undefined;
-    pageAboutDto:ReadPageAboutDto[]
+    data:StepData
 }
 
 export interface Step {
@@ -18,7 +22,8 @@ export interface Step {
 }
 
 export interface NewPageStepsManagerComponentProps{
-    Steps:Step[]
+    Steps:Step[],
+    stepData:StepData
 }
 
 export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =>{
@@ -73,7 +78,7 @@ export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =
             
 
                 <div className="">
-                    {StepContentFun && <StepContentFun key={3} {...{step:currentStep,steps:props.Steps,pageAboutDto:[]}} ></StepContentFun>}
+                    {StepContentFun && <StepContentFun key={3} {...{step:currentStep,steps:props.Steps,data:props.stepData}} ></StepContentFun>}
                 </div>
 
                 <div className="w-[100px] hidden">
