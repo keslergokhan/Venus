@@ -1,32 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import type { ReadPageAboutDto } from "../../dtos";
-import { PageTypeManagerService } from "../../services";
-import { ToastHelper } from "../../helpers";
+
+import { useState } from "react";
 import { LoadingComponent } from "../../components";
-import { NewPageStepsComponent } from "../../components/pageManager/NewPageStepsComponent";
+import { NewPageStepsComponent } from "../../components/pageStepsComponents/NewPageStepsManagerComponent";
+import { useNewPageStepsManager } from "../../hooks/useNewPageStepsManager";
 
 
 export const NewPageStepsContainer = () =>{
 
-    const [loading,setLoading] = useState<boolean>(true);
-    const pageAboutList = useRef<ReadPageAboutDto[]>(new Array<ReadPageAboutDto>());
-
-    const pageTypeManagerService = new PageTypeManagerService();
+   
+    const {Steps,loading} = useNewPageStepsManager();
     
-    useEffect(()=>{
-        pageTypeManagerService.getPageAboutListAsync()
-        .then(x=>{
-            console.log(x);
-            pageAboutList.current = x;
-            setLoading(false);
-        }).catch(err=>{
-            ToastHelper.DefaultCatchError(err);
-        })
-    },[]);
 
     return (
         <LoadingComponent loading={loading}>
-            <NewPageStepsComponent></NewPageStepsComponent>
+            <NewPageStepsComponent Steps={Steps} ></NewPageStepsComponent>
         </LoadingComponent>
     )
 }

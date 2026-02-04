@@ -17,7 +17,6 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return pageAboutList.ToActionResult(this);
         }
 
-
     }
 }
  
