@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { LoginFormValues } from "../components";
 import { ToastHelper } from "../helpers";
 import { AuthenticationService } from "../services";
@@ -5,11 +6,13 @@ import { useAuthentication } from "./useAuthentication";
 import { PageRoute, useCustomNavigate } from "./useCustomNavigate";
 
 export const useLogin = ()=>{
+    const [loadingState,setLoading] = useState<boolean>(false);
     const [navigate] = useCustomNavigate();
     const authentication =  useAuthentication();
     const service = new AuthenticationService();
     const onSubmitAsync = async (data: LoginFormValues): Promise<void> => {
 
+        setLoading(true);
         await service.loginAsync(data).then(x => {
             authentication.authenticationAction({ type: "Login", user: x });
             
@@ -19,10 +22,11 @@ export const useLogin = ()=>{
                 navigate(PageRoute.Home);
             },100)
         }).catch(() => {
+            setLoading(false);
             authentication.authenticationAction({ type: "Logaut"});
             ToastHelper.Warning("Kullanıcı adı veya şifre yanlış.");
         });
     };
 
-    return {onSubmitAsync}
+    return {onSubmitAsync,loadingState}
 }

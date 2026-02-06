@@ -1,16 +1,19 @@
 ﻿import { type JSX } from "react";
-import { LoginComponent, type LoginFormValues } from "../../components";
+import { LoadingComponent, LoginComponent } from "../../components";
 import { useLogin } from "../../hooks/useLogin";
 
 
 const LoginContainers = ():JSX.Element =>{
     
-    const {onSubmitAsync} = useLogin();
+    const {onSubmitAsync,loadingState} = useLogin();
 
     return (
-        <>
-            <LoginComponent onSubmitAsync={onSubmitAsync} ></LoginComponent>
-        </>
+        <div className="min-h-[500px] mt-[100px]">
+            <LoadingComponent loading={loadingState} size="xl">
+                <LoginComponent onSubmitAsync={onSubmitAsync} ></LoginComponent>
+            </LoadingComponent>
+        </div>
+        
     )
 }
 
