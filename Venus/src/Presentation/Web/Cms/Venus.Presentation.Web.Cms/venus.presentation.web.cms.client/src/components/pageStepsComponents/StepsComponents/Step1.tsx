@@ -25,8 +25,10 @@ const StepContent = (props:StepProp):JSX.Element =>{
         return (
             <div className="border-1 p-5 rounded cursor-pointer flex-auto min-w-[200px] " 
                 onClick={()=>{
-                    allStepPostData.pageAboutId = item.id;
-                    setSelectedPageAbout(item);
+                    if(selectedPageAbout==undefined){
+                        allStepPostData.pageAboutId = item.id;
+                        setSelectedPageAbout(item);
+                    }
                 }}>
                 <div className="flex justify-between min-h-[30px]">
                     <span className={`font-bold ${isSelected && "text-green-700"}`}>{item.name}</span>

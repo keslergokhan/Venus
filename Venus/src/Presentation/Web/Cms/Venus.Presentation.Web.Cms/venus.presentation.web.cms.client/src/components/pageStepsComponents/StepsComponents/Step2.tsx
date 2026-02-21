@@ -1,19 +1,20 @@
 import type { JSX } from "react";
 import type { Step, StepProp } from "../NewPageStepsManagerComponent";
 import { CButtonField, CTextField } from "../../commons";
-
-
-
+import { UrlInputField } from "../../commons/textFields";
+import { useUrlPathControl } from "../../../hooks";
 
 const StepContent = (props:StepProp):JSX.Element =>{
-    
+
+    const urlControl = useUrlPathControl();
     return (
     <div className="container">
         <div className="mt-5">
             <form className="space-y-6" action="#">
             
-                <CTextField type="email" id="email" name="email" label="Kullanıcı Adı" key="email" ></CTextField>
-                <CTextField type="password" id="password" name="password" label="Şifre" key="password" ></CTextField>
+                <UrlInputField useUrlPathControl={urlControl}></UrlInputField>
+                <CTextField type="text" id="title" name="title" label="Başık" key="title" ></CTextField>
+                <CTextField type="description" id="description" name="description" label="Sayfa Açıklaması" key="description" ></CTextField>
                 
                 <CButtonField id="form-submit" onClick={()=>{
                     props.step.FormSutmitHandler(props.step)
