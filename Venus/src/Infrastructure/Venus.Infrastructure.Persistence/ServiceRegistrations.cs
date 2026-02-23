@@ -32,13 +32,13 @@ namespace Venus.Infrastructure.Persistence
         private static void AddVenusPersistenceServiceRegistration(this IServiceCollection services)
         {
             services.AddScoped<IReadVenusUrlSystemRepository, ReadVenusUrlRepository>();
+            services.AddScoped<IReadVenusUrlCmsRepository, ReadVenusUrlRepository>();
             services.AddScoped<IVenusAuthenticationCmsRepository, VenusAuthenticationRepository>();
             services.AddScoped<IReadVenusPageTypeCmsRepository, ReadVenusPageTypeRepository>();
             services.AddScoped<IReadVenusPageSystemRepository, ReadVenusPageRepository>();
             services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
             services.AddScoped<IReadVenusPageAboutCmsRepository, ReadVenusPageAboutRepository>();
             services.AddScoped<IReadVenusLanguageCmsRepository, ReadVenusLanguageRepository>();
-
             //services.AddStartData();
 
         }

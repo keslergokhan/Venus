@@ -1,10 +1,13 @@
 import React from "react";
 import { useState, type JSX } from "react";
 import type { useUrlPathControlResult } from "../../../hooks";
+import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 
 export interface UrlInputFieldProps {
-    useUrlPathControl:useUrlPathControlResult
+    useUrlPathControl:useUrlPathControlResult,
+    formRegister?:UseFormRegisterReturn,
+    FieldErrors?:FieldError,
 }
 
 export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
@@ -41,8 +44,12 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
 
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         props.useUrlPathControl.setValue(toUrlFormat(e.target.value));
+        props.formRegister?.onChange(e);
     };
 
+    const onBlur = (e:React.FocusEvent<HTMLInputElement>) =>{
+        props.useUrlPathControl.checkUrlHandler();
+    }
     
 
     return (
@@ -51,15 +58,18 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
             Url
         </label>
         <input
+        {...props.formRegister}
+        onBlur={onBlur}
         onChange={handleChange}
         type="text"
-        name="path"
-        value={props.useUrlPathControl.url}
-        id="path"
+        name="url"
+        id="url"
         className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5"
         placeholder={"/"}
         />
-         {props.useUrlPathControl.isUrlExists && <p className="text-red-500 text-sm mt-1">Adres zaten mevcut.</p>}
+        {props.useUrlPathControl.isUrlExists && <p className="text-red-500 text-sm mt-1">Adres zaten mevcut.</p>}
+        {(props.useUrlPathControl.isUrlExists==false && props.useUrlPathControl?.getValue()?.length > 2) && <p className="text-green-500 text-sm mt-1">Adres kullanıma uygun.</p>}
+        {props.FieldErrors && <p className="text-red-500 text-sm mt-1">{props.FieldErrors.message}</p>}
     </div>)
     
     

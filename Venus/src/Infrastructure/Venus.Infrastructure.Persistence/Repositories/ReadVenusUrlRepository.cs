@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Enums.Systems;
+using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
@@ -12,19 +13,24 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class ReadVenusUrlRepository : ReadRepositoryBase<VenusUrl>, IReadVenusUrlSystemRepository
+    public class ReadVenusUrlRepository : ReadRepositoryBase<VenusUrl>, IReadVenusUrlSystemRepository, IReadVenusUrlCmsRepository
     {
         public ReadVenusUrlRepository(VenusContext db) : base(db)
         {
         }
 
-        public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
+        private IQueryable<VenusUrl> GetDefaultUrlQuery(string fullPath)
         {
             return GetQueryable()
                 .Where(x => x.FullPath == fullPath
                     && x.State == (int)EntityStateEnum.Online
-                    && x.Pages.Any(p=>p.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString() && (p.ParentPageId != null || p.ParentPageId == default(Guid))) == false
-                )
+                    && x.Pages.Any(p => p.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString() && (p.ParentPageId != null || p.ParentPageId == default(Guid))) == false
+                );
+        }
+
+        public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
+        {
+            return GetDefaultUrlQuery(fullPath)
                 .Include(x=>x.Language)
                 .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageType)
                 .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageEntity)
@@ -32,5 +38,12 @@ namespace Venus.Infrastructure.Persistence.Repositories
                 .Include(x => x.ParentUrl).ThenInclude(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageEntity)
                 .AsSplitQuery().ToListAsync();
         }
+
+        public bool UrlCheck(string fullPath)
+        {
+            return (GetDefaultUrlQuery(fullPath).Count() > 0);
+        }
+
+        
     }
 }

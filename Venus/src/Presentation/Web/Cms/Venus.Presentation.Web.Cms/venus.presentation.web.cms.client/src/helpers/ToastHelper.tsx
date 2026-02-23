@@ -81,12 +81,17 @@ export class ToastHelper {
 
     public static DefaultCatchError = (error:any) => {
         const result = error.response?.data as IResultControl;
+        
         if(result){
-            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>{result.errorMessage}<br></br>{result.errorCode}</>)), { duration: 1800 });
+            if(result.errorMessage == "" ){
+                toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>{result.errorMessage}<br></br>{result.errorCode}</>)), { duration: 1800 });
+            }else{
+                toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !</>)), { duration: 1800 });
+            }
         }else if(error instanceof Error){
             toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>{error.message}<br></br></>)), { duration: 1800 });
         }else{
-            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", "Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !")), { duration: 1800 });
+            toast.custom((x) => (ToastHelper.ToastJSX(x, "error", <>Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !</>)), { duration: 1800 });
         }
     }
    

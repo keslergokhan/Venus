@@ -1,26 +1,34 @@
 import { useState } from "react"
+import { UrlService } from "../services";
+import { ToastHelper } from "../helpers";
+import type { FieldValues, UseFormGetValues, UseFormTrigger } from "react-hook-form";
 
 export interface useUrlPathControlResult{
-    url:string;
+    getValue: ()=>string;
     setValue:(url:string)=>void
-    isUrlExists:boolean
+    isUrlExists:boolean;
+    checkUrlHandler:()=>void
 }
 
-export const useUrlPathControl = () : useUrlPathControlResult =>{
+export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()=>string}) : useUrlPathControlResult =>{
     const [isUrlExists,setUrlExists] = useState<boolean>(false);
-    const [url,setUrl] = useState<string>("/");
-
-    const aaa = "/hakkimizda";
-
+    const urlService = new UrlService();
     
     const setUrlHandler = (url:string)=>{
-        if(aaa == url){
-            setUrlExists(true);
-        }else{
-            setUrlExists(false);
-        }
-        setUrl(url);
+        props.setValue(url);
+    }
+
+    const urlGetValue = ()=>{
+        return props.getValue()
+    }
+
+    const checkUrlHandler = ()=>{
+        urlService.urlCheck({url:"url"}).then(x=>{
+            setUrlExists(x);
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        });
     }
    
-    return {isUrlExists:isUrlExists,setValue:setUrlHandler,url:url}
+    return {isUrlExists:isUrlExists,setValue:setUrlHandler,getValue:urlGetValue,checkUrlHandler:checkUrlHandler}
 }

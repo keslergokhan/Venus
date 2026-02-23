@@ -11,5 +11,6 @@ namespace Venus.Core.Application.Repositories.Interfaces.Systems
     public interface IReadVenusUrlSystemRepository : IReadRepository<VenusUrl>
     {
         public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath);
+
     }
 }
