@@ -10,14 +10,14 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Systems.Pages.Queries
 {
-    public class VenusGetPageByUrlIdAndUrlTypeQuery : IRequest<IResultDataControl<ReadVenusPageDto>>
+    public class GetVenusPageByUrlIdAndUrlTypeQuery : IRequest<IResultDataControl<ReadVenusPageDto>>
     {
         public Guid UrlId { get; set; }
         public Guid? ParentUrlId { get; set; }
         public short UrlType { get; set; }  
     }
 
-    public class VenusGetPageByUrlIdAndUrlTypeQueryHandler : IRequestHandler<VenusGetPageByUrlIdAndUrlTypeQuery, IResultDataControl<ReadVenusPageDto>>
+    public class VenusGetPageByUrlIdAndUrlTypeQueryHandler : IRequestHandler<GetVenusPageByUrlIdAndUrlTypeQuery, IResultDataControl<ReadVenusPageDto>>
     {
         private readonly IReadVenusPageSystemRepository _readVenusPageSystemRepository;
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace Venus.Core.Application.Features.Systems.Pages.Queries
             _mapper = mapper;
         }
 
-        public async Task<IResultDataControl<ReadVenusPageDto>> Handle(VenusGetPageByUrlIdAndUrlTypeQuery request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<ReadVenusPageDto>> Handle(GetVenusPageByUrlIdAndUrlTypeQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<ReadVenusPageDto> result = new ResultDataControl<ReadVenusPageDto>();
             try

@@ -15,6 +15,7 @@ export abstract class ServiceBase {
             headers: {
                 'Authorization': `Bearer ${this.GetUserJwtToken()}`,
                 "Language":localStorage.getItem("cms_language"),
+                "LanguageId":localStorage.getItem("cms_language_id"),
                 "Content-Type": "application/json"
             },
             withCredentials: true

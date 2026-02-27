@@ -15,11 +15,11 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Cms.Languages.Queries
 {
-    public class VenusGetLanguageQuery : IRequest<IResultDataControl<List<ReadVenusLanguageDto>>>
+    public class GetVenusLanguageQuery : IRequest<IResultDataControl<List<ReadVenusLanguageDto>>>
     {
     }
 
-    public class VenusGetLanguageQueryHandler : IRequestHandler<VenusGetLanguageQuery, IResultDataControl<List<ReadVenusLanguageDto>>>
+    public class VenusGetLanguageQueryHandler : IRequestHandler<GetVenusLanguageQuery, IResultDataControl<List<ReadVenusLanguageDto>>>
     {
         private readonly IReadVenusLanguageCmsRepository _readVenusLanguageCmsRepository;
         private readonly IMapper _mapper;
@@ -30,7 +30,7 @@ namespace Venus.Core.Application.Features.Cms.Languages.Queries
             _mapper = mapper;
         }
 
-        public async Task<IResultDataControl<List<ReadVenusLanguageDto>>> Handle(VenusGetLanguageQuery request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<List<ReadVenusLanguageDto>>> Handle(GetVenusLanguageQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadVenusLanguageDto>> result = new ResultDataControl<List<ReadVenusLanguageDto>>();
             try

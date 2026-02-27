@@ -15,6 +15,7 @@ import { LanguageService } from "../../services";
 import type { ReadLanguageDto } from "../../dtos";
 import { ToastHelper } from "../../helpers";
 import { AppContext } from "../../contexts/AppContext";
+import { useMenuLanguage } from "../../hooks";
 
 export interface MenuComponentProps {
 }
@@ -22,32 +23,7 @@ export interface MenuComponentProps {
 
 export const MenuComponent = (): JSX.Element => {
 
-    const languageService = new LanguageService();
-    const [langaugeList,setLanguageList] = useState<Array<ReadLanguageDto>>(new Array<ReadLanguageDto>());
-    const [language,setLanguage] = useState<string>("Türkçe");
-    const appContext = useContext(AppContext);
-
-    const languageOnChangeEvent = (language:string)=>{
-        const selectLanguage = appContext.languageState.languages.find(x=>x.culture == language);
-        if(selectLanguage){
-            appContext.languageAction({type:"SetLanguage",language:language})
-            setLanguage(selectLanguage.name);
-        }else{
-            ToastHelper.Error(<>Teknik bir sorun yaşandı, {language} mevcut değil !</>);
-        }
-    }
-
-    useEffect(()=>{
-        if(appContext.languageState.languages && appContext.languageState.languages.length <= 0){
-            languageService.getLanguageAsync().then(x=>{
-                setLanguageList(x);
-                appContext.languageAction({"type":"SetLanguages",languages:x});
-            }).catch(x=>{
-                ToastHelper.DefaultCatchError(x);
-            });
-        }
-        
-    },[]);
+    const {onChangeEvent,languages,currentLanguage} = useMenuLanguage();
 
     return (
         <MegaMenu className="shadow-lg">
@@ -56,10 +32,10 @@ export const MenuComponent = (): JSX.Element => {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
             </NavbarBrand>
             <div className="order-2 hidden items-center md:flex gap-2">
-                <Dropdown label={language} inline >
+                <Dropdown label={currentLanguage} inline >
                     {
-                        langaugeList.map((x:ReadLanguageDto,i)=>{
-                            return <DropdownItem key={i} onClick={()=>{languageOnChangeEvent(x.culture)}}>{x.name}</DropdownItem>
+                        languages.map((x:ReadLanguageDto,i)=>{
+                            return <DropdownItem key={i} onClick={()=>{onChangeEvent(x.culture)}}>{x.name}</DropdownItem>
                         })
                     }
                 </Dropdown>

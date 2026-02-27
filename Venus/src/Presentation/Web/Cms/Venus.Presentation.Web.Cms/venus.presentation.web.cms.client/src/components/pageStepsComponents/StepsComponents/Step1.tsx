@@ -1,12 +1,12 @@
 import { useState, type JSX } from "react";
-import type { Step, StepProp } from "../NewPageStepsManagerComponent";
+import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField, IconCheck } from "../../commons";
 import { ReadPageAboutDto } from "../../../dtos";
 import { ToastHelper } from "../../../helpers";
 
 
 
-const StepContent = (props:StepProp):JSX.Element =>{
+const StepContent = (props:StepContentProps):JSX.Element =>{
     const allStepPostData = props.allStepPostData;
     const [selectedPageAbout,setSelectedPageAbout] = useState<ReadPageAboutDto>();
 
@@ -25,7 +25,7 @@ const StepContent = (props:StepProp):JSX.Element =>{
         return (
             <div className="border-1 p-5 rounded cursor-pointer flex-auto min-w-[200px] " 
                 onClick={()=>{
-                    if(selectedPageAbout==undefined){
+                    if(selectedPageAbout==undefined && allStepPostData.pageAboutId!=item.id){
                         allStepPostData.pageAboutId = item.id;
                         setSelectedPageAbout(item);
                     }

@@ -1,7 +1,9 @@
-export class ReadLanguageDto{
+import { DtoBase } from "../base/DtoBase";
+
+export class ReadLanguageDto extends DtoBase{
     name:string;
     countryCode:string;
     culture:string;
-    short:number;
+    sort:number;
     currency:string
 }

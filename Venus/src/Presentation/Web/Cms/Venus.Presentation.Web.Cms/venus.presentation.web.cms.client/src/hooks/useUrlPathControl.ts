@@ -23,7 +23,7 @@ export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()
     }
 
     const checkUrlHandler = ()=>{
-        urlService.urlCheck({url:"url"}).then(x=>{
+        urlService.urlCheck({url:props.getValue()}).then(x=>{
             setUrlExists(x);
         }).catch(x=>{
             ToastHelper.DefaultCatchError(x);

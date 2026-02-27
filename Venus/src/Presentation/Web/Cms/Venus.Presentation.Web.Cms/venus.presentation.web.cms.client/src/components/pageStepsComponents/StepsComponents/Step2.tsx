@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import type { Step, StepProp } from "../NewPageStepsManagerComponent";
+import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField, CTextField } from "../../commons";
 import { ParentUrlSelect, UrlInputField } from "../../commons/textFields";
 import { useUrlPathControl } from "../../../hooks";
@@ -7,7 +7,7 @@ import {z} from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const StepContent = (props:StepProp):JSX.Element =>{
+const StepContent = (props:StepContentProps):JSX.Element =>{
 
     
     const schema = z.object({
@@ -27,7 +27,10 @@ const StepContent = (props:StepProp):JSX.Element =>{
     } = useForm<FormValues>({resolver:zodResolver(schema)});
 
     const onSubmit = (data:FormValues) =>{
-        console.log(data);
+        props.allStepPostData.title = data.title;
+        props.allStepPostData.url = data.url;
+        props.allStepPostData.description = data.description;
+        props.step.FormSutmitHandler(props.step);
     }
 
     const urlSetValue = (url:string)=>{
@@ -39,23 +42,23 @@ const StepContent = (props:StepProp):JSX.Element =>{
     }
     
     const urlControl = useUrlPathControl({getValue:urlGetValue,setValue:urlSetValue});
-    
     return (
     <div className="container">
         <div className="mt-5">
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             
-                <UrlInputField useUrlPathControl={urlControl} formRegister={register("url")} FieldErrors={errors.url}></UrlInputField>
-                <CTextField type="text" id="title" name="title" label="Başık" key="title" formRegister={register("title")} FieldErrors={errors.title} ></CTextField>
-                <CTextField type="description" id="description" name="description" formRegister={register("description")} FieldErrors={errors.description} label="Sayfa Açıklaması" key="description" ></CTextField>
+                {
+                    !props.allStepPostData.url?
+                    <UrlInputField useUrlPathControl={urlControl} formRegister={register("url")} FieldErrors={errors.url}></UrlInputField>
+                    :
+                    <CTextField disabled={props.step.FormFinsh} type="text" id="url" name="url" label="url" key="url" value={props.allStepPostData.url}></CTextField>
+                }
                 
-                <CButtonField id="form-submit" onClick={()=>{
-                    
-                }}>Tamam </CButtonField>
-
-                <button type="submit" style={{display:"none"}} className=" w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Giriş
-                </button>
+                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.title} type="text" id="title" name="title" label="Başık" key="title" formRegister={register("title")} FieldErrors={errors.title} ></CTextField>
+                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.description} type="description" id="description" name="description" formRegister={register("description")} FieldErrors={errors.description} label="Sayfa Açıklaması" key="description" ></CTextField>
+                
+                <CButtonField id="form-submit" disabled={props.step.FormFinsh}>Tamam </CButtonField>
+               
             </form>
         </div>
     </div>)
@@ -68,7 +71,7 @@ export const Step2:Step = {
     FormFinsh:false,
     NextStep:()=>{},
     FormSutmitHandler:(step:Step)=>{
-        //step.FormFinsh = true;
-        //step.NextStep("step_3");
+        step.FormFinsh = true;
+        step.NextStep("step_3");
     }
 }

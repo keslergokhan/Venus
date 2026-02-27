@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,18 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
 {
     public abstract class RepositoryBase
     {
-        private readonly VenusContext _db;
+        protected readonly VenusContext Context;
 
         public RepositoryBase(VenusContext db)
         {
-            _db = db;
+            Context = db;
         }
 
-        protected IQueryable<T> GetQueryable<T>() where T : class, IVenusEntity
+        protected DbSet<T> GetTable<T>() where T : class, IVenusEntity
         {
-            return _db.Set<T>().AsQueryable();
+            return Context.Set<T>();
         }
+
+
     }
 }

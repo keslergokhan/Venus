@@ -4,13 +4,16 @@ import type { ReadPageAboutDto } from "../../dtos";
 
 export interface AllStepPostData{
     pageAboutId:string|undefined
+    url:string|undefined;
+    title:string|undefined;
+    description:string|undefined;
 }
 
 export interface StepData{
     pageAbouts:ReadPageAboutDto[]
 }
 
-export interface StepProp{
+export interface StepContentProps{
     /** Mevcut step verisi */
     step:Step;
     /** Tüm steps değerleri */
@@ -22,7 +25,7 @@ export interface StepProp{
 
 export interface Step {
     /** Step component */
-    StepContent:React.ComponentType<StepProp>;
+    StepContent:React.ComponentType<StepContentProps>;
     /** Step başlığı */
     Title:string;
     /** Step benzersiz anahtar */
@@ -46,7 +49,10 @@ export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =
     const [currentStep,setCurrentStep] = useState<Step | undefined>(findStep);
     const allStepPostData = useRef<AllStepPostData>(
         {
-            pageAboutId:undefined
+            pageAboutId:undefined,
+            description:undefined,
+            url:undefined,
+            title:undefined
         }
     );
 

@@ -40,7 +40,9 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IReadVenusPageAboutCmsRepository, ReadVenusPageAboutRepository>();
             services.AddScoped<IReadVenusLanguageCmsRepository, ReadVenusLanguageRepository>();
             //services.AddStartData();
+            services.AddScoped<IWriteVenusPageCmsRepository, WriteVenusPageRepository>();
 
+            services.AddScoped<IVenusUnitOfWork, VenusUnitOfWork>();
         }
 
         private static void AddStartData(this IServiceCollection services)

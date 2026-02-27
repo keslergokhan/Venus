@@ -1,8 +1,8 @@
 import type { JSX } from "react";
-import type { Step, StepProp } from "../NewPageStepsManagerComponent";
+import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
 
-const StepContent = (props:StepProp):JSX.Element =>{
+const StepContent = (props:StepContentProps):JSX.Element =>{
     
     return (
     <div className="container">
@@ -18,7 +18,7 @@ const StepContent = (props:StepProp):JSX.Element =>{
 export const Step4:Step = {
     Key:"step_4",
     StepContent:StepContent,
-    Title:"Sayfa Tipi",
+    Title:"Sayfa Kontrolü",
     FormFinsh:false,
     NextStep:()=>{},
     FormSutmitHandler:(step:Step)=>{

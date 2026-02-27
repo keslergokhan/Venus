@@ -20,40 +20,19 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
         return props.Icon;
     }
 
-    const Input = ()=>{
-        return (
-            <input
-                    onClick={(e)=>{(props.onClick && props?.onClick(e))}}
-                    {...props.formRegister}
-                    type={props.type}
-                    name={props.name}
-                    id={props.id}
-                    defaultValue={props.value}
-                    className={`${className} ${(props.Icon) && "pl-7.5"}`}
-                    placeholder={!props.placeholder ? "":props.placeholder}
-                    disabled={(props.disabled && true)}
-                    />
-        )
-    }
-    const InputGroup = () =>{
-        if(props.Icon){
-            return (
-                <div className="relative">
-                    
-                    <div className="absolute inset-y-0 start-1.5 flex items-center pointer-events-none">
-                        <Icon></Icon>
-                    </div>
+    const Input = <input
+        onClick={(e)=>{(props.onClick && props?.onClick(e))}}
+        {...props.formRegister}
+        type={props.type}
+        name={props.name}
+        id={props.id}
+        defaultValue={props.value}
+        className={`${className} ${(props.Icon) && "pl-7.5"}`}
+        placeholder={!props.placeholder ? "":props.placeholder}
+        disabled={(props.disabled && true)}
+    />
+
     
-                    <Input/>
-                </div>
-            )
-        }else{
-            return (
-                <Input/>
-            )
-        }
-        
-    }
     
     return (
         <div className="relative z-0 w-full group">
@@ -67,7 +46,18 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
                 :
                 <></>
             }
-            <InputGroup></InputGroup>
+            {
+                props.Icon ?
+                <div className="relative">
+                    <div className="absolute inset-y-0 start-1.5 flex items-center pointer-events-none">
+                        <Icon></Icon>
+                    </div>
+    
+                    {Input}
+                </div>
+                :
+                Input
+            }
             {props.FieldErrors && <p className="text-red-500 text-sm mt-1">{props.FieldErrors.message}</p>}
         </div>
     )

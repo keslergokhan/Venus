@@ -13,39 +13,31 @@ export interface LanguageReducerState{
 }
 
 const key = "cms_language";
+const keyId = "cms_language_id";
 
-const GetLanguageAndSetDefault = () =>{
-    let languageLocalStorage = localStorage.getItem(key);
-
-    if(languageLocalStorage == null || languageLocalStorage=="" || languageLocalStorage == undefined){
-        SetLangauge("tr-TR");
-        languageLocalStorage = "tr-TR";
-    }
-    return languageLocalStorage;
-}
-
-const SetLangauge = (language:string) =>{
-   
+const SetLangauge = (language:string,languageId:string) =>{
     localStorage.setItem(key,language);
-    return GetLanguageAndSetDefault;
+    localStorage.setItem(keyId,languageId);
 }
 
 export const LanguageReducerReducer = (state:LanguageReducerState,action:LanguageReducerAction):LanguageReducerState =>{
 
-    let languageLocalStorage = GetLanguageAndSetDefault();
-
     const actionType = action.type;
 
     if(actionType == "GetLanguage"){
-        return {...state,language:languageLocalStorage}
+        return {...state}
     }
 
     if(actionType == "SetLanguages"){
+        const defaultLanguage = action.languages.find(x=>x.sort <= 0);
+        if(defaultLanguage){
+            SetLangauge(defaultLanguage.culture,defaultLanguage.id);
+        }
         return {...state,languages:action.languages}
     }
 
     if(actionType == "SetLanguage"){
-        SetLangauge(action.language);
+       
         return {...state,language:action.language};
     }
 

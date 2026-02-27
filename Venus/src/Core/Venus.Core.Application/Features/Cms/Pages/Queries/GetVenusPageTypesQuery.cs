@@ -9,11 +9,11 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Cms.Pages.Queries
 {
-    public class VenusGetPageTypesQuery : IRequest<IResultDataControl<List<ReadVenusPageTypeDto>>>
+    public class GetVenusPageTypesQuery : IRequest<IResultDataControl<List<ReadVenusPageTypeDto>>>
     {
     }
 
-    public class VenusGetPageTypesQueryHandler : IRequestHandler<VenusGetPageTypesQuery, IResultDataControl<List<ReadVenusPageTypeDto>>>
+    public class VenusGetPageTypesQueryHandler : IRequestHandler<GetVenusPageTypesQuery, IResultDataControl<List<ReadVenusPageTypeDto>>>
     {
         private readonly IReadVenusPageTypeCmsRepository _venusPageTypeRepository;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
             _mapper = mapper;
         }
 
-        public async Task<IResultDataControl<List<ReadVenusPageTypeDto>>> Handle(VenusGetPageTypesQuery request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<List<ReadVenusPageTypeDto>>> Handle(GetVenusPageTypesQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadVenusPageTypeDto>> result = new ResultDataControl<List<ReadVenusPageTypeDto>>();
 

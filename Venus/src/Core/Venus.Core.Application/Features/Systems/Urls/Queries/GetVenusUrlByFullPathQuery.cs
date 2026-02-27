@@ -9,12 +9,12 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Systems.Urls.Queries
 {
-    public class VenusGetUrlByFullPathQuery : IRequest<IResultDataControl<List<ReadVenusUrlDto>>>
+    public class GetVenusUrlByFullPathQuery : IRequest<IResultDataControl<List<ReadVenusUrlDto>>>
     {
         public string FullPath { get; set; }
     }
 
-    public class VenusGetUrlByFullPathQueryHandler : IRequestHandler<VenusGetUrlByFullPathQuery, IResultDataControl<List<ReadVenusUrlDto>>>
+    public class VenusGetUrlByFullPathQueryHandler : IRequestHandler<GetVenusUrlByFullPathQuery, IResultDataControl<List<ReadVenusUrlDto>>>
     {
         private readonly IReadVenusUrlSystemRepository _urlRepo;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace Venus.Core.Application.Features.Systems.Urls.Queries
             _mapper = mapper;
         }
 
-        public async Task<IResultDataControl<List<ReadVenusUrlDto>>> Handle(VenusGetUrlByFullPathQuery request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<List<ReadVenusUrlDto>>> Handle(GetVenusUrlByFullPathQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadVenusUrlDto>> result = new ResultDataControl<List<ReadVenusUrlDto>>();
 

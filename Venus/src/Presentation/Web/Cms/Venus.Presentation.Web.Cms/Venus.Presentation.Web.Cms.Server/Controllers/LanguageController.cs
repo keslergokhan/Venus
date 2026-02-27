@@ -24,7 +24,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> GetLanguage()
         {
-            var result = await base.Mediator.Send(new VenusGetLanguageQuery());
+            var result = await base.Mediator.Send(new GetVenusLanguageQuery());
 
             if (result.IsSuccess)
             {

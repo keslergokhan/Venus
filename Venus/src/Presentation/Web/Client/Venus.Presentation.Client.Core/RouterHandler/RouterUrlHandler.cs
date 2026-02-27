@@ -20,7 +20,7 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             string BaseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
             string Host = httpContext.Request.Host.Value;
 
-            IResultDataControl<List<ReadVenusUrlDto>> urlResult = await base.Mediator.Send(new VenusGetUrlByFullPathQuery()
+            IResultDataControl<List<ReadVenusUrlDto>> urlResult = await base.Mediator.Send(new GetVenusUrlByFullPathQuery()
             {
                 FullPath = Path
             });

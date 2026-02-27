@@ -15,11 +15,11 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Cms.Pages.Queries
 {
-    public class VenusGetPageAboutQuery : IRequest<IResultDataControl<List<ReadVenusPageAboutDto>>>
+    public class GetVenusPageAboutQuery : IRequest<IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
     }
 
-    public class VenusGetPageAboutQueryHandler : IRequestHandler<VenusGetPageAboutQuery, IResultDataControl<List<ReadVenusPageAboutDto>>>
+    public class VenusGetPageAboutQueryHandler : IRequestHandler<GetVenusPageAboutQuery, IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
         private readonly IReadVenusPageAboutCmsRepository _venusPageAboutRepository;
         private readonly IReadVenusPageTypeCmsRepository _ff;
@@ -34,7 +34,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
             _ff = ff;
         }
 
-        public async Task<IResultDataControl<List<ReadVenusPageAboutDto>>> Handle(VenusGetPageAboutQuery request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<List<ReadVenusPageAboutDto>>> Handle(GetVenusPageAboutQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadVenusPageAboutDto>> result = new ResultDataControl<List<ReadVenusPageAboutDto>>();
 
