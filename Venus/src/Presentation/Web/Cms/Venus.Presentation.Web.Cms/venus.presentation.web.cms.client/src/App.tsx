@@ -9,6 +9,7 @@ import PageManagerPage from './pages/PageManager';
 import { FileManagerContextProvider } from './contexts/FileManagerContext';
 import { AppContextProvider } from './contexts/AppContext';
 import IconComponent from './pages/IconComponent';
+import 'ckeditor5/ckeditor5.css';
 function App() {
 
     

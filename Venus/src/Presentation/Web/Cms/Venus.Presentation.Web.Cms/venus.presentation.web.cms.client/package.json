@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^11.0.1",
     "@hookform/resolvers": "^5.2.2",
     "axios": "^1.13.2",
+    "ckeditor5": "^47.5.0",
     "flowbite-react": "^0.12.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

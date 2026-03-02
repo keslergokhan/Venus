@@ -1,11 +1,10 @@
 import type { JSX } from "react";
 import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
-import { CButtonField, CTextField } from "../../commons";
-import { ParentUrlSelect, UrlInputField } from "../../commons/textFields";
 import { useUrlPathControl } from "../../../hooks";
 import {z} from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CButtonField, CTextField, UrlInputField } from "../..";
 
 const StepContent = (props:StepContentProps):JSX.Element =>{
     const schema = z.object({

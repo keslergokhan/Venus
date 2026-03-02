@@ -17,3 +17,9 @@ export type {MultiLoadingComponentProps} from "./loading/MultiLoadingComponent"
 
 export {PageAbourtListComponent} from "./pageManager/PageAboutListComponent";
 export type {PageAboutListComponentProps} from "./pageManager/PageAboutListComponent"
+
+export {UrlInputField} from "./commons/textFields/UrlInputField"
+export type {UrlInputFieldProps} from "./commons/textFields/UrlInputField"
+
+export {HtmlEditor} from "./commons/textFields/HtmlEditor"
+export type {HtmlEditorProps} from "./commons/textFields/HtmlEditor"
