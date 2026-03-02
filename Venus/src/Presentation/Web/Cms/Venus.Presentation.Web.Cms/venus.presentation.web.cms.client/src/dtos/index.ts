@@ -7,3 +7,4 @@ export {ReadFolderDto} from "./fileManager/ReadFolderDto"
 export {ReadPageAboutDto} from "./page/ReadPageAboutDto"
 export type {UrlTypeEnum} from "./enums/UrlTypeEnum"
 export {ReadLanguageDto} from './languages/ReadLangaugeDto'
+export {ReadPageDto} from './page/ReadPageDto'

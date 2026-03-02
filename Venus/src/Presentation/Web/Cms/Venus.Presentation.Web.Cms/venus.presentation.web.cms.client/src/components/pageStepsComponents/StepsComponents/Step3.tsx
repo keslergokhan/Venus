@@ -1,15 +1,37 @@
 import type { JSX } from "react";
 import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
+import { PageService } from "../../../services";
+import { CreatePageRequest } from "../../../models";
+import { ToastHelper } from "../../../helpers";
+
 
 const StepContent = (props:StepContentProps):JSX.Element =>{
     
+    const pageService = new PageService();
+    const onSubmitHandler = () =>{
+        const request = new CreatePageRequest();
+        request.Title = props.allStepPostData.title ?? "";
+        request.Description = props.allStepPostData.description ?? "";
+        request.UrlPath = props.allStepPostData.url ?? "";
+        request.PageAboutId = props.allStepPostData.pageAboutId ?? "";
+
+        pageService.createPageAsync(request).then(x=>{
+            ToastHelper.Success(<>Sayfa oluşturuldu !</>);
+            setTimeout(() => {
+                props.step.FormSutmitHandler(props.step);
+            }, 500);
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        });
+        
+    }
     return (
     <div className="container">
-            <div className="flex justify-center">
-                <div className="w-full max-w-xl my-5 p-6 bg-neutral-primary-soft border border-default rounded-base shadow-xs">
-                    <div className="flex items-center justify-between mb-4">
-                        <h5 className="text-xl font-semibold leading-none text-heading">Sayfa Bilgileri</h5>
+        <div className="flex justify-center">
+            <div className="w-full max-w-xl my-5 p-6 bg-neutral-primary-soft border border-default rounded-base shadow-xs">
+                <div className="flex items-center justify-between mb-4">
+                    <h5 className="text-xl font-semibold leading-none text-heading">Sayfa Bilgileri</h5>
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-default">
@@ -72,13 +94,10 @@ const StepContent = (props:StepContentProps):JSX.Element =>{
                     </ul>
                 </div>
             </div>
-
-            
         </div>
-        <CButtonField disabled={props.step.FormFinsh} id="form-submit" onClick={()=>{
-                props.step.FormSutmitHandler(props.step)
-            }}>Tamam </CButtonField>
-    </div>)
+        <CButtonField disabled={props.step.FormFinsh || !props.steps?.find(x=>x.Key == "step_2")?.FormFinsh} id="form-submit" onClick={onSubmitHandler}>Tamam </CButtonField>
+    </div>
+    )
 }
 
 export const Step3:Step = {

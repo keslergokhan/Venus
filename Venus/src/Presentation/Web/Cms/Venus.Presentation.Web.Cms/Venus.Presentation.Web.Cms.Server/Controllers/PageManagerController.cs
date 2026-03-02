@@ -36,7 +36,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 PageAboutId = createPageRequest.PageAboutId,
                 UrlPath = createPageRequest.UrlPath,
                 Description = createPageRequest.Description,
-                LanguageId = new Guid("DEBE8454-EFAF-449A-B357-32B027A4D61F")
+                LanguageId = HttpContext.GetLanguageId(),
             }, cancellationToken);
             return createPageResult.ToActionResult(this);
         }

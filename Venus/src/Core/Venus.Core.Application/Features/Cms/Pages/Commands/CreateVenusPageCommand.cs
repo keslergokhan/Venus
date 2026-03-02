@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Pages;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Cms;
 using Venus.Core.Application.Features.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces;
@@ -52,6 +53,7 @@ namespace Venus.Core.Application.Features.Cms.Pages.Commands
                 newVenusPage.Description = request.Description;
                 newVenusPage.PageAboutId = request.PageAboutId;
                 newVenusPage.LanguageId = request.LanguageId;
+                newVenusPage.State = (int)EntityStateEnum.Online;
 
                 VenusUrl newPageUrl = new VenusUrl();
                 newPageUrl.Path = request.UrlPath;

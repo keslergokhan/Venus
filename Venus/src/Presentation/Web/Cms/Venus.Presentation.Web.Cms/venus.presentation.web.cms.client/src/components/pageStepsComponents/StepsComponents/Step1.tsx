@@ -25,7 +25,7 @@ const StepContent = (props:StepContentProps):JSX.Element =>{
         return (
             <div className="border-1 p-5 rounded cursor-pointer flex-auto min-w-[200px] " 
                 onClick={()=>{
-                    if(selectedPageAbout==undefined && allStepPostData.pageAboutId!=item.id){
+                    if(props.step.FormFinsh==false){
                         allStepPostData.pageAboutId = item.id;
                         setSelectedPageAbout(item);
                     }
