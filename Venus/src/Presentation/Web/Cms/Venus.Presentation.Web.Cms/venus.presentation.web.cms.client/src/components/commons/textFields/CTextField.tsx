@@ -31,8 +31,6 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
         placeholder={!props.placeholder ? "":props.placeholder}
         disabled={(props.disabled && true)}
     />
-
-    
     
     return (
         <div className="relative z-0 w-full group">

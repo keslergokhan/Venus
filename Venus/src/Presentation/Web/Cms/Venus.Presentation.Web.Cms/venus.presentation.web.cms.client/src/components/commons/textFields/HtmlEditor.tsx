@@ -82,6 +82,7 @@ export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
                     <CKEditor
                         editor={ ClassicEditor }
                         onChange={(event,editor)=>{
+                            console.log(editor.data);
                             field.onChange(editor.getData())
                         }}
                         onBlur={field.onBlur}
