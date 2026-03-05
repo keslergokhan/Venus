@@ -23,3 +23,8 @@ export type {UrlInputFieldProps} from "./commons/textFields/UrlInputField"
 
 export {HtmlEditor} from "./commons/textFields/HtmlEditor"
 export type {HtmlEditorProps} from "./commons/textFields/HtmlEditor"
+
+export {DynamicFieldsComponent} from "./dynamicFields/DynamicFieldsComponent"
+export type {DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
+export type {DynamicFieldComponentEnum} from "./dynamicFields/DynamicFieldsComponentProps"
+export {DynamicFieldComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"

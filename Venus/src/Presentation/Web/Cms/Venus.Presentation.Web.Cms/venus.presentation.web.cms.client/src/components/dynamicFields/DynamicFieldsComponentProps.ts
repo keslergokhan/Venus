@@ -9,7 +9,8 @@ export enum DynamicFieldComponentEnum{
     Tel = 6,
     Url = 7,
     File = 8,
-    Image = 9
+    Image = 9,
+    HtmlEditor = 10
     
 }
 
@@ -23,5 +24,6 @@ export class DynamicFieldComponentProps<T extends FieldValues> {
     name:Path<T>;
     label:string;
     type:DynamicFieldComponentEnum
-    description?:string;
+    description?:string|undefined;
+    isCreate?:boolean|undefined
 }

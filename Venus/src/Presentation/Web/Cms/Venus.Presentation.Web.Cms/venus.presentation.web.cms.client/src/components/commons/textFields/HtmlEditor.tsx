@@ -63,18 +63,25 @@ import { Controller, type Control, type FieldError, type FieldValues, type Path,
 
 
 export interface HtmlEditorProps<T extends FieldValues>{
-    formRegister?:UseFormRegisterReturn,
-    fieldErrors?:FieldError,
+    fieldErrors?:FieldError|undefined,
     control:Control<T>,
     name:Path<T>
+    label?:string|undefined
 }
 
 
 export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
 
     return (
-        <div style={{ padding: '20px' }}>
-
+        <div className="relative z-0 w-full group">
+            {
+                props.label ?
+                    <label className="block mb-2 text-sm font-medium text-gray-900 text-blue-950" >
+                        {props.label}
+                    </label>
+                :
+                    <></>
+            }
             <Controller
                 name={props.name}
                 control={props.control}
@@ -82,7 +89,6 @@ export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
                     <CKEditor
                         editor={ ClassicEditor }
                         onChange={(event,editor)=>{
-                            console.log(editor.data);
                             field.onChange(editor.getData())
                         }}
                         onBlur={field.onBlur}
