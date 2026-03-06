@@ -25,6 +25,6 @@ export {HtmlEditor} from "./commons/textFields/HtmlEditor"
 export type {HtmlEditorProps} from "./commons/textFields/HtmlEditor"
 
 export {DynamicFieldsComponent} from "./dynamicFields/DynamicFieldsComponent"
-export type {DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
-export type {DynamicFieldComponentEnum} from "./dynamicFields/DynamicFieldsComponentProps"
-export {DynamicFieldComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
+export {DynamicFieldComponentEnum,DynamicFieldComponentProps, type DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
+
+export {CreateBlogComponent, type CreateBlogComponentProps, type CreateBlogType,BlogDynamicInputFields} from './blogManager/CreateBlogComponent'

@@ -10,6 +10,7 @@ import { FileManagerContextProvider } from './contexts/FileManagerContext';
 import { AppContextProvider } from './contexts/AppContext';
 import IconComponent from './pages/IconComponent';
 import 'ckeditor5/ckeditor5.css';
+import { BlogPage } from './pages/BlogPage';
 function App() {
 
     
@@ -27,6 +28,7 @@ function App() {
                                 <Route element={<DefaultLayout />}>
                                     <Route path="/home" element={<HomePage />} />
                                     <Route path='/page-manager' element={<PageManagerPage/>}></Route>
+                                    <Route path='/blog' element={<BlogPage></BlogPage>}></Route>
                                     {/* ba�ka child sayfalar buraya */}
                                 </Route>
                                 <Route path="/icon" element={<IconComponent></IconComponent>}></Route>

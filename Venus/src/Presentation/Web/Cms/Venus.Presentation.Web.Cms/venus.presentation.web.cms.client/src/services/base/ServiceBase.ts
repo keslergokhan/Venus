@@ -1,4 +1,6 @@
 import type { AxiosRequestConfig } from "axios";
+import axios from "axios";
+import type { DtoBase } from "../../dtos/base/DtoBase";
 
 export abstract class ServiceBase {
 
@@ -22,5 +24,15 @@ export abstract class ServiceBase {
         } as AxiosRequestConfig;
 
         return conf;
+    }
+
+    public addDataAsync = <T extends DtoBase>(path:string, requestData:Record<string,any>):Promise<T> =>{
+        return axios.post<T>(this.GetFullPath(path),requestData,this.GetAxiosHeader()).then(x=>{
+            return x.data as T
+        });
+    }
+
+    public addDataAsync2 = (path:string, requestData:Record<string,any>):Promise<void> =>{
+        return axios.post(this.GetFullPath(path),requestData,this.GetAxiosHeader());
     }
 }
