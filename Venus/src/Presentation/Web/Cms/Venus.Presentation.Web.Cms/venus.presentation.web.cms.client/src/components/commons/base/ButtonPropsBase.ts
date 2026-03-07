@@ -1,5 +1,5 @@
 export interface ButtonPropsBase{
-    id: string,
+    id?: string,
     className?: string,
     required?: boolean,
     children:React.ReactNode,

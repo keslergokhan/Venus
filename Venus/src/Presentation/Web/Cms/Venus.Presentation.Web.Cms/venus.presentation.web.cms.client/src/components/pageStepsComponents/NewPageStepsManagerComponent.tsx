@@ -25,7 +25,7 @@ export interface StepContentProps{
 
 export interface Step {
     /** Step component */
-    StepContent:React.ComponentType<StepContentProps>;
+    StepContent:React.FunctionComponent<StepContentProps>;
     /** Step başlığı */
     Title:string;
     /** Step benzersiz anahtar */

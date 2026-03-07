@@ -28,4 +28,8 @@ export {DynamicFieldsComponent} from "./dynamicFields/DynamicFieldsComponent"
 export {DynamicFieldComponentEnum,DynamicFieldComponentProps, type DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
 
 export {CreateBlogComponent, type CreateBlogComponentProps, type CreateBlogType,BlogDynamicInputFields} from './blogManager/CreateBlogComponent'
-export {ListBlogComponent} from './blogManager/ListBlogComponent'
+export {BlogTableComponent} from './blogManager/BlogTableComponent'
+
+export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/zoneControlComponent"
+
+export {CTableComponent,CTableHeaderComponent, type CTableComponentProps} from "./table/CTableComponent"

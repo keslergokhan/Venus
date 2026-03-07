@@ -3,19 +3,21 @@ import { Children, type ReactNode } from "react"
 
 
 interface ZoneControlComponentProps{
-    keys:Array<string>,
+    className?:string,
+    zoneKeys:Array<string>,
     children:ReactNode
 }
+
 export const ZoneControlComponent = (props:ZoneControlComponentProps):JSX.Element =>{
     
-    return <>
+    return <div className={props.className}>
         {Children.map(props.children, (child) => {
             
             // 1. Geçerli bir React elementi mi? (null veya string değilse)
             if (React.isValidElement(child)) {
                 // 2. Proplara güvenli erişim için tip ataması
                 const childProps = child.props as ZoneControlItemProps;
-                if(props.keys.some(x=>x == childProps.zoneKey)){
+                if(props.zoneKeys.some(x=>x == childProps.zoneKey)){
                     return childProps.children;
                 }
 
@@ -23,7 +25,7 @@ export const ZoneControlComponent = (props:ZoneControlComponentProps):JSX.Elemen
             // 4. İzin verilmiyorsa hiçbir şey gösterme
             }
         })}
-    </>
+    </div>
 }
 
 interface ZoneControlItemProps {
