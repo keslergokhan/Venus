@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { CTextField, DynamicFieldComponentEnum, DynamicFieldsComponent, type DynamicFieldComponentProps } from "..";
+import { CButtonField, CTextField, DynamicFieldComponentEnum, DynamicFieldsComponent, type DynamicFieldComponentProps } from "..";
 
 export type CreateBlogType = {
     Title:string,
@@ -54,7 +54,7 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
             <CTextField name="Title" id="Title" label="Başlık" formRegister={useformObject.register("Title")} FieldErrors={useformObject.formState.errors.Title} type="text"></CTextField>
             <CTextField name="Description" id="Description" label="Kısa Açıklama" formRegister={useformObject.register("Description")} FieldErrors={useformObject.formState.errors.Description} type="text"></CTextField>
             <DynamicFieldsComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicFieldsComponent>
-            <button type="submit">Kaydet</button>
+            <CButtonField id="blog-submit-btn">Kaydet</CButtonField>
         </form>
     )
 }

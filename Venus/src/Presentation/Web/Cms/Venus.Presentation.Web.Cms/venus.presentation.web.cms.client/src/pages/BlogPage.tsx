@@ -1,7 +1,7 @@
-import { CreateBlogContainer } from "../containers"
+import { BlogContainer } from "../containers"
 
 export const BlogPage = ()=>{
     return (
-        <CreateBlogContainer></CreateBlogContainer>
+        <BlogContainer></BlogContainer>
     )
 }

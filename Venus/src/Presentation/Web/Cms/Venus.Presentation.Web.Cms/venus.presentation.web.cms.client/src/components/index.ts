@@ -28,3 +28,4 @@ export {DynamicFieldsComponent} from "./dynamicFields/DynamicFieldsComponent"
 export {DynamicFieldComponentEnum,DynamicFieldComponentProps, type DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
 
 export {CreateBlogComponent, type CreateBlogComponentProps, type CreateBlogType,BlogDynamicInputFields} from './blogManager/CreateBlogComponent'
+export {ListBlogComponent} from './blogManager/ListBlogComponent'
