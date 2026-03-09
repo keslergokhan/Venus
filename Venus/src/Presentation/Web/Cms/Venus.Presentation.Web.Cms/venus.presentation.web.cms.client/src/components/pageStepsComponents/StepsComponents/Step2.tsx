@@ -45,13 +45,13 @@ const StepContent = (props:StepContentProps):JSX.Element =>{
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 {
                     !props.allStepPostData.url?
-                    <UrlInputField useUrlPathControl={urlControl} formRegister={register("url")} FieldErrors={errors.url}></UrlInputField>
+                    <UrlInputField useUrlPathControl={urlControl} formRegister={register("url")} fieldErrors={errors.url}></UrlInputField>
                     :
                     <CTextField disabled={props.step.FormFinsh} type="text" id="url" name="url" label="url" key="url" value={props.allStepPostData.url}></CTextField>
                 }
                 
-                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.title} type="text" id="title" name="title" label="Başık" key="title" formRegister={register("title")} FieldErrors={errors.title} ></CTextField>
-                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.description} type="description" id="description" name="description" formRegister={register("description")} FieldErrors={errors.description} label="Sayfa Açıklaması" key="description" ></CTextField>
+                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.title} type="text" id="title" name="title" label="Başık" key="title" formRegister={register("title")} fieldErrors={errors.title} ></CTextField>
+                <CTextField disabled={props.step.FormFinsh} value={props.allStepPostData.description} type="description" id="description" name="description" formRegister={register("description")} fieldErrors={errors.description} label="Sayfa Açıklaması" key="description" ></CTextField>
                 
                 <CButtonField id="form-submit" 
                 disabled={props.step.FormFinsh || !props.steps?.find(x=>x.Key == "step_1")?.FormFinsh}>Tamam </CButtonField>

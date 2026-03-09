@@ -56,7 +56,7 @@ export const CTextField = (props: CTextFieldProps): JSX.Element => {
                 :
                 Input
             }
-            {props.FieldErrors && <p className="text-red-500 text-sm mt-1">{props.FieldErrors.message}</p>}
+            {props.fieldErrors && <p className="text-red-500 text-sm mt-1">{props.fieldErrors.message}</p>}
         </div>
     )
 }

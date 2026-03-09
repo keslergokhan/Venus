@@ -16,7 +16,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Authentications.Queries
+namespace Venus.Core.Application.Features.Cms
 {
     public  class VenusAuthenticationQuery : IRequest<IResultDataControl<ReadVenusUserDto>>
     {

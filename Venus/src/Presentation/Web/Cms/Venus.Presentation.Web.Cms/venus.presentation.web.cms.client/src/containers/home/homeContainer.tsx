@@ -50,8 +50,8 @@ const HomeContainers = ():JSX.Element =>{
     return (<>
         <FileManagerInputComponent></FileManagerInputComponent>
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(onSubmit)}>
-            <CTextField name="Title" id="Title" label="Başlık" formRegister={useformObject.register("Title")} FieldErrors={useformObject.formState.errors.Title} type="text"></CTextField>
-            <CTextField name="Description" id="Description" label="Kısa Açıklama" formRegister={useformObject.register("Description")} FieldErrors={useformObject.formState.errors.Description} type="text"></CTextField>
+            <CTextField name="Title" id="Title" label="Başlık" formRegister={useformObject.register("Title")} fieldErrors={useformObject.formState.errors.Title} type="text"></CTextField>
+            <CTextField name="Description" id="Description" label="Kısa Açıklama" formRegister={useformObject.register("Description")} fieldErrors={useformObject.formState.errors.Description} type="text"></CTextField>
             <DynamicFieldsComponent title="Dinamik form" fields={inputField} useFormReturn={useformObject}></DynamicFieldsComponent>
             <button type="submit">Gönder</button>
         </form>

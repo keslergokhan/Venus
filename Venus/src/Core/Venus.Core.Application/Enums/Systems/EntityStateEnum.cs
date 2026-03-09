@@ -10,6 +10,7 @@ namespace Venus.Core.Application.Enums.Systems
     {
         Online = 1,
         Offline = 2,
-        Task =3
+        Task =3,
+        Deleted = 4
     }
 }

@@ -10,7 +10,7 @@ export interface InputPropsBase {
     label?: string,
     variant?: "standard" | "outlined",
     formRegister?:UseFormRegisterReturn,
-    FieldErrors?:FieldError,
+    fieldErrors?:FieldError,
     disabled?:boolean,
     onClick?:(e: React.MouseEvent<HTMLInputElement>)=>void
     

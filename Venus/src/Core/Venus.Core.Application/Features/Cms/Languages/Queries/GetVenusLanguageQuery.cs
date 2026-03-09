@@ -13,7 +13,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Languages.Queries
+namespace Venus.Core.Application.Features.Cms
 {
     public class GetVenusLanguageQuery : IRequest<IResultDataControl<List<ReadVenusLanguageDto>>>
     {
@@ -35,9 +35,9 @@ namespace Venus.Core.Application.Features.Cms.Languages.Queries
             IResultDataControl<List<ReadVenusLanguageDto>> result = new ResultDataControl<List<ReadVenusLanguageDto>>();
             try
             {
-                List<VenusLanguage> languageResult = await this._readVenusLanguageCmsRepository.GetAllAsync(x => x.State == (short)EntityStateEnum.Online);
+                List<VenusLanguage> languageResult = await _readVenusLanguageCmsRepository.GetAllAsync(x => x.State == (short)EntityStateEnum.Online);
 
-                result.SetData(this._mapper.Map<List<ReadVenusLanguageDto>>(languageResult.OrderBy(x=>x.Sort)));
+                result.SetData(_mapper.Map<List<ReadVenusLanguageDto>>(languageResult.OrderBy(x=>x.Sort)));
             }
             catch (Exception ex)
             {

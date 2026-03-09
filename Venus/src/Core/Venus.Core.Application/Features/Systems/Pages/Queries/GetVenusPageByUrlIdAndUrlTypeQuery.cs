@@ -8,7 +8,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Systems.Pages.Queries
+namespace Venus.Core.Application.Features.Systems
 {
     public class GetVenusPageByUrlIdAndUrlTypeQuery : IRequest<IResultDataControl<ReadVenusPageDto>>
     {

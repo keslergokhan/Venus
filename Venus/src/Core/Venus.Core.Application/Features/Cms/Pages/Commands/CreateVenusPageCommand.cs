@@ -16,7 +16,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Pages.Commands
+namespace Venus.Core.Application.Features.Cms
 {
     public class CreateVenusPageCommand : IRequest<IResultDataControl<ReadVenusPageDto>>,
          ILocalizedRequest

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Venus.Core.Application.Features.Cms.Pages.Commands;
-using Venus.Core.Application.Features.Cms.Pages.Queries;
-using Venus.Core.Application.Features.Cms.Url.Queries;
+using Venus.Core.Application.Features.Cms;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;

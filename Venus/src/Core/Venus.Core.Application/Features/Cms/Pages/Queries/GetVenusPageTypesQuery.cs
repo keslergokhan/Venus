@@ -7,7 +7,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Pages.Queries
+namespace Venus.Core.Application.Features.Cms
 {
     public class GetVenusPageTypesQuery : IRequest<IResultDataControl<List<ReadVenusPageTypeDto>>>
     {
@@ -30,9 +30,9 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
 
             try
             {
-                List<VenusPageType> list = await this._venusPageTypeRepository.GetPageTypeAndRelations();
+                List<VenusPageType> list = await _venusPageTypeRepository.GetPageTypeAndRelations();
 
-                List<ReadVenusPageTypeDto> dtoList = this._mapper.Map<List<ReadVenusPageTypeDto>>(list);
+                List<ReadVenusPageTypeDto> dtoList = _mapper.Map<List<ReadVenusPageTypeDto>>(list);
                 result.SuccessSetData(dtoList);
             }
             catch (Exception ex)

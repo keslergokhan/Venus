@@ -16,7 +16,7 @@ namespace Venus.Core.Domain.Entities.Systems
         public Guid UrlId { get; set; }
     }
 
-    public partial class VenusPage : IVenusEntityLanguage
+    public partial class VenusPage : IVenusLanguageEntity
     {
         public Guid LanguageId { get; set; }
         public VenusLanguage Language { get; set; }

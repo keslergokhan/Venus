@@ -32,4 +32,5 @@ export {BlogTableComponent} from './blogManager/BlogTableComponent'
 
 export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/zoneControlComponent"
 
-export {CTableComponent,CTableHeaderComponent, type CTableComponentProps} from "./table/CTableComponent"
+export {CTableComponent, type CTableComponentProps} from "./table/CTableComponent"
+export {CTableHeaderComponent,CTableBodyRow} from "./table/CTableComponentItem"

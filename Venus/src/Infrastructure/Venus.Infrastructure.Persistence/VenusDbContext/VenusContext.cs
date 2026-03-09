@@ -20,7 +20,16 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             base.OnModelCreating(modelBuilder);
+            var foreignKeys = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys());
+
+            foreach (var relationship in foreignKeys)
+            {
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            }
+
         }
 
         #region VenusSystems

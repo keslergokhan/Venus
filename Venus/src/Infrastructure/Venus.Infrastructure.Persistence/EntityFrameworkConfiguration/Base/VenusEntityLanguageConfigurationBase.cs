@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base
 {
-    public abstract class VenusEntityLanguageConfigurationBase<T> : VenusEntityConfigurationBase<T> where T : class, IVenusEntityLanguage
+    public abstract class VenusEntityLanguageConfigurationBase<T> : VenusEntityConfigurationBase<T> where T : class, IVenusLanguageEntity
     {
         public override void Configure(EntityTypeBuilder<T> builder)
         {

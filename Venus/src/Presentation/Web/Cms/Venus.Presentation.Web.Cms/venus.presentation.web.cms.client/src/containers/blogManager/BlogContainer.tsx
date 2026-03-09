@@ -2,13 +2,12 @@ import { useState } from "react";
 import { CreateBlogComponent, type CreateBlogType,BlogDynamicInputFields, BlogTableComponent, CButtonField } from "../../components"
 import { FormHelper } from "../../helpers";
 import { ZoneControlComponent, ZoneControlItem } from "../../components/zoneControl/zoneControlComponent";
-import { Dropdown, DropdownItem } from "flowbite-react";
 import { useBlogContainer } from "../../hooks";
 
 
 const BlogContainer = () =>{
     
-    const {blogs} = useBlogContainer();
+    const {blogs,removenOnHandler,updateOnHandler} = useBlogContainer();
     const [blogKeys,setBlogKeys] = useState<string[]>(["table"]);
 
     const onSubmitHandler = (data:CreateBlogType) =>{
@@ -28,7 +27,7 @@ const BlogContainer = () =>{
                     <CreateBlogComponent onSubmit={onSubmitHandler}></CreateBlogComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
-                    <BlogTableComponent blogs={blogs}></BlogTableComponent>
+                    <BlogTableComponent blogs={blogs} updateOnHandler={updateOnHandler} removeOnHandler={removenOnHandler}></BlogTableComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

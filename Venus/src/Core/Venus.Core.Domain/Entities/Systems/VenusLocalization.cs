@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public class VenusLocalization : VenusEntityBase, IVenusEntityLanguage
+    public class VenusLocalization : VenusEntityBase, IVenusLanguageEntity
     {
         public string Key { get; set; } 
         public string DefaultValue { get; set; }    

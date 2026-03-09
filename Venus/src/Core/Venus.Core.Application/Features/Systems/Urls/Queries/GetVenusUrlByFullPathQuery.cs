@@ -7,7 +7,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Systems.Urls.Queries
+namespace Venus.Core.Application.Features.Systems
 {
     public class GetVenusUrlByFullPathQuery : IRequest<IResultDataControl<List<ReadVenusUrlDto>>>
     {

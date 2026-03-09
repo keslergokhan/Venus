@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Application.Exceptions.Systems;
-using Venus.Core.Application.Features.Systems.Urls.Queries;
+using Venus.Core.Application.Features.Systems;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Presentation.Client.Core.RequestHandler.Interfaces;

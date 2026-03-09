@@ -13,7 +13,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Pages.Queries
+namespace Venus.Core.Application.Features.Cms
 {
     public class GetVenusPageAboutQuery : IRequest<IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
@@ -22,16 +22,12 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
     public class VenusGetPageAboutQueryHandler : IRequestHandler<GetVenusPageAboutQuery, IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
         private readonly IReadVenusPageAboutCmsRepository _venusPageAboutRepository;
-        private readonly IReadVenusPageTypeCmsRepository _ff;
         private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, IReadVenusPageTypeCmsRepository ff)
+        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _venusPageAboutRepository = venusPageAboutRepository;
             _mapper = mapper;
-            _httpContextAccessor = httpContextAccessor;
-            _ff = ff;
         }
 
         public async Task<IResultDataControl<List<ReadVenusPageAboutDto>>> Handle(GetVenusPageAboutQuery request, CancellationToken cancellationToken)
@@ -40,9 +36,9 @@ namespace Venus.Core.Application.Features.Cms.Pages.Queries
 
             try
             {
-                List<VenusPageAbout> venusPageAboutList = await this._venusPageAboutRepository.GetPageTypeAndRelations();
+                List<VenusPageAbout> venusPageAboutList = await _venusPageAboutRepository.GetPageTypeAndRelations();
 
-                List<ReadVenusPageAboutDto> venusPageAboutDtoList = this._mapper.Map<List<ReadVenusPageAboutDto>>(venusPageAboutList);
+                List<ReadVenusPageAboutDto> venusPageAboutDtoList = _mapper.Map<List<ReadVenusPageAboutDto>>(venusPageAboutList);
                 result.SuccessSetData(venusPageAboutDtoList);
             }
             catch (Exception ex)

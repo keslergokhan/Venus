@@ -5,11 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Entities;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories;
+using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.Repositories.Cms;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
@@ -41,6 +43,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IReadVenusLanguageCmsRepository, ReadVenusLanguageRepository>();
             //services.AddStartData();
             services.AddScoped<IWriteVenusPageCmsRepository, WriteVenusPageRepository>();
+            services.AddScoped<IReadBlogRepositories,ReadBlogRepository>();
 
             services.AddScoped<IVenusUnitOfWork, VenusUnitOfWork>();
         }
@@ -309,7 +312,9 @@ namespace Venus.Infrastructure.Persistence
                             CreateDate = DateTime.Now,
                             ModifiedDate = null,
                             ParentUrlId = blogBaseUrl.Id,
+
                         },
+                        JsonData = string.Empty,
                         CreateDate = DateTime.Now,
                         Description = "Test blog içeriği",
                         Id = Guid.NewGuid(),

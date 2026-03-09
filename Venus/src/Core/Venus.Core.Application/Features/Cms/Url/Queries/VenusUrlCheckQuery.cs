@@ -10,7 +10,7 @@ using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 
-namespace Venus.Core.Application.Features.Cms.Url.Queries
+namespace Venus.Core.Application.Features.Cms
 {
     public class VenusUrlCheckQuery : IRequest<IResultDataControl<bool>>
     {

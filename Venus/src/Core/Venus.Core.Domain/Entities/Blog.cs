@@ -9,12 +9,14 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Domain.Entities
 {
-    public class Blog : VenusEntityBase, IVenusUrlEntity, IVenusDynamicJsonData
+    public class Blog : VenusEntityBase, IVenusUrlEntity, IVenusDynamicJsonData, IVenusLanguageEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public Guid UrlId { get; set; }
         public VenusUrl Url { get; set; }
         public string JsonData { get; set; }
+        public Guid LanguageId { get; set; }
+        public VenusLanguage Language { get; set; }
     }
 }

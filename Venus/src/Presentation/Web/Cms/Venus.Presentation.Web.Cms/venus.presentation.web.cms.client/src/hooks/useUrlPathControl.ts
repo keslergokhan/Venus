@@ -6,12 +6,13 @@ import type { FieldValues, UseFormGetValues, UseFormTrigger } from "react-hook-f
 export interface useUrlPathControlResult{
     getValue: ()=>string;
     setValue:(url:string)=>void
-    isUrlExists:boolean;
-    checkUrlHandler:()=>void
+    isUrlExists:boolean|undefined;
+    checkUrlHandler:()=>void;
+    
 }
 
-export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()=>string}) : useUrlPathControlResult =>{
-    const [isUrlExists,setUrlExists] = useState<boolean>(false);
+export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()=>string,isValidError?:()=>void;}) : useUrlPathControlResult =>{
+    const [isUrlExists,setUrlExists] = useState<boolean|undefined>(undefined);
     const urlService = new UrlService();
     
     const setUrlHandler = (url:string)=>{
@@ -25,6 +26,10 @@ export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()
     const checkUrlHandler = ()=>{
         urlService.urlCheck({url:props.getValue()}).then(x=>{
             setUrlExists(x);
+            if(x && props.isValidError){
+                props.isValidError();
+                console.log("ffff");
+            }
         }).catch(x=>{
             ToastHelper.DefaultCatchError(x);
         });

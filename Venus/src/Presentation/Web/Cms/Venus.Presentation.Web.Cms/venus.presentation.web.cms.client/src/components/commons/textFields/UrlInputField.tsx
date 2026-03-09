@@ -7,7 +7,7 @@ import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 export interface UrlInputFieldProps {
     useUrlPathControl:useUrlPathControlResult,
     formRegister?:UseFormRegisterReturn,
-    FieldErrors?:FieldError,
+    fieldErrors?:FieldError,
 }
 
 export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
@@ -58,18 +58,18 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
             Url
         </label>
         <input
-        {...props.formRegister}
-        onBlur={onBlur}
-        onChange={handleChange}
-        type="text"
-        name="url"
-        id="url"
-        className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5"
-        placeholder={"/"}
-        />
+            {...props.formRegister}
+            onBlur={onBlur}
+            onChange={handleChange}
+            type="text"
+            name="url"
+            id="url"
+            className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5"
+            placeholder={"/"}
+            />
         {props.useUrlPathControl.isUrlExists && <p className="text-red-500 text-sm mt-1">Adres zaten mevcut.</p>}
         {(props.useUrlPathControl.isUrlExists==false && props.useUrlPathControl?.getValue()?.length > 2) && <p className="text-green-500 text-sm mt-1">Adres kullanıma uygun.</p>}
-        {props.FieldErrors && <p className="text-red-500 text-sm mt-1">{props.FieldErrors.message}</p>}
+        {props.fieldErrors && <p className="text-red-500 text-sm mt-1">{props.fieldErrors?.message}</p>}
     </div>)
     
     
