@@ -66,11 +66,11 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
 
     return (
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>
-            <CTextField name="Title" id="Title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
-            <CTextField name="Description" id="Description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
+            <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
+            <CTextField name="description" id="description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
             <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("url"))} fieldErrors={errors.url}></UrlInputField>
             <DynamicFieldsComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicFieldsComponent>
-            <CButtonField id="blog-submit-btn">Kaydet</CButtonField>
+            <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Kaydet</CButtonField>
         </form>
     )
 }

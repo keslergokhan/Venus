@@ -2,7 +2,7 @@
 
 namespace Venus.Presentation.Web.Cms.Server.Models.PageManagers
 {
-    public class CreatePageRequest : BaseRequest
+    public class CreatePageReq : BaseRequest
     {
         public string UrlPath { get; set; }
         public string Title { get; set; }

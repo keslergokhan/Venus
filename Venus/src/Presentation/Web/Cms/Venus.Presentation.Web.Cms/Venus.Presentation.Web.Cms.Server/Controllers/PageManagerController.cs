@@ -27,7 +27,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePage(CreatePageRequest createPageRequest,CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePage(CreatePageReq createPageRequest,CancellationToken cancellationToken)
         {
             var createPageResult = await base.Mediator.Send(new CreateVenusPageCommand() { 
                 Title = createPageRequest.Title,

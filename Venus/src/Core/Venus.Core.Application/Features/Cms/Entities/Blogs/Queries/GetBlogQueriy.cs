@@ -13,7 +13,7 @@ using Venus.Core.Application.Results.Interfaces;
 
 namespace Venus.Core.Application.Features.Cms
 {
-    public class GetBlogQueriy : IRequest<IResultDataControl<List<ReadBlogDto>>>, ILocalizedRequest
+    public class GetBlogQueriy : IRequest<IResultDataControl<List<ReadBlogDto>>>, ILanguageRequest
     {
         public Guid LanguageId { get; set; }
     }

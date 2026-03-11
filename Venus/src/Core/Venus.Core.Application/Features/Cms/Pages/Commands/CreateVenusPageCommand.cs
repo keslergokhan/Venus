@@ -19,7 +19,7 @@ using Venus.Core.Domain.Entities.Systems;
 namespace Venus.Core.Application.Features.Cms
 {
     public class CreateVenusPageCommand : IRequest<IResultDataControl<ReadVenusPageDto>>,
-         ILocalizedRequest
+         ILanguageRequest
     {
         public string UrlPath { get; set; }
         public string Title { get; set; }
