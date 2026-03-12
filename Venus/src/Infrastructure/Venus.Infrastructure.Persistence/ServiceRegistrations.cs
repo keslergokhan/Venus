@@ -44,6 +44,7 @@ namespace Venus.Infrastructure.Persistence
             //services.AddStartData();
             services.AddScoped<IWriteVenusPageCmsRepository, WriteVenusPageRepository>();
             services.AddScoped<IReadBlogRepositories,ReadBlogRepository>();
+            services.AddScoped<IWriteBlogRepository, WriteBlogRepository>();
 
             services.AddScoped<IVenusUnitOfWork, VenusUnitOfWork>();
         }

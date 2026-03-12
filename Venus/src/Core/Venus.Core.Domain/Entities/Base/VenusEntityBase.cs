@@ -9,6 +9,11 @@ namespace Venus.Core.Domain.Entities.Base
 {
     public abstract class VenusEntityBase : IVenusEntity
     {
+        protected VenusEntityBase()
+        {
+            this.Id = Guid.NewGuid();
+            this.State = 1;
+        }
         public Guid Id { get; set; }
         public byte State { get; set; }
         public DateTime CreateDate { get; set; }
