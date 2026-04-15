@@ -11,7 +11,7 @@ using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Cms;
 using Venus.Core.Application.Features.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
@@ -30,14 +30,14 @@ namespace Venus.Core.Application.Features.Cms
 
     public class CreateVenusPageCommandHandler : IRequestHandler<CreateVenusPageCommand, IResultDataControl<ReadVenusPageDto>>
     {
-        private readonly IWriteVenusPageCmsRepository _writeVenusPageCmsRepository;
+        private readonly IVenusPageRepository _venusPageRepository;
         private readonly IVenusUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public CreateVenusPageCommandHandler(IVenusUnitOfWork unitOfWork, IWriteVenusPageCmsRepository writeVenusPageCmsRepository,IMapper mapper)
+        public CreateVenusPageCommandHandler(IVenusUnitOfWork unitOfWork, IVenusPageRepository venusPageRepository,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _writeVenusPageCmsRepository = writeVenusPageCmsRepository;
+            _venusPageRepository = venusPageRepository;
             _mapper = mapper;
         }
 
@@ -61,7 +61,7 @@ namespace Venus.Core.Application.Features.Cms
                 newPageUrl.FullPath = request.UrlPath;
                 newVenusPage.Url = newPageUrl;
 
-                await _writeVenusPageCmsRepository.CreateAsync(newVenusPage,cancellationToken);
+                await _venusPageRepository.CreateAsync(newVenusPage,cancellationToken);
                 
                 int saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
                 if (saveResult <= 0)

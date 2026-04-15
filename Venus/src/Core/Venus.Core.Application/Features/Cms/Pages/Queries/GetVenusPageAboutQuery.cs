@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
@@ -21,10 +21,10 @@ namespace Venus.Core.Application.Features.Cms
 
     public class VenusGetPageAboutQueryHandler : IRequestHandler<GetVenusPageAboutQuery, IResultDataControl<List<ReadVenusPageAboutDto>>>
     {
-        private readonly IReadVenusPageAboutCmsRepository _venusPageAboutRepository;
+        private readonly IVenusPageAboutRepository _venusPageAboutRepository;
         private readonly IMapper _mapper;
 
-        public VenusGetPageAboutQueryHandler(IReadVenusPageAboutCmsRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public VenusGetPageAboutQueryHandler(IVenusPageAboutRepository venusPageAboutRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _venusPageAboutRepository = venusPageAboutRepository;
             _mapper = mapper;

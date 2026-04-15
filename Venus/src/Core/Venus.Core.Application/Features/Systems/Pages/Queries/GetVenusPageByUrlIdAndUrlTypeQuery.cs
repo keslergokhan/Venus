@@ -19,12 +19,12 @@ namespace Venus.Core.Application.Features.Systems
 
     public class VenusGetPageByUrlIdAndUrlTypeQueryHandler : IRequestHandler<GetVenusPageByUrlIdAndUrlTypeQuery, IResultDataControl<ReadVenusPageDto>>
     {
-        private readonly IReadVenusPageSystemRepository _readVenusPageSystemRepository;
+        private readonly IVenusPageRepository _readVenusPageRepository;
         private readonly IMapper _mapper;
 
-        public VenusGetPageByUrlIdAndUrlTypeQueryHandler(IReadVenusPageSystemRepository readVenusPageSystemRepository, IMapper mapper)
+        public VenusGetPageByUrlIdAndUrlTypeQueryHandler(IVenusPageRepository readVenusPageRepository, IMapper mapper)
         {
-            _readVenusPageSystemRepository = readVenusPageSystemRepository;
+            _readVenusPageRepository = readVenusPageRepository;
             _mapper = mapper;
         }
 
@@ -37,11 +37,11 @@ namespace Venus.Core.Application.Features.Systems
 
                 //if (request.UrlType == (short)PageTypeEnum.Entity)
                 //{
-                //    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.ParentUrlId.Value);
+                //    page = await _readVenusPageRepository.GetPageByUrlIdAsync(request.ParentUrlId.Value);
                 //}
                 //else
                 //{
-                //    page = await _readVenusPageSystemRepository.GetPageByUrlIdAsync(request.UrlId);
+                //    page = await _readVenusPageRepository.GetPageByUrlIdAsync(request.UrlId);
                 //}
 
 

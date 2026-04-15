@@ -15,8 +15,9 @@ const BlogContainer = () =>{
     useEffect(()=>{
         ToastHelper.Success(<>Merhaba</>);
     },[]);
-    
+
     return (
+        
         <div>
             <div className="flex gap-4">
                 <CButtonField onClick={()=>{setShowContainer(["add"])}}>Yeni Blog</CButtonField>

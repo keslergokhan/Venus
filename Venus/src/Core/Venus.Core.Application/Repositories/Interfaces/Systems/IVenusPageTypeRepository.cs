@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
-    public interface IReadVenusPageSystemRepository : IRepository<Domain.Entities.Systems.VenusPage>
+    public interface IVenusPageTypeRepository: IRepository<VenusPageType>
     {
-        public Task<Domain.Entities.Systems.VenusPage> GetPageByUrlIdAsync(Guid urlId);
+        public Task<List<VenusPageType>> GetPageTypeAndRelations();
     }
 }

@@ -4,16 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Entities;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.VenusDbContext.Interfaces;
 using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories;
-using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.Repositories.Cms;
 using Venus.Infrastructure.Persistence.VenusDbContext;
+
 
 namespace Venus.Infrastructure.Persistence
 {
@@ -33,18 +32,16 @@ namespace Venus.Infrastructure.Persistence
         
         private static void AddVenusPersistenceServiceRegistration(this IServiceCollection services)
         {
-            services.AddScoped<IReadVenusUrlSystemRepository, ReadVenusUrlRepository>();
-            services.AddScoped<IReadVenusUrlCmsRepository, ReadVenusUrlRepository>();
-            services.AddScoped<IVenusAuthenticationCmsRepository, VenusAuthenticationRepository>();
-            services.AddScoped<IReadVenusPageTypeCmsRepository, ReadVenusPageTypeRepository>();
-            services.AddScoped<IReadVenusPageSystemRepository, ReadVenusPageRepository>();
-            services.AddScoped<IReadBlogRepositories, ReadBlogRepository>();
-            services.AddScoped<IReadVenusPageAboutCmsRepository, ReadVenusPageAboutRepository>();
-            services.AddScoped<IReadVenusLanguageCmsRepository, ReadVenusLanguageRepository>();
+            services.AddScoped<IVenusUrlRepository, VenusUrlRepository>();
+            services.AddScoped<IVenusUrlRepository, VenusUrlRepository>();
+            services.AddScoped<IVenusAuthenticationRepository, VenusAuthenticationRepository>();
+            services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
+            services.AddScoped<IVenusPageAboutRepository, VenusPageAboutRepository>();
+            services.AddScoped<IVenusLanguageRepository, VenusLanguageRepository>();
             //services.AddStartData();
-            services.AddScoped<IWriteVenusPageCmsRepository, WriteVenusPageRepository>();
-            services.AddScoped<IReadBlogRepositories,ReadBlogRepository>();
-            services.AddScoped<IWriteBlogRepository, WriteBlogRepository>();
+            services.AddScoped<IVenusPageRepository, VenusPageRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
 
             services.AddScoped<IVenusUnitOfWork, VenusUnitOfWork>();
         }

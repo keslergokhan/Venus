@@ -20,12 +20,12 @@ namespace Venus.Core.Application.Features.Cms
 
     public class GetBlogQueryHandler : IRequestHandler<GetBlogQuery, IResultDataControl<List<ReadBlogDto>>>
     {
-        private readonly IReadBlogRepositories _readBlogRepositories;
+        private readonly IBlogRepository _blogRepositories;
         private readonly IMapper _mapper;
 
-        public GetBlogQueryHandler(IReadBlogRepositories readBlogRepositories, IMediator mediator, IMapper mapper)
+        public GetBlogQueryHandler(IBlogRepository readBlogRepositories, IMediator mediator, IMapper mapper)
         {
-            _readBlogRepositories = readBlogRepositories;
+            _blogRepositories = readBlogRepositories;
             _mapper = mapper;
         }
 
@@ -34,7 +34,7 @@ namespace Venus.Core.Application.Features.Cms
             IResultDataControl<List<ReadBlogDto>> result = new ResultDataControl<List<ReadBlogDto>>();
             try
             {
-                var blogResult = await _readBlogRepositories.GetAllByOnlineAsync(request.LanguageId);
+                var blogResult = await _blogRepositories.GetAllAsync(x=>x.LanguageId == request.LanguageId,cancellationToken);
 
                 var blogDtos = _mapper.Map<List<ReadBlogDto>>(blogResult);  
 

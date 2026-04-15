@@ -30,13 +30,13 @@ namespace Venus.Core.Application.Features.Cms
 
     public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, IResultDataControl<ReadBlogDto>>
     {
-        private readonly IWriteBlogRepository _writeBlogRepository;
+        private readonly IBlogRepository _blogRepository;
         private readonly IVenusUnitOfWork _venusUnitOfWork;
         private readonly IMapper _mapper;
 
-        public CreateBlogCommandHandler(IWriteBlogRepository writeBlogRepository, IVenusUnitOfWork venusUnitOfWork, IMapper mapper)
+        public CreateBlogCommandHandler(IBlogRepository blogRepository, IVenusUnitOfWork venusUnitOfWork, IMapper mapper)
         {
-            _writeBlogRepository = writeBlogRepository;
+            _blogRepository = blogRepository;
             _venusUnitOfWork = venusUnitOfWork;
             _mapper = mapper;
         }
@@ -61,7 +61,7 @@ namespace Venus.Core.Application.Features.Cms
                 };
                
 
-                await _writeBlogRepository.CreateAsync(newBlog,cancellationToken);
+                await _blogRepository.CreateAsync(newBlog,cancellationToken);
                 int saveResult = await _venusUnitOfWork.SaveChangesAsync(cancellationToken);
 
                 if (saveResult <= 0)

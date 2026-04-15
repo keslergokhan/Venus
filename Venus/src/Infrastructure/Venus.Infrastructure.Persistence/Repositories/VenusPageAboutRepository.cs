@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class ReadVenusPageAboutRepository : ReadRepositoryBase<VenusPageAbout>, IReadVenusPageAboutCmsRepository
+    public class VenusPageAboutRepository : RepositoryBase<VenusPageAbout>, IVenusPageAboutRepository
     {
-        public ReadVenusPageAboutRepository(VenusContext db) : base(db)
+        public VenusPageAboutRepository(VenusContext db) : base(db)
         {
         }
 

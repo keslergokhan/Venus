@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using Venus.Core.Application.Dtos.Systems.Users;
 using Venus.Core.Application.Exceptions.Cms;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
@@ -26,12 +26,12 @@ namespace Venus.Core.Application.Features.Cms
 
     public class VenusAuthenticationHandlerQuery : IRequestHandler<VenusAuthenticationQuery, IResultDataControl<ReadVenusUserDto>>
     {
-        private readonly IVenusAuthenticationCmsRepository _venusAuth;
+        private readonly IVenusAuthenticationRepository _venusAuth;
         private readonly IHttpContextAccessor _httpAccessor;
         private readonly IConfiguration _config;
 
 
-        public VenusAuthenticationHandlerQuery(IVenusAuthenticationCmsRepository venusAuth, IHttpContextAccessor httpAccessor, IConfiguration config)
+        public VenusAuthenticationHandlerQuery(IVenusAuthenticationRepository venusAuth, IHttpContextAccessor httpAccessor, IConfiguration config)
         {
             _venusAuth = venusAuth;
             _httpAccessor = httpAccessor;

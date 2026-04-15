@@ -21,7 +21,11 @@ export const CTableComponent = <TData extends any>(props:CTableComponentProps<TD
     const endIndex = startIndex + itemsPerPage;
     
     // Veriyi dilimle (Sadece mevcut sayfayı gösterir)
-    const currentItems = props.data.slice(startIndex, endIndex);
+    let currentItems = new Array<TData>();
+
+    if(props.data && props.data.length>0){
+        currentItems = props.data.slice(startIndex, endIndex);
+    }
 
     // 3. Sayfa Değiştirme Fonksiyonu
     const onPageChange = (page: number) => {
@@ -50,10 +54,10 @@ export const CTableComponent = <TData extends any>(props:CTableComponentProps<TD
     return (
         <div className="overflow-x-auto ">
             <Table striped className="[&_th]:bg-transparent">
-                {props.children}
+                {props?.children}
                 <TableBody className="divide-y [&_td]:bg-transparent" >
                     {
-                        currentItems.map((item,index)=>{
+                        (currentItems && currentItems.length > 0) && currentItems.map((item,index)=>{
                             return (props.getRowChildren({index:index,data:item}))
                         })
                     }

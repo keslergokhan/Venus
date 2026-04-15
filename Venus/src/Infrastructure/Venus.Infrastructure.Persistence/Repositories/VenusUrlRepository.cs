@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
@@ -13,9 +12,9 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class ReadVenusUrlRepository : ReadRepositoryBase<VenusUrl>, IReadVenusUrlSystemRepository, IReadVenusUrlCmsRepository
+    public class VenusUrlRepository : RepositoryBase<VenusUrl>, IVenusUrlRepository
     {
-        public ReadVenusUrlRepository(VenusContext db) : base(db)
+        public VenusUrlRepository(VenusContext db) : base(db)
         {
         }
 
@@ -31,10 +30,10 @@ namespace Venus.Infrastructure.Persistence.Repositories
         public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath)
         {
             return GetDefaultUrlQuery(fullPath)
-                .Include(x=>x.Language)
-                .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageType)
-                .Include(x=>x.Pages).ThenInclude(x=>x.PageAbout).ThenInclude(x=>x.PageEntity)
-                .Include(x=>x.ParentUrl).ThenInclude(x=>x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageType)
+                .Include(x => x.Language)
+                .Include(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageType)
+                .Include(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageEntity)
+                .Include(x => x.ParentUrl).ThenInclude(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageType)
                 .Include(x => x.ParentUrl).ThenInclude(x => x.Pages).ThenInclude(x => x.PageAbout).ThenInclude(x => x.PageEntity)
                 .AsSplitQuery().ToListAsync();
         }
@@ -44,6 +43,5 @@ namespace Venus.Infrastructure.Persistence.Repositories
             return (GetDefaultUrlQuery(fullPath).Count() > 0);
         }
 
-        
     }
 }

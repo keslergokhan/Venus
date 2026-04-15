@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Enums.Systems;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories.Cms
 {
-    public class VenusAuthenticationRepository : RepositoryBase, IVenusAuthenticationCmsRepository
+    public class VenusAuthenticationRepository : RepositoryBase<VenusUser>, IVenusAuthenticationRepository
     {
         public VenusAuthenticationRepository(VenusContext db) : base(db)
         {

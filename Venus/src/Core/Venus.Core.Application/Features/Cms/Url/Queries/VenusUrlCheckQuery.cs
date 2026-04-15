@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Urls;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
@@ -19,9 +18,9 @@ namespace Venus.Core.Application.Features.Cms
 
     public class VenusUrlCheckQueryHandler : IRequestHandler<VenusUrlCheckQuery, IResultDataControl<bool>>
     {
-        private readonly IReadVenusUrlCmsRepository _readVenusUrlCms;
+        private readonly IVenusUrlRepository _readVenusUrlCms;
 
-        public VenusUrlCheckQueryHandler(IReadVenusUrlCmsRepository readVenusUrlCms)
+        public VenusUrlCheckQueryHandler(IVenusUrlRepository readVenusUrlCms)
         {
             _readVenusUrlCms = readVenusUrlCms;
         }

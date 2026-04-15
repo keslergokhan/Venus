@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Users;
 using Venus.Core.Application.Exceptions.Cms;
-using Venus.Core.Application.Repositories.Interfaces.Cms;
+using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
@@ -30,10 +30,10 @@ namespace Venus.Core.Application.Features.Cms
         IRequestHandler<VenusAuthenticationValidateQuery, IResultDataControl<ReadVenusUserDto>>
     {
         private readonly IConfiguration _configuration;
-        private readonly IVenusAuthenticationCmsRepository _authRepo;
+        private readonly IVenusAuthenticationRepository _authRepo;
         private readonly IMapper _mapper;
 
-        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationCmsRepository authRepo, IMapper mapper)
+        public VenusAuthenticationValidateQueryHandler(IConfiguration configuration, IVenusAuthenticationRepository authRepo, IMapper mapper)
         {
             this._configuration = configuration;
             this._authRepo = authRepo;

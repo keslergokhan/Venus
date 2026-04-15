@@ -16,9 +16,9 @@ namespace Venus.Core.Application.Features.Systems
 
     public class VenusGetUrlByFullPathQueryHandler : IRequestHandler<GetVenusUrlByFullPathQuery, IResultDataControl<List<ReadVenusUrlDto>>>
     {
-        private readonly IReadVenusUrlSystemRepository _urlRepo;
+        private readonly IVenusUrlRepository _urlRepo;
         private readonly IMapper _mapper;
-        public VenusGetUrlByFullPathQueryHandler(IReadVenusUrlSystemRepository urlRepo, IMapper mapper)
+        public VenusGetUrlByFullPathQueryHandler(IVenusUrlRepository urlRepo, IMapper mapper)
         {
             _urlRepo = urlRepo;
             _mapper = mapper;

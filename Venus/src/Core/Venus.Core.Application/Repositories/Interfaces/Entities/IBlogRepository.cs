@@ -7,7 +7,7 @@ using Venus.Core.Domain.Entities;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Entities
 {
-    public interface IReadBlogRepositories : IReadCustomRepository<Blog>
+    public interface IBlogRepository : IRepository<Blog>
     {
     }
 }

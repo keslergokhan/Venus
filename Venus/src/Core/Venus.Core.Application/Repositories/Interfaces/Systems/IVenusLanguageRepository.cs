@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
-    public interface IReadVenusUrlSystemRepository : IRepository<VenusUrl>
+    public interface IVenusLanguageRepository : IRepository<VenusLanguage>
     {
-        public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath);
-
     }
 }
