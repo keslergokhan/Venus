@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Cms
 {
-    public interface IReadVenusUrlCmsRepository :  IReadRepository<VenusUrl>
+    public interface IReadVenusUrlCmsRepository :  IRepository<VenusUrl>
     {
         public bool UrlCheck(string fullPath);   
     }

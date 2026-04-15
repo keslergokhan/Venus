@@ -8,16 +8,17 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Application.Repositories.Interfaces
 {
-    public interface IReadRepository<T>
+    public interface IRepository<T>
         where T : class, IVenusEntity
     {
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null);
     }
 
-    public interface IReadCustomRepository<T> : IReadRepository<T>
+    public interface IReadCustomRepository<T> : IRepository<T>
         where T : class, IVenusEntity, IVenusLanguageEntity, IVenusUrlEntity
     {
 
         public Task<List<T>> GetAllByOnlineAsync(Guid languageId);
+        public Task CreateAsync(T entity, CancellationToken cancellationToken = default);
     }
 }

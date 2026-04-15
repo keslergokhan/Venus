@@ -17,7 +17,7 @@ using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms.Entities.Blogs.Commands
+namespace Venus.Core.Application.Features.Cms
 {
     public class CreateBlogCommand : IRequest<IResultDataControl<ReadBlogDto>>, ILanguageRequest, IDynamicPropertyRequest
     {

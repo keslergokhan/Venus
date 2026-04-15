@@ -27,7 +27,7 @@ export const BlogTableComponent = (props:BlogTableComponentProps) =>{
 
     return (
         <CTableComponent data={props.blogs} getRowChildren={row} >
-            <CTableHeaderComponent>
+            <CTableHeaderComponent>               
                 <TableHeadCell>Product name</TableHeadCell>
                 <TableHeadCell>Color</TableHeadCell>
                 <TableHeadCell>Category</TableHeadCell>

@@ -5,7 +5,7 @@ import { CButtonField, CTextField, DynamicFieldComponentEnum, DynamicFieldsCompo
 import { useUrlPathControl } from "../../hooks";
 
 export type CreateBlogType = {
-    url:string,
+    urlPath:string,
     title:string,
     description:string,
     blogCategory:string,
@@ -33,7 +33,7 @@ export const BlogDynamicInputFields:Array<DynamicFieldComponentProps<CreateBlogT
 export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
 
     const schema = z.object({
-        url:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),
+        urlPath:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),
         title:z.string().min(1,"Lütfen boş geçmeyiniz."),
         description:z.string().min(1,"Lütfen boş geçmeyiniz."),
         blogCategory:z.string().min(5,"Lütfen adınızı giriniz"),
@@ -42,7 +42,7 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
 
     const defaultValues = 
     {
-        url:"",
+        urlPath:"",
         blogContent:"",
         blogCategory:"",
         description:"",
@@ -55,20 +55,20 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
     const {register,formState:{errors}} = useformObject;
 
     const urlSetValue = (url:string)=>{
-        setValue("url",url);
+        setValue("urlPath",url);
     }
 
     const urlGetValue = ():string=>{
-        return getValues("url");
+        return getValues("urlPath");
     }
-    const useUrlControl = useUrlPathControl({getValue:()=>{return getValues("url")},setValue:(url:string)=>setValue("url",url)});
+    const useUrlControl = useUrlPathControl({getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
     
 
     return (
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>
             <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
             <CTextField name="description" id="description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
-            <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("url"))} fieldErrors={errors.url}></UrlInputField>
+            <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("urlPath"))} fieldErrors={errors.urlPath}></UrlInputField>
             <DynamicFieldsComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicFieldsComponent>
             <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Kaydet</CButtonField>
         </form>

@@ -7,16 +7,23 @@ export class FormHelper {
         dynamicFields:Array<DynamicFieldComponentProps<TFieldValues>>,
         data:TFieldValues
     }):Record<string, any> => {
-        return Object.keys(props.data).reduce((acc, key) => {
+        var object = Object.keys(props.data).reduce((acc, key) => {
             if (props.dynamicFields.some(f => f.name === key)) {
-                if (!acc["JsonData"]) {
-                    acc["JsonData"] = {};
+                if (!acc["jsonData"]) {
+                    acc["jsonData"] = {};
                 }
-                acc["JsonData"][key] = props.data[key as keyof TFieldValues];
+                acc["jsonData"][key] = props.data[key as keyof TFieldValues];
             }else{
                 acc[key] = props.data[key as keyof TFieldValues];
             }
+
             return acc;
         }, {} as Record<string, any>);
+
+        if(object["jsonData"]){
+            object["jsonData"] = JSON.stringify(object["jsonData"]);
+        }
+
+        return object;
     }
 }

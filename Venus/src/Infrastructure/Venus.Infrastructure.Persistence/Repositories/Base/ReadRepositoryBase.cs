@@ -13,7 +13,7 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories.Base
 {
-    public abstract class ReadRepositoryBase<T> : RepositoryBase, IReadRepository<T>
+    public abstract class ReadRepositoryBase<T> : RepositoryBase, IRepository<T>
         where T :class,IVenusEntity
         
     {

@@ -20,7 +20,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
 
         public Task<List<T>> GetAllByOnlineAsync(Guid languageId)
         {
-            return base.Context.Set<T>().Where(x => x.State != (int)EntityStateEnum.Deleted && x.LanguageId == languageId).ToListAsync();
+            return base.Context.Set<T>().Where(x => x.State != (int)EntityStateEnum.Deleted && x.LanguageId == languageId).OrderByDescending(x=>x.CreateDate).ToListAsync();
         }
     }
 }

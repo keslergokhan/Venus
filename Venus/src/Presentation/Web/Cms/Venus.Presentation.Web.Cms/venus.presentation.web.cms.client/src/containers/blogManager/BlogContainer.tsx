@@ -1,33 +1,35 @@
-import { useState } from "react";
-import { CreateBlogComponent, type CreateBlogType,BlogDynamicInputFields, BlogTableComponent, CButtonField } from "../../components"
-import { FormHelper } from "../../helpers";
+import { Toaster } from "react-hot-toast";
+import { CreateBlogComponent, type CreateBlogType, BlogTableComponent, CButtonField } from "../../components"
 import { ZoneControlComponent, ZoneControlItem } from "../../components/zoneControl/zoneControlComponent";
 import { useBlogContainer } from "../../hooks";
+import { useEffect } from "react";
+import { ToastHelper } from "../../helpers";
 
 
 const BlogContainer = () =>{
     
-    const {blogs,removenOnHandler,updateOnHandler} = useBlogContainer();
-    const [blogKeys,setBlogKeys] = useState<string[]>(["table"]);
+    const {blogs,removeHandler,updateHandler,addHandler,setShowContainer,showContainer,refreshTable} = useBlogContainer();
 
-    const onSubmitHandler = (data:CreateBlogType) =>{
-        console.log(FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields}));
-    }
+    const isTable = showContainer.find(x=>x=="table")?true:false;
 
+    useEffect(()=>{
+        ToastHelper.Success(<>Merhaba</>);
+    },[]);
+    
     return (
         <div>
-            
             <div className="flex gap-4">
-                <CButtonField onClick={()=>{setBlogKeys(["add"])}}>Yeni Blog</CButtonField>
-                <CButtonField onClick={()=>{setBlogKeys(["table"])}}>Bloglar</CButtonField>
+                <CButtonField onClick={()=>{setShowContainer(["add"])}}>Yeni Blog</CButtonField>
+                <CButtonField onClick={()=>{refreshTable()}}>
+                    {(isTable?"Yenile":"İptal")}
+                </CButtonField>
             </div>
-            
-            <ZoneControlComponent className="mt-4" zoneKeys={blogKeys}>
+            <ZoneControlComponent className="mt-4" zoneKeys={showContainer}>
                 <ZoneControlItem zoneKey="add">
-                    <CreateBlogComponent onSubmit={onSubmitHandler}></CreateBlogComponent>
+                    <CreateBlogComponent onSubmit={addHandler}></CreateBlogComponent><br></br>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
-                    <BlogTableComponent blogs={blogs} updateOnHandler={updateOnHandler} removeOnHandler={removenOnHandler}></BlogTableComponent>
+                    <BlogTableComponent blogs={blogs} updateOnHandler={updateHandler} removeOnHandler={removeHandler}></BlogTableComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
-    public interface IReadVenusPageSystemRepository : IReadRepository<Domain.Entities.Systems.VenusPage>
+    public interface IReadVenusPageSystemRepository : IRepository<Domain.Entities.Systems.VenusPage>
     {
         public Task<Domain.Entities.Systems.VenusPage> GetPageByUrlIdAsync(Guid urlId);
     }

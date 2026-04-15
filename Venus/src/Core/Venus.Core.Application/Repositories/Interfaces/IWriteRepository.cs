@@ -10,6 +10,6 @@ namespace Venus.Core.Application.Repositories.Interfaces
     public interface IWriteRepository<T>
         where T : class, IVenusEntity
     {
-        public Task CreateAsync(T entity, CancellationToken cancellationToken = default);
+        
     }
 }

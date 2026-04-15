@@ -13,12 +13,12 @@ using Venus.Core.Application.Results.Interfaces;
 
 namespace Venus.Core.Application.Features.Cms
 {
-    public class GetBlogQueriy : IRequest<IResultDataControl<List<ReadBlogDto>>>, ILanguageRequest
+    public class GetBlogQuery : IRequest<IResultDataControl<List<ReadBlogDto>>>, ILanguageRequest
     {
         public Guid LanguageId { get; set; }
     }
 
-    public class GetBlogQueryHandler : IRequestHandler<GetBlogQueriy, IResultDataControl<List<ReadBlogDto>>>
+    public class GetBlogQueryHandler : IRequestHandler<GetBlogQuery, IResultDataControl<List<ReadBlogDto>>>
     {
         private readonly IReadBlogRepositories _readBlogRepositories;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Venus.Core.Application.Features.Cms
             _mapper = mapper;
         }
 
-        public async Task<IResultDataControl<List<ReadBlogDto>>> Handle(GetBlogQueriy request, CancellationToken cancellationToken)
+        public async Task<IResultDataControl<List<ReadBlogDto>>> Handle(GetBlogQuery request, CancellationToken cancellationToken)
         {
             IResultDataControl<List<ReadBlogDto>> result = new ResultDataControl<List<ReadBlogDto>>();
             try

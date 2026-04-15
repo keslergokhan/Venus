@@ -32,7 +32,10 @@ export abstract class ServiceBase {
         });
     }
 
-    public addDataAsync2 = (path:string, requestData:Record<string,any>):Promise<void> =>{
-        return axios.post(this.GetFullPath(path),requestData,this.GetAxiosHeader());
+    public getDatas = <T extends DtoBase>(path:string):Promise<T[]> =>{
+        return axios.get<T[]>(this.GetFullPath(path),this.GetAxiosHeader()).then(x=>{
+            return x.data as Array<T>
+        });
     }
+
 }

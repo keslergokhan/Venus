@@ -7,7 +7,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Cms
 {
-    public interface IReadVenusLanguageCmsRepository : IReadRepository<VenusLanguage>
+    public interface IReadVenusLanguageCmsRepository : IRepository<VenusLanguage>
     {
     }
 }

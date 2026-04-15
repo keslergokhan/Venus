@@ -8,7 +8,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
-    public interface IReadVenusUrlSystemRepository : IReadRepository<VenusUrl>
+    public interface IReadVenusUrlSystemRepository : IRepository<VenusUrl>
     {
         public Task<List<VenusUrl>> GetUrlByFullPathAsync(string fullPath);
 

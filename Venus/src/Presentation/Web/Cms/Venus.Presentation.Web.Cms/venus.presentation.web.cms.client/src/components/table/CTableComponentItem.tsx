@@ -1,4 +1,4 @@
-import { Dropdown, DropdownItem, TableCell, TableHead, TableRow } from "flowbite-react"
+import { Dropdown, DropdownItem, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react"
 import type { ReactNode } from "react"
 import type { CTableComponentProps } from ".."
 
@@ -11,6 +11,7 @@ export const CTableHeaderComponent = (props:CTableHeaderComponentProps) =>{
     return (
         <TableHead>
             <TableRow className="!bg-gray-700 text-[14px] text-white">
+                <TableHeadCell>Adet</TableHeadCell>
                 {props.children}
             </TableRow>
         </TableHead>
@@ -29,7 +30,8 @@ export const CTableBodyRow = <TData extends any>(props:CTableBodyRowProps<TData>
     const customClass = (props.index % 2 == 1 ? "!bg-gray-300":"");
     return (
         <TableRow className={customClass}>
-            {props.children}
+            <TableCell>{props.index+1}</TableCell>
+                {props.children}
             <TableCell>
                 <Dropdown label="İşlem" className="font-bold !border-0 !active:border-0" size="xs">
                     <DropdownItem onClick={()=>{

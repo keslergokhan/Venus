@@ -24,5 +24,6 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
         }
 
 
+
     }
 }
