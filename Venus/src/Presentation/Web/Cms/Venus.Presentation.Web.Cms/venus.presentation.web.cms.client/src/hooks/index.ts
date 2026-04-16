@@ -5,3 +5,4 @@ export {useUrlPathControl} from "./useUrlPathControl"
 export type {useUrlPathControlResult} from "./useUrlPathControl"
 export {useMenuLanguage} from './useMenuLanguage'
 export {useBlogContainer} from "./useBlogContainer"
+export {useSwitchModal} from "./useSwichModal"

@@ -34,3 +34,5 @@ export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/zoneControlCom
 
 export {CTableComponent, type CTableComponentProps} from "./table/CTableComponent"
 export {CTableHeaderComponent,CTableBodyRow} from "./table/CTableComponentItem"
+
+export {ConfirmModal} from "./modals/ConfirmModal";

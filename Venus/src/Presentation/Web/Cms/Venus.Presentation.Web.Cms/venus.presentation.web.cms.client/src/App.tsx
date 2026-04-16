@@ -11,10 +11,8 @@ import { AppContextProvider } from './contexts/AppContext';
 import IconComponent from './pages/IconComponent';
 import 'ckeditor5/ckeditor5.css';
 import { BlogPage } from './pages/BlogPage';
+import { ConfirmModal } from './components';
 function App() {
-
-    
-
     return (
         <div className='overflow-x-hidden p-0 m-0'>
             <AuthenticationContextProvider>
@@ -32,10 +30,10 @@ function App() {
                                     {/* ba�ka child sayfalar buraya */}
                                 </Route>
                                 <Route path="/icon" element={<IconComponent></IconComponent>}></Route>
-                                
                             </Routes>
                             <Toaster position="top-right" />
                         </BrowserRouter>
+                        <ConfirmModal/>
                     </FileManagerContextProvider>
                 </AppContextProvider>
             </AuthenticationContextProvider>

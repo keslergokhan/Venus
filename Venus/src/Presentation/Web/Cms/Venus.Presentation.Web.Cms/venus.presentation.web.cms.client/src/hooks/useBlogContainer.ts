@@ -3,6 +3,8 @@ import { BlogDynamicInputFields, type CreateBlogType } from "../components";
 import { ReadBlogDto } from "../dtos"
 import { FormHelper, ToastHelper } from "../helpers";
 import { BlogService } from "../services";
+import { AppContext } from "../contexts/AppContext";
+import { useContext } from "react";
 
 interface useBlogContainerResult{
     blogs:Array<ReadBlogDto>;
@@ -18,11 +20,12 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     var blogService = new BlogService();
     const [containers,setContainer] = useState<string[]>(["table"]);
     const blogs = useRef<ReadBlogDto[]>([]);
+    const appContext = useContext(AppContext);
+
 
     const setShowContainer = (data:string[])=>{
         setContainer(data);
     }
-
     
     useEffect(()=>{
         refreshTable();
@@ -41,8 +44,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     }
 
     const removeHandler = (data:ReadBlogDto) =>{
-        console.log(data);
-        alert("sil");
+        appContext.confirmModalAction({action:"Show",approvalHandler:()=>{console.log("İşlem başarılı")}});
     }
 
     const updateHandler = (data:ReadBlogDto)=>{

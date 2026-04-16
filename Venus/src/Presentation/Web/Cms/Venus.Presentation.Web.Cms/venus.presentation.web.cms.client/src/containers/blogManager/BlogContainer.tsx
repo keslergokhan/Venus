@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { CreateBlogComponent, type CreateBlogType, BlogTableComponent, CButtonField } from "../../components"
+import { CreateBlogComponent, type CreateBlogType, BlogTableComponent, CButtonField, ConfirmModal } from "../../components"
 import { ZoneControlComponent, ZoneControlItem } from "../../components/zoneControl/zoneControlComponent";
 import { useBlogContainer } from "../../hooks";
 import { useEffect } from "react";
@@ -11,10 +11,6 @@ const BlogContainer = () =>{
     const {blogs,removeHandler,updateHandler,addHandler,setShowContainer,showContainer,refreshTable} = useBlogContainer();
 
     const isTable = showContainer.find(x=>x=="table")?true:false;
-
-    useEffect(()=>{
-        ToastHelper.Success(<>Merhaba</>);
-    },[]);
 
     return (
         
