@@ -10,7 +10,7 @@ using Venus.Infrastructure.Persistence.VenusDbContext;
 
 namespace Venus.Infrastructure.Persistence.Repositories
 {
-    public class BlogRepository : RepositoryBase<Blog>, IBlogRepository
+    public class BlogRepository : UrlEntityRepositoryBase<Blog>, IBlogRepository
     {
         public BlogRepository(VenusContext db) : base(db)
         {

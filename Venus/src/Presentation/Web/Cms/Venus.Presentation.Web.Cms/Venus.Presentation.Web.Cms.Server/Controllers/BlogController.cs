@@ -37,5 +37,15 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             }, cancellationToken);
             return getBlogsResult.ToActionResult(this);
         }
+
+        [HttpPost("remove")]
+        public async Task<IActionResult> RemoveBlog([FromBody] Guid id, CancellationToken cancellationToken)
+        {
+            var removeBlogResult = await base.Mediator.Send(new RemoveBlogCommand()
+            {
+                Id = id
+            }, cancellationToken);
+            return removeBlogResult.ToActionResult(this);
+        }
     }
 }

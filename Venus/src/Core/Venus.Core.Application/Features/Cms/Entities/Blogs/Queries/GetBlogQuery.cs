@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Entities.Blogs;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Features.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Entities;
 using Venus.Core.Application.Results;
@@ -34,7 +35,7 @@ namespace Venus.Core.Application.Features.Cms
             IResultDataControl<List<ReadBlogDto>> result = new ResultDataControl<List<ReadBlogDto>>();
             try
             {
-                var blogResult = await _blogRepositories.GetAllAsync(x=>x.LanguageId == request.LanguageId,cancellationToken);
+                var blogResult = await _blogRepositories.GetAllAsync(x=>x.LanguageId == request.LanguageId && x.State != (byte)EntityStateEnum.Deleted ,cancellationToken);
 
                 var blogDtos = _mapper.Map<List<ReadBlogDto>>(blogResult);  
 

@@ -6,3 +6,4 @@ export type {useUrlPathControlResult} from "./useUrlPathControl"
 export {useMenuLanguage} from './useMenuLanguage'
 export {useBlogContainer} from "./useBlogContainer"
 export {useSwitchModal} from "./useSwichModal"
+export type {CreateBlogType,UpdateBlogType} from "./useBlogContainer"

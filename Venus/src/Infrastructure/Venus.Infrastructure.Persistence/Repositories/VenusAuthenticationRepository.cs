@@ -21,7 +21,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Cms
 
         public Task<VenusUser> FindUserAsync(string email, string password)
         {
-            return base.GetTable<VenusUser>().AsQueryable().AsNoTracking()
+            return base.GetTable().AsQueryable().AsNoTracking()
                 .Where(x => 
                 x.Email.Trim().ToLower() == email.ToLower().Trim() 
                 && x.Password.Trim() == password.Trim()
@@ -31,7 +31,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Cms
 
         public Task<VenusUser> FindUserByIdAsync(Guid id)
         {
-            return base.GetTable<VenusUser>().FirstOrDefaultAsync(x=>x.Id == id);
+            return base.GetTable().FirstOrDefaultAsync(x=>x.Id == id);
         }
     }
 }

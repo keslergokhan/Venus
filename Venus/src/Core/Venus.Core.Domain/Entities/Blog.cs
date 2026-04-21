@@ -9,7 +9,7 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Domain.Entities
 {
-    public class Blog : VenusEntityBase, IVenusUrlEntity, IVenusDynamicJsonData, IVenusLanguageEntity
+    public class Blog : VenusEntityBase, IVenusUrlEntity, IVenusEntity, IVenusDynamicJsonData, IVenusLanguageEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }

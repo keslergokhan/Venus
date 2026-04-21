@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
@@ -12,11 +13,16 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
         }
 
-        public async Task<VenusPage> GetPageByUrlIdAsync(Guid urlId)
+        public Task<VenusPage?> GetEntityDetailPageByEntityNameAsync(string entityTypeFullName)
+        {
+            return base.GetQueryable().Where(x => x.PageAbout.PageEntity.EntityClassType == entityTypeFullName && x.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString()).Include(x => x.Url).AsQueryable().FirstOrDefaultAsync();
+        }
+
+        public Task<VenusPage> GetPageByUrlIdAsync(Guid urlId)
         {
             return base.GetQueryable()
                 .Include(x=>x.Url)
-                .FirstOrDefault(p => p.UrlId == urlId);
+                .FirstOrDefaultAsync(p => p.UrlId == urlId);
         }
     }
 }

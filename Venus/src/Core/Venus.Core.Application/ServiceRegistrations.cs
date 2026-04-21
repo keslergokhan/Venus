@@ -19,6 +19,7 @@ namespace Venus.Core.Application
         {
             services.AddScoped<IVenusHttpContext, VenusHttpContext>();
             services.AddScoped<IFileManagerService,FileManagerService>();
+            services.AddScoped(typeof(IVenusEntityPageService<>), typeof(VenusEntityPageService<>));
             services.AddMapster();
             services.AddMediatR(x =>
             {

@@ -1,16 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import z, { url } from "zod";
+import z from "zod";
 import { CButtonField, CTextField, DynamicFieldComponentEnum, DynamicFieldsComponent, UrlInputField, type DynamicFieldComponentProps } from "..";
-import { useUrlPathControl } from "../../hooks";
+import { useUrlPathControl, type CreateBlogType } from "../../hooks";
 
-export type CreateBlogType = {
-    urlPath:string,
-    title:string,
-    description:string,
-    blogCategory:string,
-    blogContent:string,
-}
 
 export interface CreateBlogComponentProps{
     onSubmit:(data:CreateBlogType)=>void
@@ -27,7 +20,6 @@ export const BlogDynamicInputFields:Array<DynamicFieldComponentProps<CreateBlogT
         name:"blogContent",
         type:DynamicFieldComponentEnum.HtmlEditor,
     }
-  
 ];
 
 export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{

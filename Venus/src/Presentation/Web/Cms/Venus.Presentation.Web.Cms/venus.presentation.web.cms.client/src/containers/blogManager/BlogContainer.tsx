@@ -1,14 +1,20 @@
-import { Toaster } from "react-hot-toast";
-import { CreateBlogComponent, type CreateBlogType, BlogTableComponent, CButtonField, ConfirmModal } from "../../components"
+import { CreateBlogComponent, BlogTableComponent, CButtonField } from "../../components"
+import { UpdateBlogComponent } from "../../components/blogManager/UpdateBlogComponent";
 import { ZoneControlComponent, ZoneControlItem } from "../../components/zoneControl/zoneControlComponent";
 import { useBlogContainer } from "../../hooks";
-import { useEffect } from "react";
-import { ToastHelper } from "../../helpers";
 
 
 const BlogContainer = () =>{
     
-    const {blogs,removeHandler,updateHandler,addHandler,setShowContainer,showContainer,refreshTable} = useBlogContainer();
+    const {
+        blogs,
+        removeHandler,
+        updateSelectHandler,
+        addHandler,
+        setShowContainer,
+        showContainer,
+        updateHandler,
+        refreshTable} = useBlogContainer();
 
     const isTable = showContainer.find(x=>x=="table")?true:false;
 
@@ -17,7 +23,7 @@ const BlogContainer = () =>{
         <div>
             <div className="flex gap-4">
                 <CButtonField onClick={()=>{setShowContainer(["add"])}}>Yeni Blog</CButtonField>
-                <CButtonField onClick={()=>{refreshTable()}}>
+                <CButtonField onClick={()=>{refreshTable()}} className={`${(isTable==false&&"bg-red-700")}`}>
                     {(isTable?"Yenile":"İptal")}
                 </CButtonField>
             </div>
@@ -25,8 +31,11 @@ const BlogContainer = () =>{
                 <ZoneControlItem zoneKey="add">
                     <CreateBlogComponent onSubmit={addHandler}></CreateBlogComponent><br></br>
                 </ZoneControlItem>
+                <ZoneControlItem zoneKey="update">
+                    <UpdateBlogComponent onSubmit={updateHandler}></UpdateBlogComponent>
+                </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
-                    <BlogTableComponent blogs={blogs} updateOnHandler={updateHandler} removeOnHandler={removeHandler}></BlogTableComponent>
+                    <BlogTableComponent blogs={blogs} updateOnHandler={updateSelectHandler} removeOnHandler={removeHandler}></BlogTableComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

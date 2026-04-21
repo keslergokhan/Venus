@@ -22,21 +22,23 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             Context = db;
         }
 
-        protected DbSet<T> GetTable<T>() where T : class, IVenusEntity
+        protected DbSet<T> GetTable()
         {
             return Context.Set<T>();
         }
 
-        public async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
+        
+        public virtual async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
             entity.CreateDate = DateTime.Now;
             entity.State = (int)EntityStateEnum.Online;
-            await GetTable<T>().AddAsync(entity, cancellationToken);
+            await GetTable().AddAsync(entity, cancellationToken);
         }
+
 
         protected IQueryable<T> GetQueryable()
         {
-            return GetTable<T>().AsNoTracking();
+            return GetTable().AsNoTracking();
         }
 
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null)
@@ -44,7 +46,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             var query = this.GetQueryable();
             if (where != null)
             {
-                query.Where(where);
+                query =query.Where(where);
             }
 
             return await query.ToListAsync();
@@ -55,10 +57,27 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             var query = this.GetQueryable();
             if (where != null)
             {
-                query.Where(where);
+                query = query.Where(where);
             }
 
             return await query.ToListAsync(cancellationToken);
+        }
+
+        public virtual async Task RemoveAsync(T entity, CancellationToken cancellationToken = default)
+        {
+            entity.State = (int)EntityStateEnum.Deleted;
+            entity.ModifiedDate = DateTime.Now;
+            GetTable().Update(entity);
+        }
+
+
+        public virtual async Task RemoveAsync(Guid Id, CancellationToken cancellationToken = default)
+        {
+            var entity = await GetTable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+            if (entity != null)
+            {
+                await RemoveAsync(entity, cancellationToken);
+            }
         }
 
         //public Task<List<T>> GetAllByOnlineAsync(Guid languageId)

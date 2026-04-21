@@ -14,6 +14,7 @@ using Venus.Core.Application.Repositories.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Entities;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
+using Venus.Core.Application.Services.Interfaces;
 using Venus.Core.Domain.Entities;
 using Venus.Core.Domain.Entities.Systems;
 
@@ -31,14 +32,16 @@ namespace Venus.Core.Application.Features.Cms
     public class CreateBlogCommandHandler : IRequestHandler<CreateBlogCommand, IResultDataControl<ReadBlogDto>>
     {
         private readonly IBlogRepository _blogRepository;
+        private readonly IVenusEntityPageService<Blog> _blogPageService;
         private readonly IVenusUnitOfWork _venusUnitOfWork;
         private readonly IMapper _mapper;
 
-        public CreateBlogCommandHandler(IBlogRepository blogRepository, IVenusUnitOfWork venusUnitOfWork, IMapper mapper)
+        public CreateBlogCommandHandler(IBlogRepository blogRepository, IVenusUnitOfWork venusUnitOfWork, IMapper mapper, IVenusEntityPageService<Blog> blogPageService)
         {
             _blogRepository = blogRepository;
             _venusUnitOfWork = venusUnitOfWork;
             _mapper = mapper;
+            _blogPageService = blogPageService;
         }
 
 
@@ -48,7 +51,7 @@ namespace Venus.Core.Application.Features.Cms
 
             try
             {
-
+                var entityPageUrl = await _blogPageService.GetEntityDetailPageByEntityNameAsync();
                 var newBlog = _mapper.Map<Blog>(request);
 
                 newBlog.Id = Guid.NewGuid();
@@ -58,6 +61,7 @@ namespace Venus.Core.Application.Features.Cms
                     FullPath = request.UrlPath,
                     Path = request.UrlPath,
                     LanguageId = request.LanguageId,
+                    ParentUrlId = entityPageUrl.Url.Id
                 };
                
 

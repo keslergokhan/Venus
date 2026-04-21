@@ -38,4 +38,10 @@ export abstract class ServiceBase {
         });
     }
 
+    public removeAsync = (path:string,id:string):Promise<void> => {
+        return axios.post(this.GetFullPath(path),id,this.GetAxiosHeader()).then(x=>{
+            return x.data;
+        })
+    }
+
 }
