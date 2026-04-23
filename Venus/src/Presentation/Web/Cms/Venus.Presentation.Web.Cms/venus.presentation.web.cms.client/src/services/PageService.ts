@@ -9,4 +9,10 @@ export class PageService extends ServiceBase{
             return x.data as ReadPageDto
         });
     }
+
+    public GetEntityDetailPages = () =>{
+        return axios.get<ReadPageDto[]>(this.GetFullPath("pagemanager/GetEntityDetailVenusPages"),this.GetAxiosHeader()).then(x=>{
+            return x.data as ReadPageDto[]
+        })
+    }
 }

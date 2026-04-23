@@ -51,7 +51,7 @@ namespace Venus.Core.Application.Features.Cms
 
             try
             {
-                var entityPageUrl = await _blogPageService.GetEntityDetailPageByEntityNameAsync();
+                var entityPageUrl = await _blogPageService.GetEntityDetailPageByEntityNameAsync(request.LanguageId);
                 var newBlog = _mapper.Map<Blog>(request);
 
                 newBlog.Id = Guid.NewGuid();

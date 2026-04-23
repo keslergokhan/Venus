@@ -13,10 +13,17 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task<VenusPage?> GetEntityDetailPageByEntityNameAsync(string entityTypeFullName)
+        public Task<List<VenusPage>> GetAllEntityDetailPageByEntityNameAsync(Guid languageId)
         {
-            return base.GetQueryable().Where(x => x.PageAbout.PageEntity.EntityClassType == entityTypeFullName && x.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString()).Include(x => x.Url).AsQueryable().FirstOrDefaultAsync();
+            return base.GetQueryable().Where(x => x.LanguageId == languageId && x.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString()).Include(x => x.Url).AsQueryable().ToListAsync();
         }
+
+        public Task<VenusPage?> GetEntityDetailPageByEntityNameAsync(string entityTypeFullName,Guid languageId)
+        {
+            return base.GetQueryable().Where(x => x.LanguageId == languageId && x.PageAbout.PageEntity.EntityClassType == entityTypeFullName && x.PageAbout.PageType.Title == PageTypeEnum.VenusEntityDetailPage.ToString()).Include(x => x.Url).AsQueryable().FirstOrDefaultAsync();
+        }
+
+
 
         public Task<VenusPage> GetPageByUrlIdAsync(Guid urlId)
         {

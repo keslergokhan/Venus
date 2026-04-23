@@ -24,9 +24,9 @@ namespace Venus.Core.Application.Services
             _venusPageRepository = venusPageRepository;
         }
 
-        public async Task<VenusPage> GetEntityDetailPageByEntityNameAsync()
+        public async Task<VenusPage> GetEntityDetailPageByEntityNameAsync(Guid languageId)
         {
-            VenusPage venusPage = await _venusPageRepository.GetEntityDetailPageByEntityNameAsync(EntityFullName);
+            VenusPage venusPage = await _venusPageRepository.GetEntityDetailPageByEntityNameAsync(EntityFullName, languageId);
             if (venusPage==null)
             {
                 throw new VenusNotFoundPageEntityException(EntityFullName);

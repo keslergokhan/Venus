@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Features.Cms;
+using Venus.Core.Application.Features.Systems.Pages.Queries;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;
@@ -17,6 +18,16 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         {
             var pageAboutList = await base.Mediator.Send(new GetVenusPageAboutQuery());
             return pageAboutList.ToActionResult(this);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetEntityDetailVenusPages()
+        {
+            var getEnttiyDetailVenusPages = await base.Mediator.Send(new GetEntityDetailVenusPagesAsync()
+            {
+                    LanguageId = HttpContext.GetLanguageId()
+            });
+            return getEnttiyDetailVenusPages.ToActionResult(this);
         }
 
         [HttpPost]

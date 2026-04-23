@@ -11,6 +11,6 @@ namespace Venus.Core.Application.Services.Interfaces
 {
     public interface IVenusEntityPageService<TEntity> where TEntity : IVenusUrlEntity, IVenusEntity
     {
-        public Task<VenusPage> GetEntityDetailPageByEntityNameAsync();
+        public Task<VenusPage> GetEntityDetailPageByEntityNameAsync(Guid languageId);
     }
 }
