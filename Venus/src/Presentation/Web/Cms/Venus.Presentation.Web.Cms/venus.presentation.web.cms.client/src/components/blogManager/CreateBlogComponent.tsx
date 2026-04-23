@@ -46,16 +46,8 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
     const {getValues,setValue,setError} = useformObject;
     const {register,formState:{errors}} = useformObject;
 
-    const urlSetValue = (url:string)=>{
-        setValue("urlPath",url);
-    }
-
-    const urlGetValue = ():string=>{
-        return getValues("urlPath");
-    }
     const useUrlControl = useUrlPathControl({getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
     
-
     return (
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>
             <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>

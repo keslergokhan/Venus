@@ -312,7 +312,7 @@ namespace Venus.Infrastructure.Persistence
                             ParentUrlId = blogBaseUrl.Id,
 
                         },
-                        JsonData = string.Empty,
+                        DynamicProperties = string.Empty,
                         CreateDate = DateTime.Now,
                         Description = "Test blog içeriği",
                         Id = Guid.NewGuid(),

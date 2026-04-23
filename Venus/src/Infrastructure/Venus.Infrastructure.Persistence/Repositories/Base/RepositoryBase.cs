@@ -80,6 +80,12 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             }
         }
 
+
+        public virtual Task<T> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default)
+        {
+            return GetTable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+        }
+
         //public Task<List<T>> GetAllByOnlineAsync(Guid languageId)
         //{
         //    return Context.Set<T>().Where(x => x.State != (int)EntityStateEnum.Deleted && x.LanguageId == languageId).OrderByDescending(x => x.CreateDate).ToListAsync();

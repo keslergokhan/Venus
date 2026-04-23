@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Domain.Entities.Interfaces
 {
-    public interface IVenusDynamicJsonData
+    public interface IVenusDynamicProperties
     {
-        public string JsonData { get; set; }
+        public string DynamicProperties { get; set; }
     }
 }

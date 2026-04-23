@@ -1,11 +1,20 @@
 import type { AxiosRequestConfig } from "axios";
 import axios from "axios";
 import type { DtoBase } from "../../dtos/base/DtoBase";
+import { object } from "zod";
 
 export abstract class ServiceBase {
 
     protected GetFullPath = (path: string): string => {
         return `https://localhost:7002/api/${path}`;
+    }
+
+    protected GetParamsFullPath = (path:string,queryParams:Record<string,any>):string =>{
+        const params = Object.entries(queryParams).map((i,x)=>{
+            return `?${i[0].toString()}=${i[1].toString()}`
+
+        })
+        return `${this.GetFullPath(path)}${params}`; 
     }
 
     public GetUserJwtToken = ():string|null => {
@@ -32,9 +41,15 @@ export abstract class ServiceBase {
         });
     }
 
-    public getDatas = <T extends DtoBase>(path:string):Promise<T[]> =>{
+    public getAll = <T extends DtoBase>(path:string):Promise<T[]> =>{
         return axios.get<T[]>(this.GetFullPath(path),this.GetAxiosHeader()).then(x=>{
             return x.data as Array<T>
+        });
+    }
+
+    public get = <T extends DtoBase>(path:string,id:string):Promise<T> =>{
+        return axios.get<T>(this.GetParamsFullPath(path,{id:id}),this.GetAxiosHeader()).then(x=>{
+            return x.data as T
         });
     }
 

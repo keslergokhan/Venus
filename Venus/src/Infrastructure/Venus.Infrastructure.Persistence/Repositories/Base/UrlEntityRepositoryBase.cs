@@ -49,5 +49,10 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             }
             return base.RemoveAsync(entity, cancellationToken);
         }
+
+        public override Task<T> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default)
+        {
+            return GetTable().Include(x=>x.Url).AsQueryable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+        }
     }
 }

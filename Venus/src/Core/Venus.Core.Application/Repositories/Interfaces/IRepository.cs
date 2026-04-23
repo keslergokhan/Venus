@@ -13,6 +13,7 @@ namespace Venus.Core.Application.Repositories.Interfaces
         where T : class, IVenusEntity
     {
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null, CancellationToken cancellationToken = default);
+        public Task<T> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
         public Task CreateAsync(T entity, CancellationToken cancellationToken = default);
         public Task RemoveAsync(T entity, CancellationToken cancellationToken = default);
         public Task RemoveAsync(Guid Id, CancellationToken cancellationToken = default);

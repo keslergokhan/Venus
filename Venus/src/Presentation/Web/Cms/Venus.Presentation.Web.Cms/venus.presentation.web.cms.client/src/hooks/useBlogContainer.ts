@@ -58,10 +58,8 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * Tablo verilerini yeniden getir.
      */
     const refreshTable = ():void=>{
-        blogService.addDataAsync
-        console.log("Yenile");
         ToastHelper.Success("Yenilendi");
-        blogService.getDatas<ReadBlogDto>("blog/get").then(x=>{
+        blogService.getAll<ReadBlogDto>("blog/get-all").then(x=>{
             blogs.current = x;
             setShowContainer(["table"]);
         }).catch(x=>{
@@ -91,7 +89,11 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      */
     const updateSelectHandler = (data:ReadBlogDto)=>{
         setContainer(["update"]);
-        setSelectUpdateBlog(data);
+        blogService.get<ReadBlogDto>("blog/get",data.id).then(x=>{
+            setSelectUpdateBlog(x);
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        });
     }
 
     /**

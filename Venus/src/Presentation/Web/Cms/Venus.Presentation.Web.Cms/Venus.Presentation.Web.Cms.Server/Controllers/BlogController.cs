@@ -5,6 +5,7 @@ using Venus.Presentation.Web.Cms.Server.Extensions;
 using Venus.Presentation.Web.Cms.Server.Models.Blogs;
 using Venus.Core.Application.Features.Cms;
 using Venus.Core.Application.Results.Extensions;
+using Venus.Core.Application.Features.Cms.Entities.Blogs.Queries;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
 {
@@ -28,7 +29,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return createBlogReuslt.ToActionResult(this);
         }
 
-        [HttpGet("get")]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetBlogs(CancellationToken cancellationToken)
         {
             var getBlogsResult = await base.Mediator.Send(new GetBlogQuery()
@@ -37,6 +38,17 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             }, cancellationToken);
             return getBlogsResult.ToActionResult(this);
         }
+
+        [HttpGet("get")]
+        public async Task<IActionResult> GetBlog([FromQuery] Guid id, CancellationToken cancellationToken)
+        {
+            var getBlogsResult = await base.Mediator.Send(new GetBlogByIdQuery()
+            {
+                Id = id,
+            }, cancellationToken);
+            return getBlogsResult.ToActionResult(this);
+        }
+
 
         [HttpPost("remove")]
         public async Task<IActionResult> RemoveBlog([FromBody] Guid id, CancellationToken cancellationToken)

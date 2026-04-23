@@ -14,7 +14,8 @@ const BlogContainer = () =>{
         setShowContainer,
         showContainer,
         updateHandler,
-        refreshTable} = useBlogContainer();
+        refreshTable,
+        selectUpdateBlog} = useBlogContainer();
 
     const isTable = showContainer.find(x=>x=="table")?true:false;
 
@@ -32,7 +33,7 @@ const BlogContainer = () =>{
                     <CreateBlogComponent onSubmit={addHandler}></CreateBlogComponent><br></br>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="update">
-                    <UpdateBlogComponent onSubmit={updateHandler}></UpdateBlogComponent>
+                    <UpdateBlogComponent onSubmit={updateHandler} currentUpdateBlog={selectUpdateBlog} ></UpdateBlogComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
                     <BlogTableComponent blogs={blogs} updateOnHandler={updateSelectHandler} removeOnHandler={removeHandler}></BlogTableComponent>

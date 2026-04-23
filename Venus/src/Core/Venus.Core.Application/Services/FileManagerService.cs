@@ -129,7 +129,7 @@ namespace Venus.Core.Application.Services
 
                 if (File.Exists(fullPath))
                 {
-                    throw new VenusCmsGlobalException("Dosya silinemedi");
+                    throw new VenusCmsBusinessException("Dosya silinemedi");
                 }
                 else
                 {
@@ -157,7 +157,7 @@ namespace Venus.Core.Application.Services
                 }
                 else
                 {
-                    throw new VenusCmsGlobalException("Dosya yüklenemedi !");
+                    throw new VenusCmsBusinessException("Dosya yüklenemedi !");
                 }
             }
             catch (Exception ex)

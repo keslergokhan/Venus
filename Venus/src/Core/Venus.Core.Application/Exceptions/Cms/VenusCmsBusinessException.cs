@@ -7,9 +7,9 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Cms
 {
-    public class VenusCmsGlobalException : VenusExceptionBase
+    public class VenusCmsBusinessException : VenusExceptionBase
     {
-        public VenusCmsGlobalException(string message):base("GENERAL",message)
+        public VenusCmsBusinessException(string message):base("GENERAL",message)
         {
             
         }
