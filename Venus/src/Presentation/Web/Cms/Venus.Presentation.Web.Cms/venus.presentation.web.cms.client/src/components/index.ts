@@ -24,10 +24,10 @@ export type {UrlInputFieldProps} from "./commons/textFields/UrlInputField"
 export {HtmlEditor} from "./commons/textFields/HtmlEditor"
 export type {HtmlEditorProps} from "./commons/textFields/HtmlEditor"
 
-export {DynamicFieldsComponent} from "./dynamicFields/DynamicFieldsComponent"
-export {DynamicFieldComponentEnum,DynamicFieldComponentProps, type DynamicFieldsComponentProps} from "./dynamicFields/DynamicFieldsComponentProps"
+export {DynamicPropertiesComponent} from "./dynamicProperties/DynamicPropertiesComponent"
+export {DynamicPropertiesComponentEnum,DynamicPropertyComponentProps, type DynamicPropertiesComponentProps} from "./dynamicProperties/DynamicPropertiesComponentProps"
 
-export {CreateBlogComponent, type CreateBlogComponentProps, type CreateBlogType,BlogDynamicInputFields} from './blogManager/CreateBlogComponent'
+export {CreateBlogComponent, type CreateBlogComponentProps, BlogDynamicInputFields} from './blogManager/CreateBlogComponent'
 export {BlogTableComponent} from './blogManager/BlogTableComponent'
 
 export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/zoneControlComponent"

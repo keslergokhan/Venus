@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { CButtonField, CTextField, DynamicFieldComponentEnum, DynamicFieldsComponent, UrlInputField, type DynamicFieldComponentProps } from "..";
+import { CButtonField, CTextField, DynamicPropertiesComponentEnum, DynamicPropertiesComponent, UrlInputField, type DynamicPropertyComponentProps } from "..";
 import { useUrlPathControl, type CreateBlogType } from "../../hooks";
 
 
@@ -9,16 +9,16 @@ export interface CreateBlogComponentProps{
     onSubmit:(data:CreateBlogType)=>void
 }
 
-export const BlogDynamicInputFields:Array<DynamicFieldComponentProps<CreateBlogType>> = [
+export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<CreateBlogType>> = [
     {
         label:"Blog Kategori",
         name :"blogCategory",
-        type:DynamicFieldComponentEnum.Text,
+        type:DynamicPropertiesComponentEnum.Text,
     },
     {
         label:"Blog içeriği",
         name:"blogContent",
-        type:DynamicFieldComponentEnum.HtmlEditor,
+        type:DynamicPropertiesComponentEnum.HtmlEditor,
     }
 ];
 
@@ -53,7 +53,7 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
             <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
             <CTextField name="description" id="description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
             <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("urlPath"))} fieldErrors={errors.urlPath}></UrlInputField>
-            <DynamicFieldsComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicFieldsComponent>
+            <DynamicPropertiesComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicPropertiesComponent>
             <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Kaydet</CButtonField>
         </form>
     )

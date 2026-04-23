@@ -4,8 +4,8 @@ import { CTextField} from "../../components";
 import {z} from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DynamicFieldsComponent } from "../../components/dynamicFields/DynamicFieldsComponent";
-import { DynamicFieldComponentEnum, type DynamicFieldComponentProps } from "../../components/dynamicFields/DynamicFieldsComponentProps";
+import { DynamicFieldsComponent } from "../../components/dynamicProperties/DynamicPropertiesComponent";
+import { DynamicFieldComponentEnum, type DynamicFieldComponentProps } from "../../components/dynamicProperties/DynamicPropertiesComponentProps";
 import { FormHelper } from "../../helpers";
 import { BlogService } from "../../services";
 

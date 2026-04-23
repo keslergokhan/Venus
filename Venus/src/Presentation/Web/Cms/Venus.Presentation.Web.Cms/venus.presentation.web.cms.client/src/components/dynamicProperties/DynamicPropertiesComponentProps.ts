@@ -1,6 +1,6 @@
 import type { FieldError, FieldValues, Path, UseFormRegisterReturn, UseFormReturn } from "react-hook-form";
 
-export enum DynamicFieldComponentEnum{
+export enum DynamicPropertiesComponentEnum{
     Text = 1,
     Password = 2,
     Email = 3,
@@ -14,16 +14,16 @@ export enum DynamicFieldComponentEnum{
     
 }
 
-export interface DynamicFieldsComponentProps<T extends FieldValues> {
+export interface DynamicPropertiesComponentProps<T extends FieldValues> {
     title:string;
-    fields:Array<DynamicFieldComponentProps<T>>
+    fields:Array<DynamicPropertyComponentProps<T>>
     useFormReturn:UseFormReturn<T>
 }
 
-export class DynamicFieldComponentProps<T extends FieldValues> {
+export class DynamicPropertyComponentProps<T extends FieldValues> {
     name:Path<T>;
     label:string;
-    type:DynamicFieldComponentEnum
+    type:DynamicPropertiesComponentEnum
     description?:string|undefined;
     isCreate?:boolean|undefined
 }

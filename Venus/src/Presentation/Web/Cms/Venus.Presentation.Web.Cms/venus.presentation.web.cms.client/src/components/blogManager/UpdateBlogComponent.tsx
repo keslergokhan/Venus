@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUrlPathControl, type UpdateBlogType } from "../../hooks"
-import { CButtonField, CTextField, DynamicFieldComponentEnum, DynamicFieldsComponent, UrlInputField, type DynamicFieldComponentProps } from "..";
+import { CButtonField, CTextField, DynamicPropertiesComponent,DynamicPropertiesComponentEnum, UrlInputField, type DynamicPropertyComponentProps } from "..";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import type { ReadBlogDto } from "../../dtos";
@@ -14,16 +14,16 @@ export interface UpdateBlogComponentProps{
     currentUpdateBlog:ReadBlogDto|null
 }
 
-export const BlogDynamicInputFields:Array<DynamicFieldComponentProps<UpdateBlogType>> = [
+export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<UpdateBlogType>> = [
     {
         label:"Blog Kategori",
         name :"blogCategory",
-        type:DynamicFieldComponentEnum.Text,
+        type:DynamicPropertiesComponentEnum.Text,
     },
     {
         label:"Blog içeriği",
         name:"blogContent",
-        type:DynamicFieldComponentEnum.HtmlEditor,
+        type:DynamicPropertiesComponentEnum.HtmlEditor,
     }
 ];
 
@@ -69,7 +69,7 @@ export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
             <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
             <CTextField name="description" id="description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
             <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("urlPath"))} fieldErrors={errors.urlPath}></UrlInputField>
-            <DynamicFieldsComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicFieldsComponent>
+            <DynamicPropertiesComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicPropertiesComponent>
             <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Kaydet</CButtonField>
         </form>
     </>)
