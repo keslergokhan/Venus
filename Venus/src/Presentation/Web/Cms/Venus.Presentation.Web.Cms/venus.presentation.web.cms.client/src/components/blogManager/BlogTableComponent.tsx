@@ -5,8 +5,8 @@ import { useBlogContainer } from "../../hooks";
 
 interface BlogTableComponentProps {
     blogs:Array<ReadBlogDto>
-    removeOnHandler?:(data:ReadBlogDto)=>void;
-    updateOnHandler?:(data:ReadBlogDto)=>void;
+    removeOnHandler?:(data:ReadBlogDto)=>Promise<void>;
+    updateOnHandler?:(data:ReadBlogDto)=>Promise<void>;
 }
 
 export const BlogTableComponent = (props:BlogTableComponentProps) =>{

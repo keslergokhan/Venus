@@ -47,7 +47,13 @@ export abstract class ServiceBase {
         });
     }
 
-    public get = <T extends DtoBase>(path:string,id:string):Promise<T> =>{
+    public get = <T extends DtoBase>(path:string):Promise<T> =>{
+        return axios.get<T>(this.GetFullPath(path),this.GetAxiosHeader()).then(x=>{
+            return x.data as T
+        });
+    }
+
+    public getById = <T extends DtoBase>(path:string,id:string):Promise<T> =>{
         return axios.get<T>(this.GetParamsFullPath(path,{id:id}),this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });

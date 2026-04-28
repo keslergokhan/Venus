@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Venus.Core.Application.Features.Cms;
+using Venus.Core.Application.Features.Cms.Entities.Blogs.Queries;
+using Venus.Core.Application.Features.Systems.Pages.Queries;
+using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;
 using Venus.Presentation.Web.Cms.Server.Models.Blogs;
-using Venus.Core.Application.Features.Cms;
-using Venus.Core.Application.Results.Extensions;
-using Venus.Core.Application.Features.Cms.Entities.Blogs.Queries;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
 {
@@ -21,7 +21,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             {
                 Title = createBlogReq.Title,
                 Description = createBlogReq.Description,
-                JsonData = createBlogReq.JsonData,
+                DynamicProperties = createBlogReq.DynamicProperties,
                 LanguageId = HttpContext.GetLanguageId(),
                 UrlPath = createBlogReq.UrlPath
             }, cancellationToken);
@@ -49,6 +49,17 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return getBlogsResult.ToActionResult(this);
         }
 
+        [HttpGet("get-base-path")]
+        public async Task<IActionResult> GetBasePath()
+        {
+            var basePath = await base.Mediator.Send(new GetEntityDetailVenusPageByEntityName()
+            {
+                EntityTypeFullName = "Venus.Core.Domain.Entities.Blog",
+                LanguageId = HttpContext.GetLanguageId()
+            });
+
+            return basePath.ToActionResult(this);
+        }
 
         [HttpPost("remove")]
         public async Task<IActionResult> RemoveBlog([FromBody] Guid id, CancellationToken cancellationToken)

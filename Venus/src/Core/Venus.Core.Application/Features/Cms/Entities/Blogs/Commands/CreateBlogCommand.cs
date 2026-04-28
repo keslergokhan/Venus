@@ -25,7 +25,7 @@ namespace Venus.Core.Application.Features.Cms
         public Guid LanguageId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string JsonData { get; set; }
+        public string DynamicProperties { get; set; }
         public string UrlPath { get; set; }
     }
 

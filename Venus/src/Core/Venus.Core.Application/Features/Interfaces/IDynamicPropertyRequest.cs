@@ -8,6 +8,6 @@ namespace Venus.Core.Application.Features.Interfaces
 {
     public interface IDynamicPropertyRequest
     {
-        public string JsonData { get; set; }
+        public string DynamicProperties { get; set; }
     }
 }

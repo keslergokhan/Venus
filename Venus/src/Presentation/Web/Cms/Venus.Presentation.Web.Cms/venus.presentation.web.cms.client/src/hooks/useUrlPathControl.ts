@@ -8,14 +8,23 @@ export interface useUrlPathControlResult{
     setValue:(url:string)=>void
     isUrlExists:boolean|undefined;
     checkUrlHandler:()=>void;
-    
 }
 
-export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()=>string,isValidError?:()=>void;}) : useUrlPathControlResult =>{
+interface useUrlPathControlProps{
+    setValue:(url:string)=>void;
+    getValue:()=>string;
+    isValidError?:()=>void;
+    getBaseFullPath?:()=>string;
+}
+
+export const useUrlPathControl = (props:useUrlPathControlProps) : useUrlPathControlResult =>{
     const [isUrlExists,setUrlExists] = useState<boolean|undefined>(undefined);
     const urlService = new UrlService();
     
     const setUrlHandler = (url:string)=>{
+        if(props.getBaseFullPath){
+            url = props.getBaseFullPath()+url;
+        }
         props.setValue(url);
     }
 
@@ -23,12 +32,15 @@ export const useUrlPathControl = (props:{setValue:(url:string)=>void,getValue:()
         return props.getValue()
     }
 
+    const baseUrlHandler = () =>{
+
+    }
+
     const checkUrlHandler = ()=>{
         urlService.urlCheck({url:props.getValue()}).then(x=>{
             setUrlExists(x);
             if(x && props.isValidError){
                 props.isValidError();
-                console.log("ffff");
             }
         }).catch(x=>{
             ToastHelper.DefaultCatchError(x);

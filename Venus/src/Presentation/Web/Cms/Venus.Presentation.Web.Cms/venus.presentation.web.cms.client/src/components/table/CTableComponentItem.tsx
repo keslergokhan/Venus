@@ -22,8 +22,8 @@ export interface CTableBodyRowProps<TData extends any>{
     index:number;
     data:TData;
     children:ReactNode;
-    removeOnHandler?:(data:TData)=>void;
-    updateOnHandler?:(data:TData)=>void;
+    removeOnHandler?:(data:TData)=>Promise<void>;
+    updateOnHandler?:(data:TData)=>Promise<void>;
 }
 
 export const CTableBodyRow = <TData extends any>(props:CTableBodyRowProps<TData>) =>{
@@ -34,14 +34,14 @@ export const CTableBodyRow = <TData extends any>(props:CTableBodyRowProps<TData>
                 {props.children}
             <TableCell>
                 <Dropdown label="İşlem" className="font-bold !border-0 !active:border-0" size="xs">
-                    <DropdownItem onClick={()=>{
+                    <DropdownItem onClick={async ()=>{
                         if(props.updateOnHandler){
-                            props.updateOnHandler(props.data) 
+                            await props.updateOnHandler(props.data) 
                         }
                     }}>Güncelle</DropdownItem>
-                    <DropdownItem className="text-red-700 " onClick={()=>{
+                    <DropdownItem className="text-red-700 " onClick={async ()=>{
                         if(props.removeOnHandler){
-                            props.removeOnHandler(props.data);
+                            await props.removeOnHandler(props.data);
                         }
                     }}>Sil</DropdownItem>
                 </Dropdown>

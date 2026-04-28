@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { BlogDynamicInputFields, type CreateBlogType } from "../components";
-import { ReadBlogDto } from "../dtos"
+import { BlogDynamicInputFields } from "../components";
+import { ReadBlogDto, ReadPageDto } from "../dtos"
 import { FormHelper, ToastHelper } from "../helpers";
 import { BlogService } from "../services";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
+import { xid } from "zod";
 
 
 export type CreateBlogType = {
@@ -25,14 +26,15 @@ export type UpdateBlogType = {
 
 interface useBlogContainerResult{
     blogs:Array<ReadBlogDto>;
-    removeHandler:(data:ReadBlogDto)=>void;
-    updateSelectHandler:(data:ReadBlogDto)=>void;
-    addHandler:(data:CreateBlogType)=>void;
+    removeHandler:(data:ReadBlogDto)=>Promise<void>;
+    updateSelectHandler:(data:ReadBlogDto)=>Promise<void>;
+    addHandler:(data:CreateBlogType)=>Promise<void>;
     setShowContainer:(data:string[])=>void;
     refreshTable:()=>void;
     showContainer:string[];
     selectUpdateBlog:ReadBlogDto|null;
-    updateHandler:()=>void
+    updateHandler:()=>void;
+    basePage:ReadPageDto;
 }
 
 export const useBlogContainer = ():useBlogContainerResult =>{
@@ -41,8 +43,11 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const blogs = useRef<ReadBlogDto[]>([]);
     const appContext = useContext(AppContext);
     const [selectUpdateBlog,setSelectUpdateBlog] = useState<ReadBlogDto|null>(null);
+    const basePage = useRef<ReadPageDto>(new ReadPageDto());
+    
 
     useEffect(()=>{
+        getBasePage();
         refreshTable();
     },[])
 
@@ -71,7 +76,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * İlgili veriyi temizle.
      * @param data
      */
-    const removeHandler = (data:ReadBlogDto) =>{
+    const removeHandler = async (data:ReadBlogDto) =>{
         appContext.confirmModalAction({action:"Show",approvalHandler:()=>{
 
             blogService.removeAsync("blog/remove",data.id).then(x=>{
@@ -83,17 +88,40 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         }});
     }
 
+    const getBasePage = async () => {
+        try{
+            basePage.current = await blogService.get<ReadPageDto>("blog/get-base-path");
+        }catch(err){
+            ToastHelper.DefaultCatchError(err);
+        }
+    }
+
+    const getBlogById = async (id:string) =>{
+
+        if(selectUpdateBlog !=null && selectUpdateBlog.id == id){
+            return;
+        }
+
+        if(selectUpdateBlog != null){
+            return;
+        }
+
+        blogService.getById<ReadBlogDto>("blog/get",id).then(x=>{
+            if(selectUpdateBlog==null){
+                setSelectUpdateBlog(x);
+            }
+        }).catch(x=>{
+            ToastHelper.DefaultCatchError(x);
+        });
+    }
+
     /**
      * Seçilen satırı güncelle
      * @param data 
      */
-    const updateSelectHandler = (data:ReadBlogDto)=>{
+    const updateSelectHandler = async (data:ReadBlogDto)=>{
         setContainer(["update"]);
-        blogService.get<ReadBlogDto>("blog/get",data.id).then(x=>{
-            setSelectUpdateBlog(x);
-        }).catch(x=>{
-            ToastHelper.DefaultCatchError(x);
-        });
+        getBlogById(data.id);
     }
 
     /**
@@ -107,9 +135,9 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * Yeni blog ekleme
      * @param data 
      */
-    const addHandler = (data:CreateBlogType)=>{
+    const addHandler = async (data:CreateBlogType)=>{
+     
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        console.log(blogRequest);
         blogService.addDataAsync("blog/create",blogRequest).then(x=>{
             if(x as ReadBlogDto){
                 const blog = x as ReadBlogDto;
@@ -123,6 +151,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
 
     
     return {
+        basePage:basePage.current,
         blogs:blogs.current,
         removeHandler,
         updateSelectHandler,

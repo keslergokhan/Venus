@@ -15,7 +15,9 @@ const BlogContainer = () =>{
         showContainer,
         updateHandler,
         refreshTable,
-        selectUpdateBlog} = useBlogContainer();
+        selectUpdateBlog,
+        basePage} = useBlogContainer();
+
 
     const isTable = showContainer.find(x=>x=="table")?true:false;
 
@@ -28,7 +30,7 @@ const BlogContainer = () =>{
                     {(isTable?"Yenile":"İptal")}
                 </CButtonField>
             </div>
-            <ZoneControlComponent className="mt-4" zoneKeys={showContainer}>
+            <ZoneControlComponent className="mt-4" zoneKeys={showContainer} >
                 <ZoneControlItem zoneKey="add">
                     <CreateBlogComponent onSubmit={addHandler}></CreateBlogComponent><br></br>
                 </ZoneControlItem>

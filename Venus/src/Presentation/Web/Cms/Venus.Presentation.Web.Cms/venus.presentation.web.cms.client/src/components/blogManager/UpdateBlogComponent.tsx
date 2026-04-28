@@ -28,14 +28,10 @@ export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<UpdateBl
 ];
 
 export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
-    
-    
-
     const blog = props.currentUpdateBlog;
 
     if(blog==null){
-        ToastHelper.Error("Güncellenmek istenen veriye ulaşılamadı");
-        return <>Teknik bir problem yaşandı !</>
+        return <>Yükleniyor...</>
     }
 
     const schema = z.object({
