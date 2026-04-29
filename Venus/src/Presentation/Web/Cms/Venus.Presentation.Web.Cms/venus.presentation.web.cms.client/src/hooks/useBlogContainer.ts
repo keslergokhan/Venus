@@ -6,6 +6,7 @@ import { BlogService } from "../services";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
 import { xid } from "zod";
+import { BlogPage } from "../pages/BlogPage";
 
 
 export type CreateBlogType = {
@@ -34,7 +35,7 @@ interface useBlogContainerResult{
     showContainer:string[];
     selectUpdateBlog:ReadBlogDto|null;
     updateHandler:()=>void;
-    basePage:ReadPageDto;
+    blogPage:ReadPageDto;
 }
 
 export const useBlogContainer = ():useBlogContainerResult =>{
@@ -43,11 +44,11 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const blogs = useRef<ReadBlogDto[]>([]);
     const appContext = useContext(AppContext);
     const [selectUpdateBlog,setSelectUpdateBlog] = useState<ReadBlogDto|null>(null);
-    const basePage = useRef<ReadPageDto>(new ReadPageDto());
+    const blogPage = useRef<ReadPageDto>(new ReadPageDto());
     
 
     useEffect(()=>{
-        getBasePage();
+        getBlogPage();
         refreshTable();
     },[])
 
@@ -88,9 +89,9 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         }});
     }
 
-    const getBasePage = async () => {
+    const getBlogPage = async () => {
         try{
-            basePage.current = await blogService.get<ReadPageDto>("blog/get-base-path");
+            blogPage.current = await blogService.get<ReadPageDto>("blog/get-page");
         }catch(err){
             ToastHelper.DefaultCatchError(err);
         }
@@ -151,7 +152,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
 
     
     return {
-        basePage:basePage.current,
+        blogPage:blogPage.current,
         blogs:blogs.current,
         removeHandler,
         updateSelectHandler,

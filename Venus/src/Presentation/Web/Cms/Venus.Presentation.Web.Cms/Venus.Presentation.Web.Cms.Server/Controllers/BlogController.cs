@@ -49,7 +49,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return getBlogsResult.ToActionResult(this);
         }
 
-        [HttpGet("get-base-path")]
+        [HttpGet("get-page")]
         public async Task<IActionResult> GetBasePath()
         {
             var basePath = await base.Mediator.Send(new GetEntityDetailVenusPageByEntityName()

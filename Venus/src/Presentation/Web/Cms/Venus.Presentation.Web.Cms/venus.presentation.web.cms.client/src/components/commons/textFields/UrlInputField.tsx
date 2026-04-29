@@ -54,19 +54,24 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
 
     return (
     <div className="relative z-0 w-full group">
-        <label className="block mb-2 text-sm font-medium text-gray-900 text-blue-950">
+        <label className="block mb-2 text-sm font-medium text-gray-900">
             Url
         </label>
-        <input
-            {...props.formRegister}
-            onBlur={onBlur}
-            onChange={handleChange}
-            type="text"
-            name="url"
-            id="url"
-            className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5"
-            placeholder={"/"}
-            />
+        
+            <div className="flex bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none p-0.5 px-3">
+                <div className="p-2 text-right px-0">{props.useUrlPathControl.baseFullPath}</div>
+                <input
+                    {...props.formRegister}
+                    onBlur={onBlur}
+                    onChange={handleChange}
+                    type="text"
+                    name="url"
+                    id="url"
+                    className="bg-gray-50 w-full pl-0 p-2 border-none focus:outline-none focus:ring-0 focus:border-transparent"
+                    placeholder={"/"}
+                    />
+            </div>
+        
         {props.useUrlPathControl.isUrlExists && <p className="text-red-500 text-sm mt-1">Adres zaten mevcut.</p>}
         {(props.useUrlPathControl.isUrlExists==false && props.useUrlPathControl?.getValue()?.length > 2) && <p className="text-green-500 text-sm mt-1">Adres kullanıma uygun.</p>}
         {props.fieldErrors && <p className="text-red-500 text-sm mt-1">{props.fieldErrors?.message}</p>}

@@ -3,11 +3,12 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { CButtonField, CTextField, DynamicPropertiesComponentEnum, DynamicPropertiesComponent, UrlInputField, type DynamicPropertyComponentProps } from "..";
 import { useUrlPathControl, type CreateBlogType } from "../../hooks";
-import { PageService } from "../../services";
+import type { ReadPageDto } from "../../dtos";
 
 
 export interface CreateBlogComponentProps{
     onSubmit:(data:CreateBlogType)=>void
+    blogPage:ReadPageDto
 }
 
 export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<CreateBlogType>> = [
@@ -47,7 +48,7 @@ export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
     const {getValues,setValue,setError} = useformObject;
     const {register,formState:{errors}} = useformObject;
 
-    const useUrlControl = useUrlPathControl({getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
+    const useUrlControl = useUrlPathControl({baseFullPath:props?.blogPage?.url?.fullPath, getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
     
     return (
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>

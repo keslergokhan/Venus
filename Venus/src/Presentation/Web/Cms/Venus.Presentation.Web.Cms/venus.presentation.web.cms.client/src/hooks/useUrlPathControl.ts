@@ -1,43 +1,47 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { UrlService } from "../services";
 import { ToastHelper } from "../helpers";
-import type { FieldValues, UseFormGetValues, UseFormTrigger } from "react-hook-form";
 
 export interface useUrlPathControlResult{
     getValue: ()=>string;
     setValue:(url:string)=>void
     isUrlExists:boolean|undefined;
     checkUrlHandler:()=>void;
+    fullPath:string
+    baseFullPath?:string
 }
 
 interface useUrlPathControlProps{
     setValue:(url:string)=>void;
     getValue:()=>string;
     isValidError?:()=>void;
-    getBaseFullPath?:()=>string;
+    baseFullPath?:string;
 }
 
 export const useUrlPathControl = (props:useUrlPathControlProps) : useUrlPathControlResult =>{
     const [isUrlExists,setUrlExists] = useState<boolean|undefined>(undefined);
+    const fullPath = useRef<string>("");
     const urlService = new UrlService();
     
     const setUrlHandler = (url:string)=>{
-        if(props.getBaseFullPath){
-            url = props.getBaseFullPath()+url;
-        }
         props.setValue(url);
+        if(props.baseFullPath){
+            fullPath.current = props.baseFullPath + url;
+        }
     }
 
     const urlGetValue = ()=>{
         return props.getValue()
     }
 
-    const baseUrlHandler = () =>{
-
-    }
-
+   
     const checkUrlHandler = ()=>{
-        urlService.urlCheck({url:props.getValue()}).then(x=>{
+        let fullPath = props.getValue();
+        if(props.baseFullPath && !fullPath.startsWith(`${props.baseFullPath}/`)){
+            fullPath = `${props.baseFullPath}${props.getValue()}`;
+        }
+        
+        urlService.urlCheck({url:fullPath}).then(x=>{
             setUrlExists(x);
             if(x && props.isValidError){
                 props.isValidError();
@@ -47,5 +51,5 @@ export const useUrlPathControl = (props:useUrlPathControlProps) : useUrlPathCont
         });
     }
    
-    return {isUrlExists:isUrlExists,setValue:setUrlHandler,getValue:urlGetValue,checkUrlHandler:checkUrlHandler}
+    return {isUrlExists:isUrlExists,setValue:setUrlHandler,getValue:urlGetValue,checkUrlHandler:checkUrlHandler,fullPath:fullPath.current,baseFullPath:props.baseFullPath}
 }
