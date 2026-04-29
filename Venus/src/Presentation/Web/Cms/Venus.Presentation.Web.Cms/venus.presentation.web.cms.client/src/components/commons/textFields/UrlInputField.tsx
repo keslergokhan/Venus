@@ -59,7 +59,7 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
         </label>
         
             <div className="flex bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none p-0.5 px-3">
-                <div className="p-2 text-right px-0">{props.useUrlPathControl.baseFullPath}</div>
+                {props.useUrlPathControl.baseFullPath && <div className="p-2 text-right px-0">{props.useUrlPathControl.baseFullPath}</div>}
                 <input
                     {...props.formRegister}
                     onBlur={onBlur}

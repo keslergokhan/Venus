@@ -35,7 +35,7 @@ const BlogContainer = () =>{
                     <CreateBlogComponent onSubmit={addHandler} blogPage={blogPage} ></CreateBlogComponent><br></br>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="update">
-                    <UpdateBlogComponent onSubmit={updateHandler} currentUpdateBlog={selectUpdateBlog} ></UpdateBlogComponent>
+                    <UpdateBlogComponent onSubmit={updateHandler} currentUpdateBlog={selectUpdateBlog} blogPage={blogPage} ></UpdateBlogComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
                     <BlogTableComponent blogs={blogs} updateOnHandler={updateSelectHandler} removeOnHandler={removeHandler}></BlogTableComponent>

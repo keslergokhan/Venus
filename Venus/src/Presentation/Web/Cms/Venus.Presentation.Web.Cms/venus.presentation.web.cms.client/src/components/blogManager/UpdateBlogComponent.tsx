@@ -4,14 +4,15 @@ import { useUrlPathControl, type UpdateBlogType } from "../../hooks"
 import { CButtonField, CTextField, DynamicPropertiesComponent,DynamicPropertiesComponentEnum, UrlInputField, type DynamicPropertyComponentProps } from "..";
 import z from "zod";
 import { useForm } from "react-hook-form";
-import type { ReadBlogDto } from "../../dtos";
+import type { ReadBlogDto, ReadPageDto } from "../../dtos";
 import { ToastHelper } from "../../helpers";
 
 
 
 export interface UpdateBlogComponentProps{
     onSubmit:(data:UpdateBlogType)=>void;
-    currentUpdateBlog:ReadBlogDto|null
+    currentUpdateBlog:ReadBlogDto|null;
+    blogPage:ReadPageDto
 }
 
 export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<UpdateBlogType>> = [
@@ -59,7 +60,7 @@ export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
     const {register,formState:{errors}} = useformObject;
 
     
-    const useUrlControl = useUrlPathControl({getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
+    const useUrlControl = useUrlPathControl({baseFullPath:props.blogPage.url.fullPath,getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
     return (<>
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>
             <CTextField name="title" id="title" label="Başlık" formRegister={register("title")} fieldErrors={errors.title} type="text"></CTextField>
