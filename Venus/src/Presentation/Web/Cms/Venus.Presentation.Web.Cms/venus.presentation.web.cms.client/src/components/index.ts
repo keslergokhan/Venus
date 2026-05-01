@@ -7,7 +7,7 @@ export type { CTextFieldProps } from "./commons/index"
 
 export {CButtonField} from "./commons/index"
 export type {CButtonFieldProps} from "./commons/index"
-export type {CSmButtonField} from "./commons/index"
+export {CSmButtonField} from "./commons/index"
 
 export {LoadingComponent} from "./loading/LoadingComponent"
 export type {LoadingComponentProps} from "./loading/LoadingComponent"

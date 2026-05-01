@@ -60,6 +60,7 @@ namespace Venus.Core.Application.Features.Cms.Entities.Blogs.Commands
 
                 await _venusUnitOfWork.SaveChangesAsync(cancellationToken);
                 var blogDto = _mapper.Map<ReadBlogDto>(blog);
+                result.SuccessSetData(blogDto);
             }
             catch (Exception ex)
             {

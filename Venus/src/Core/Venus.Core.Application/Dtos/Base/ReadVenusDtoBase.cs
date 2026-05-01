@@ -10,5 +10,6 @@ namespace Venus.Core.Application.Dtos.Base
     public abstract class ReadVenusDtoBase : IReadDtoBase
     {
         public Guid Id { get; set; }
+        public byte State { get; set; }
     }
 }

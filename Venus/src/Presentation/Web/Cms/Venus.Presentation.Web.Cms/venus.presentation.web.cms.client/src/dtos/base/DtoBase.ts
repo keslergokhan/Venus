@@ -1,5 +1,6 @@
 export abstract class DtoBase{
     id:string;
+    state:number
 }
 
 export abstract class DynamicPropertiesDtoBase extends DtoBase{

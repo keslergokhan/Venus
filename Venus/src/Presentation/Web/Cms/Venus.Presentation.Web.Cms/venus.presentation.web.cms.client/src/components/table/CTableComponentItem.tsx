@@ -1,6 +1,8 @@
 import { Dropdown, DropdownItem, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react"
 import type { ReactNode } from "react"
-import type { CTableComponentProps } from ".."
+import { DtoBase } from "../../dtos/base/DtoBase"
+import { EntityStateEnum } from "../../dtos/enums/EntityStateEnum"
+import { object, type includes } from "zod"
 
 
 export interface CTableHeaderComponentProps{
@@ -18,7 +20,7 @@ export const CTableHeaderComponent = (props:CTableHeaderComponentProps) =>{
     )
 }
 
-export interface CTableBodyRowProps<TData extends any>{
+export interface CTableBodyRowProps<TData extends DtoBase>{
     index:number;
     data:TData;
     children:ReactNode;
@@ -26,8 +28,9 @@ export interface CTableBodyRowProps<TData extends any>{
     updateOnHandler?:(data:TData)=>Promise<void>;
 }
 
-export const CTableBodyRow = <TData extends any>(props:CTableBodyRowProps<TData>) =>{
+export const CTableBodyRow = <TData extends DtoBase>(props:CTableBodyRowProps<TData>) =>{
     const customClass = (props.index % 2 == 1 ? "!bg-gray-300":"");
+
     return (
         <TableRow className={customClass}>
             <TableCell>{props.index+1}</TableCell>
@@ -44,6 +47,10 @@ export const CTableBodyRow = <TData extends any>(props:CTableBodyRowProps<TData>
                             await props.removeOnHandler(props.data);
                         }
                     }}>Sil</DropdownItem>
+
+                    {
+                        <DropdownItem>{props.data.state == EntityStateEnum.Online ? "Gizle":"Göster"}</DropdownItem>
+                    }           
                 </Dropdown>
             </TableCell>
         </TableRow>

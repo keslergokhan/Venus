@@ -1,7 +1,6 @@
 import { Dropdown, DropdownItem, TableCell, TableHeadCell, TableRow } from "flowbite-react";
 import { CTableBodyRow, CTableComponent,CTableHeaderComponent } from "..";
 import type { ReadBlogDto } from "../../dtos"
-import { useBlogContainer } from "../../hooks";
 
 interface BlogTableComponentProps {
     blogs:Array<ReadBlogDto>
