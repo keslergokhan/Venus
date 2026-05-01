@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Features.Cms;
+using Venus.Core.Application.Features.Cms.Entities.Blogs.Commands;
 using Venus.Core.Application.Features.Cms.Entities.Blogs.Queries;
 using Venus.Core.Application.Features.Systems.Pages.Queries;
 using Venus.Core.Application.Results.Extensions;
@@ -69,6 +70,21 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 Id = id
             }, cancellationToken);
             return removeBlogResult.ToActionResult(this);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdatePage([FromBody]UpdateBlogReq updatePageRequest, CancellationToken cancellationToken)
+        {
+            var updatePageResult = await base.Mediator.Send(new UpdateBlogCommand()
+            {
+                Id = updatePageRequest.Id.Value,
+                Title = updatePageRequest.Title,
+                UrlPath = updatePageRequest.UrlPath,
+                Description = updatePageRequest.Description,
+                DynamicProperties = updatePageRequest.DynamicProperties,
+            }, cancellationToken);
+            return updatePageResult.ToActionResult(this);
+
         }
     }
 }

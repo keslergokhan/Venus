@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from "axios";
 import axios from "axios";
-import type { DtoBase } from "../../dtos/base/DtoBase";
+import type { DtoBase, DynamicPropertiesDtoBase } from "../../dtos/base/DtoBase";
 import { object } from "zod";
 
 export abstract class ServiceBase {
@@ -35,10 +35,16 @@ export abstract class ServiceBase {
         return conf;
     }
 
-    public addDataAsync = <T extends DtoBase>(path:string, requestData:Record<string,any>):Promise<T> =>{
+    public addDynamicData = <T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T> =>{
         return axios.post<T>(this.GetFullPath(path),requestData,this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });
+    }
+
+    public updateDynamicData = <T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T> => {
+        return axios.post<T>(this.GetFullPath(path),requestData,this.GetAxiosHeader()).then(x=>{
+            return x.data as T
+        })
     }
 
     public getAll = <T extends DtoBase>(path:string):Promise<T[]> =>{
@@ -59,7 +65,7 @@ export abstract class ServiceBase {
         });
     }
 
-    public removeAsync = (path:string,id:string):Promise<void> => {
+    public remove = (path:string,id:string):Promise<void> => {
         return axios.post(this.GetFullPath(path),id,this.GetAxiosHeader()).then(x=>{
             return x.data;
         })

@@ -1,11 +1,9 @@
-import { useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUrlPathControl, type UpdateBlogType } from "../../hooks"
 import { CButtonField, CTextField, DynamicPropertiesComponent,DynamicPropertiesComponentEnum, UrlInputField, type DynamicPropertyComponentProps } from "..";
 import z from "zod";
 import { useForm } from "react-hook-form";
-import type { ReadBlogDto, ReadPageDto } from "../../dtos";
-import { ToastHelper } from "../../helpers";
+import { ReadBlogDto, type ReadPageDto } from "../../dtos";
 
 
 
@@ -36,6 +34,7 @@ export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
     }
 
     const schema = z.object({
+        id:z.string(),
         urlPath:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),
         title:z.string().min(1,"Lütfen boş geçmeyiniz."),
         description:z.string().min(1,"Lütfen boş geçmeyiniz."),
@@ -43,23 +42,14 @@ export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
         blogContent:z.string().min(10,"Lütfen biraz daha içeri giriniz"),
     });
 
-    const defaultValues = 
-    {
-        urlPath:blog.url.path,
-        blogContent:"",
-        blogCategory:"",
-        description:blog.description,
-        title:blog.title
-    };
-
-
+    const blogInstance = new ReadBlogDto(); 
+    Object.assign(blogInstance, props.currentUpdateBlog);
+    const defaultValues = blogInstance.getFlattenedData<UpdateBlogType>();
 
     const useformObject = useForm<UpdateBlogType>({resolver:zodResolver(schema),defaultValues:defaultValues});
-
     const {getValues,setValue,setError} = useformObject;
     const {register,formState:{errors}} = useformObject;
 
-    
     const useUrlControl = useUrlPathControl({baseFullPath:props.blogPage.url.fullPath,getValue:()=>{return getValues("urlPath")},setValue:(url:string)=>setValue("urlPath",url)});
     return (<>
         <form className="space-y-6" onSubmit={useformObject.handleSubmit(props.onSubmit)}>
@@ -67,7 +57,7 @@ export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
             <CTextField name="description" id="description" label="Kısa Açıklama" formRegister={register("description")} fieldErrors={errors.description} type="text"></CTextField>
             <UrlInputField useUrlPathControl={useUrlControl} formRegister={(register("urlPath"))} fieldErrors={errors.urlPath}></UrlInputField>
             <DynamicPropertiesComponent title="Dinamik form" fields={BlogDynamicInputFields} useFormReturn={useformObject}></DynamicPropertiesComponent>
-            <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Kaydet</CButtonField>
+            <CButtonField disabled={useUrlControl.isUrlExists} id="blog-submit-btn">Güncelle</CButtonField>
         </form>
     </>)
 }

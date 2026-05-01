@@ -86,6 +86,12 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             return GetTable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
         }
 
+        public void Update(T entity)
+        {
+            entity.ModifiedDate = DateTime.Now;
+            GetTable().Update(entity);  
+        }
+
         //public Task<List<T>> GetAllByOnlineAsync(Guid languageId)
         //{
         //    return Context.Set<T>().Where(x => x.State != (int)EntityStateEnum.Deleted && x.LanguageId == languageId).OrderByDescending(x => x.CreateDate).ToListAsync();

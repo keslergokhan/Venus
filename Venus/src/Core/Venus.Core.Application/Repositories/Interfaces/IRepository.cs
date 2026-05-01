@@ -17,6 +17,7 @@ namespace Venus.Core.Application.Repositories.Interfaces
         public Task CreateAsync(T entity, CancellationToken cancellationToken = default);
         public Task RemoveAsync(T entity, CancellationToken cancellationToken = default);
         public Task RemoveAsync(Guid Id, CancellationToken cancellationToken = default);
+        public void Update(T entity);
     }
 
     public interface IUrlEntityRepository<T> : IRepository<T>

@@ -71,7 +71,9 @@ export interface HtmlEditorProps<T extends FieldValues>{
 
 
 export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
-
+    
+    const value = props.control._defaultValues[props.name];
+    const defaultValue =  value ? value : "<p></p>";
     return (
         <div className="relative z-0 w-full group">
             {
@@ -177,7 +179,7 @@ export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
                                 ]
                             }
                         } }
-                        data="<p></p>"
+                        data={defaultValue}
                     />
                 )}
                 />

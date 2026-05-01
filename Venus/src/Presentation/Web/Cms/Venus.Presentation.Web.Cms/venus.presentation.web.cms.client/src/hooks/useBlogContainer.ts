@@ -5,9 +5,6 @@ import { FormHelper, ToastHelper } from "../helpers";
 import { BlogService } from "../services";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
-import { xid } from "zod";
-import { BlogPage } from "../pages/BlogPage";
-
 
 export type CreateBlogType = {
     urlPath:string,
@@ -18,6 +15,7 @@ export type CreateBlogType = {
 }
 
 export type UpdateBlogType = {
+    id:string,
     urlPath:string,
     title:string,
     description:string,
@@ -34,7 +32,7 @@ interface useBlogContainerResult{
     refreshTable:()=>void;
     showContainer:string[];
     selectUpdateBlog:ReadBlogDto|null;
-    updateHandler:()=>void;
+    updateHandler:(data:UpdateBlogType)=>Promise<void>;
     blogPage:ReadPageDto;
 }
 
@@ -80,7 +78,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const removeHandler = async (data:ReadBlogDto) =>{
         appContext.confirmModalAction({action:"Show",approvalHandler:()=>{
 
-            blogService.removeAsync("blog/remove",data.id).then(x=>{
+            blogService.remove("blog/remove",data.id).then(x=>{
                 refreshTable();
             }).catch(x=>{
                 ToastHelper.DefaultCatchError(x);
@@ -128,8 +126,13 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     /**
      * Mevcut bloke güncelleme
      */
-    const updateHandler = ()=>{
-
+    const updateHandler = async (data:UpdateBlogType)=>{
+        const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
+        await blogService.updateDynamicData<ReadBlogDto>("blog/update",blogRequest).then(x=>{
+            ToastHelper.Success(`${x.title} güncellendi.`);
+        }).catch(err=>{
+            ToastHelper.DefaultCatchError(err);
+        });
     }
 
     /**
@@ -139,7 +142,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const addHandler = async (data:CreateBlogType)=>{
      
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        blogService.addDataAsync("blog/create",blogRequest).then(x=>{
+        blogService.addDynamicData("blog/create",blogRequest).then(x=>{
             if(x as ReadBlogDto){
                 const blog = x as ReadBlogDto;
                 ToastHelper.Success(`${blog.title} başarıyla eklendi`);

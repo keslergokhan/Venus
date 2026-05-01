@@ -5,6 +5,7 @@ namespace Venus.Presentation.Web.Cms.Server.Models.Base
 {
     public abstract class BaseRequest
     {
+        public Guid? Id { get; set; }
         public Guid? LanguageId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Venus.Core.Application.Features.Systems.Pages.Queries;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;
+using Venus.Presentation.Web.Cms.Server.Models.Blogs;
 using Venus.Presentation.Web.Cms.Server.Models.PageManagers;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
@@ -25,7 +26,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         {
             var getEnttiyDetailVenusPages = await base.Mediator.Send(new GetEntityDetailVenusPagesAsync()
             {
-                    LanguageId = HttpContext.GetLanguageId()
+                LanguageId = HttpContext.GetLanguageId()
             });
             return getEnttiyDetailVenusPages.ToActionResult(this);
         }
@@ -38,9 +39,10 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePage(CreatePageReq createPageRequest,CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePage(CreatePageReq createPageRequest, CancellationToken cancellationToken)
         {
-            var createPageResult = await base.Mediator.Send(new CreateVenusPageCommand() { 
+            var createPageResult = await base.Mediator.Send(new CreateVenusPageCommand()
+            {
                 Title = createPageRequest.Title,
                 PageAboutId = createPageRequest.PageAboutId,
                 UrlPath = createPageRequest.UrlPath,
@@ -50,6 +52,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return createPageResult.ToActionResult(this);
         }
 
+        
     }
 }
  

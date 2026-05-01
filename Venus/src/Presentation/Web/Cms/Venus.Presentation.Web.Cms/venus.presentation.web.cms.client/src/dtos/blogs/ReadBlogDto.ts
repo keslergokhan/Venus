@@ -1,9 +1,9 @@
-import { DynamicJsonDtoBase } from "../base/DtoBase";
+import { DynamicPropertiesDtoBase } from "../base/DtoBase";
 import type { ReadUrlDto } from "../urls/ReadUrlDto";
 
-export class ReadBlogDto extends DynamicJsonDtoBase{
+export class ReadBlogDto extends DynamicPropertiesDtoBase{
     title:string;
     description:string;
     urlId:string;
-    url:ReadUrlDto
+    url:ReadUrlDto;
 }

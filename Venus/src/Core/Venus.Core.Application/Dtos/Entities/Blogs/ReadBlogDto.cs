@@ -12,7 +12,7 @@ namespace Venus.Core.Application.Dtos.Entities.Blogs
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string JsonData { get; set; }
+        public string DynamicProperties { get; set; }
         public string UrlPath { get; set; }
         public ReadVenusUrlDto Url { get; set; }
     }
