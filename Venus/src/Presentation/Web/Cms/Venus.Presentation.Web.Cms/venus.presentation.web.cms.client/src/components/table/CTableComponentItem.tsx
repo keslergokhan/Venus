@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 import { DtoBase } from "../../dtos/base/DtoBase"
 import { EntityStateEnum } from "../../dtos/enums/EntityStateEnum"
 import { object, type includes } from "zod"
+import { ToastHelper } from "../../helpers"
 
 
 export interface CTableHeaderComponentProps{
@@ -24,12 +25,21 @@ export interface CTableBodyRowProps<TData extends DtoBase>{
     index:number;
     data:TData;
     children:ReactNode;
+    toggleStateHandler?:(id:string)=>Promise<void>;
     removeOnHandler?:(data:TData)=>Promise<void>;
     updateOnHandler?:(data:TData)=>Promise<void>;
 }
 
 export const CTableBodyRow = <TData extends DtoBase>(props:CTableBodyRowProps<TData>) =>{
-    const customClass = (props.index % 2 == 1 ? "!bg-gray-300":"");
+    let customClass = "";
+    
+    if(props.index % 2 == 1){
+        customClass = "!bg-gray-300";
+    }
+
+    if(props.data.state === EntityStateEnum.Offline){
+        customClass = "!bg-red-300"
+    }
 
     return (
         <TableRow className={customClass}>
@@ -42,14 +52,20 @@ export const CTableBodyRow = <TData extends DtoBase>(props:CTableBodyRowProps<TD
                             await props.updateOnHandler(props.data) 
                         }
                     }}>Güncelle</DropdownItem>
-                    <DropdownItem className="text-red-700 " onClick={async ()=>{
+                    <DropdownItem className="text-red-700" onClick={async ()=>{
                         if(props.removeOnHandler){
                             await props.removeOnHandler(props.data);
                         }
                     }}>Sil</DropdownItem>
 
                     {
-                        <DropdownItem>{props.data.state == EntityStateEnum.Online ? "Gizle":"Göster"}</DropdownItem>
+                        props.toggleStateHandler && <DropdownItem onClick={async ()=>{
+                            if(props.toggleStateHandler){
+                                await props.toggleStateHandler(props.data.id);
+                            }
+                        }}>
+                            {props.data.state == EntityStateEnum.Online ? "Gizle":"Göster"}
+                        </DropdownItem>
                     }           
                 </Dropdown>
             </TableCell>

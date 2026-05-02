@@ -73,7 +73,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdatePage([FromBody]UpdateBlogReq updatePageRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdatePage([FromBody] UpdateBlogReq updatePageRequest, CancellationToken cancellationToken)
         {
             var updatePageResult = await base.Mediator.Send(new UpdateBlogCommand()
             {
@@ -84,7 +84,18 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 DynamicProperties = updatePageRequest.DynamicProperties,
             }, cancellationToken);
             return updatePageResult.ToActionResult(this);
-
         }
+
+        [HttpPost("toggle-blog-state")]
+        public async Task<IActionResult> toggleBlogState([FromBody] Guid id, CancellationToken cancellationToken)
+        {
+            var result = await base.Mediator.Send(new ToggleBlogStateCommand()
+            {
+                Id = id
+            });
+            return result.ToActionResult(this);
+        }
+
+
     }
 }

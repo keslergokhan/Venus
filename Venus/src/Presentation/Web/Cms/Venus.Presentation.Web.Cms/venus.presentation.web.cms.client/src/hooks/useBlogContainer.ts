@@ -33,6 +33,7 @@ interface useBlogContainerResult{
     showContainer:string[];
     selectUpdateBlog:ReadBlogDto|null;
     updateHandler:(data:UpdateBlogType)=>Promise<void>;
+    toggleStateHandler:(id:string)=>Promise<void>
     blogPage:ReadPageDto;
 }
 
@@ -153,6 +154,15 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         });
     }
 
+    const toggleStateHandler = async (id:string) =>{ 
+        await blogService.post("blog/toggle-blog-state",id).then(x=>{
+            refreshTable();
+        }).catch(x=>{
+            console.error("State yönetimi tamamlanamadı",x);
+            ToastHelper.DefaultCatchError(x);
+        });
+    }
+
     
     return {
         blogPage:blogPage.current,
@@ -164,6 +174,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         showContainer:containers,
         refreshTable,
         selectUpdateBlog:selectUpdateBlog,
-        updateHandler
+        updateHandler,
+        toggleStateHandler
     }
 }
