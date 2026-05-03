@@ -64,7 +64,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      */
     const refreshTable = ():void=>{
         ToastHelper.Success("Yenilendi");
-        blogService.getAll<ReadBlogDto>("blog/get-all").then(x=>{
+        blogService.getBlogs().then(x=>{
             blogs.current = x;
             setShowContainer(["table"]);
         }).catch(x=>{
@@ -79,7 +79,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const removeHandler = async (data:ReadBlogDto) =>{
         appContext.confirmModalAction({action:"Show",approvalHandler:()=>{
 
-            blogService.remove("blog/remove",data.id).then(x=>{
+            blogService.removeBlog(data.id).then(x=>{
                 refreshTable();
             }).catch(x=>{
                 ToastHelper.DefaultCatchError(x);
@@ -90,7 +90,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
 
     const getBlogPage = async () => {
         try{
-            blogPage.current = await blogService.get<ReadPageDto>("blog/get-page");
+            blogPage.current = await blogService.getBlogPage();
         }catch(err){
             ToastHelper.DefaultCatchError(err);
         }
@@ -106,7 +106,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
             return;
         }
 
-        blogService.getById<ReadBlogDto>("blog/get",id).then(x=>{
+        blogService.getBlogById(id).then(x=>{
             if(selectUpdateBlog==null){
                 setSelectUpdateBlog(x);
             }
@@ -129,7 +129,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      */
     const updateHandler = async (data:UpdateBlogType)=>{
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        await blogService.updateDynamicData<ReadBlogDto>("blog/update",blogRequest).then(x=>{
+        await blogService.updateBlog(blogRequest).then(x=>{
             ToastHelper.Success(`${x.title} güncellendi.`);
         }).catch(err=>{
             ToastHelper.DefaultCatchError(err);
@@ -143,7 +143,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     const addHandler = async (data:CreateBlogType)=>{
      
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        blogService.addDynamicData("blog/create",blogRequest).then(x=>{
+        blogService.addBlog(blogRequest).then(x=>{
             if(x as ReadBlogDto){
                 const blog = x as ReadBlogDto;
                 ToastHelper.Success(`${blog.title} başarıyla eklendi`);
@@ -155,7 +155,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     }
 
     const toggleStateHandler = async (id:string) =>{ 
-        await blogService.post("blog/toggle-blog-state",id).then(x=>{
+        await blogService.toggleState(id).then(x=>{
             refreshTable();
         }).catch(x=>{
             console.error("State yönetimi tamamlanamadı",x);

@@ -25,4 +25,8 @@
     <Folder Include="Services\Base\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Features\Cms\Languages\Queries\GetVenusLanguageResourceQuery.cs" />
+  </ItemGroup>
+
 </Project>

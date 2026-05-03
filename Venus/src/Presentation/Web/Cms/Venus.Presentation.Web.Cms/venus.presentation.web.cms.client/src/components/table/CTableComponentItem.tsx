@@ -2,8 +2,6 @@ import { Dropdown, DropdownItem, TableCell, TableHead, TableHeadCell, TableRow }
 import type { ReactNode } from "react"
 import { DtoBase } from "../../dtos/base/DtoBase"
 import { EntityStateEnum } from "../../dtos/enums/EntityStateEnum"
-import { object, type includes } from "zod"
-import { ToastHelper } from "../../helpers"
 
 
 export interface CTableHeaderComponentProps{
@@ -47,16 +45,18 @@ export const CTableBodyRow = <TData extends DtoBase>(props:CTableBodyRowProps<TD
                 {props.children}
             <TableCell>
                 <Dropdown label="İşlem" className="font-bold !border-0 !active:border-0" size="xs">
+                    
                     <DropdownItem onClick={async ()=>{
                         if(props.updateOnHandler){
                             await props.updateOnHandler(props.data) 
                         }
                     }}>Güncelle</DropdownItem>
-                    <DropdownItem className="text-red-700" onClick={async ()=>{
+
+                    {props.removeOnHandler && <DropdownItem className="text-red-700" onClick={async ()=>{
                         if(props.removeOnHandler){
                             await props.removeOnHandler(props.data);
                         }
-                    }}>Sil</DropdownItem>
+                    }}>Sil</DropdownItem>}
 
                     {
                         props.toggleStateHandler && <DropdownItem onClick={async ()=>{

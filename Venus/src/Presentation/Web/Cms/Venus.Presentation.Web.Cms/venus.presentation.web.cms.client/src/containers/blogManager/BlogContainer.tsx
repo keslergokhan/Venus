@@ -1,6 +1,5 @@
-import { CreateBlogComponent, BlogTableComponent, CButtonField } from "../../components"
+import { CreateBlogComponent, BlogTableComponent, CButtonField, ZoneControlComponent, ZoneControlItem } from "../../components"
 import { UpdateBlogComponent } from "../../components/blogManager/UpdateBlogComponent";
-import { ZoneControlComponent, ZoneControlItem } from "../../components/zoneControl/zoneControlComponent";
 import { useBlogContainer } from "../../hooks";
 
 

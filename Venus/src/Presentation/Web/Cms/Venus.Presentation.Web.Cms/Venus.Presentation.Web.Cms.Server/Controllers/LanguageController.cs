@@ -2,13 +2,14 @@
 using Venus.Core.Application.Dtos.Systems.Languages;
 using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Cms;
+using Venus.Core.Application.Features.Cms.Languages.Queries;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Models.Languages;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LanguageController : CmsApiControllerBase
     {
@@ -21,7 +22,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("get-language")]
         public async Task<IActionResult> GetLanguage()
         {
             var result = await base.Mediator.Send(new GetVenusLanguageQuery());
@@ -31,6 +32,13 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
                 LanguageController.LanguagesCache = result.Data;
             }
 
+            return result.ToActionResult(this);
+        }
+
+        [HttpGet("get-resource")]
+        public async Task<IActionResult> GetResources()
+        {
+            var result = await base.Mediator.Send(new GetVenusLanguageResourceQueriy());
             return result.ToActionResult(this);
         }
 

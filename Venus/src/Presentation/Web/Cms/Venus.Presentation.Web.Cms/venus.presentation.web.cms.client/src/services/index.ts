@@ -5,3 +5,4 @@ export {LanguageService} from './LanguageService'
 export {UrlService} from './UrlService';
 export {PageService} from "./PageService"
 export {BlogService} from './BlogService'
+export {LanguageResourceService} from "./LanguageResourceService";
