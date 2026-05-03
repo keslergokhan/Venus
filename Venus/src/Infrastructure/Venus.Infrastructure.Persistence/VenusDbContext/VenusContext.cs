@@ -35,7 +35,8 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         #region VenusSystems
         public DbSet<VenusPageEntity> VenusPageEntity { get; set; }
         public DbSet<VenusLanguage> VenusLanguage { get; set; }
-        public DbSet<VenusLocalization> VenusLocalization { get; set; }
+        public DbSet<VenusLanguageResourceValue> VenusLanguageResourceValue { get; set; }
+        public DbSet<VenusLanguageResourceKey>  VenusResource { get; set; }
         public DbSet<VenusPage> VenusPage { get; set; }
         public DbSet<VenusPageAbout> VenusPageAbout { get; set; }
         public DbSet<VenusPageType> VenusPageType { get; set; }

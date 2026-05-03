@@ -36,3 +36,6 @@ export {CTableComponent, type CTableComponentProps} from "./table/CTableComponen
 export {CTableHeaderComponent,CTableBodyRow} from "./table/CTableComponentItem"
 
 export {ConfirmModal} from "./modals/ConfirmModal";
+
+export {LanguageResourceTableComponent} from "./languageResourceManager/LanguageResourceTableComponent";
+export {LanguageResourceUpdateComponent} from "./languageResourceManager/LanguageResourceUpdateComponent"

@@ -62,7 +62,7 @@ export const MenuComponent = (): JSX.Element => {
                         </div>
                         <div className="space-y-4 p-4">
                             <li>
-                                <a href="#" className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
+                                <NavLink to={"/blog"} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
                                     <svg
                                         className="me-2 h-3 w-3 text-gray-400 group-hover:text-primary-600 dark:text-gray-500 dark:group-hover:text-primary-500"
                                         aria-hidden="true"
@@ -74,7 +74,7 @@ export const MenuComponent = (): JSX.Element => {
                                         <path d="M6 5H5v1h1V5Z" />
                                     </svg>
                                     Blog
-                                </a>
+                                </NavLink>
                             </li>
                             <li>
                                 <a href="#" className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
@@ -121,7 +121,7 @@ export const MenuComponent = (): JSX.Element => {
                         </div>
                         <div className="space-y-4 p-4">
                             <li>
-                                <a href="#" className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
+                                <NavLink to={"/languagekey-manager"} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
                                     <svg
                                         className="me-2 h-3 w-3 text-gray-400 group-hover:text-primary-600 dark:text-gray-500 dark:group-hover:text-primary-500"
                                         aria-hidden="true"
@@ -131,8 +131,8 @@ export const MenuComponent = (): JSX.Element => {
                                     >
                                         <path d="M12 0H2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM7.5 17.5h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2ZM12 13H2V4h10v9Z" />
                                     </svg>
-                                    Contact Us
-                                </a>
+                                    Kelime Çevirileri
+                                </NavLink>
                             </li>
                             <li>
                                 <a href="#" className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">

@@ -15,7 +15,6 @@ export const PageManagerListContainer = () =>{
     useEffect(()=>{
         pageTypeManagerService.getPageAboutListAsync()
         .then(x=>{
-            console.log(x);
             pageAboutList.current = x;
             setLoading(false);
         }).catch(err=>{

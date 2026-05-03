@@ -239,7 +239,6 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
 
     useEffect(()=>{
         if(uploadedFiles.length > 0){
-            console.log(uploadedFiles);
             uploadedFiles.forEach(async (item) => {
                 await fileManagerService.uploadFileAsync({file:item.file,path:props.getFullPath()})
                 .then(x=>{
@@ -275,7 +274,6 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
     const uploadFileInputonChangeHandlerAsync = async (e:React.ChangeEvent<HTMLInputElement>) =>{
         setLoading(true);
         const inputSelectedFileList = e.target.files as FileList;
-        console.log(inputSelectedFileList);
         if(inputSelectedFileList.length >= 0){
             Array.from(inputSelectedFileList).forEach(file=>{
                 selectedFiles.current.push({file:file,state:"pending"});

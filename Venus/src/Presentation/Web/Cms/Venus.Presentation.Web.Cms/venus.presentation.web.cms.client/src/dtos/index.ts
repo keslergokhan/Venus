@@ -9,3 +9,5 @@ export type {UrlTypeEnum} from "./enums/UrlTypeEnum"
 export {ReadLanguageDto} from './languages/ReadLangaugeDto'
 export {ReadPageDto} from './page/ReadPageDto'
 export {ReadBlogDto} from "./blogs/ReadBlogDto"
+export {ReadLanguageResourceKey} from "./languageResource/ReadLanguageResourceKeyDto";
+export {ReadLanguageResourceValueDto} from "./languageResource/ReadLanguageResourceValueDto";

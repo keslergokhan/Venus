@@ -12,6 +12,7 @@ import IconComponent from './pages/IconComponent';
 import 'ckeditor5/ckeditor5.css';
 import { BlogPage } from './pages/BlogPage';
 import { ConfirmModal } from './components';
+import LanguageResourceManagerPage from './pages/LanguageResourceManagerPage';
 function App() {
     return (
         <div className='overflow-x-hidden p-0 m-0'>
@@ -28,6 +29,7 @@ function App() {
                                     <Route path='/page-manager' element={<PageManagerPage/>}></Route>
                                     <Route path='/blog' element={<BlogPage></BlogPage>}></Route>
                                     {/* ba�ka child sayfalar buraya */}
+                                    <Route path='/languagekey-manager' element={<LanguageResourceManagerPage></LanguageResourceManagerPage>}></Route>
                                 </Route>
                                 <Route path="/icon" element={<IconComponent></IconComponent>}></Route>
                             </Routes>
