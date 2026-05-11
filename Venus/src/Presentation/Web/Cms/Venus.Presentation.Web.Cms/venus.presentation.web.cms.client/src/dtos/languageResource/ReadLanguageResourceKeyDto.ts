@@ -4,5 +4,5 @@ import type { ReadLanguageResourceValueDto } from "./ReadLanguageResourceValueDt
 export class ReadLanguageResourceKeyDto extends DtoBase{
     key:string;
     defaultValue:string;
-    ResourceValue:ReadLanguageResourceValueDto[]
+    resourceValue:ReadLanguageResourceValueDto[]
 }

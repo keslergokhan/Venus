@@ -56,7 +56,8 @@ import {
     TextTransformation, // Metin dönüşümleri (örn: (c) -> ©)
     Underline,
     Highlight, // Altı çizili yazı
-    Undo // Geri al ve İleri al
+    Undo, // Geri al ve İleri al
+    type EditorConfig
 } from 'ckeditor5';
 import { Controller, type Control, type FieldError, type FieldValues, type Path, type UseFormRegisterReturn } from 'react-hook-form';
 
@@ -64,16 +65,103 @@ import { Controller, type Control, type FieldError, type FieldValues, type Path,
 
 export interface HtmlEditorProps<T extends FieldValues>{
     fieldErrors?:FieldError|undefined,
-    control:Control<T>,
+    control?:Control<T>,
     name:Path<T>
     label?:string|undefined
+    defaultValue?:string
 }
 
 
 export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
     
-    const value = props.control._defaultValues[props.name];
-    const defaultValue =  value ? value : "<p></p>";
+    const config:EditorConfig = {
+        licenseKey: 'GPL', // Ücretsiz kullanım anahtarı
+        language: 'tr',
+        translations: [ localeTr ],
+
+        // --- TÜM ÜCRETSİZ PLUGINLER ---
+        plugins: [
+            AccessibilityHelp, Alignment, Autoformat, AutoLink, Autosave, BlockQuote, Bold, Code,
+            Essentials, FindAndReplace, FontBackgroundColor, FontColor, FontFamily, FontSize,
+            GeneralHtmlSupport, Heading, Highlight, HorizontalLine, ImageBlock, ImageCaption, ImageInline,
+            ImageInsert, ImageInsertViaUrl, ImageResize, ImageStyle, ImageTextAlternative, ImageToolbar,
+            ImageUpload, Indent, IndentBlock, Italic, Link, LinkImage, List, ListProperties,
+            MediaEmbed, Paragraph, RemoveFormat, SelectAll, SourceEditing, SpecialCharacters, 
+            SpecialCharactersEssentials, Strikethrough, Subscript, Superscript, Table, TableCaption, 
+            TableCellProperties, TableColumnResize, TableProperties, TableToolbar, TextTransformation, 
+            Underline, Undo
+        ],
+
+        // --- TOOLBAR DİZİLİMİ (GRUPLANMIŞ) ---
+        toolbar: {
+            items: [
+                'sourceEditing', // Kaynak Kod (<>)
+                '|',
+                'undo', 'redo',
+                '|',
+                'heading',
+                '|',
+                'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight',
+                '|',
+                'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'code', 'removeFormat',
+                '|',
+                'link', 'insertImageViaUrl', 'mediaEmbed', 'insertTable', 'blockQuote', 'specialCharacters', 'horizontalLine',
+                '|',
+                'alignment',
+                '|',
+                'bulletedList', 'numberedList', 'indent', 'outdent',
+                '|',
+                'findAndReplace', 'selectAll'
+            ],
+            shouldNotGroupWhenFull: true // Toolbar sığmazsa alt satıra geçer, gizlemez
+        },
+
+        // --- ÖZEL AYARLAR ---
+        
+        // 1. Resim Ayarları (URL ile ekleme aktif)
+        image: {
+            toolbar: [
+                'toggleImageCaption', 'imageTextAlternative', '|',
+                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side', '|',
+                'linkImage'
+            ],
+            insert: {
+                type: 'auto' // Hem dosya seçme hem URL girişi sağlar
+            }
+        },
+
+        // 2. HTML Desteği (Yazdığınız hiçbir HTML silinmez)
+        htmlSupport: {
+            allow: [
+                {
+                    name: /.*/,
+                    attributes: true,
+                    classes: true,
+                    styles: true
+                }
+            ]
+        },
+
+        // 3. Tablo Ayarları
+        table: {
+            contentToolbar: [
+                'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'
+            ]
+        },
+
+        // 4. Başlıkları Türkçeleştirme
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraf', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Başlık 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Başlık 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Başlık 3', class: 'ck-heading_heading3' }
+            ]
+        }
+    };
+
+    const value = props.control?._defaultValues[props.name] ?? "";
+    const defaultValue =  value ? value : (props.defaultValue ? props.defaultValue:"<p></p>");
     return (
         <div className="relative z-0 w-full group">
             {
@@ -84,7 +172,24 @@ export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
                 :
                     <></>
             }
-            <Controller
+            {
+                !props.control ?
+                <CKEditor
+                    editor={ ClassicEditor }
+                    config={config}
+                    data={props.defaultValue}
+                    onReady={ (editor) => {
+                        // Editör hazır olduğunda yapılacaklar
+                    } }
+                    onChange={ (event, editor) => {
+                    } }
+                    onBlur={ (event, editor) => {
+                    } }
+                    onFocus={ (event, editor) => {
+                    } }
+                />
+                :
+                <Controller
                 name={props.name}
                 control={props.control}
                 render={({ field }) => (
@@ -94,95 +199,13 @@ export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
                             field.onChange(editor.getData())
                         }}
                         onBlur={field.onBlur}
-                        config={ {
-                            licenseKey: 'GPL', // Ücretsiz kullanım anahtarı
-                            language: 'tr',
-                            translations: [ localeTr ],
-
-                            // --- TÜM ÜCRETSİZ PLUGINLER ---
-                            plugins: [
-                                AccessibilityHelp, Alignment, Autoformat, AutoLink, Autosave, BlockQuote, Bold, Code,
-                                Essentials, FindAndReplace, FontBackgroundColor, FontColor, FontFamily, FontSize,
-                                GeneralHtmlSupport, Heading, Highlight, HorizontalLine, ImageBlock, ImageCaption, ImageInline,
-                                ImageInsert, ImageInsertViaUrl, ImageResize, ImageStyle, ImageTextAlternative, ImageToolbar,
-                                ImageUpload, Indent, IndentBlock, Italic, Link, LinkImage, List, ListProperties,
-                                MediaEmbed, Paragraph, RemoveFormat, SelectAll, SourceEditing, SpecialCharacters, 
-                                SpecialCharactersEssentials, Strikethrough, Subscript, Superscript, Table, TableCaption, 
-                                TableCellProperties, TableColumnResize, TableProperties, TableToolbar, TextTransformation, 
-                                Underline, Undo
-                            ],
-
-                            // --- TOOLBAR DİZİLİMİ (GRUPLANMIŞ) ---
-                            toolbar: {
-                                items: [
-                                    'sourceEditing', // Kaynak Kod (<>)
-                                    '|',
-                                    'undo', 'redo',
-                                    '|',
-                                    'heading',
-                                    '|',
-                                    'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', 'highlight',
-                                    '|',
-                                    'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'code', 'removeFormat',
-                                    '|',
-                                    'link', 'insertImageViaUrl', 'mediaEmbed', 'insertTable', 'blockQuote', 'specialCharacters', 'horizontalLine',
-                                    '|',
-                                    'alignment',
-                                    '|',
-                                    'bulletedList', 'numberedList', 'indent', 'outdent',
-                                    '|',
-                                    'findAndReplace', 'selectAll'
-                                ],
-                                shouldNotGroupWhenFull: true // Toolbar sığmazsa alt satıra geçer, gizlemez
-                            },
-
-                            // --- ÖZEL AYARLAR ---
-                            
-                            // 1. Resim Ayarları (URL ile ekleme aktif)
-                            image: {
-                                toolbar: [
-                                    'toggleImageCaption', 'imageTextAlternative', '|',
-                                    'imageStyle:inline', 'imageStyle:block', 'imageStyle:side', '|',
-                                    'linkImage'
-                                ],
-                                insert: {
-                                    type: 'auto' // Hem dosya seçme hem URL girişi sağlar
-                                }
-                            },
-
-                            // 2. HTML Desteği (Yazdığınız hiçbir HTML silinmez)
-                            htmlSupport: {
-                                allow: [
-                                    {
-                                        name: /.*/,
-                                        attributes: true,
-                                        classes: true,
-                                        styles: true
-                                    }
-                                ]
-                            },
-
-                            // 3. Tablo Ayarları
-                            table: {
-                                contentToolbar: [
-                                    'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'
-                                ]
-                            },
-
-                            // 4. Başlıkları Türkçeleştirme
-                            heading: {
-                                options: [
-                                    { model: 'paragraph', title: 'Paragraf', class: 'ck-heading_paragraph' },
-                                    { model: 'heading1', view: 'h1', title: 'Başlık 1', class: 'ck-heading_heading1' },
-                                    { model: 'heading2', view: 'h2', title: 'Başlık 2', class: 'ck-heading_heading2' },
-                                    { model: 'heading3', view: 'h3', title: 'Başlık 3', class: 'ck-heading_heading3' }
-                                ]
-                            }
-                        } }
+                        config={config}
                         data={defaultValue}
                     />
                 )}
                 />
+            }
+            
            
             {props.fieldErrors && <p className="text-red-500 text-sm mt-1">{props.fieldErrors.message}</p>}
         </div>

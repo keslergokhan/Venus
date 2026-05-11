@@ -15,6 +15,7 @@ export const LanguageResourceTableComponent = (props:LanguageResourceTableCompon
         return (
         <CTableBodyRow key={props.index} {...props} updateOnHandler={baseProps.updateHandler}>
             <TableCell>{props.data.key}</TableCell>
+            <TableCell>{props.data.defaultValue?.substring(0,250)}{props.data.defaultValue?.length>250 && "..."}</TableCell>
         </CTableBodyRow>);
     }
     
@@ -23,6 +24,7 @@ export const LanguageResourceTableComponent = (props:LanguageResourceTableCompon
         <CTableComponent data={props.languageResources} getRowChildren={row}>
             <CTableHeaderComponent>
                 <TableHeadCell>Key</TableHeadCell>
+                <TableHeadCell>Değer</TableHeadCell>
                 <TableHeadCell>İşlem</TableHeadCell>
             </CTableHeaderComponent>
         </CTableComponent>

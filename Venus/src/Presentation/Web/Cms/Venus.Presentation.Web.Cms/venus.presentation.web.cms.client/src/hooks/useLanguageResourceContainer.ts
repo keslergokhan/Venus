@@ -3,12 +3,18 @@ import type { ReadLanguageDto, ReadLanguageResourceKeyDto } from "../dtos";
 import { LanguageResourceService, LanguageService } from "../services";
 import { ToastHelper } from "../helpers";
 
+export type UpdateLanguageResourceType = {
+    id:string;
+    value:string;
+}
+
 interface useLanguageResourceContainerResult {
     languageResourceList:ReadLanguageResourceKeyDto[];
     updateHandler:(data:ReadLanguageResourceKeyDto)=>Promise<void>
     refreshTable:()=>void
     showContainers:string[]
     setShowContainer:(keys:string[])=>void
+    selectUpdateResourceKey:ReadLanguageResourceKeyDto|null;
 }
 
 export const useLanguageResourceContainer = ():useLanguageResourceContainerResult =>{
@@ -18,6 +24,7 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
     const [languageResourceList,setLanguageResourceList] = useState<ReadLanguageResourceKeyDto[]>([]);
     const languageResourceService = new LanguageResourceService();
     const languageService = new LanguageService();
+    const [selectUpdateResourceKey,setSelectUpdateResourceKey] = useState<ReadLanguageResourceKeyDto|null>(null); 
 
     useEffect(()=>{
         languageService.getLanguageAsync().then(x=>{
@@ -26,8 +33,9 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
         refreshTable();
     },[]);
 
-    const updateHandler = async () =>{
+    const updateHandler = async (data:ReadLanguageResourceKeyDto) =>{
         setContainers(["update"]);
+        setSelectUpdateResourceKey(data);
     }
 
     const refreshTable = ():void =>{
@@ -48,6 +56,7 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
         updateHandler,
         refreshTable,
         setShowContainer,
-        showContainers
+        showContainers,
+        selectUpdateResourceKey
     };
 }
