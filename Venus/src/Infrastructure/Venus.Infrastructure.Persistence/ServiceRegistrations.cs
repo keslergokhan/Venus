@@ -38,6 +38,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IVenusPageTypeRepository, VenusPageTypeRepository>();
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<IVenusPageAboutRepository, VenusPageAboutRepository>();
+            services.AddScoped<IVenusLanguageResourceValueRepository, VenusLanguageResourceValueRepository>();
             services.AddScoped<IVenusLanguageRepository, VenusLanguageRepository>();
             //services.AddStartData();
             services.AddScoped<IVenusPageRepository, VenusPageRepository>();

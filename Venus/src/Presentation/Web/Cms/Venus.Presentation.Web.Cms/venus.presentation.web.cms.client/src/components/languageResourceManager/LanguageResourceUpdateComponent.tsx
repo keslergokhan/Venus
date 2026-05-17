@@ -27,18 +27,22 @@ export const LanguageResourceUpdateComponent = (props:LanguageResourceUpdateComp
             const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == "47c696f8-5066-4094-a89f-6b52c9c24694");
             if(findResource){
                 setCurrentLanguageResourceValue(findResource);
+                setValue("resourceId",props.currentLangaugeResourceKey.id);
                 setValue("languageResourceValue",findResource?.value);
-                setValue("languageResourceValue",findResource?.languageId);
+                setValue("languageId",findResource?.languageId);
             }
         }
     },[]);
 
     useEffect(()=>{
-        const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == language?.id);
-        if(findResource){
-            setCurrentLanguageResourceValue(findResource);
-            setValue("languageResourceValue",findResource?.languageId);
-            setValue("languageResourceValue",findResource?.value);
+        if(props.currentLangaugeResourceKey){
+            const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == language?.id);
+            if(findResource){
+                setCurrentLanguageResourceValue(findResource);
+                setValue("languageId",findResource?.languageId);
+                setValue("resourceId",props.currentLangaugeResourceKey?.id);
+                setValue("languageResourceValue",findResource?.value);
+            }
         }
     },[language])
 
@@ -46,11 +50,13 @@ export const LanguageResourceUpdateComponent = (props:LanguageResourceUpdateComp
     const schema = z.object({
         resourceId:z.string().min(1,"id değeri formatı uygun değil"),
         languageResourceValue:z.string(),
+        languageId:z.string()
     });
 
     const defaultValue:UpdateLanguageResourceType = {
         resourceId:props.currentLangaugeResourceKey?.id ?? "",
-        languageResourceValue:""
+        languageResourceValue:"",
+        languageId:""
     };
 
     const setFlagClickHandler = (language:ReadLanguageDto) =>{

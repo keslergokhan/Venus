@@ -42,5 +42,18 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return result.ToActionResult(this);
         }
 
+        [HttpPost("update-resource")]   
+        public async Task<IActionResult> UpdateResource([FromBody] UpdateLanguageResourceValueReq req)
+        {
+            var result = await base.Mediator.Send(new UpdateVenusLanguageResourceCommand
+            {
+                LanguageId = req.LanguageId,
+                LanguageResourceValue = req.LanguageResourceValue,
+                ResourceId = req.ResourceId
+            });
+
+            return result.ToActionResult(this);
+
+        }
     }
 }
