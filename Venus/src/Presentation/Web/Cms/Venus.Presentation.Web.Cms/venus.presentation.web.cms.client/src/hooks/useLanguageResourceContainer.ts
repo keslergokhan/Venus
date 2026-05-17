@@ -1,41 +1,44 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { ReadLanguageDto, ReadLanguageResourceKeyDto } from "../dtos";
 import { LanguageResourceService, LanguageService } from "../services";
 import { ToastHelper } from "../helpers";
+import { AppContext } from "../contexts/AppContext";
 
 export type UpdateLanguageResourceType = {
-    id:string;
-    value:string;
+    resourceId:string;
+    languageResourceValue:string;
 }
 
 interface useLanguageResourceContainerResult {
     languageResourceList:ReadLanguageResourceKeyDto[];
-    updateHandler:(data:ReadLanguageResourceKeyDto)=>Promise<void>
+    selectToUpdateResourceHandler:(data:ReadLanguageResourceKeyDto)=>Promise<void>
     refreshTable:()=>void
     showContainers:string[]
     setShowContainer:(keys:string[])=>void
+    languageList:ReadLanguageDto[],
     selectUpdateResourceKey:ReadLanguageResourceKeyDto|null;
+    updateResourceHandler:(data:UpdateLanguageResourceType)=>Promise<void>;
 }
 
 export const useLanguageResourceContainer = ():useLanguageResourceContainerResult =>{
 
     const [showContainers,setContainers] = useState<string[]>(["table"]);
-    const languageList = useRef<ReadLanguageDto[]>([]);
     const [languageResourceList,setLanguageResourceList] = useState<ReadLanguageResourceKeyDto[]>([]);
     const languageResourceService = new LanguageResourceService();
-    const languageService = new LanguageService();
-    const [selectUpdateResourceKey,setSelectUpdateResourceKey] = useState<ReadLanguageResourceKeyDto|null>(null); 
+    const [selectUpdateResourceKey,setSelectUpdateResourceKey] = useState<ReadLanguageResourceKeyDto|null>(null);
+    const appContext = useContext(AppContext);
 
     useEffect(()=>{
-        languageService.getLanguageAsync().then(x=>{
-           languageList.current = x;
-        });
         refreshTable();
-    },[]);
+    },[])
 
-    const updateHandler = async (data:ReadLanguageResourceKeyDto) =>{
+    const selectToUpdateResourceHandler = async (data:ReadLanguageResourceKeyDto) =>{
         setContainers(["update"]);
         setSelectUpdateResourceKey(data);
+    }
+
+    const updateResourceHandler = async (data:UpdateLanguageResourceType) =>{
+        console.log(data);
     }
 
     const refreshTable = ():void =>{
@@ -51,12 +54,16 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
         setContainers(keys);
     }
 
+    
+
     return {
+        languageList:appContext.languageState.languages,
         languageResourceList,
-        updateHandler,
+        selectToUpdateResourceHandler,
         refreshTable,
         setShowContainer,
         showContainers,
-        selectUpdateResourceKey
+        selectUpdateResourceKey,
+        updateResourceHandler
     };
 }

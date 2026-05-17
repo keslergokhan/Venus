@@ -5,7 +5,7 @@ import { CTableBodyRow, CTableHeaderComponent } from "../table/CTableComponentIt
 
 interface LanguageResourceTableComponentProps{
     languageResources:Array<ReadLanguageResourceKeyDto>;
-    updateHandler?:(data:ReadLanguageResourceKeyDto)=>Promise<void>
+    selectToUpdateResourceHandler?:(data:ReadLanguageResourceKeyDto)=>Promise<void>
 }
 
 export const LanguageResourceTableComponent = (props:LanguageResourceTableComponentProps) =>{
@@ -13,7 +13,7 @@ export const LanguageResourceTableComponent = (props:LanguageResourceTableCompon
     const baseProps = props;
     const row = (props:{index:number,data:ReadLanguageResourceKeyDto})=>{
         return (
-        <CTableBodyRow key={props.index} {...props} updateOnHandler={baseProps.updateHandler}>
+        <CTableBodyRow key={props.index} {...props} updateOnHandler={baseProps.selectToUpdateResourceHandler}>
             <TableCell>{props.data.key}</TableCell>
             <TableCell>{props.data.defaultValue?.substring(0,250)}{props.data.defaultValue?.length>250 && "..."}</TableCell>
         </CTableBodyRow>);

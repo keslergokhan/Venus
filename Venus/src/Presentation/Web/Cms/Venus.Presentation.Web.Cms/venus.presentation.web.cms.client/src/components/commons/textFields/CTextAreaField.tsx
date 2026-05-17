@@ -12,9 +12,12 @@ export const CTextAreaField = (props:CTextAreaFieldProps):JSX.Element =>{
         <div className="relative z-0 w-full group">
             <label className="block mb-2 text-sm font-medium text-gray-900 text-blue-950"></label>
             <textarea 
+                {...props.formRegister}
                 className={`${className}`}
+                value={props.value}
+                id={props.id}
                 defaultValue={props.value}
-                onBlur={(e) => console.log("Odak ayrıldı, değer:", e.target.value)}
+                placeholder={!props.placeholder ? "":props.placeholder}
             />
             {props.fieldErrors && <p className="text-red-500 text-sm mt-1">{props.fieldErrors.message}</p>}
         </div>

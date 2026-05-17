@@ -1,64 +1,101 @@
 import { useEffect, useState, type JSX } from "react";
-import type { ReadLanguageResourceKeyDto, ReadLanguageResourceValueDto } from "../../dtos";
-import { CButtonField, HtmlEditor } from "../commons";
+import type { ReadLanguageDto, ReadLanguageResourceKeyDto, ReadLanguageResourceValueDto } from "../../dtos";
+import { CButtonField, HtmlEditor, IconFlag } from "../commons";
 import { CTextAreaField } from "../commons";
 import z from "zod";
 import type { UpdateLanguageResourceType } from "../../hooks/useLanguageResourceContainer";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface LanguageResourceUpdateComponentProps{
     currentLangaugeResourceKey:ReadLanguageResourceKeyDto|null
+    languageList:ReadLanguageDto[]
+    updateResourceHandler:(data:UpdateLanguageResourceType)=>Promise<void>;
 }
 
 export const LanguageResourceUpdateComponent = (props:LanguageResourceUpdateComponentProps):JSX.Element =>{
     const [htmlSoruce,setHtmlSource] = useState<boolean>(false);
     const [currentLanguageResourceValue,setCurrentLanguageResourceValue] = useState<ReadLanguageResourceValueDto>();
-    useEffect(()=>{
+    const [language,setLanguage] = useState<ReadLanguageDto|null>(null);
 
+    useEffect(()=>{
+        const language = props.languageList.find(x=>x.culture=="tr-TR");
+        if(language){
+            setLanguage(language);
+        }
         if(props.currentLangaugeResourceKey){
-            const findLan = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == "47c696f8-5066-4094-a89f-6b52c9c24694");
-            console.log(props.currentLangaugeResourceKey);
-            if(findLan){
-                setCurrentLanguageResourceValue(findLan);
+            const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == "47c696f8-5066-4094-a89f-6b52c9c24694");
+            if(findResource){
+                setCurrentLanguageResourceValue(findResource);
+                setValue("languageResourceValue",findResource?.value);
+                setValue("languageResourceValue",findResource?.languageId);
             }
         }
-        
     },[]);
 
-    if(!props.currentLangaugeResourceKey){
-        return <>Yükleniyor...</>
-    }
+    useEffect(()=>{
+        const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == language?.id);
+        if(findResource){
+            setCurrentLanguageResourceValue(findResource);
+            setValue("languageResourceValue",findResource?.languageId);
+            setValue("languageResourceValue",findResource?.value);
+        }
+    },[language])
 
-    if(!currentLanguageResourceValue){
-        return <>Yükleniyor...</>
-    }
 
     const schema = z.object({
-        id:z.string().min(10,"id değeri formatı uygun değil"),
-        value:z.string()
+        resourceId:z.string().min(1,"id değeri formatı uygun değil"),
+        languageResourceValue:z.string(),
     });
 
     const defaultValue:UpdateLanguageResourceType = {
-        id:currentLanguageResourceValue.id,
-        value:currentLanguageResourceValue.value
+        resourceId:props.currentLangaugeResourceKey?.id ?? "",
+        languageResourceValue:""
     };
 
+    const setFlagClickHandler = (language:ReadLanguageDto) =>{
+        setLanguage(language);
+    }
+
+
+    const form = useForm<UpdateLanguageResourceType>({resolver:zodResolver(schema),defaultValues:defaultValue});
+    const {register,formState:{errors}} = form;
+    const {setValue} = form;
+
     return (<>
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full relative gap-2">
-            <div className="col-span-1 text-center">
-                <span className="fond-bold text-xl">{props.currentLangaugeResourceKey.key}</span>
-            </div>
-            <div className="flex col-span-1 gap-3">
-                <CButtonField disabled={htmlSoruce == false ? true:false} onClick={()=>{setHtmlSource(false)}}> Metin </CButtonField>
-                <CButtonField disabled={htmlSoruce == true ? true:false} onClick={()=>{setHtmlSource(true)}}> Zengin Metin </CButtonField>
-            </div>
-        </div>
-        <div className="top-2">
-            
-            {   htmlSoruce==false ?
-                <CTextAreaField value={currentLanguageResourceValue.value} name="resourceKeyValue" id="resourceKeyValue" ></CTextAreaField>
-                :
-                <HtmlEditor name="resourceKeyValue" ></HtmlEditor>
-            }
-        </div>
+        {!props.currentLangaugeResourceKey || !currentLanguageResourceValue ? 
+            <>Yükleniyor...</>
+            :<>
+                <div className="grid grid-cols-1 md:grid-cols-3 w-full relative gap-2">
+                    <div className="col-span-1 text-center">
+                            <span className="fond-bold text-xl">{props.currentLangaugeResourceKey.key}</span>
+                        </div>
+                        <div className="col-span-1 text-center flex gap-2 justify-end pt-2 text-lx">
+                            {props.languageList?.map((x,i)=>{
+                                return <span onClick={()=>{setFlagClickHandler(x)}} key={i} className="w-[100px] p-0 m-0 flex gap-1 cursor-pointer">
+                                        <IconFlag height={24} width={24} culture={x.culture}></IconFlag>
+                                        {x.name}
+                                    </span>
+                            })}
+                        </div>
+                        <div className="flex col-span-1 gap-3">
+                            <CButtonField disabled={htmlSoruce == false ? true:false} onClick={()=>{setHtmlSource(false)}}> Metin </CButtonField>
+                            <CButtonField disabled={htmlSoruce == true ? true:false} onClick={()=>{setHtmlSource(true)}}> Zengin Metin </CButtonField>
+                        </div>
+                    </div>
+                    <div className="top-2">
+                        <form onSubmit={form.handleSubmit(props.updateResourceHandler)}>
+                            <input hidden value={props.currentLangaugeResourceKey.id} {...form.register("resourceId")}></input>
+                            {   htmlSoruce==false ?
+                                <CTextAreaField name="languageResourceValue" id="languageResourceValue"  formRegister={form.register("languageResourceValue")} fieldErrors={errors.languageResourceValue} ></CTextAreaField>
+                                :
+                                <HtmlEditor name="languageResourceValue" control={form.control} ></HtmlEditor>
+                            }
+                            <CButtonField>Kaydet</CButtonField>
+                        </form>
+                        
+                    </div>
+            </>
+        }
     </>);
 }

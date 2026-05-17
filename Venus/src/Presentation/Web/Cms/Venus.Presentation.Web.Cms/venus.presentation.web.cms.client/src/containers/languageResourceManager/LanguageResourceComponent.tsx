@@ -6,11 +6,13 @@ const LanguageResourceComponent = ():JSX.Element =>{
 
     const {
         languageResourceList,
-        updateHandler,
+        selectToUpdateResourceHandler,
         setShowContainer,
         refreshTable,
         showContainers,
-        selectUpdateResourceKey
+        selectUpdateResourceKey,
+        languageList,
+        updateResourceHandler
     } = useLanguageResourceContainer();
 
     const isTable = showContainers.find(x=>x=="table")?true:false;3
@@ -28,10 +30,10 @@ const LanguageResourceComponent = ():JSX.Element =>{
         </div>
         <ZoneControlComponent className="mt-4" zoneKeys={showContainers}>
             <ZoneControlItem zoneKey="table">
-                <LanguageResourceTableComponent languageResources={languageResourceList} updateHandler={updateHandler} ></LanguageResourceTableComponent>
+                <LanguageResourceTableComponent languageResources={languageResourceList} selectToUpdateResourceHandler={selectToUpdateResourceHandler} ></LanguageResourceTableComponent>
             </ZoneControlItem>
             <ZoneControlItem zoneKey="update">
-                <LanguageResourceUpdateComponent currentLangaugeResourceKey={selectUpdateResourceKey} ></LanguageResourceUpdateComponent>
+                <LanguageResourceUpdateComponent updateResourceHandler={updateResourceHandler} languageList={languageList} currentLangaugeResourceKey={selectUpdateResourceKey} ></LanguageResourceUpdateComponent>
             </ZoneControlItem>
         </ZoneControlComponent>
        
