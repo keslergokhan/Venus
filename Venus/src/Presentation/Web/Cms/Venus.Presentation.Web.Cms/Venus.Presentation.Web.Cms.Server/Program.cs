@@ -1,5 +1,6 @@
 using Venus.Core.Application;
 using Venus.Core.Application.Middlewares;
+using Venus.Core.Application.Caching;
 using Venus.Infrastructure.Persistence;
 
 
@@ -11,6 +12,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddVenusApplicationServiceRegistration(builder.Configuration);
 builder.Services.AddVenusPersistenceServiceRegistration(builder.Configuration);
 builder.Services.AddVenusApplicationAuthenticationServiceRegistration(builder.Configuration);
+builder.Services.AddVenusMemoryCacheRegistration(builder.Configuration, TimeSpan.FromMinutes(30));
 
 builder.Services.AddControllers(options =>
 {

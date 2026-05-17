@@ -42,6 +42,7 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         public DbSet<VenusPageType> VenusPageType { get; set; }
         public DbSet<VenusUrl> VenusUrl { get; set; }
         public DbSet<VenusUser> VenusUser { get; set; }
+        public DbSet<VenusConfigurationSetting> VenusConfigurationSetting { get; set; }
         #endregion VenusSystems End
         public DbSet<Blog> Blog { get; set; }  
     }
