@@ -43,7 +43,13 @@ namespace Venus.Core.Application.Caching.Base
         {
             List<TDto> result = new List<TDto>();
             var keys = GetKeys();
-            
+
+            if (keys.Count == 0)
+            {
+                await DataCacheUploadAsync();
+                keys = GetKeys();
+            }
+
             foreach (var key in keys)
             {
                 var data = await CacheService.GetAsync<TDto>(key);

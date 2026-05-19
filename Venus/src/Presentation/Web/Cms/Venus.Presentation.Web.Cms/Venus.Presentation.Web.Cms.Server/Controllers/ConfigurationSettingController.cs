@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Caching.Interfaces;
+using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
@@ -8,22 +9,16 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
     [ApiController]
     public class ConfigurationSettingController : CmsApiControllerBase
     {
-        private readonly IVenusConfigurationSettingCacheManager _venusConfigurationSettingCacheManager;
-        private readonly IVenusLanguageResourceCacheManager _venusLanguageResourceCacheManager;
-
-        public ConfigurationSettingController(IVenusConfigurationSettingCacheManager venusConfigurationSettingCacheManager, IVenusLanguageResourceCacheManager venusLanguageResourceCacheManager)
-        {
-            _venusConfigurationSettingCacheManager = venusConfigurationSettingCacheManager;
-            _venusLanguageResourceCacheManager = venusLanguageResourceCacheManager;
-        }
 
       
-
         [HttpGet("get-all")]
-        public async Task<IActionResult> Set()
+        public async Task<IActionResult> GetAll()
         {
-            var varCacheData = await _venusConfigurationSettingCacheManager.GetAllAsync();
-            return Ok(varCacheData);
+            var result = await Mediator.Send(new Core.Application.Features.Cms.ConfigurationSettings.Queries.GetConfigurationSettingQuery()
+            {
+                Hidden = false
+            });
+            return result.ToActionResult(this);
         }
     }
 }
