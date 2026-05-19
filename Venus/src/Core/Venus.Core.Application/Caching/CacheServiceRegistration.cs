@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Caching.Base;
 using Venus.Core.Application.Caching.Interfaces;
+using Venus.Core.Application.Caching.Managers;
+using Venus.Core.Application.Caching.Services;
+using Venus.Core.Application.Dtos.Systems.Settings;
 
 namespace Venus.Core.Application.Caching
 {
@@ -17,7 +20,8 @@ namespace Venus.Core.Application.Caching
         {
             CacheServiceBase.DefaultExpiration = defaultExpiration;
             services.AddMemoryCache();
-            services.AddSingleton<ICacheService, MemoryCacheService>();
+            services.AddScoped<ICacheService, MemoryCacheService>();
+            services.AddScoped<IVenusConfigurationSettingCacheManager, VenusConfigurationSettingCacheManager>();
 
             services.AddMemoryCache(options =>
             {

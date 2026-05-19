@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Venus.Core.Application.Caching.Base;
 using Venus.Core.Application.Caching.Interfaces;
 
-namespace Venus.Core.Application.Caching
+namespace Venus.Core.Application.Caching.Services
 {
     public class MemoryCacheService : ICacheService
     {
