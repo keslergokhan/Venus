@@ -7,7 +7,7 @@ using Venus.Core.Application.Dtos.Systems.Localizations;
 
 namespace Venus.Core.Application.Caching.Interfaces
 {
-    public interface IVenusLanguageResourceCacheManager : ICacheManager<ReadVenusLanguageResourceKeyDto,string>, ICacheManagerUpload
+    public interface IVenusLanguageResourceCacheManager : IAdvancedCacheManager<ReadVenusLanguageResourceKeyDto,string>
     {
     }
 }

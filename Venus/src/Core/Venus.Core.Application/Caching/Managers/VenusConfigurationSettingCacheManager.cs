@@ -12,7 +12,7 @@ using Venus.Core.Application.Repositories.Interfaces.Systems;
 
 namespace Venus.Core.Application.Caching.Managers
 {
-    public class VenusConfigurationSettingCacheManager : CacheManagerBase<ReadVenusConfigurationSettingDto,string>, IVenusConfigurationSettingCacheManager
+    public class VenusConfigurationSettingCacheManager : BasicCacheManagerBase<ReadVenusConfigurationSettingDto, string>, IVenusConfigurationSettingCacheManager
     {
         private readonly IVenusConfigurationSettingRepository _venusConfigurationSettingRepository;
         private readonly IMapper _mapper;
@@ -23,14 +23,14 @@ namespace Venus.Core.Application.Caching.Managers
             _mapper = mapper;
         }
 
-        public override Func<ReadVenusConfigurationSettingDto, string> GetKeyProperty => x => $"{x.Key}";
+        public override Func<ReadVenusConfigurationSettingDto, string> GetKeyProperty => x => x.Key;
+
 
         public override async Task DataCacheUploadAsync()
         {
             var allData = await _venusConfigurationSettingRepository.GetAllAsync(x=>x.State == (int)EntityStateEnum.Online);
             await base.SetAllAsync(_mapper.Map<List<ReadVenusConfigurationSettingDto>>(allData));
         }
-
         
     }
 }

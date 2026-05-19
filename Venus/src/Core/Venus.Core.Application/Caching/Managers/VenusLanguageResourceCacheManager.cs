@@ -11,7 +11,7 @@ using Venus.Core.Application.Repositories.Interfaces.Systems;
 
 namespace Venus.Core.Application.Caching.Managers
 {
-    public class VenusLanguageResourceCacheManager : CacheManagerBase<ReadVenusLanguageResourceKeyDto, string>, IVenusLanguageResourceCacheManager
+    public class VenusLanguageResourceCacheManager : AdvancedCacheManagerBase<ReadVenusLanguageResourceKeyDto, string>, IVenusLanguageResourceCacheManager
     {
         private readonly IVenusLanguageResourceKeyRepository _venusLanguageResourceKeyRepository;
         private readonly IMapper _mapper;
@@ -22,6 +22,12 @@ namespace Venus.Core.Application.Caching.Managers
         }
 
         public override Func<ReadVenusLanguageResourceKeyDto, string> GetKeyProperty => x => x.Key;
+
+        protected override Func<string, Task<ReadVenusLanguageResourceKeyDto>> DataRefreshSourceAction => async (string key) =>
+        {
+            var data = await _venusLanguageResourceKeyRepository.GetLanguageResourceKeyByKeyAsync(key);
+            return _mapper.Map<ReadVenusLanguageResourceKeyDto>(data);
+        };
 
         public override async Task DataCacheUploadAsync()
         {

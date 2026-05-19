@@ -24,5 +24,10 @@ namespace Venus.Infrastructure.Persistence.Repositories
                 .Include(x=>x.ResourceValue)
                 .Where(x=>x.State != (int)EntityStateEnum.Deleted).OrderBy(x=>x.Key).ToListAsync();
         }
+
+        public Task<VenusLanguageResourceKey> GetLanguageResourceKeyByKeyAsync(string key)
+        {
+            return GetTable().Include(x=>x.ResourceValue).Where(x => x.State != (int)EntityStateEnum.Deleted && x.Key == key).FirstOrDefaultAsync();
+        }
     }
 }

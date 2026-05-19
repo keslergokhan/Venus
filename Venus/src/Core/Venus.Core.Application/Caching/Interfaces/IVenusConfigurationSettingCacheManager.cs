@@ -7,7 +7,7 @@ using Venus.Core.Application.Dtos.Systems.Settings;
 
 namespace Venus.Core.Application.Caching.Interfaces
 {
-    public interface IVenusConfigurationSettingCacheManager : ICacheManager<ReadVenusConfigurationSettingDto, string>, ICacheManagerUpload
+    public interface IVenusConfigurationSettingCacheManager : IBasicCacheManager<ReadVenusConfigurationSettingDto, string>
     {
     }
 }
