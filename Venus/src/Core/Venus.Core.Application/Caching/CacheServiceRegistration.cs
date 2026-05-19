@@ -29,6 +29,7 @@ namespace Venus.Core.Application.Caching
                 options.ExpirationScanFrequency = TimeSpan.FromMinutes(5);
             });
 
+            services.AddHostedService<CacheWarmupService>();
             return services;
         }
     }

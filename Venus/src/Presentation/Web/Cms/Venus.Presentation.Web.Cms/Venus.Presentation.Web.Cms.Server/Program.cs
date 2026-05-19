@@ -12,7 +12,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddVenusApplicationServiceRegistration(builder.Configuration);
 builder.Services.AddVenusPersistenceServiceRegistration(builder.Configuration);
 builder.Services.AddVenusApplicationAuthenticationServiceRegistration(builder.Configuration);
-builder.Services.AddVenusMemoryCacheRegistration(builder.Configuration, TimeSpan.FromMinutes(30));
+builder.Services.AddVenusMemoryCacheRegistration(builder.Configuration, TimeSpan.FromMinutes(10));
 
 builder.Services.AddControllers(options =>
 {
@@ -62,7 +62,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
-
-app.AddApplicationCacheManager();
 
 app.Run();
