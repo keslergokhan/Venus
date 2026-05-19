@@ -17,5 +17,7 @@ namespace Venus.Core.Application.Caching.Interfaces
         Task<TDto> GetAsync(string key);
         Task SetAsync(TDto value);
         Task RemoveAsync(TDto value);
+        public Task<List<TDto>> GetAllAsync();
+        public HashSet<string> GetKeys();
     }
 }

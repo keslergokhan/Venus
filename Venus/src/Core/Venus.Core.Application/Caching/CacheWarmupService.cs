@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Caching.Base;
 using Venus.Core.Application.Caching.Interfaces;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Venus.Core.Application.Caching
 {
@@ -40,7 +39,8 @@ namespace Venus.Core.Application.Caching
         {
             var cacheManagerList = new List<Type>()
             {
-                typeof(IVenusConfigurationSettingCacheManager)
+                typeof(IVenusConfigurationSettingCacheManager),
+                typeof(IVenusLanguageResourceCacheManager)
             };
 
             foreach (var itemType in cacheManagerList)

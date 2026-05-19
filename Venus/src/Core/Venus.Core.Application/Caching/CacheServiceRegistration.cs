@@ -1,16 +1,9 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Venus.Core.Application.Caching.Base;
 using Venus.Core.Application.Caching.Interfaces;
 using Venus.Core.Application.Caching.Managers;
 using Venus.Core.Application.Caching.Services;
-using Venus.Core.Application.Dtos.Systems.Settings;
 
 namespace Venus.Core.Application.Caching
 {
@@ -22,6 +15,7 @@ namespace Venus.Core.Application.Caching
             services.AddMemoryCache();
             services.AddScoped<ICacheService, MemoryCacheService>();
             services.AddScoped<IVenusConfigurationSettingCacheManager, VenusConfigurationSettingCacheManager>();
+            services.AddScoped<IVenusLanguageResourceCacheManager, VenusLanguageResourceCacheManager>();
 
             services.AddMemoryCache(options =>
             {

@@ -11,11 +11,13 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
     {
         private readonly ICacheService cacheService;
         private readonly IVenusConfigurationSettingCacheManager venusConfigurationSettingCacheManager;
+        private readonly IVenusLanguageResourceCacheManager venusLanguageResourceCacheManager;
 
-        public ConfigurationSettingController(ICacheService cacheService, IVenusConfigurationSettingCacheManager venusConfigurationSettingCacheManager)
+        public ConfigurationSettingController(ICacheService cacheService, IVenusConfigurationSettingCacheManager venusConfigurationSettingCacheManager, IVenusLanguageResourceCacheManager venusLanguageResourceCacheManager)
         {
             this.cacheService = cacheService;
             this.venusConfigurationSettingCacheManager = venusConfigurationSettingCacheManager;
+            this.venusLanguageResourceCacheManager = venusLanguageResourceCacheManager;
         }
 
         [HttpPost("add")]
@@ -28,9 +30,9 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         [HttpGet("get")]
         public async Task<IActionResult> Set()
         {
-            var rrr = await venusConfigurationSettingCacheManager.GetAsync("test.2");
-            var sss = await cacheService.GetAsync("config_setting");
-            return Ok(sss);
+            var varCacheData = await venusConfigurationSettingCacheManager.GetAllAsync();
+            var language = await venusLanguageResourceCacheManager.GetAllAsync();
+            return Ok(varCacheData);
         }
     }
 }
