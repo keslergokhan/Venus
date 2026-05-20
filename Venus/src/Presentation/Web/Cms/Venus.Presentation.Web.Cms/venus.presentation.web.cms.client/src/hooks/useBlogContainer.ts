@@ -26,8 +26,8 @@ export type UpdateBlogType = {
 interface useBlogContainerResult{
     blogs:Array<ReadBlogDto>;
     removeHandler:(data:ReadBlogDto)=>Promise<void>;
-    updateSelectHandler:(data:ReadBlogDto)=>Promise<void>;
     addHandler:(data:CreateBlogType)=>Promise<void>;
+    updateSelectHandler:(data:ReadBlogDto)=>Promise<void>;
     setShowContainer:(data:string[])=>void;
     refreshTable:()=>void;
     showContainer:string[];
@@ -37,7 +37,7 @@ interface useBlogContainerResult{
     blogPage:ReadPageDto;
 }
 
-export const useBlogContainer = ():useBlogContainerResult =>{
+export function useBlogContainer():useBlogContainerResult {
     var blogService = new BlogService();
     const [containers,setContainer] = useState<string[]>(["table"]);
     const blogs = useRef<ReadBlogDto[]>([]);
@@ -55,14 +55,14 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * Aktif container belirleme
      * @param data 
      */
-    const setShowContainer = (data:string[])=>{
+    function setShowContainer(data:string[]) {
         setContainer(data);
     }
     
     /**
      * Tablo verilerini yeniden getir.
      */
-    const refreshTable = ():void=>{
+    function refreshTable():void {
         ToastHelper.Success("Yenilendi");
         blogService.getBlogs().then(x=>{
             blogs.current = x;
@@ -76,7 +76,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * İlgili veriyi temizle.
      * @param data
      */
-    const removeHandler = async (data:ReadBlogDto) =>{
+    async function removeHandler(data:ReadBlogDto) {
         appContext.confirmModalAction({action:"Show",approvalHandler:()=>{
 
             blogService.removeBlog(data.id).then(x=>{
@@ -88,7 +88,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         }});
     }
 
-    const getBlogPage = async () => {
+    async function getBlogPage(){
         try{
             blogPage.current = await blogService.getBlogPage();
         }catch(err){
@@ -96,7 +96,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         }
     }
 
-    const getBlogById = async (id:string) =>{
+    async function getBlogById(id:string) {
 
         if(selectUpdateBlog !=null && selectUpdateBlog.id == id){
             return;
@@ -119,7 +119,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * Seçilen satırı güncelle
      * @param data 
      */
-    const updateSelectHandler = async (data:ReadBlogDto)=>{
+    async function updateSelectHandler(data:ReadBlogDto):Promise<void>{
         setContainer(["update"]);
         getBlogById(data.id);
     }
@@ -127,7 +127,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
     /**
      * Mevcut bloke güncelleme
      */
-    const updateHandler = async (data:UpdateBlogType)=>{
+    async function updateHandler(data:UpdateBlogType) {
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
         await blogService.updateBlog(blogRequest).then(x=>{
             ToastHelper.Success(`${x.title} güncellendi.`);
@@ -140,7 +140,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
      * Yeni blog ekleme
      * @param data 
      */
-    const addHandler = async (data:CreateBlogType)=>{
+    async function addHandler(data:CreateBlogType) {
      
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
         blogService.addBlog(blogRequest).then(x=>{
@@ -154,7 +154,7 @@ export const useBlogContainer = ():useBlogContainerResult =>{
         });
     }
 
-    const toggleStateHandler = async (id:string) =>{ 
+    async function toggleStateHandler(id:string) { 
         await blogService.toggleState(id).then(x=>{
             refreshTable();
         }).catch(x=>{

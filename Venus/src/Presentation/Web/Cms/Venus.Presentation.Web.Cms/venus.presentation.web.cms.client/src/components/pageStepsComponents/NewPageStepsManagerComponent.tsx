@@ -43,7 +43,7 @@ export interface NewPageStepsManagerComponentProps{
     stepData:StepData
 }
 
-export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =>{
+export function NewPageStepsComponent(props:NewPageStepsManagerComponentProps){
 
     const findStep = props.Steps.find(x=>x.Key=="step_1");
     const [currentStep,setCurrentStep] = useState<Step | undefined>(findStep);
@@ -56,11 +56,11 @@ export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =
         }
     );
 
-    const tabOnClickHandler = (x:Step) =>{
+    function tabOnClickHandler(x:Step){
         setCurrentStep(x)
     }
 
-    const nextStep = (key:string)=>{
+    function nextStep(key:string) {
         setCurrentStep(props.Steps.find(x=>x.Key == key));
     }
 
@@ -68,7 +68,7 @@ export const NewPageStepsComponent = (props:NewPageStepsManagerComponentProps) =
         x.NextStep = nextStep;
     })
 
-    const StepBarItem = ({ step, index }: { step: Step; index: number }) => {
+    function StepBarItem({ step, index }: { step: Step; index: number }){
         const activeClass = (currentStep?.Key == step.Key) 
         ? "bg-blue-700 "
         :"bg-gray-400 ";

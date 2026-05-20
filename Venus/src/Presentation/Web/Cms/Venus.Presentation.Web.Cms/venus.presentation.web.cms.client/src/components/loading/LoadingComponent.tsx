@@ -1,5 +1,4 @@
 import { Spinner } from "flowbite-react";
-import type { JSX } from "react"
 
 export interface LoadingComponentProps{
     loading: boolean;
@@ -9,7 +8,7 @@ export interface LoadingComponentProps{
     class?:string;
 }
 
-export const LoadingComponent = (props:LoadingComponentProps):JSX.Element =>{
+export function LoadingComponent(props:LoadingComponentProps){
     if (props.loading) {
             return (
             <div className={`${(props.class!==undefined && props.class)} relative`} >

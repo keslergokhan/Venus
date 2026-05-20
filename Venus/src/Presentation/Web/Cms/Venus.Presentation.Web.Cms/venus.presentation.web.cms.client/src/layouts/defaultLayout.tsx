@@ -1,9 +1,9 @@
-import { useContext, useEffect, type JSX } from "react";
+import { type JSX } from "react";
 import { Outlet } from "react-router-dom";
 import { useAuthentication } from "../hooks";
 import { HeaderContainer } from "../containers";
 import { FileManagerComponent } from "../components";
-const DefaultLayout = (): JSX.Element => {
+function DefaultLayout(): JSX.Element {
     
     const authentication = useAuthentication();
     

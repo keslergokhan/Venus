@@ -13,7 +13,7 @@ interface LanguageResourceUpdateComponentProps{
     updateResourceHandler:(data:UpdateLanguageResourceType)=>Promise<void>;
 }
 
-export const LanguageResourceUpdateComponent = (props:LanguageResourceUpdateComponentProps):JSX.Element =>{
+export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComponentProps){
     const [htmlSoruce,setHtmlSource] = useState<boolean>(false);
     const [currentLanguageResourceValue,setCurrentLanguageResourceValue] = useState<ReadLanguageResourceValueDto>();
     const [language,setLanguage] = useState<ReadLanguageDto|null>(null);
@@ -59,7 +59,7 @@ export const LanguageResourceUpdateComponent = (props:LanguageResourceUpdateComp
         languageId:""
     };
 
-    const setFlagClickHandler = (language:ReadLanguageDto) =>{
+    function setFlagClickHandler(language:ReadLanguageDto){
         setLanguage(language);
     }
 

@@ -21,7 +21,7 @@ interface useLanguageResourceContainerResult {
     updateResourceHandler:(data:UpdateLanguageResourceType)=>Promise<void>;
 }
 
-export const useLanguageResourceContainer = ():useLanguageResourceContainerResult =>{
+export function useLanguageResourceContainer():useLanguageResourceContainerResult {
 
     const [showContainers,setContainers] = useState<string[]>(["table"]);
     const [languageResourceList,setLanguageResourceList] = useState<ReadLanguageResourceKeyDto[]>([]);
@@ -33,12 +33,12 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
         refreshTable();
     },[])
 
-    const selectToUpdateResourceHandler = async (data:ReadLanguageResourceKeyDto) =>{
+    async function selectToUpdateResourceHandler(data:ReadLanguageResourceKeyDto) {
         setContainers(["update"]);
         setSelectUpdateResourceKey(data);
     }
 
-    const updateResourceHandler = async (data:UpdateLanguageResourceType) =>{
+    async function updateResourceHandler(data:UpdateLanguageResourceType) {
         await languageResourceService.updateLanguageResource(
             {
                 LanguageId:data.languageId,
@@ -50,7 +50,7 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
             });
     }
 
-    const refreshTable = ():void =>{
+    function refreshTable():void{
         languageResourceService.getLanguageResourceAndValue().then(x=>{
             setLanguageResourceList(x);
             ToastHelper.Success("Veri yenilendi.");
@@ -59,7 +59,7 @@ export const useLanguageResourceContainer = ():useLanguageResourceContainerResul
         });
     }
 
-    const setShowContainer = (keys:string[]):void=>{
+    function setShowContainer(keys:string[]):void{
         setContainers(keys);
     }
 

@@ -1,4 +1,3 @@
-import type { JSX, JSXElementConstructor } from "react";
 
 /**
  * 
@@ -19,7 +18,7 @@ export type ConfirmModalReducerState = {
     body:React.ReactNode
 }
 
-export const ConfirmModalReducer = (state:ConfirmModalReducerState,action:ConfirmModalReducerAction):ConfirmModalReducerState => {
+export function ConfirmModalReducer(state:ConfirmModalReducerState,action:ConfirmModalReducerAction):ConfirmModalReducerState {
     const modalState = action.action;
     const defaultTitle = "Dikkat !";
     const defaultBody = "Silmek istediğinize emin misiniz ?";

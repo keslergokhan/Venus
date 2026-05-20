@@ -5,7 +5,7 @@ import type { ReadLanguageDto } from "../dtos";
 import { ToastHelper } from "../helpers";
 
 
-export const useMenuLanguage = ():{onChangeEvent:(languageCulture:string)=>void,languages:Array<ReadLanguageDto>,currentLanguage:string} =>{
+export function useMenuLanguage():{onChangeEvent:(languageCulture:string)=>void,languages:Array<ReadLanguageDto>,currentLanguage:string} {
     const languageService = new LanguageService();
     const [langaugeList,setLanguageList] = useState<Array<ReadLanguageDto>>(new Array<ReadLanguageDto>());
     const [language,setLanguage] = useState<string>("Türkçe");
@@ -23,7 +23,7 @@ export const useMenuLanguage = ():{onChangeEvent:(languageCulture:string)=>void,
         
     },[]);
 
-    const languageOnChangeEvent = (language:string)=>{
+    function languageOnChangeEvent(language:string) {
         const selectLanguage = appContext.languageState.languages.find(x=>x.culture == language);
         if(selectLanguage){
             appContext.languageAction({type:"SetLanguage",language:language})

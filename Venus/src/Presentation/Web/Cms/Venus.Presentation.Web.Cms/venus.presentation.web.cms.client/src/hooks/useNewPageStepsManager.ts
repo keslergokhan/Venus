@@ -6,7 +6,7 @@ import { PageTypeManagerService } from "../services";
 import { ToastHelper } from "../helpers";
 
 
-export const useNewPageStepsManager = ():{Steps:Step[],loading:boolean,stepData:StepData} =>{
+export function useNewPageStepsManager():{Steps:Step[],loading:boolean,stepData:StepData} {
 
     const [loading,setLoading] = useState<boolean>(true);
     const pageAboutList = useRef<ReadPageAboutDto[]>(new Array<ReadPageAboutDto>());

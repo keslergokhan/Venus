@@ -9,9 +9,9 @@ export interface PageAboutCheckListComponentProps {
 }  
 
  
-export const PageAboutCheckListComponent = (props:PageAboutCheckListComponentProps) =>{
+export function PageAboutCheckListComponent(props:PageAboutCheckListComponentProps){
 
-    const PageAboutItemJsx = ({item}:{item:ReadPageAboutDto}):JSX.Element =>{
+    function PageAboutItemJsx({item}:{item:ReadPageAboutDto}){
         return (
             <div className="col-span-12 md:col-span-3 border py-2 px-2 border-gray-200 min-h-[100px] shadow-lg block bg-gray-300 rounded-xl ">
                 <div className="text-lx text-base font-bold flex justify-center">

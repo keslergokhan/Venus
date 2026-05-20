@@ -8,7 +8,7 @@ export enum PageRoute {
     LanguageResource="/languagekey-manager"
 }
 
-export const useCustomNavigate = (): [(route: PageRoute)=>void] => {
+export function useCustomNavigate(): [(route: PageRoute)=>void] {
     const navigate = useNavigate();
 
     const navigateHandler = (route: PageRoute) => {

@@ -10,7 +10,7 @@ export interface AuthenticationReducerState {
     isAuth: boolean;
 }
 
-export const AuthenticationReducer = (state: AuthenticationReducerState,action: AuthenticationReducerAction): AuthenticationReducerState => {
+export function AuthenticationReducer(state: AuthenticationReducerState,action: AuthenticationReducerAction): AuthenticationReducerState {
 
     const actionType = action.type;
 

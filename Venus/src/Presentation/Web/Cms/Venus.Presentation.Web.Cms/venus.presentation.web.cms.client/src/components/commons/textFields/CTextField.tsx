@@ -8,7 +8,7 @@ export interface CTextFieldProps extends InputPropsBase {
 }
 
 
-export const CTextField = (props: CTextFieldProps): JSX.Element => {
+export function CTextField(props: CTextFieldProps){
 
     let className = `bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-primary-300 focus:outline-none block w-full p-2.5 ${props.className} `;
     

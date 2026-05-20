@@ -1,10 +1,9 @@
-import type { JSX } from "react"
 import { AppContext } from "../../contexts/AppContext";
 import { useContext } from "react";
 import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
 import { IconWarning } from "../commons";
 
-export const ConfirmModal = () :JSX.Element =>{
+export function ConfirmModal(){
     const appContext = useContext(AppContext);
 
     return (

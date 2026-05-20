@@ -3,7 +3,7 @@ import { UpdateBlogComponent } from "../../components/blogManager/UpdateBlogComp
 import { useBlogContainer } from "../../hooks";
 
 
-const BlogContainer = () =>{
+function BlogContainer(){
     
     const {
         blogs,

@@ -3,7 +3,7 @@ import { DynamicPropertiesComponentEnum, type DynamicPropertiesComponentProps } 
 import { CTextField, HtmlEditor } from "../commons";
 
 
-export const DynamicPropertiesComponent = <T extends FieldValues>(props:DynamicPropertiesComponentProps<T>) =>{
+export function DynamicPropertiesComponent<T extends FieldValues>(props:DynamicPropertiesComponentProps<T>){
 
     const {
         register,

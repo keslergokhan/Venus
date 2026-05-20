@@ -10,7 +10,7 @@ export class FileManagerContextProps {
 export const FileManagerContext = createContext(new FileManagerContextProps());
 
 
-export const FileManagerContextProvider = ({ children }: { children: React.ReactNode }):JSX.Element =>{
+export function FileManagerContextProvider({ children }: { children: React.ReactNode }):JSX.Element{
 
     const fileManagerReducerState:FileManagerReducerState = {
         fileManagerModal:false,

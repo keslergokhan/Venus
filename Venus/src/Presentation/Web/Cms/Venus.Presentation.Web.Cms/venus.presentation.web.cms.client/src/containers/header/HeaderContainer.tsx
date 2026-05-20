@@ -1,6 +1,6 @@
 import { MenuComponent } from "../../components"
 
-const HeaderContainer = () => {
+function HeaderContainer(){
     
 
     

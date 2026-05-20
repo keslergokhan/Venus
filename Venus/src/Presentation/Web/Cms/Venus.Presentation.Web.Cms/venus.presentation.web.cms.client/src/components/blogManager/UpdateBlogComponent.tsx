@@ -26,7 +26,7 @@ export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<UpdateBl
     }
 ];
 
-export const UpdateBlogComponent = (props:UpdateBlogComponentProps) =>{
+export function UpdateBlogComponent(props:UpdateBlogComponentProps){
     const blog = props.currentUpdateBlog;
 
     if(blog==null){

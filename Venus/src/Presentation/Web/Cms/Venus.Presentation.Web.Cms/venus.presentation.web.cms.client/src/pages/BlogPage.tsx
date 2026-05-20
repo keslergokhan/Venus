@@ -1,6 +1,6 @@
 import { BlogContainer } from "../containers"
 
-export const BlogPage = ()=>{
+export function BlogPage(){
     return (
         <BlogContainer></BlogContainer>
     )

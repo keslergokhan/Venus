@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { ConfigurationSettingService } from "../services";
 
 
-export const useConfigurationSettings = ()=>{
+export function useConfigurationSettings() {
 
     useEffect(()=>{
         const configurationSetting = new ConfigurationSettingService();

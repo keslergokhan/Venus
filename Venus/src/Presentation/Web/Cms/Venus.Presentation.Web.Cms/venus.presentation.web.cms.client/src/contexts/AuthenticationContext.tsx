@@ -1,5 +1,4 @@
 import { createContext, useReducer } from "react";
-import type { JSX } from "react/jsx-runtime";
 import { AuthenticationReducer, type AuthenticationReducerAction, type AuthenticationReducerState } from "../reducers/AuthenticationReducer";
 import { LanguageReducerReducer, type LanguageReducerAction, type LanguageReducerState } from "../reducers/LanguageReducer";
 
@@ -14,7 +13,7 @@ export class AuthenticationContextProps {
 
 export const AuthenticationContext = createContext<AuthenticationContextProps>(new AuthenticationContextProps());
 
-export const AuthenticationContextProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+export function AuthenticationContextProvider({ children }: { children: React.ReactNode }){
 
     const authReducerState: AuthenticationReducerState = {
         isAuth: false,
@@ -23,6 +22,7 @@ export const AuthenticationContextProvider = ({ children }: { children: React.Re
 
     const languageReducerState:LanguageReducerState = {
         language:"tr-TR",
+        languages:[]
     }
 
     const [authState, authdispatch] = useReducer(AuthenticationReducer, authReducerState);

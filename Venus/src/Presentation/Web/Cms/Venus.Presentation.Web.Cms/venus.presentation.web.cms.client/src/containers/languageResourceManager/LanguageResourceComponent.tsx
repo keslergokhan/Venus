@@ -1,8 +1,7 @@
-import type { JSX } from "react";
 import { CButtonField, LanguageResourceTableComponent, LanguageResourceUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
 import { useLanguageResourceContainer } from "../../hooks";
 
-const LanguageResourceComponent = ():JSX.Element =>{
+function LanguageResourceComponent() {
 
     const {
         languageResourceList,

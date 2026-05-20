@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, type JSX } from "react";
 import type { useUrlPathControlResult } from "../../../hooks";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
@@ -10,9 +9,9 @@ export interface UrlInputFieldProps {
     fieldErrors?:FieldError,
 }
 
-export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
+export function UrlInputField(props:UrlInputFieldProps){
 
-    const toUrlFormat = (text: string): string => {
+    function toUrlFormat(text: string): string{
         if (!text) return "/";
       
         let formatted = text
@@ -42,12 +41,12 @@ export const UrlInputField = (props:UrlInputFieldProps):JSX.Element => {
         return formatted;
     };
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    function handleChange(e:React.ChangeEvent<HTMLInputElement>){
         props.useUrlPathControl.setValue(toUrlFormat(e.target.value));
         props.formRegister?.onChange(e);
     };
 
-    const onBlur = (e:React.FocusEvent<HTMLInputElement>) =>{
+    function onBlur(e:React.FocusEvent<HTMLInputElement>){
         props.useUrlPathControl.checkUrlHandler();
     }
     

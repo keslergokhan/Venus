@@ -1,6 +1,6 @@
 import { NewPageStepsContainer } from "../containers/pageManager/NewPageStepsContainer";
 
-const PageManagerPage = () =>{
+function PageManagerPage(){
     
     return (
         <>

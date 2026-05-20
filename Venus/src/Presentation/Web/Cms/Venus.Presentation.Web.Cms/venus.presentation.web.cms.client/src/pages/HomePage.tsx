@@ -1,7 +1,6 @@
-import { type JSX } from "react";
 import { HomeContainer } from "../containers";
 
-const HomePage = (): JSX.Element => {
+function HomePage (){
    
     return (
         <HomeContainer></HomeContainer>

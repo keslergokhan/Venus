@@ -7,7 +7,6 @@ import { FileManagerService } from "../../services";
 import { FileManagerGetFolderRes } from "../../models";
 import { ToastHelper } from "../../helpers";
 import { LoadingComponent } from "../loading/LoadingComponent";
-import { AppContext } from "../../contexts/AppContext";
 import { CSmButtonField } from "../commons";
 import type { ReadFileDto, ReadFolderDto } from "../../dtos";
 import { FileManagerContext } from "../../contexts/FileManagerContext";
@@ -21,7 +20,7 @@ interface FileItem{
     state:"uploadStart"|"pending"|"loaded";
 }
 
-export const FileManagerComponent = (): JSX.Element => {
+export function FileManagerComponent() {
     const fileManagerService = new FileManagerService;
     const fileManagerContext = useContext(FileManagerContext);
     const [loading,setLoading] = useState<boolean>(false);
@@ -40,7 +39,7 @@ export const FileManagerComponent = (): JSX.Element => {
     /**
      * Mevcut dizini temizle
      */
-    const currentClearPath = () =>{
+    function currentClearPath(){
         currentPath.current = [""];
     }
 
@@ -49,7 +48,7 @@ export const FileManagerComponent = (): JSX.Element => {
      * @param fileName Mevcut dizine dosya adı dahilet
      * @returns 
      */
-    const getFullPath = (fileName?:string):string => {
+    function getFullPath(fileName?:string){
         let fullPath:string = "";
         currentPath.current.forEach(x=>{
             fullPath +=(x==""?"":"/")+x;
@@ -66,7 +65,7 @@ export const FileManagerComponent = (): JSX.Element => {
     /**
      * Mevcut dizinin dosya ve klasörlerini getir.
      */
-    const getFolderAndFileAsync = async ():Promise<void> =>{
+    async function getFolderAndFileAsync():Promise<void>{
         setLoading(true);
         await fileManagerService.getFoldersAsync({path:getFullPath()}).then(x=>{
             folderAndFileData.current = new FileManagerGetFolderRes(x.files as Array<ReadFileDto>,x.folders as Array<ReadFolderDto>);
@@ -81,7 +80,7 @@ export const FileManagerComponent = (): JSX.Element => {
      * Seçilen dosyanın içerisine gir.
      * @param data 
      */
-    const folderOpenClickPathHandlerAsync = async (data:ReadFolderDto) =>{
+    async function folderOpenClickPathHandlerAsync(data:ReadFolderDto){
         currentPath.current = [...currentPath.current,data.name];
         await getFolderAndFileAsync();
     }
@@ -89,7 +88,7 @@ export const FileManagerComponent = (): JSX.Element => {
     /**
      * Mevcut dosyadan geri çık
      */
-    const folderBackClickHandlerAsync = async () =>{
+    async function folderBackClickHandlerAsync():Promise<void> {
         currentPath.current.pop();
         await getFolderAndFileAsync();
     }
@@ -98,14 +97,14 @@ export const FileManagerComponent = (): JSX.Element => {
      * FileManager Dosyayı seç.
      * @param data 
      */
-    const selectFileClickHandlerAsync = async (data:ReadFileDto) =>{
+    async function selectFileClickHandlerAsync(data:ReadFileDto) {
         currentClearPath();
         fileManagerContext.fileManagerState.selectFileEvent(data);
         fileManagerContext.fileManagerAction({type:"FileManagerModal",state:false});
     }
 
     /** Dosya yöneticisi dosya sil */
-    const removeClickHandlerAsync = async (data:ReadFileDto) =>{
+    async function removeClickHandlerAsync(data:ReadFileDto) {
 
         await fileManagerService.removeFileAsync({path:data.filePath}).then(x=>{
             ToastHelper.Success(`${data.fileName} silindi !`);
@@ -123,7 +122,7 @@ export const FileManagerComponent = (): JSX.Element => {
      * @param item 
      * @returns 
      */
-    const FolderItemJsx = (item:ReadFolderDto) =>{
+    function FolderItemJsx(item:ReadFolderDto){
         return (
             <li onClick={async ()=>{await folderOpenClickPathHandlerAsync(item)}}>
                 <a href="#" className="flex border-gray-400 border-1 rounded-lg text-gray-800 pl-5 items-center p-1 rounded-base group">
@@ -140,7 +139,7 @@ export const FileManagerComponent = (): JSX.Element => {
      * @param item 
      * @returns 
      */
-    const FileItemJsx = (item:ReadFileDto) => {
+    function FileItemJsx(item:ReadFileDto){
         return (
             <li className="border-gray-400 border-1 rounded-lg"  >
                 <div className="grid grid-cols-10">
@@ -217,7 +216,7 @@ interface FileManagerUploadComponentProps{
     getFolderAndFileAsync:()=>Promise<void>
 }
 
-const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.Element =>{
+function FileManagerUploadComponent(props:FileManagerUploadComponentProps){
     const fileManagerService = props.fileManagerService;
     /** Yüklenmek için seçilen dosya lisesi */
     const selectedFiles = useRef<Array<FileItem>>([]);
@@ -255,7 +254,7 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
     },[uploadedFiles])
    
     /** Yükleme işlemini başlat */
-    const uploadStartClickHandlerAsync = async () =>{
+    async function uploadStartClickHandlerAsync():Promise<void>{
         
         const newList = new Array<FileItem>();
         selectedFiles.current.forEach(item => {
@@ -271,7 +270,7 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
      * Yüklenecek dosyalar seçildiğinde
      * @param e 
      */
-    const uploadFileInputonChangeHandlerAsync = async (e:React.ChangeEvent<HTMLInputElement>) =>{
+    async function uploadFileInputonChangeHandlerAsync(e:React.ChangeEvent<HTMLInputElement>):Promise<void>{
         setLoading(true);
         const inputSelectedFileList = e.target.files as FileList;
         if(inputSelectedFileList.length >= 0){
@@ -288,7 +287,7 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
     /**
      * Dosya yükleme inputunu aktif etme
      */
-    const uploadFileButtonClickHandlerAsync = async () =>{
+    async function uploadFileButtonClickHandlerAsync():Promise<void>{
         fileUploadInput.current?.click();
     }
     
@@ -298,7 +297,7 @@ const FileManagerUploadComponent = (props:FileManagerUploadComponentProps):JSX.E
      * @param param0 
      * @returns 
      */
-    const UploadetFileItemJsx = ({item}:{item:FileItem})=>{
+    function UploadetFileItemJsx({item}:{item:FileItem}) {
         return (
             <div>
                 <div className="grid grid-cols-12 bg-gray-400 max-w-[175px] min-w-[175px] text-[12px] pl-3 rounded-md py-0.5 px-0.5">

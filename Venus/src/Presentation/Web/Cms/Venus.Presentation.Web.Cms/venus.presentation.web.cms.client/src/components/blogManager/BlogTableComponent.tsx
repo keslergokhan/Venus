@@ -1,7 +1,6 @@
 import { TableCell, TableHeadCell} from "flowbite-react";
 import { CTableBodyRow, CTableComponent,CTableHeaderComponent } from "..";
 import type { ReadBlogDto } from "../../dtos"
-import type { JSX } from "react";
 
 interface BlogTableComponentProps {
     blogs:Array<ReadBlogDto>
@@ -10,7 +9,7 @@ interface BlogTableComponentProps {
     toggleStateHandler?:(id:string)=>Promise<void>;
 }
 
-export function BlogTableComponent(props:BlogTableComponentProps):JSX.Element{
+export function BlogTableComponent(props:BlogTableComponentProps){
 
     const baseProps = props;
     

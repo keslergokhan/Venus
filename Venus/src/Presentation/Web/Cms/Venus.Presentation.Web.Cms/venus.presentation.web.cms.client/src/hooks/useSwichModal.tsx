@@ -4,6 +4,6 @@ interface UseSwitchModalProps{
 
 }
 
-export const useSwitchModal = (props:UseSwitchModalProps)=>{
+export function useSwitchModal(props:UseSwitchModalProps) {
     
 }

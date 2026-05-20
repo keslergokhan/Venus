@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CButtonField, CTextField, UrlInputField } from "../..";
 
-const StepContent = (props:StepContentProps):JSX.Element =>{
+function StepContent(props:StepContentProps){
     const schema = z.object({
         url:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),
         title:z.string().min(5,"Lütfen daha fazla detay giriniz.").max(65,"Başlık en fazla 65 karakter olabilir."),
@@ -23,18 +23,18 @@ const StepContent = (props:StepContentProps):JSX.Element =>{
         formState:{errors}
     } = useForm<FormValues>({resolver:zodResolver(schema)});
 
-    const onSubmit = (data:FormValues) =>{
+    function onSubmit(data:FormValues){
         props.allStepPostData.title = data.title;
         props.allStepPostData.url = data.url;
         props.allStepPostData.description = data.description;
         props.step.FormSutmitHandler(props.step);
     }
 
-    const urlSetValue = (url:string)=>{
+    function urlSetValue(url:string){
         setValue("url",url);
     }
 
-    const urlGetValue = ():string=>{
+    function urlGetValue():string{
         return getValues("url");
     }
     
@@ -66,7 +66,7 @@ export const Step2:Step = {
     Title:"Sayfa Bilgileri",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:(step:Step)=>{
+    FormSutmitHandler:function(step:Step){
         step.FormFinsh = true;
         step.NextStep("step_3");
     }

@@ -1,8 +1,7 @@
-import type { JSX } from "react"
 import type { CButtonFieldProps } from "./CButtonFiled";
 
 
-export const CSmButtonField = (props:CButtonFieldProps):JSX.Element =>{
+export function CSmButtonField(props:CButtonFieldProps){
 
     let bgColor = `bg-blue-700 hover:bg-blue-800 focus:ring-blue-300`;
     if(props.variant == "error"){

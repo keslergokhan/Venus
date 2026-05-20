@@ -3,7 +3,7 @@ import { LoadingComponent, LoginComponent } from "../../components";
 import { useLogin } from "../../hooks/useLogin";
 
 
-const LoginContainers = ():JSX.Element =>{
+function LoginContainers():JSX.Element {
     
     const {onSubmitAsync,loadingState} = useLogin();
 

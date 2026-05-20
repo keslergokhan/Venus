@@ -10,7 +10,7 @@ export type FileManagerReducerState = {
     selectFileEvent:(fileItem:ReadFileDto)=>void;
 }
 
-export const FileManagerReducer = (state:FileManagerReducerState,action:FileManagerReducerAction):FileManagerReducerState => {
+export function FileManagerReducer(state:FileManagerReducerState,action:FileManagerReducerAction):FileManagerReducerState{
 
     const actionType = action.type;
 

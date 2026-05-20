@@ -1,8 +1,5 @@
-import type { JSX } from "react"
 
-const HomeContainers = ():JSX.Element =>{
-
-
+function HomeContainers() {
 
     return (<>
         anasayfa

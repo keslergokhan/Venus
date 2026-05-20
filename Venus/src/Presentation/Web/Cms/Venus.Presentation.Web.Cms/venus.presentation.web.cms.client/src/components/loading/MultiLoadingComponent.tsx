@@ -1,5 +1,4 @@
 import { Spinner } from "flowbite-react";
-import type { JSX } from "react"
 
 export interface MultiLoadingComponentProps{
     componentKey: string;
@@ -10,7 +9,7 @@ export interface MultiLoadingComponentProps{
     class?:string;
 }
 
-export const MultiLoadingComponent = (props:MultiLoadingComponentProps):JSX.Element =>{
+export function MultiLoadingComponent(props:MultiLoadingComponentProps){
     if (props.currentLoadingKey == props.componentKey) return (
         <div className={`${(props.class!==undefined && props.class)} relative`}>
             <div className="flex absolute inset-0 justify-center items-center" >

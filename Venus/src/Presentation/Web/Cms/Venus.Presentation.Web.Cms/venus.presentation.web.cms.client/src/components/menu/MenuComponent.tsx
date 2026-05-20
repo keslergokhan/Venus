@@ -18,7 +18,7 @@ export interface MenuComponentProps {
 }
 
 
-export const MenuComponent = (): JSX.Element => {
+export function MenuComponent(){
 
     const {onChangeEvent,languages,currentLanguage} = useMenuLanguage();
 

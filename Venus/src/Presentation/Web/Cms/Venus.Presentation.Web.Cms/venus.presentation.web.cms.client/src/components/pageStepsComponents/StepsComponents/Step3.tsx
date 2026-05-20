@@ -6,10 +6,10 @@ import { CreatePageRequest } from "../../../models";
 import { ToastHelper } from "../../../helpers";
 
 
-const StepContent = (props:StepContentProps):JSX.Element =>{
+function StepContent(props:StepContentProps) {
     
     const pageService = new PageService();
-    const onSubmitHandler = () =>{
+    function onSubmitHandler(){
         const request = new CreatePageRequest();
         request.Title = props.allStepPostData.title ?? "";
         request.Description = props.allStepPostData.description ?? "";
@@ -106,7 +106,7 @@ export const Step3:Step = {
     Title:"Sayfayı oluştur",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:(step:Step)=>{
+    FormSutmitHandler:function(step:Step){
         step.FormFinsh = true;
         step.NextStep("step_4");
     }

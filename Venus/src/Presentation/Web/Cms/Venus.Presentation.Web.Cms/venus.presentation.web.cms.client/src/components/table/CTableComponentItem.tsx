@@ -8,7 +8,7 @@ export interface CTableHeaderComponentProps{
     children:ReactNode
 }
 
-export const CTableHeaderComponent = (props:CTableHeaderComponentProps) =>{
+export function CTableHeaderComponent(props:CTableHeaderComponentProps) {
     return (
         <TableHead>
             <TableRow className="!bg-gray-700 text-[14px] text-white">
@@ -28,7 +28,7 @@ export interface CTableBodyRowProps<TData extends DtoBase>{
     updateOnHandler?:(data:TData)=>Promise<void>;
 }
 
-export const CTableBodyRow = <TData extends DtoBase>(props:CTableBodyRowProps<TData>) =>{
+export function CTableBodyRow<TData extends DtoBase>(props:CTableBodyRowProps<TData>) {
     let customClass = "";
     
     if(props.index % 2 == 1){

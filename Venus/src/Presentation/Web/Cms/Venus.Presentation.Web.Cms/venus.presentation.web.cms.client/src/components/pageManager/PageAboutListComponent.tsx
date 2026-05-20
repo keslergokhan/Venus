@@ -1,6 +1,6 @@
 import type { JSX } from "react"
 import { CSmButtonField } from "../commons"
-import type { ReadPageAboutDto, ReadPageTypeDto } from "../../dtos"
+import type { ReadPageAboutDto } from "../../dtos"
 import { Link } from "react-router-dom"
 
 
@@ -8,10 +8,10 @@ export interface PageAboutListComponentProps {
     pageAbouts:ReadPageAboutDto[]
 }
 
-export const PageAbourtListComponent = (props:PageAboutListComponentProps):JSX.Element =>{
+export function PageAbourtListComponent(props:PageAboutListComponentProps) {
 
 
-    const PageAboutItemJsx = ({item}:{item:ReadPageAboutDto}):JSX.Element =>{
+    function PageAboutItemJsx({item}:{item:ReadPageAboutDto}) {
         return (
             <div className="col-span-12 md:col-span-3 border py-2 px-2 border-gray-200 min-h-[100px] shadow-lg block bg-gray-300 rounded-xl ">
                 <div className="text-lx text-base font-bold flex justify-center">
@@ -39,7 +39,6 @@ export const PageAbourtListComponent = (props:PageAboutListComponentProps):JSX.E
                     return <PageAboutItemJsx item={x} key={i}></PageAboutItemJsx>
                 })
             }
-            
         </div>        
     )
 }

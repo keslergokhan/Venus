@@ -15,12 +15,12 @@ export interface LanguageReducerState{
 const key = "cms_language";
 const keyId = "cms_language_id";
 
-const SetLangauge = (language:string,languageId:string) =>{
+function SetLangauge(language:string,languageId:string){
     localStorage.setItem(key,language);
     localStorage.setItem(keyId,languageId);
 }
 
-export const LanguageReducerReducer = (state:LanguageReducerState,action:LanguageReducerAction):LanguageReducerState =>{
+export function LanguageReducerReducer(state:LanguageReducerState,action:LanguageReducerAction):LanguageReducerState {
 
     const actionType = action.type;
 

@@ -6,21 +6,23 @@ import { ToastHelper } from "../../../helpers";
 
 
 
-const StepContent = (props:StepContentProps):JSX.Element =>{
+function StepContent(props:StepContentProps) {
     const allStepPostData = props.allStepPostData;
     const [selectedPageAbout,setSelectedPageAbout] = useState<ReadPageAboutDto>();
 
     if(allStepPostData.pageAboutId && selectedPageAbout == null){
         setSelectedPageAbout(props.data.pageAbouts.find(x=>x.id == props.allStepPostData.pageAboutId));
     }
-    const stepNextSubmitEvent = () =>{
+
+    function stepNextSubmitEvent() {
         if(allStepPostData.pageAboutId == undefined){
             ToastHelper.Warning(<>Lütfen bir sayfa tipi seçiniz</>);
         }else{
             props.step.FormSutmitHandler(props.step);
         }
     }
-    const PageAboutCheckCard = ({item}:{item:ReadPageAboutDto}):JSX.Element =>{
+
+    function PageAboutCheckCard({item}:{item:ReadPageAboutDto}) {
         const isSelected = item.id == allStepPostData?.pageAboutId ? true:false;
         return (
             <div className="border-1 p-5 rounded cursor-pointer flex-auto min-w-[200px] " 
@@ -64,7 +66,7 @@ export const Step1:Step = {
     Title:"Sayfa Tipi",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:(step:Step)=>{
+    FormSutmitHandler:function (step:Step){
         step.FormFinsh = true;
         step.NextStep("step_2");
     }

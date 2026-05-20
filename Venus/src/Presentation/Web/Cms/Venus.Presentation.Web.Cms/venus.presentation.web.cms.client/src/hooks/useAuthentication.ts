@@ -6,7 +6,7 @@ import { ToastHelper } from "../helpers";
 import { PageRoute, useCustomNavigate } from "./useCustomNavigate";
 
 
-export const useAuthentication = (): AuthenticationContextProps => {
+export function useAuthentication(): AuthenticationContextProps {
 
     const autContext = useContext(AuthenticationContext);
     const service = new AuthenticationService();

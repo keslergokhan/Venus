@@ -5,7 +5,7 @@ import { ToastHelper } from "../../helpers";
 import { ReadPageAboutDto, ReadPageTypeDto } from "../../dtos";
 
 
-export const PageManagerListContainer = () =>{
+export function PageManagerListContainer(){
 
     const [loading,setLoading] = useState<boolean>(true);
     const pageAboutList = useRef<ReadPageAboutDto[]>(new Array<ReadPageAboutDto>());

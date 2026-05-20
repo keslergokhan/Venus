@@ -9,7 +9,7 @@ interface ZoneControlComponentProps{
     isLoading?:boolean,
 }
 
-export const ZoneControlComponent = (props:ZoneControlComponentProps):JSX.Element =>{
+export function ZoneControlComponent(props:ZoneControlComponentProps):JSX.Element {
     
     return <>
         {props.isLoading && props.isLoading == true ? 
@@ -38,7 +38,7 @@ interface ZoneControlItemProps {
     children:ReactNode
 }
 
-export const ZoneControlItem = (props:ZoneControlItemProps) =>{
+export function ZoneControlItem(props:ZoneControlItemProps){
 
     return (<>
     

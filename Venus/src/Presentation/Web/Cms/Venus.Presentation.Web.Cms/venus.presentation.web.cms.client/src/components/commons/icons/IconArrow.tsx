@@ -1,12 +1,12 @@
 import type { IconPropsBase } from "../base/IconPropsBase"
 
-export const IconArrow = (props:IconPropsBase)=>{
+export function IconArrow(props:IconPropsBase){
     return <svg {...props} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
   </svg> 
 }
 
-export const IconArrowLeft = (props:IconPropsBase) =>{
+export function IconArrowLeft(props:IconPropsBase){
   return <svg {...props} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
 </svg>

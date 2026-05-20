@@ -72,7 +72,7 @@ export interface HtmlEditorProps<T extends FieldValues>{
 }
 
 
-export const HtmlEditor = <T extends FieldValues>(props:HtmlEditorProps<T>)=>{
+export function HtmlEditor<T extends FieldValues>(props:HtmlEditorProps<T>) {
     
     const config:EditorConfig = {
         licenseKey: 'GPL', // Ücretsiz kullanım anahtarı

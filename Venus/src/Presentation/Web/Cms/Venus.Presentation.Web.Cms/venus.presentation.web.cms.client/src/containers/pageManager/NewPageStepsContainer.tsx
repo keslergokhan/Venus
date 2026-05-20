@@ -4,7 +4,7 @@ import { NewPageStepsComponent } from "../../components/pageStepsComponents/NewP
 import { useNewPageStepsManager } from "../../hooks/useNewPageStepsManager";
 
 
-export const NewPageStepsContainer = () =>{
+export function NewPageStepsContainer(){
    
     const {Steps,loading,stepData} = useNewPageStepsManager();
 

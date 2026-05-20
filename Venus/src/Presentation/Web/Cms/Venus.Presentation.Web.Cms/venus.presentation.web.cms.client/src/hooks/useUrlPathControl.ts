@@ -18,24 +18,24 @@ interface useUrlPathControlProps{
     baseFullPath?:string;
 }
 
-export const useUrlPathControl = (props:useUrlPathControlProps) : useUrlPathControlResult =>{
+export function useUrlPathControl(props:useUrlPathControlProps) : useUrlPathControlResult {
     const [isUrlExists,setUrlExists] = useState<boolean|undefined>(undefined);
     const fullPath = useRef<string>("");
     const urlService = new UrlService();
     
-    const setUrlHandler = (url:string)=>{
+    function setUrlHandler(url:string) {
         props.setValue(url);
         if(props.baseFullPath){
             fullPath.current = props.baseFullPath + url;
         }
     }
 
-    const urlGetValue = ()=>{
+    function urlGetValue(){
         return props.getValue()
     }
 
    
-    const checkUrlHandler = ()=>{
+    function checkUrlHandler(){
         let fullPath = props.getValue();
         if(props.baseFullPath && !fullPath.startsWith(`${props.baseFullPath}/`)){
             fullPath = `${props.baseFullPath}${props.getValue()}`;

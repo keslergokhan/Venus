@@ -1,4 +1,4 @@
-import { Dropdown, DropdownItem, Table, TableCell, TableRow,TableBody, Pagination } from "flowbite-react"
+import { Table,TableBody, Pagination } from "flowbite-react"
 import { useState, type JSX, type ReactNode } from "react"
 
 export interface CTableComponentProps<TData>{
@@ -8,7 +8,7 @@ export interface CTableComponentProps<TData>{
     actions?:Array<Record<string,()=>void>>|undefined
 }
 
-export const CTableComponent = <TData extends any>(props:CTableComponentProps<TData>) =>{
+export function CTableComponent<TData extends any>(props:CTableComponentProps<TData>){
     
     // 1. Sayfa State'i
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,13 +28,13 @@ export const CTableComponent = <TData extends any>(props:CTableComponentProps<TD
     }
 
     // 3. Sayfa Değiştirme Fonksiyonu
-    const onPageChange = (page: number) => {
+    function onPageChange(page: number){
         setCurrentPage(page);
         // İsteğe bağlı: Sayfa değişince tablonun başına kaydır
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const PaginationTemlate = ()=>{
+    function PaginationTemlate() {
         if(totalPages>0){
             return <div className="inline-block">
                         <span className="text-sm text-gray-700 dark:text-gray-400 flex justify-end gap-2">

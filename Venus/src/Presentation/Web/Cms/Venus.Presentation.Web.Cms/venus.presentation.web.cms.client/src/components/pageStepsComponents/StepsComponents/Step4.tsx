@@ -1,8 +1,7 @@
-import type { JSX } from "react";
 import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
 
-const StepContent = (props:StepContentProps):JSX.Element =>{
+function StepContent(props:StepContentProps){
     
     return (
         <div className="container">
@@ -42,7 +41,7 @@ export const Step4:Step = {
     Title:"Sayfa Kontrolü",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:(step:Step)=>{
+    FormSutmitHandler:function(step:Step) {
         step.FormFinsh = true;
         step.NextStep("");
         setTimeout(() => {

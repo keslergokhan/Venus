@@ -24,7 +24,7 @@ export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<CreateBl
     }
 ];
 
-export const CreateBlogComponent = (props:CreateBlogComponentProps) =>{
+export function CreateBlogComponent(props:CreateBlogComponentProps){
 
     const schema = z.object({
         urlPath:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),

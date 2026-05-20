@@ -8,10 +8,10 @@ interface LanguageResourceTableComponentProps{
     selectToUpdateResourceHandler?:(data:ReadLanguageResourceKeyDto)=>Promise<void>
 }
 
-export const LanguageResourceTableComponent = (props:LanguageResourceTableComponentProps) =>{
+export function LanguageResourceTableComponent(props:LanguageResourceTableComponentProps){
     
     const baseProps = props;
-    const row = (props:{index:number,data:ReadLanguageResourceKeyDto})=>{
+     function row(props:{index:number,data:ReadLanguageResourceKeyDto}){
         return (
         <CTableBodyRow key={props.index} {...props} updateOnHandler={baseProps.selectToUpdateResourceHandler}>
             <TableCell>{props.data.key}</TableCell>
