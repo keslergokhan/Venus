@@ -1,6 +1,7 @@
-import { Dropdown, DropdownItem, TableCell, TableHeadCell, TableRow } from "flowbite-react";
+import { TableCell, TableHeadCell} from "flowbite-react";
 import { CTableBodyRow, CTableComponent,CTableHeaderComponent } from "..";
 import type { ReadBlogDto } from "../../dtos"
+import type { JSX } from "react";
 
 interface BlogTableComponentProps {
     blogs:Array<ReadBlogDto>
@@ -9,11 +10,11 @@ interface BlogTableComponentProps {
     toggleStateHandler?:(id:string)=>Promise<void>;
 }
 
-export const BlogTableComponent = (props:BlogTableComponentProps) =>{
+export function BlogTableComponent(props:BlogTableComponentProps):JSX.Element{
 
     const baseProps = props;
     
-    const row = (props:{index:number,data:ReadBlogDto})=>{
+    function row(props:{index:number,data:ReadBlogDto}){
         const {data} = props;
         return (
             <CTableBodyRow {...props} key={props.index} toggleStateHandler={baseProps.toggleStateHandler} removeOnHandler={baseProps.removeOnHandler} updateOnHandler={baseProps.updateOnHandler} >

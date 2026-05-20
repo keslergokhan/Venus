@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application;
+using Venus.Core.Application.Caching;
 using Venus.Infrastructure.Persistence;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 using Venus.Presentation.Client.Core.DynamicRoutes;
@@ -27,6 +28,7 @@ namespace Venus.Presentation.Client.Core
             services.AddScoped<IVenusEntityListPageTypeService, VenusEntityListPageTypeService>();
             services.AddScoped<IVenusEntityDetailPageTypeService, VenusEntityDetailPageTypeService>();
             services.AddScoped<VenusDynamicRouteValueTransformer>();
+            services.AddVenusMemoryCacheRegistration(configuration, TimeSpan.FromMinutes(10));
             return services;
         }
     }

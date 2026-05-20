@@ -3,10 +3,10 @@ import type { DynamicPropertyComponentProps } from "../components";
 
 export class FormHelper {
     
-    public static toDynamicObject = <TFieldValues extends FieldValues>(props:{
+    public static toDynamicObject<TFieldValues extends FieldValues>(props:{
         dynamicFields:Array<DynamicPropertyComponentProps<TFieldValues>>,
         data:TFieldValues
-    }):Record<string, any> => {
+    }):Record<string, any> {
         var object = Object.keys(props.data).reduce((acc, key) => {
             if (props.dynamicFields.some(f => f.name === key)) {
                 if (!acc["dynamicProperties"]) {

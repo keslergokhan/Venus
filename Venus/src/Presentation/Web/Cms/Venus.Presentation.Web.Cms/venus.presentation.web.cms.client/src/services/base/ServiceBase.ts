@@ -5,11 +5,11 @@ import { object } from "zod";
 
 export abstract class ServiceBase {
 
-    protected GetFullPath = (path: string): string => {
+    protected GetFullPath(path: string): string {
         return `https://localhost:7002/api/${path}`;
     }
 
-    protected GetParamsFullPath = (path:string,queryParams:Record<string,any>):string =>{
+    protected GetParamsFullPath(path:string,queryParams:Record<string,any>):string{
         const params = Object.entries(queryParams).map((i,x)=>{
             return `?${i[0].toString()}=${i[1].toString()}`
 
@@ -17,11 +17,11 @@ export abstract class ServiceBase {
         return `${this.GetFullPath(path)}${params}`; 
     }
 
-    public GetUserJwtToken = ():string|null => {
+    public GetUserJwtToken():string|null {
         return localStorage.getItem("cms_user");
     }
 
-    protected GetAxiosHeader = ():AxiosRequestConfig<any> =>{
+    protected GetAxiosHeader():AxiosRequestConfig<any> {
         const conf = {
             headers: {
                 'Authorization': `Bearer ${this.GetUserJwtToken()}`,
@@ -35,43 +35,44 @@ export abstract class ServiceBase {
         return conf;
     }
 
-    protected addDynamicData = <T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T> =>{
+    protected addDynamicData<T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T> {
         return axios.post<T>(this.GetFullPath(path),requestData,this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });
     }
 
-    protected updateDynamicData = <T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T> => {
+    protected updateDynamicData<T extends DynamicPropertiesDtoBase>(path:string, requestData:Record<string,any>):Promise<T>{
         return axios.post<T>(this.GetFullPath(path),requestData,this.GetAxiosHeader()).then(x=>{
             return x.data as T
         })
     }
 
-    protected getAll = <T extends DtoBase>(path:string):Promise<T[]> =>{
+    protected getAll<T extends DtoBase>(path:string):Promise<T[]>{
         return axios.get<T[]>(this.GetFullPath(path),this.GetAxiosHeader()).then(x=>{
             return x.data as Array<T>
         });
     }
 
-    protected get = <T extends DtoBase>(path:string):Promise<T> =>{
+    protected get<T extends DtoBase>(path:string):Promise<T>{
         return axios.get<T>(this.GetFullPath(path),this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });
     }
 
-    protected post = <T extends DtoBase>(path:string,request:any):Promise<T> =>{
+
+    protected post<T extends DtoBase|any>(path:string,request:any):Promise<T>{
         return axios.post<T>(this.GetFullPath(path),request,this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });
     }
 
-    protected getById = <T extends DtoBase>(path:string,id:string):Promise<T> =>{
+    protected getById<T extends DtoBase>(path:string,id:string):Promise<T>{
         return axios.get<T>(this.GetParamsFullPath(path,{id:id}),this.GetAxiosHeader()).then(x=>{
             return x.data as T
         });
     }
 
-    protected remove = (path:string,id:string):Promise<void> => {
+    protected remove(path:string,id:string):Promise<void>{
         return axios.post(this.GetFullPath(path),id,this.GetAxiosHeader()).then(x=>{
             return x.data;
         })

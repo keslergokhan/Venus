@@ -6,3 +6,4 @@ export {UrlService} from './UrlService';
 export {PageService} from "./PageService"
 export {BlogService} from './BlogService'
 export {LanguageResourceService} from "./LanguageResourceService";
+export {ConfigurationSettingService} from "./ConfigurationSetting"

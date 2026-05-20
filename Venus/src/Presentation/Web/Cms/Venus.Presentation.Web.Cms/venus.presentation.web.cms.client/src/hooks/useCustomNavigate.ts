@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom"
 
 export enum PageRoute {
     Login = "/login",
-    Home="/home"
+    Home="/home",
+    Blog="/blog",
+    LanguageResource="/languagekey-manager"
 }
 
 export const useCustomNavigate = (): [(route: PageRoute)=>void] => {

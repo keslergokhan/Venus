@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, type JSX } from "react";
+import { type JSX } from "react";
 import {
     Button,
     Dropdown,
@@ -11,11 +11,8 @@ import {
     NavbarToggle,
 } from "flowbite-react";
 import { NavLink } from "react-router-dom";
-import { LanguageService } from "../../services";
 import type { ReadLanguageDto } from "../../dtos";
-import { ToastHelper } from "../../helpers";
-import { AppContext } from "../../contexts/AppContext";
-import { useMenuLanguage } from "../../hooks";
+import { PageRoute, useMenuLanguage } from "../../hooks";
 
 export interface MenuComponentProps {
 }
@@ -43,7 +40,7 @@ export const MenuComponent = (): JSX.Element => {
             </div>
             <NavbarToggle />
             <NavbarCollapse>
-                <NavLink to="/home">Anasayfa</NavLink>
+                <NavLink to={PageRoute.Home}>Anasayfa</NavLink>
                 <MegaMenuDropdown toggle={<>İşlemler</>}>
                     <ul className="grid grid-cols-3">
                         <div className="space-y-4 p-4">
@@ -62,7 +59,7 @@ export const MenuComponent = (): JSX.Element => {
                         </div>
                         <div className="space-y-4 p-4">
                             <li>
-                                <NavLink to={"/blog"} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
+                                <NavLink to={PageRoute.Blog} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
                                     <svg
                                         className="me-2 h-3 w-3 text-gray-400 group-hover:text-primary-600 dark:text-gray-500 dark:group-hover:text-primary-500"
                                         aria-hidden="true"
@@ -121,7 +118,7 @@ export const MenuComponent = (): JSX.Element => {
                         </div>
                         <div className="space-y-4 p-4">
                             <li>
-                                <NavLink to={"/languagekey-manager"} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
+                                <NavLink to={PageRoute.LanguageResource} className="group flex items-center hover:text-primary-600 dark:hover:text-primary-500">
                                     <svg
                                         className="me-2 h-3 w-3 text-gray-400 group-hover:text-primary-600 dark:text-gray-500 dark:group-hover:text-primary-500"
                                         aria-hidden="true"

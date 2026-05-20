@@ -4,11 +4,11 @@ import { ServiceBase } from "./base/ServiceBase";
 
 export class LanguageResourceService extends ServiceBase{
 
-    public getLanguageResourceAndValue = async () =>{
+    public getLanguageResourceAndValue():Promise<ReadLanguageResourceKeyDto[]>{
         return this.getAll<ReadLanguageResourceKeyDto>("language/get-resource");
     }
 
-    public updateLanguageResource = async (props:{LanguageResourceValue:string,LanguageId:string,ResourceId:string}) =>{
+    public updateLanguageResource(props:{LanguageResourceValue:string,LanguageId:string,ResourceId:string}):Promise<void> {
         return this.post("language/update-resource",props);
     }
 }

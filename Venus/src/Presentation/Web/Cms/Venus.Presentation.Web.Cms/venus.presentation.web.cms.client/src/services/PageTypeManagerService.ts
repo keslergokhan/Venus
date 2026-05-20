@@ -6,13 +6,13 @@ import { ReadPageDto } from "../dtos/page/ReadPageDto";
 
 export class PageTypeManagerService extends ServiceBase{
 
-    public getPageAboutListAsync = ():Promise<ReadPageAboutDto[]> =>{
+    public getPageAboutListAsync():Promise<ReadPageAboutDto[]>{
         return axios.get<ReadPageAboutDto[]>(this.GetFullPath("PageManager/GetPageAbouts")).then(x=>{
             return x.data as ReadPageAboutDto[];
         })
     }
 
-    public createPageAsync = (request:CreatePageRequest):Promise<ReadPageDto> =>{
+    public createPageAsync(request:CreatePageRequest):Promise<ReadPageDto>{
         return axios.post<ReadPageDto>(this.GetFullPath("PageManager/CreatePage"),request).then(x=>{
             return x.data as ReadPageDto
         });

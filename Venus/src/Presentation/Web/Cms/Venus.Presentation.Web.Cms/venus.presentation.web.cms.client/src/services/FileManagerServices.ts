@@ -5,18 +5,18 @@ import type { FileManagerGetFolderRes } from "../models";
 
 export class FileManagerService extends ServiceBase{
 
-    public getFoldersAsync = (props:{path:string}):Promise<FileManagerGetFolderRes> => {
+    public getFoldersAsync(props:{path:string}):Promise<FileManagerGetFolderRes>{
         return axios.post<FileManagerGetFolderRes>(this.GetFullPath("FileManager/GetFolders"),props,this.GetAxiosHeader())
         .then(x=>{
             return x.data as FileManagerGetFolderRes;
         })
     }
 
-    public removeFileAsync = (props:{path:string}):Promise<void> =>{
+    public removeFileAsync(props:{path:string}):Promise<void>{
         return axios.post(this.GetFullPath("FileManager/RemoveFilter"),props,this.GetAxiosHeader())
     }
 
-    public uploadFileAsync = (props:{path:string,file:File})=>{
+    public uploadFileAsync(props:{path:string,file:File}){
 
         const conf = {
             headers: {

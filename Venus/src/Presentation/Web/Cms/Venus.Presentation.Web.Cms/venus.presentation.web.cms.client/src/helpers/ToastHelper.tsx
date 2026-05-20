@@ -6,7 +6,7 @@ import type { IResultControl } from "../results";
 export class ToastHelper {
 
 
-    public static ToasIconJSX = (alertType: "success" | "error" | "warning"): JSX.Element => {
+    public static ToasIconJSX(alertType: "success" | "error" | "warning"): JSX.Element {
         if (alertType == "success") {
             return (
                 <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -39,7 +39,7 @@ export class ToastHelper {
         }
     }
 
-    public static ToastJSX = (t:Toast, alertType:"success"|"error"|"warning",jsx:React.ReactNode):JSX.Element => {
+    public static ToastJSX(t:Toast, alertType:"success"|"error"|"warning",jsx:React.ReactNode):JSX.Element {
         let color="";
         if (alertType === "success") {
         color = "bg-green-300";
@@ -63,23 +63,23 @@ export class ToastHelper {
         )
     }
 
-    public static Success = (jsx: React.ReactNode) => {
+    public static Success(jsx: React.ReactNode)  {
         toast.custom((x) => (ToastHelper.ToastJSX(x, "success", jsx)),{duration:1800});
     }
 
-    public static Error = (jsx: React.ReactNode) => {
+    public static Error(jsx: React.ReactNode) {
         toast.custom((x) => (ToastHelper.ToastJSX(x, "error", jsx)), { duration: 1800 });
     }
 
-    public static Warning = (jsx: React.ReactNode) => {
+    public static Warning (jsx: React.ReactNode){
         toast.custom((x) => (ToastHelper.ToastJSX(x, "warning", jsx)), { duration: 1800 });
     }
 
-    public static DefaultError = () => {
+    public static DefaultError(){
         toast.custom((x) => (ToastHelper.ToastJSX(x, "error", "Teknik bir problem yaşandı, lütfen daha sonra tekrar deneyin !")), { duration: 1800 });
     }
 
-    public static DefaultCatchError = (error:any) => {
+    public static DefaultCatchError(error:any) {
         const result = error.response?.data as IResultControl;
         
         if(result){
