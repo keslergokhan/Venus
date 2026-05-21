@@ -1,6 +1,20 @@
 
+export enum SessionKeys{
+    configurationSettings="configurationSettings",
+    language="language",
+    languageId="languageId",
+    cmsUser="cmsUser"
+}
+
+
+
 
 export class SessionStorageHelper {
+
+    public static type = {
+        
+    }
+
     private static isBrowser(): boolean {
         return typeof window !== "undefined";
     }

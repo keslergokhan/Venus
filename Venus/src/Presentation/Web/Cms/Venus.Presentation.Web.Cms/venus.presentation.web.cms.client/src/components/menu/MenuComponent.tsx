@@ -15,12 +15,14 @@ import type { ReadLanguageDto } from "../../dtos";
 import { PageRoute, useMenuLanguage } from "../../hooks";
 
 export interface MenuComponentProps {
+    onChangeEvent:(languageCulture:string)=>void,
+    languages:Array<ReadLanguageDto>,
+    currentLanguage:string
 }
 
 
-export function MenuComponent(){
+export function MenuComponent(props:MenuComponentProps){
 
-    const {onChangeEvent,languages,currentLanguage} = useMenuLanguage();
 
     return (
         <MegaMenu className="shadow-lg">
@@ -29,10 +31,10 @@ export function MenuComponent(){
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
             </NavbarBrand>
             <div className="order-2 hidden items-center md:flex gap-2">
-                <Dropdown label={currentLanguage} inline >
+                <Dropdown label={props.currentLanguage} inline >
                     {
-                        languages.map((x:ReadLanguageDto,i)=>{
-                            return <DropdownItem key={i} onClick={()=>{onChangeEvent(x.culture)}}>{x.name}</DropdownItem>
+                        props.languages.map((x:ReadLanguageDto,i)=>{
+                            return <DropdownItem key={i} onClick={()=>{props.onChangeEvent(x.culture)}}>{x.name}</DropdownItem>
                         })
                     }
                 </Dropdown>

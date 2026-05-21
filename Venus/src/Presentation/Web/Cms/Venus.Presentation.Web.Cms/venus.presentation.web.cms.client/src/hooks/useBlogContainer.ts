@@ -58,18 +58,23 @@ export function useBlogContainer():useBlogContainerResult {
     function setShowContainer(data:string[]) {
         setContainer(data);
     }
+
+
     
     /**
      * Tablo verilerini yeniden getir.
      */
-    function refreshTable():void {
+    async function refreshTable():Promise<void> {
         ToastHelper.Success("Yenilendi");
-        blogService.getBlogs().then(x=>{
-            blogs.current = x;
+        
+        try {
+            const blogsResult = await blogService.getBlogs();
+            blogs.current = blogsResult;
             setShowContainer(["table"]);
-        }).catch(x=>{
-            ToastHelper.DefaultCatchError(x);
-        });
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
+        
     }
 
     /**
@@ -77,14 +82,13 @@ export function useBlogContainer():useBlogContainerResult {
      * @param data
      */
     async function removeHandler(data:ReadBlogDto) {
-        appContext.confirmModalAction({action:"Show",approvalHandler:()=>{
-
-            blogService.removeBlog(data.id).then(x=>{
+        appContext.confirmModalAction({action:"Show",approvalHandler:async ()=>{
+            try {
+                const removeResult = await blogService.removeBlog(data.id);
                 refreshTable();
-            }).catch(x=>{
-                ToastHelper.DefaultCatchError(x);
-            });
-
+            } catch (error) {
+                ToastHelper.DefaultCatchError(error);
+            }
         }});
     }
 
@@ -106,13 +110,12 @@ export function useBlogContainer():useBlogContainerResult {
             return;
         }
 
-        blogService.getBlogById(id).then(x=>{
-            if(selectUpdateBlog==null){
-                setSelectUpdateBlog(x);
-            }
-        }).catch(x=>{
-            ToastHelper.DefaultCatchError(x);
-        });
+        try {
+            const getBlog = await blogService.getBlogById(id);
+            setSelectUpdateBlog(getBlog);
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
     }
 
     /**
@@ -128,12 +131,13 @@ export function useBlogContainer():useBlogContainerResult {
      * Mevcut bloke güncelleme
      */
     async function updateHandler(data:UpdateBlogType) {
-        const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        await blogService.updateBlog(blogRequest).then(x=>{
-            ToastHelper.Success(`${x.title} güncellendi.`);
-        }).catch(err=>{
-            ToastHelper.DefaultCatchError(err);
-        });
+        try {
+            const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
+            const updateResult = await blogService.updateBlog(blogRequest);
+            ToastHelper.Success(`${updateResult.title} güncellendi.`);
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
     }
 
     /**
@@ -143,24 +147,28 @@ export function useBlogContainer():useBlogContainerResult {
     async function addHandler(data:CreateBlogType) {
      
         const blogRequest = FormHelper.toDynamicObject({data:data,dynamicFields:BlogDynamicInputFields});
-        blogService.addBlog(blogRequest).then(x=>{
-            if(x as ReadBlogDto){
-                const blog = x as ReadBlogDto;
+        try {
+            const addResult = await blogService.addBlog(blogRequest)
+            if(addResult as ReadBlogDto){
+                const blog = addResult as ReadBlogDto;
                 ToastHelper.Success(`${blog.title} başarıyla eklendi`);
             }
             refreshTable();
-        }).catch(x=>{
-            ToastHelper.DefaultCatchError(x);
-        });
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
+       
     }
 
     async function toggleStateHandler(id:string) { 
-        await blogService.toggleState(id).then(x=>{
+        try {
+            const toggleState = await blogService.toggleState(id);
             refreshTable();
-        }).catch(x=>{
-            console.error("State yönetimi tamamlanamadı",x);
-            ToastHelper.DefaultCatchError(x);
-        });
+        } catch (error) {
+            console.error("State yönetimi tamamlanamadı",error);
+            ToastHelper.DefaultCatchError(error);
+        }
+       
     }
 
     

@@ -1,12 +1,13 @@
 import { type JSX } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuthentication } from "../hooks";
+import { useAuthentication, useConfigurationSettings } from "../hooks";
 import { HeaderContainer } from "../containers";
 import { FileManagerComponent } from "../components";
 function DefaultLayout(): JSX.Element {
     
     const authentication = useAuthentication();
-    
+    useConfigurationSettings();
+
     return (
         <>
             {

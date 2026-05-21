@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { LoginFormValues } from "../components";
-import { ToastHelper } from "../helpers";
+import { SessionKeys, SessionStorageHelper, ToastHelper } from "../helpers";
 import { AuthenticationService } from "../services";
 import { useAuthentication } from "./useAuthentication";
 import { PageRoute, useCustomNavigate } from "./useCustomNavigate";
@@ -16,7 +16,7 @@ export function useLogin(){
         await service.loginAsync(data).then(x => {
             authentication.authenticationAction({ type: "Login", user: x });
             
-            localStorage.setItem("cms_user", x.jwtToken);
+            SessionStorageHelper.set(SessionKeys.cmsUser, x.jwtToken);
             ToastHelper.Success(`${x.name} ${x.surname} hoşgeldin.`);
             setTimeout(() => {
                 navigate(PageRoute.Home);

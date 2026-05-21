@@ -6,14 +6,14 @@
  */
 
 export type  ConfirmModalReducerAction = 
-{action:"Show",approvalHandler:()=>void}
-| {action:"Hidden",lastHandler?:()=>void}
+  {action:"Show",approvalHandler:()=>Promise<void>}
+| {action:"Hidden",lastHandler?:()=>Promise<void>}
 | {action:"SetShow",title:string,body:React.ReactNode}
 
 export type ConfirmModalReducerState = {
     show:boolean;
-    lastHandler?:()=>void;
-    approvalHandler?:()=>void;
+    lastHandler?:()=>Promise<void>;
+    approvalHandler?:()=>Promise<void>;
     title:string;
     body:React.ReactNode
 }

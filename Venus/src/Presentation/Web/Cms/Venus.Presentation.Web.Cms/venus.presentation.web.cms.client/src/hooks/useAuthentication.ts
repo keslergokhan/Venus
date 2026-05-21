@@ -13,6 +13,24 @@ export function useAuthentication(): AuthenticationContextProps {
     const [navigation] = useCustomNavigate();
     const location = useLocation();
 
+    async function loginValidation(){
+
+        try {
+            const validResult = await service.loginValidationAsync();
+
+            autContext.authenticationAction({ type: "Login", user: validResult });
+            if(location.pathname == PageRoute.Login){
+                navigation(PageRoute.Home);
+            }
+        } catch (error) {
+            ToastHelper.DefaultError();
+            autContext.authenticationAction({ type: "Logaut" });
+            navigation(PageRoute.Login);
+        }
+        
+
+    }
+
     useEffect(() => {
 
         const jwtToken = service.GetUserJwtToken();
@@ -24,17 +42,7 @@ export function useAuthentication(): AuthenticationContextProps {
             navigation(PageRoute.Login);
         } else {
             if (!autContext.authenticationState.isAuth) {
-                service.loginValidationAsync()
-                    .then(x => {
-                        autContext.authenticationAction({ type: "Login", user: x });
-                            if(location.pathname == PageRoute.Login){
-                                navigation(PageRoute.Home);
-                            }
-                    }).catch(() => {
-                        ToastHelper.DefaultError();
-                        autContext.authenticationAction({ type: "Logaut" });
-                        navigation(PageRoute.Login);
-                    })
+                loginValidation();
             }
         }
 

@@ -8,7 +8,7 @@ namespace Venus.Presentation.Web.Cms.Server.Extensions
         {
             if (httpContext == null) throw new ArgumentNullException(nameof(httpContext));
 
-            var httLanguage = httpContext.Request.Headers["LanguageId"].FirstOrDefault();
+            var httLanguage = httpContext.Request.Headers["languageId"].FirstOrDefault();
             if (Guid.TryParse(httLanguage, out Guid result))
             {
                 return result;

@@ -20,18 +20,18 @@ export function ConfirmModal(){
                         {appContext.confirmModalState.body}
                     </h3>
                     <div className="flex justify-center gap-4">
-                    <Button className="cursor-pointer" color="red" onClick={() => {
+                    <Button className="cursor-pointer" color="red" onClick={async () => {
                         if(appContext.confirmModalState.approvalHandler){
-                            appContext.confirmModalState?.approvalHandler();
+                            await appContext.confirmModalState?.approvalHandler();
                             appContext.confirmModalAction({action:"Hidden"});
                         }
                     }}>
                         Evet
                     </Button>
-                    <Button className="cursor-pointer" color="alternative" onClick={() => {
+                    <Button className="cursor-pointer" color="alternative" onClick={async () => {
                         appContext.confirmModalAction({action:"Hidden"});
                         if(appContext.confirmModalState.lastHandler){
-                            appContext.confirmModalState.lastHandler();
+                            await appContext.confirmModalState.lastHandler();
                         }
                         }}>
                         Hayır

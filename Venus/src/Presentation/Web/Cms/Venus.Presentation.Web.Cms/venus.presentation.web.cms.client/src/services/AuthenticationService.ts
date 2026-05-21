@@ -9,9 +9,7 @@ export class AuthenticationService extends ServiceBase{
 
         return axios.post<ReadUserDto>(this.GetFullPath("Authentication/Login"), props, { withCredentials: true })
             .then(data => {
-
                 return data.data as ReadUserDto;
-            
             })
     }
 

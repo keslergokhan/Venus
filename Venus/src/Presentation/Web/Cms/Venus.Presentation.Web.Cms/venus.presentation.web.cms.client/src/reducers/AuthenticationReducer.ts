@@ -1,4 +1,5 @@
 import type { ReadUserDto } from "../dtos";
+import { SessionKeys, SessionStorageHelper } from "../helpers";
 
 export type AuthenticationReducerAction =
     | { type: "Login", user: ReadUserDto }
@@ -18,7 +19,7 @@ export function AuthenticationReducer(state: AuthenticationReducerState,action: 
         return { isAuth: true, user: action.user };
     }
     else if (actionType == "Logaut") {
-        localStorage.removeItem("cms_user");
+        SessionStorageHelper.get<string>(SessionKeys.cmsUser);
         return { isAuth: false, user: null };
     }
 

@@ -1,4 +1,5 @@
 import type { ReadLanguageDto } from "../dtos";
+import { SessionStorageHelper, SessionKeys } from "../helpers";
 
 
 export type LanguageReducerAction = 
@@ -12,12 +13,10 @@ export interface LanguageReducerState{
     languages:Array<ReadLanguageDto>
 }
 
-const key = "cms_language";
-const keyId = "cms_language_id";
 
 function SetLangauge(language:string,languageId:string){
-    localStorage.setItem(key,language);
-    localStorage.setItem(keyId,languageId);
+    SessionStorageHelper.set(SessionKeys.language,language);
+    SessionStorageHelper.set(SessionKeys.languageId,languageId);
 }
 
 export function LanguageReducerReducer(state:LanguageReducerState,action:LanguageReducerAction):LanguageReducerState {
@@ -30,6 +29,7 @@ export function LanguageReducerReducer(state:LanguageReducerState,action:Languag
 
     if(actionType == "SetLanguages"){
         const defaultLanguage = action.languages.find(x=>x.sort <= 0);
+        
         if(defaultLanguage){
             SetLangauge(defaultLanguage.culture,defaultLanguage.id);
         }
@@ -37,7 +37,13 @@ export function LanguageReducerReducer(state:LanguageReducerState,action:Languag
     }
 
     if(actionType == "SetLanguage"){
-       
+        const selectLanguage = action.language;
+        if(selectLanguage){
+            var findLanguage = state.languages.find(x=>x.culture == selectLanguage)
+            if(findLanguage){
+                SetLangauge(findLanguage.culture,findLanguage.id);
+            }
+        }
         return {...state,language:action.language};
     }
 

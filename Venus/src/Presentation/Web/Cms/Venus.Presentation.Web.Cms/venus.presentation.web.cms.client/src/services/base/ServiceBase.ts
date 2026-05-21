@@ -2,6 +2,7 @@ import type { AxiosRequestConfig } from "axios";
 import axios from "axios";
 import type { DtoBase, DynamicPropertiesDtoBase } from "../../dtos/base/DtoBase";
 import { object } from "zod";
+import { SessionKeys, SessionStorageHelper } from "../../helpers";
 
 export abstract class ServiceBase {
 
@@ -18,15 +19,15 @@ export abstract class ServiceBase {
     }
 
     public GetUserJwtToken():string|null {
-        return localStorage.getItem("cms_user");
+        return SessionStorageHelper.get<string>(SessionKeys.cmsUser);
     }
 
     protected GetAxiosHeader():AxiosRequestConfig<any> {
         const conf = {
             headers: {
                 'Authorization': `Bearer ${this.GetUserJwtToken()}`,
-                "Language":localStorage.getItem("cms_language"),
-                "LanguageId":localStorage.getItem("cms_language_id"),
+                "Language":SessionStorageHelper.get(SessionKeys.language),
+                "LanguageId":SessionStorageHelper.get(SessionKeys.languageId),
                 "Content-Type": "application/json"
             },
             withCredentials: true
