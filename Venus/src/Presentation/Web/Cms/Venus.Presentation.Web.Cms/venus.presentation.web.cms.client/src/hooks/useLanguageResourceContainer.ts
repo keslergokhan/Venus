@@ -7,7 +7,8 @@ import { AppContext } from "../contexts/AppContext";
 export type UpdateLanguageResourceType = {
     resourceId:string;
     languageResourceValue:string;
-    languageId:string
+    languageId:string,
+    isHtml:boolean
 }
 
 interface useLanguageResourceContainerResult {
@@ -39,11 +40,13 @@ export function useLanguageResourceContainer():useLanguageResourceContainerResul
     }
 
     async function updateResourceHandler(data:UpdateLanguageResourceType) {
+        console.log(data);
         await languageResourceService.updateLanguageResource(
             {
                 LanguageId:data.languageId,
+                isHtml:data.isHtml,
                 LanguageResourceValue:data.languageResourceValue,
-                ResourceId:data.resourceId
+                ResourceId:data.resourceId,
             }).then(x=>{
                 setContainers(["table"]);
                 refreshTable();

@@ -8,7 +8,7 @@ export class LanguageResourceService extends ServiceBase{
         return this.getAll<ReadLanguageResourceKeyDto>("language/get-resource");
     }
 
-    public updateLanguageResource(props:{LanguageResourceValue:string,LanguageId:string,ResourceId:string}):Promise<void> {
+    public updateLanguageResource(props:{LanguageResourceValue:string,isHtml:boolean,LanguageId:string,ResourceId:string}):Promise<void> {
         return this.post("language/update-resource",props);
     }
 }

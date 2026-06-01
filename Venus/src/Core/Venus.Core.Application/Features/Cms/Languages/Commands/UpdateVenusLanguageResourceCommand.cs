@@ -20,7 +20,7 @@ namespace Venus.Core.Application.Features.Cms
         public string LanguageResourceValue { get; set; }
         public Guid LanguageId { get; set; }
         public Guid ResourceId { get; set; }
-
+        public bool IsHtml { get; set; }
     }
 
     public class UpdateVenusLanguageResourceCommandHandler :
@@ -46,6 +46,7 @@ namespace Venus.Core.Application.Features.Cms
                     throw new VenusCmsBusinessException("Resource value not found");
 
 
+                resourceValue.ResourceKey.IsHtml = request.IsHtml;
                 resourceValue.Value = request.LanguageResourceValue;
                 resourceValue.ModifiedDate = DateTime.Now;
                 await _unitOfWork.SaveChangesAsync();

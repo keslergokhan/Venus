@@ -9,7 +9,7 @@ namespace Venus.Core.Application.Dtos.Systems.Localizations
     {
         public string Key { get; set; }
         public string DefaultValue { get; set; }
-
+        public bool IsHtml { get; set; }
         public List<ReadVenusLanguageResourceValueDto> ResourceValue { get; set; }
 
     }

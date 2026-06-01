@@ -11,6 +11,7 @@ namespace Venus.Core.Domain.Entities.Systems
     {
         public string Key { get; set; }
         public string DefaultValue { get; set; }
+        public bool IsHtml { get; set; }
 
     }
 

@@ -49,7 +49,8 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             {
                 LanguageId = req.LanguageId,
                 LanguageResourceValue = req.LanguageResourceValue,
-                ResourceId = req.ResourceId
+                ResourceId = req.ResourceId,
+                IsHtml = req.IsHtml
             });
 
             return result.ToActionResult(this);

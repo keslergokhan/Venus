@@ -1,6 +1,6 @@
 import { useEffect, useState, type JSX } from "react";
 import type { ReadLanguageDto, ReadLanguageResourceKeyDto, ReadLanguageResourceValueDto } from "../../dtos";
-import { CButtonField, HtmlEditor, IconFlag } from "../commons";
+import { CButtonField, CTextField, HtmlEditor, IconFlag } from "../commons";
 import { CTextAreaField } from "../commons";
 import z from "zod";
 import type { UpdateLanguageResourceType } from "../../hooks/useLanguageResourceContainer";
@@ -26,6 +26,7 @@ export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComp
         if(props.currentLangaugeResourceKey){
             const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == "47c696f8-5066-4094-a89f-6b52c9c24694");
             if(findResource){
+                setHtmlSource(props.currentLangaugeResourceKey.isHtml);
                 setCurrentLanguageResourceValue(findResource);
                 setValue("resourceId",props.currentLangaugeResourceKey.id);
                 setValue("languageResourceValue",findResource?.value);
@@ -34,8 +35,10 @@ export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComp
         }
     },[]);
 
+    //Dil seçimi sonrası value kaynağı güncellendi
     useEffect(()=>{
         if(props.currentLangaugeResourceKey){
+            //Mevcut veri içerisinden seçilen dile bağlı olan value değerini seç
             const findResource = props.currentLangaugeResourceKey?.resourceValue.find(x=>x.languageId == language?.id);
             if(findResource){
                 setCurrentLanguageResourceValue(findResource);
@@ -50,15 +53,18 @@ export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComp
     const schema = z.object({
         resourceId:z.string().min(1,"id değeri formatı uygun değil"),
         languageResourceValue:z.string(),
-        languageId:z.string()
+        languageId:z.string(),
+        isHtml:z.boolean()
     });
 
     const defaultValue:UpdateLanguageResourceType = {
         resourceId:props.currentLangaugeResourceKey?.id ?? "",
         languageResourceValue:"",
-        languageId:""
+        languageId:"",
+        isHtml:props.currentLangaugeResourceKey?.isHtml ?? false
     };
 
+    //Dil seçimi
     function setFlagClickHandler(language:ReadLanguageDto){
         setLanguage(language);
     }
@@ -85,8 +91,8 @@ export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComp
                             })}
                         </div>
                         <div className="flex col-span-1 gap-3">
-                            <CButtonField disabled={htmlSoruce == false ? true:false} onClick={()=>{setHtmlSource(false)}}> Metin </CButtonField>
-                            <CButtonField disabled={htmlSoruce == true ? true:false} onClick={()=>{setHtmlSource(true)}}> Zengin Metin </CButtonField>
+                            <CButtonField disabled={htmlSoruce == false ? true:false} onClick={()=>{setHtmlSource(false);setValue("isHtml",false)}}> Metin </CButtonField>
+                            <CButtonField disabled={htmlSoruce == true ? true:false} onClick={()=>{setHtmlSource(true);setValue("isHtml",true)}}> Zengin Metin </CButtonField>
                         </div>
                     </div>
                     <div className="top-2">
