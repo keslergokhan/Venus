@@ -13,7 +13,7 @@ using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 
-namespace Venus.Core.Application.Features.Cms
+namespace Venus.Core.Application.Features.Cms.Command
 {
     public class UpdateVenusLanguageResourceCommand : IRequest<IResultControl>
     {

@@ -14,7 +14,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await Mediator.Send(new Core.Application.Features.Cms.ConfigurationSettings.Queries.GetConfigurationSettingQuery()
+            var result = await Mediator.Send(new Core.Application.Features.Cms.Queries.GetConfigurationSettingQuery()
             {
                 Hidden = false
             });

@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Venus.Core.Application.Features.Cms;
-using Venus.Core.Application.Features.Cms.Entities.Blogs.Commands;
-using Venus.Core.Application.Features.Cms.Entities.Blogs.Queries;
-using Venus.Core.Application.Features.Systems.Pages.Queries;
+using Venus.Core.Application.Features.Cms.Queries;
+using Venus.Core.Application.Features.Cms.Command;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;
 using Venus.Presentation.Web.Cms.Server.Models.Blogs;
+using Venus.Core.Application.Features.Systems.Queries;
 
 namespace Venus.Presentation.Web.Cms.Server.Controllers
 {

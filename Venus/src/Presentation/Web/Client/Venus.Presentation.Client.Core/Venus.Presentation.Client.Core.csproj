@@ -36,6 +36,11 @@
     <Folder Include="Controllers\Base\" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <PackageReference Include="Scriban" Version="7.2.3" />
+  </ItemGroup>
+
 
 
 </Project>

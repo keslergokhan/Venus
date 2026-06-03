@@ -10,7 +10,7 @@ using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 
-namespace Venus.Core.Application.Features.Cms.Languages.Queries
+namespace Venus.Core.Application.Features.Cms.Queries
 {
     public class GetVenusLanguageResourceQueriy : IRequest<IResultDataControl<List<ReadVenusLanguageResourceKeyDto>>>
     {

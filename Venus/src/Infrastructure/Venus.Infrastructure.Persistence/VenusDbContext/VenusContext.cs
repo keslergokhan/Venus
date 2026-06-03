@@ -43,6 +43,8 @@ namespace Venus.Infrastructure.Persistence.VenusDbContext
         public DbSet<VenusUrl> VenusUrl { get; set; }
         public DbSet<VenusUser> VenusUser { get; set; }
         public DbSet<VenusConfigurationSetting> VenusConfigurationSetting { get; set; }
+        public DbSet<VenusWidget> Widget { get; set; }
+        public DbSet<VenusWidgetData> WidgetData { get; set; }
         #endregion VenusSystems End
         public DbSet<Blog> Blog { get; set; }  
     }

@@ -13,7 +13,7 @@ using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 using Venus.Core.Domain.Entities.Systems;
 
-namespace Venus.Core.Application.Features.Cms
+namespace Venus.Core.Application.Features.Cms.Queries
 {
     public class GetVenusLanguageQuery : IRequest<IResultDataControl<List<ReadVenusLanguageDto>>>
     {
