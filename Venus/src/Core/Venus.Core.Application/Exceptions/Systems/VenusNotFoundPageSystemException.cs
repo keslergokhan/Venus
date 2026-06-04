@@ -7,9 +7,9 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusDoubleUrlException : VenusExceptionBase
+    public class VenusNotFoundPageSystemException : VenusExceptionBase
     {
-        public VenusDoubleUrlException() : base("VENUS_DOUBLE_URL", "Aynı adresi birden fazla url kullanıyor !")
+        public VenusNotFoundPageSystemException() : base("NOT_FOUND_PAGE",$"Sayfa bulunamadı !")
         {
         }
     }

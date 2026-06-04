@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusNotFoundPageEntityException : Exception
+    public class VenusNotFoundPageEntitySystemException : Exception
     {
-        public VenusNotFoundPageEntityException(string entityName) : base($"${entityName} bağlı bir sayfa bulunamadı !")
+        public VenusNotFoundPageEntitySystemException(string entityName) : base($"${entityName} bağlı bir sayfa bulunamadı !")
         {
         }
     }

@@ -69,7 +69,7 @@ namespace Venus.Core.Application.Features.Cms.Command
                 int saveResult = await _venusUnitOfWork.SaveChangesAsync(cancellationToken);
 
                 if (saveResult <= 0)
-                    throw new VenusDataCreationFailedException(nameof(ReadBlogDto));
+                    throw new VenusDataCreationFailedCmsException(nameof(ReadBlogDto));
 
                 ReadBlogDto readBlogDto = _mapper.Map<ReadBlogDto>(newBlog);
 

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Application.Exceptions.Cms
 {
-    public class VenusDataCreationFailedException : Exception
+    public class VenusDataCreationFailedCmsException : Exception
     {
-        public VenusDataCreationFailedException()
+        public VenusDataCreationFailedCmsException()
             : base("Veri veritabanına kaydedilirken beklenmedik bir hata oluştu.")
         { }
 
-        public VenusDataCreationFailedException(string entityName)
+        public VenusDataCreationFailedCmsException(string entityName)
             : base($"{entityName} kaydı oluşturulamadı.")
         { }
 
-        public VenusDataCreationFailedException(string message, Exception innerException)
+        public VenusDataCreationFailedCmsException(string message, Exception innerException)
             : base(message, innerException)
         { }
     }

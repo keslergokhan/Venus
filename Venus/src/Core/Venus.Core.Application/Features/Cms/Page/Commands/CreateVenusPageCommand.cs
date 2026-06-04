@@ -65,7 +65,7 @@ namespace Venus.Core.Application.Features.Cms.Command
                 
                 int saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
                 if (saveResult <= 0)
-                    throw new VenusDataCreationFailedException(nameof(ReadVenusPageDto));
+                    throw new VenusDataCreationFailedCmsException(nameof(ReadVenusPageDto));
 
                 ReadVenusPageDto readVenusPageDto = _mapper.Map<ReadVenusPageDto>(newVenusPage);
                 result.SetData(readVenusPageDto);

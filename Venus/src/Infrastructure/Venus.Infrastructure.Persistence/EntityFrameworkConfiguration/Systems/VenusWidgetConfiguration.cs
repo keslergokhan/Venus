@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
             builder.HasIndex(x => x.Key).IsUnique();
             builder.Property(x => x.Key).IsRequired();
 
+            builder.Property(x => x.TemplateDataSchema).HasDefaultValue<string>("{}");
             builder.HasMany(x => x.WidgetData)
                 .WithOne(x => x.Widget)
                 .HasForeignKey(x => x.WidgetId)

@@ -53,7 +53,7 @@ namespace Venus.Core.Application.Features.Cms.Queries
 
                 if (user == null)
                 {
-                    throw new VenusCmsUserNotFoundException();
+                    throw new VenusCmsUserNotFoundCmsException();
                 }
 
                 var claims = new[]

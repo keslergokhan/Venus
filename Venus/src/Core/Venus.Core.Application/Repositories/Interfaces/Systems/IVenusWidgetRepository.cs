@@ -9,6 +9,6 @@ namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
     public interface IVenusWidgetRepository : IRepository<VenusWidget>
     {
-        public Task<VenusWidget> GetWidgetAndWidgetDataByKeyAsync(string key);
+        public Task<VenusWidget> GetWidgetAndWidgetDataByKeyAsync(string key,Guid languageId);
     }
 }

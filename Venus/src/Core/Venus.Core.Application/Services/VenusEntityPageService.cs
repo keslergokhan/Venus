@@ -29,7 +29,7 @@ namespace Venus.Core.Application.Services
             VenusPage venusPage = await _venusPageRepository.GetEntityDetailPageByEntityNameAsync(EntityFullName, languageId);
             if (venusPage==null)
             {
-                throw new VenusNotFoundPageEntityException(EntityFullName);
+                throw new VenusNotFoundPageEntitySystemException(EntityFullName);
 
             }
             return venusPage;

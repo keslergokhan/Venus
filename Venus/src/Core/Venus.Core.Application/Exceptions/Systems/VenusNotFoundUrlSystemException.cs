@@ -7,10 +7,10 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusNotFoundUrlException : VenusExceptionBase
+    public class VenusNotFoundUrlSystemException : VenusExceptionBase
     {
         public string FullPath { get; }
-        public VenusNotFoundUrlException(string fullpath):base("NOT_FOUND_URL",$"{fullpath}, adresine ulaşılamadı !")
+        public VenusNotFoundUrlSystemException(string fullpath):base("NOT_FOUND_URL",$"{fullpath}, adresine ulaşılamadı !")
         {
             this.FullPath = fullpath;
         }

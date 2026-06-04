@@ -7,9 +7,9 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusNotFoundLanguageException : VenusExceptionBase
+    public class VenusNotFoundLanguageSystemException : VenusExceptionBase
     {
-        public VenusNotFoundLanguageException() : base("NOT_FOUND_LANGUAGE","Dil ayarına ulaşılamadı !")
+        public VenusNotFoundLanguageSystemException() : base("NOT_FOUND_LANGUAGE","Dil ayarına ulaşılamadı !")
         {
             
         }

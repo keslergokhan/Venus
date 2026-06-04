@@ -7,11 +7,10 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusNotFoundPageTypeException : VenusExceptionBase
+    public class VenusNotFoundWidgetSystemException : VenusExceptionBase
     {
-        public VenusNotFoundPageTypeException() : base("NOT_FOUND_PAGE_TYPE","Sayfa hakkında bilgiye ulaşılamadı !")
+        public VenusNotFoundWidgetSystemException(string widgetKey) : base("NOT_FOUND_WIDGET", $"Widget kaynağına ulaşılamadı: {widgetKey}")
         {
-            
         }
     }
 }

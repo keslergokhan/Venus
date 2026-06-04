@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Cms\PageManagers\" />
-    <Folder Include="Features\Systems\Widget\" />
     <Folder Include="Services\Base\" />
   </ItemGroup>
 

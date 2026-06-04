@@ -30,11 +30,11 @@ namespace Venus.Presentation.Client.Core.RouterHandler
 
             if (urlResult.Data.Count == 0)
             {
-                throw new VenusNotFoundUrlException(Path);
+                throw new VenusNotFoundUrlSystemException(Path);
             }
 
             if (urlResult.Data.Any(x=>x.Language == null))
-                throw new VenusNotFoundLanguageException();
+                throw new VenusNotFoundLanguageSystemException();
            
             return await base.HandleAsync(httpContext,urlResult.Data);
         }

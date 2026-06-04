@@ -17,9 +17,10 @@ namespace Venus.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task<VenusWidget> GetWidgetAndWidgetDataByKeyAsync(string key)
+
+        public Task<VenusWidget> GetWidgetAndWidgetDataByKeyAsync(string key, Guid languageId)
         {
-            return GetTable().Where(x=>x.Key == key).Include(x=>x.WidgetData).FirstOrDefaultAsync();
+            return GetTable().Where(x => x.Key == key && x.WidgetData.Any(i=>i.LanguageId == languageId)).Include(x => x.WidgetData).FirstOrDefaultAsync();
         }
     }
 }

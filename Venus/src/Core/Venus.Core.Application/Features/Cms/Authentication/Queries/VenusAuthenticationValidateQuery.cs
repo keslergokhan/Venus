@@ -70,14 +70,14 @@ namespace Venus.Core.Application.Features.Cms.Queries
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    throw new VenusCmsUserNotFoundException();
+                    throw new VenusCmsUserNotFoundCmsException();
                 }
 
                VenusUser user = await this._authRepo.FindUserByIdAsync(Guid.Parse(userId));
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    throw new VenusCmsUserNotFoundException();
+                    throw new VenusCmsUserNotFoundCmsException();
                 }
 
                 ReadVenusUserDto userDto = this._mapper.Map<ReadVenusUserDto>(user);

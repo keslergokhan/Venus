@@ -14,7 +14,7 @@ namespace Venus.Presentation.Web.Cms.Server.Extensions
                 return result;
             }
 
-            throw new VenusNotFoundLanguageException();
+            throw new VenusNotFoundLanguageSystemException();
         }
     }
 }

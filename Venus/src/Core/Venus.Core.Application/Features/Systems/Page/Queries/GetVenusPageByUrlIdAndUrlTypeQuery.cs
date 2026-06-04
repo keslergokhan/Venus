@@ -47,7 +47,7 @@ namespace Venus.Core.Application.Features.Systems.Queries
 
                 if (page == null)
                 {
-                    throw new VenusNotFoundPageException();
+                    throw new VenusNotFoundPageSystemException();
                 }
 
                 ReadVenusPageDto pageDto = this._mapper.Map<ReadVenusPageDto>(page);

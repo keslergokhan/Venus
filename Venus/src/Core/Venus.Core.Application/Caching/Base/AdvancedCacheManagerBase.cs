@@ -25,7 +25,7 @@ namespace Venus.Core.Application.Caching.Base
         public async Task<TDto> GetOrCreateAsync(TKeyType key)
         {
             if (DataRefreshSourceAction == null)
-                throw new VenusCmsBusinessException("Öncelikle veri kaynağının elde edilebilmesi için DataRefreshSourceAction implement edilmelidir.");
+                throw new VenusCmsBusinessCmsException("Öncelikle veri kaynağının elde edilebilmesi için DataRefreshSourceAction implement edilmelidir.");
 
             TDto cacheData = await GetAsync(key);
             if (cacheData==null)

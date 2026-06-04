@@ -34,26 +34,26 @@ namespace Venus.Presentation.Client.Core.RouterHandler
             List<ReadVenusUrlDto> req = request as List<ReadVenusUrlDto>;
 
             if (req.Any(x=> (x.Pages == null || !x.Pages.Any()) && x.ParentUrl == null))
-                throw new VenusNotFoundPageException();
+                throw new VenusNotFoundPageSystemException();
 
             if (req.Any(x => x.Pages.Any(i => i.PageAbout == null)))
-                throw new VenusNotFoundPageAboutException();
+                throw new VenusNotFoundPageAboutSystemException();
 
             if (req.Any(x => x.Pages.Any(i => i.PageAbout.PageType == null)))
-                throw new VenusNotFoundPageTypeException();
+                throw new VenusNotFoundPageTypeSystemException();
 
 
             
             if (req.Count > 1)
             {
-                throw new VenusDoubleUrlException();
+                throw new VenusDoubleUrlSystemException();
             }
           
             ReadVenusUrlDto currentUrl = req.First();
 
             if (currentUrl.Pages.Count() > 1)
             {
-                throw new VenusDoubleUrlException();
+                throw new VenusDoubleUrlSystemException();
             }
 
             bool isEntity = currentUrl.Pages.Any(x => x.PageAbout.PageEntity != null);

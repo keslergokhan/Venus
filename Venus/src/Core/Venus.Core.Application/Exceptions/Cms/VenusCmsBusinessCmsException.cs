@@ -7,9 +7,9 @@ using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Cms
 {
-    public class VenusCmsUserNotFoundException : VenusExceptionBase
+    public class VenusCmsBusinessCmsException : VenusExceptionBase
     {
-        public VenusCmsUserNotFoundException():base("CMS_USER_NOT_FOUND","Kullanıcı bulunamadı !")
+        public VenusCmsBusinessCmsException(string message):base("GENERAL",message)
         {
             
         }

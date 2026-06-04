@@ -39,7 +39,7 @@ namespace Venus.Core.Application.Features.Cms.Queries
                 var blog = await _blogRepository.GetByIdAsync(request.Id,cancellationToken);
                 if (blog == null)
                 {
-                    throw new VenusCmsBusinessException("Blog not found");
+                    throw new VenusCmsBusinessCmsException("Blog not found");
                 }
 
                 result.SetData(_mapper.Map<ReadBlogDto>(blog)).Success();

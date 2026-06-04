@@ -43,7 +43,7 @@ namespace Venus.Core.Application.Features.Cms.Command
                 var resourceValue = await _venusLanguageResourceValueRepository.GetByLanguageIdAndResourceKeyIdAsync(request.LanguageId, request.ResourceId);
 
                 if (resourceValue == null)
-                    throw new VenusCmsBusinessException("Resource value not found");
+                    throw new VenusCmsBusinessCmsException("Resource value not found");
 
 
                 resourceValue.ResourceKey.IsHtml = request.IsHtml;

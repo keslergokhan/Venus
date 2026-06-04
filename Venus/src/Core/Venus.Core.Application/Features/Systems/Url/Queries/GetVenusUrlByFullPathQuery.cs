@@ -35,7 +35,7 @@ namespace Venus.Core.Application.Features.Systems.Queries
                 List<ReadVenusUrlDto> listUrlData = this._mapper.Map<List<ReadVenusUrlDto>>(urlList);
 
                 if (listUrlData.Count == 0)
-                    throw new VenusNotFoundUrlException(request.FullPath);
+                    throw new VenusNotFoundUrlSystemException(request.FullPath);
 
                 ReadVenusUrlDto url = listUrlData.FirstOrDefault();
 

@@ -34,7 +34,7 @@ namespace Venus.Core.Application.Features.Cms.Command
             {
                 var blog = await _blogRepository.GetByIdAsync(request.Id);
                 if (blog == null)
-                    throw new VenusCmsBusinessException("Blog not found.");
+                    throw new VenusCmsBusinessCmsException("Blog not found.");
 
                 if (blog.State == (int)EntityStateEnum.Online)
                 {
