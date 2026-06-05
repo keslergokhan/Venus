@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using HtmlAgilityPack;
+using MediatR;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using Scriban;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Dtos.Systems.Widget;
+using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Presentation.Client.Core.HtmlCustomTagParser.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
@@ -11,13 +16,11 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
     public class VenusWidgetTagParser : VenusWidgetTagParserBase
     {
 
-        [HtmlAttributeName("json-data")]
-        public string JsonData { get; set; }
-        public VenusWidgetTagParser() : base("venus-widget")
+        public VenusWidgetTagParser(IServiceProvider serviceProvider) : base("venus-widget", serviceProvider)
         {
         }
 
-        public override async Task<string> ExecuteAsync()
+        public override async Task<string> ExecuteAsync(TemplateContext templateContext, HtmlDocument htmlDocument, ReadVenusWidgetDto widget)
         {
             var sss = JsonData;
             return sss;

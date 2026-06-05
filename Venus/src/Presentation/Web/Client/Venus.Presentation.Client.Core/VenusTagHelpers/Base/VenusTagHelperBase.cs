@@ -13,6 +13,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Widget;
 using Venus.Core.Application.Exceptions.Base;
+using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Systems.Widget.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.Results.Interfaces;
@@ -81,6 +82,10 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
                 if (ex is VenusExceptionBase venusException)
                 {
                     await ErrorProcessAsync(context, output, venusException.ErrorCode, venusException.Message);
+                }
+                else
+                {
+                    await ErrorProcessAsync(context, output, "ERROR", "SYSTEM");
                 }
             }
         }

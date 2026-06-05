@@ -1,11 +1,13 @@
 ﻿using MapsterMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Widget;
+using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
@@ -39,7 +41,12 @@ namespace Venus.Core.Application.Features.Systems.Widget.Queries
             {
                 var widget = await _venusWidgetRepository.GetWidgetAndWidgetDataByKeyAsync(request.Key, request.LanguageId);
 
+                if (widget == null)
+                    throw new VenusNotFoundWidgetSystemException(request.Key);
+
                 var widgetDto = _mapper.Map<ReadVenusWidgetDto>(widget);
+
+                
 
                 response.SetData(widgetDto);
             }

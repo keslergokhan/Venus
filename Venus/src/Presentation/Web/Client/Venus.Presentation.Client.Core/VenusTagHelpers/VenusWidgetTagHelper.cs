@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Scriban;
+using Scriban.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -20,6 +21,8 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
 
         public override Task ExecuteAsync(TagHelperContext context, TagHelperOutput output, TemplateContext templateContext, ReadVenusWidgetDto widget)
         {
+
+
             return Task.FromResult(true);
         }
     }
