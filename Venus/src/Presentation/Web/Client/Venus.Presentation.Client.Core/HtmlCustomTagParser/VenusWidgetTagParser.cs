@@ -20,7 +20,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
         {
         }
 
-        public override async Task<string> ExecuteAsync(TemplateContext templateContext, HtmlDocument htmlDocument, ReadVenusWidgetDto widget)
+        public override async Task<string> ExecuteAsync(TemplateContext templateContext, HtmlNode htmlWidget, ReadVenusWidgetDto widget)
         {
             var sss = JsonData;
             return sss;

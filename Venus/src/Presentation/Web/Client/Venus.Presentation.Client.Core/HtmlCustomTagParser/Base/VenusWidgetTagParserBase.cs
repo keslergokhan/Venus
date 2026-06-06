@@ -60,38 +60,24 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser.Base
             return context;
         }
 
-        public abstract Task<string> ExecuteAsync(TemplateContext templateContext, HtmlDocument htmlDocument, ReadVenusWidgetDto widget);
+        public abstract Task<string> ExecuteAsync(TemplateContext templateContext, HtmlNode htmlWidget, ReadVenusWidgetDto widget);
 
 
-        public async Task ErrorRender(HtmlDocument htmlDocument, string errorCode, string errorMessage)
+        public async Task ErrorRender(HtmlNode htmlWidget, string errorCode, string errorMessage)
         {
-            var widget = HtmlNode.CreateNode($"<{HtmlTargetElement} key-data=\"{Key}\" error-data=\"{errorCode}\" error-message=\"{errorMessage}\"></{HtmlTargetElement}>");
+            var widgetContent = HtmlNode.CreateNode($"<{HtmlTargetElement} key-data=\"{Key}\" error-data=\"{errorCode}\" error-message=\"{errorMessage}\"></{HtmlTargetElement}>");
             var script = HtmlNode.CreateNode("<script></script>");
             script.SetAttributeValue("type", "application/json");
             script.InnerHtml = JsonData;
-            widget.AppendChild(script);
-            htmlDocument.DocumentNode.AppendChild(widget);
+            widgetContent.AppendChild(script);
+            htmlWidget.AppendChild(widgetContent);
         }
 
-        public async Task ParseAsync(string htmlContent)
+        public async Task ParseAsync(HtmlNodeCollection htmlWidgets)
         {
-            var htmlDocument = new HtmlDocument();
+            HtmlNode currentHtmlWidget = null;
             try
             {
-                string html = @"
-                <div>
-                    <venus-widget key-data=""Deneme.Sablonu"" >
-                        <script type=""application/json"">
-                        {
-                            ""deneme"": ""O'Connor"",
-                            ""items"": [1,2,3]
-                        }
-                        </script>
-                    </venus-widget>
-                    <venus-widget key-data=""Description"" json-data=""tr-TR""></venus-widget>
-                </div>";
-
-
                 Type type = this.GetType();
                 var properties = type.GetProperties().Select(x => new
                 {
@@ -99,19 +85,13 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser.Base
                     Attribute = x.GetCustomAttribute<HtmlAttributeNameAttribute>()
                 }).Where(x => x.Attribute != null).ToArray();
 
-                htmlDocument.LoadHtml(html);
-                var widgets = htmlDocument.DocumentNode.SelectNodes($"//{HtmlTargetElement}");
-
-                if (widgets == null)
-                    return;
-
-
-                foreach (var widget in widgets)
+                foreach (var htmlWidget in htmlWidgets)
                 {
+                    currentHtmlWidget = htmlWidget; 
                     foreach (var property in properties)
                     {
                         string attrName = property.Attribute.Name;
-                        string attrValue = widget.GetAttributeValue(attrName, "{}");
+                        string attrValue = htmlWidget.GetAttributeValue(attrName, "{}");
 
                         if (attrValue != null)
                         {
@@ -119,7 +99,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser.Base
                         }
                     }
 
-                    var script = widget.SelectSingleNode(".//script[@type='application/json']");
+                    var script = htmlWidget.SelectSingleNode(".//script[@type='application/json']");
                     JsonData = script?.InnerText ?? "{}";
 
                     IResultDataControl<ReadVenusWidgetDto> result = await Mediator.Send(new GetVenusWidgetByKeyQuery()
@@ -132,22 +112,23 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser.Base
                         throw result.Exception;
 
                     var templateContext = TemplateContext();
-                    await ExecuteAsync(templateContext,htmlDocument, result.Data);
+                    await ExecuteAsync(templateContext,htmlWidget, result.Data);
                     var templateHtml = Template.Parse(result.Data.Template);
                     var renderedHtml = templateHtml.Render(templateContext);
-                    widget.AppendChild(HtmlNode.CreateNode(renderedHtml));
-                    var sonHali = htmlDocument.DocumentNode.OuterHtml;
+                    htmlWidget.AppendChild(HtmlNode.CreateNode(renderedHtml));
+                    htmlWidget.Name = "div";
+                    htmlWidget.Attributes.Add("widget-data", HtmlTargetElement);
                 }
             }
             catch (Exception ex)
             {
                 if (ex is VenusExceptionBase venusException)
                 {
-                    await ErrorRender(htmlDocument, venusException.ErrorCode, venusException.Message);
+                    await ErrorRender(currentHtmlWidget, venusException.ErrorCode, venusException.Message);
                 }
                 else
                 {
-                    await ErrorRender(htmlDocument,"ERROR", "SYSTEM");
+                    await ErrorRender(currentHtmlWidget, "ERROR", "SYSTEM");
                 }
             }
 
