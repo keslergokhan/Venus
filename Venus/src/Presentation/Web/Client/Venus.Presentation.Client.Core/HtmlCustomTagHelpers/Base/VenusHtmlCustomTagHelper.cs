@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using Scriban;
 using Scriban.Runtime;
 using System;
@@ -57,9 +58,9 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
             return Task.CompletedTask;
         }
 
-        protected virtual Task RenderAfterAsync(string htmlResult)
+        protected virtual Task<string> RenderAfterAsync(string htmlResult)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(htmlResult);
         }
 
 
@@ -67,12 +68,13 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
 
         protected async Task ErrorRender(HtmlNode htmlWidget, string errorCode, string errorMessage)
         {
-            var widgetContent = HtmlNode.CreateNode($"<{HtmlTargetElement}-error error-data=\"{errorCode}\" error-message=\"{errorMessage}\"></{HtmlTargetElement}>");
-            var script = HtmlNode.CreateNode("<script></script>");
-            script.SetAttributeValue("type", "application/json");
-            script.InnerHtml = JsonData;
-            widgetContent.AppendChild(script);
+            var widgetContent = HtmlNode.CreateNode($"<{HtmlTargetElement}-error></{HtmlTargetElement}-error>");
+            widgetContent.SetAttributeValue("error-code-data",errorCode);
+            widgetContent.SetAttributeValue("error-message-data",errorMessage);
             htmlWidget.AppendChild(widgetContent);
+            htmlWidget.RemoveChild(htmlWidget.SelectSingleNode(".//script[@type='application/json']"));
+            htmlWidget.Name = "div";
+            htmlWidget.Attributes.Add("widget-data", HtmlTargetElement);
         }
 
         protected VenusHtmlCustomTagHelper LoadPropertySetData(HtmlNode cutomTagNode)
@@ -119,7 +121,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
                 var templateHtml = Template.Parse(template);
                 await RenderBeforeAsync(templateContext, templateHtml);
                 html = templateHtml.Render(templateContext);
-                await RenderAfterAsync(html);
+                html = await RenderAfterAsync(html);
             }
             catch (Exception ex)
             {
@@ -133,7 +135,8 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
                 }
             }
 
-            cutomTagNode.AppendChild(HtmlNode.CreateNode(html));
+            var content = HtmlNode.CreateNode(html);
+            cutomTagNode.AppendChild(content);
             cutomTagNode.Name = "div";
             cutomTagNode.Attributes.Add("widget-data", HtmlTargetElement);
 

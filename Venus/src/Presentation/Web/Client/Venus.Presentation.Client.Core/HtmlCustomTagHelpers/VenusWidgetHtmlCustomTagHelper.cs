@@ -36,5 +36,24 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 
             return result.Data.Template;
         }
+
+        protected override async Task<string> RenderAfterAsync(string htmlResult)
+        {
+            var content = HtmlNode.CreateNode(htmlResult);
+
+            foreach (var childItem in content.SelectNodes($"//{HtmlTargetElement}"))
+            {
+                var keyAttr = childItem.GetAttributeValue("key-data", null);
+                if (keyAttr == Key)
+                {
+                    await ErrorRender(childItem, "AGAIN_ERROR", "İç içe widget");
+                    childItem.Name = "div";
+                    childItem.Attributes.Add("widget-data", HtmlTargetElement);
+                }
+                
+            }
+
+            return content.OuterHtml;
+        }
     }
 }
