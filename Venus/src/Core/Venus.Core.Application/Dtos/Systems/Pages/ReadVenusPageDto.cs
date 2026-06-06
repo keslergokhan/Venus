@@ -1,6 +1,7 @@
 ﻿using Venus.Core.Application.Dtos.Base;
 using Venus.Core.Application.Dtos.Interfaces;
 using Venus.Core.Application.Dtos.Systems.Languages;
+using Venus.Core.Application.Dtos.Systems.PageZone;
 using Venus.Core.Application.Dtos.Systems.Urls;
 
 namespace Venus.Core.Application.Dtos.Systems.Pages
@@ -20,6 +21,7 @@ namespace Venus.Core.Application.Dtos.Systems.Pages
     {
         public ReadVenusLanguageDto Language { get; set; }
         public ReadVenusPageSummaryDto ParentPage { get; set; } 
-        public List<ReadVenusPageSummaryDto> SubPages { get; set; } 
+        public List<ReadVenusPageSummaryDto> SubPages { get; set; }
+        public List<ReadVenusPageZoneDto> PageZones { get; set; }   
     }
 }

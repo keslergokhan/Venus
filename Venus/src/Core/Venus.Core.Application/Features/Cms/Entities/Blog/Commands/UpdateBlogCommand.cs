@@ -46,7 +46,7 @@ namespace Venus.Core.Application.Features.Cms.Command
             IResultDataControl<ReadBlogDto> result = new ResultDataControl<ReadBlogDto>();
             try
             {
-                var blog = await _blogRepository.GetByIdAsync(request.Id, cancellationToken);
+                var blog = await _blogRepository.GetByIdTrackingAsync(request.Id, cancellationToken);
 
                 if (blog == null)
                     throw new VenusCmsBusinessCmsException("Blog not found !");

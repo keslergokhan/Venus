@@ -8,13 +8,14 @@ using Venus.Core.Domain.Entities.Interfaces;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public class VenusWidgetData : VenusEntityBase, IVenusLanguageEntity
+    public class VenusPageZoneWidget : VenusEntityBase, IVenusLanguageEntity
     {
-        public string Data { get; set; }
+        public Guid ZoneId { get; set; }
+        public Guid WidgetId { get; set; }
+        public VenusWidget Widget { get; set; }
+        public string WidgetData { get; set; }
         public Guid LanguageId { get; set; }
         public VenusLanguage Language { get; set; }
 
-        public Guid WidgetId { get; set; }
-        public VenusWidget Widget { get; set; }
     }
 }

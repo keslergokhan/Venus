@@ -16,10 +16,9 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Systems.Widget.Queries
 {
-    public class GetVenusWidgetByKeyQuery : IRequest<IResultDataControl<ReadVenusWidgetDto>>, ILanguageRequest
+    public class GetVenusWidgetByKeyQuery : IRequest<IResultDataControl<ReadVenusWidgetDto>>
     {
         public string Key { get; set; }
-        public Guid LanguageId { get; set; }
     }
 
     public class GetVenusWidgetByKeyQueryHandler : IRequestHandler<GetVenusWidgetByKeyQuery, IResultDataControl<ReadVenusWidgetDto>>
@@ -39,7 +38,7 @@ namespace Venus.Core.Application.Features.Systems.Widget.Queries
 
             try
             {
-                var widget = await _venusWidgetRepository.GetWidgetAndWidgetDataByKeyAsync(request.Key, request.LanguageId);
+                var widget = await _venusWidgetRepository.GetWidgetAndByKeyAsync(request.Key);
 
                 if (widget == null)
                     throw new VenusNotFoundWidgetSystemException(request.Key);

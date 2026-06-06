@@ -34,7 +34,7 @@
   
   <ItemGroup>
     <Folder Include="Controllers\Base\" />
-    <Folder Include="HtmlCustomTagParser\Attributes\" />
+    <Folder Include="HtmlCustomTagParser\Base\" />
   </ItemGroup>
 
   

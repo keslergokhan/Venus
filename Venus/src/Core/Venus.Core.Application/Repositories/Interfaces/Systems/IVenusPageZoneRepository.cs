@@ -7,8 +7,8 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Repositories.Interfaces.Systems
 {
-    public interface IVenusWidgetRepository : IRepository<VenusWidget>
+    public interface IVenusPageZoneRepository : IRepository<VenusPageZone>
     {
-        public Task<VenusWidget> GetWidgetAndByKeyAsync(string key);
+        public Task<VenusPageZone> GetPageZoneAndWidgetsByPageIdAndKeyAsync(Guid pageId,string key,Guid languageId);
     }
 }

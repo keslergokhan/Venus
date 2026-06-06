@@ -20,7 +20,7 @@ namespace Venus.Infrastructure.Persistence.Repositories
 
         public Task<VenusLanguageResourceValue> GetByLanguageIdAndResourceKeyIdAsync(Guid languageId, Guid resourceKeyId)
         {
-            return GetTable().Include(x=>x.ResourceKey).FirstOrDefaultAsync(x => x.LanguageId == languageId && x.ResourceKeyId == resourceKeyId);
+            return GetQueryable(true).Include(x=>x.ResourceKey).FirstOrDefaultAsync(x => x.LanguageId == languageId && x.ResourceKeyId == resourceKeyId);
         }
     }
 }

@@ -31,5 +31,8 @@ namespace Venus.Core.Domain.Entities.Systems
 
         public Guid PageAboutId { get; set; }
         public VenusPageAbout PageAbout { get; set; }
+
+        public ICollection<VenusPageZone> VenusPageZones { get; set; }
+
     }
 }

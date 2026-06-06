@@ -12,6 +12,8 @@ using Venus.Core.Application.Caching;
 using Venus.Infrastructure.Persistence;
 using Venus.Infrastructure.Persistence.VenusDbContext;
 using Venus.Presentation.Client.Core.DynamicRoutes;
+using Venus.Presentation.Client.Core.HtmlCustomTagHelpers;
+using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 using Venus.Presentation.Client.Core.PageTypeServices;
 using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
 
@@ -29,6 +31,11 @@ namespace Venus.Presentation.Client.Core
             services.AddScoped<IVenusEntityDetailPageTypeService, VenusEntityDetailPageTypeService>();
             services.AddScoped<VenusDynamicRouteValueTransformer>();
             services.AddVenusMemoryCacheRegistration(configuration, TimeSpan.FromMinutes(10));
+
+            services.AddScoped<IVenusHtmlCustomTagHelper, VenusWidgetHtmlCustomTagHelper>();
+            services.AddScoped<IVenusHtmlCustomTagHelper, VenusLangaugeResourceHtmlCustomTagHelper>();
+            services.AddScoped<IHtmlCustomTagParserFactory, HtmlCustomTagParserFactory>();
+            services.AddScoped<IHtmlCustomTagRenderFactory, HtmlCustomTagRenderFactory>();
             return services;
         }
     }

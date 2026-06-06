@@ -47,6 +47,7 @@ namespace Venus.Infrastructure.Persistence
             services.AddScoped<IVenusUnitOfWork, VenusUnitOfWork>();
             services.AddScoped<IVenusLanguageResourceKeyRepository, VenusLanguageResourceKeyRepository>();
             services.AddScoped<IVenusWidgetRepository, VenusWidgetRepository>();
+            services.AddScoped<IVenusPageZoneRepository, VenusPageZoneRepository>();
         }
 
         private static void AddStartData(this IServiceCollection services)

@@ -64,8 +64,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
             {
                 IResultDataControl<ReadVenusWidgetDto> result = await Mediator.Send(new GetVenusWidgetByKeyQuery()
                 {
-                    Key = Key,
-                    LanguageId = VenusHttpContext.Language.Id
+                    Key = Key
                 });
 
                 if (!result.IsSuccess)

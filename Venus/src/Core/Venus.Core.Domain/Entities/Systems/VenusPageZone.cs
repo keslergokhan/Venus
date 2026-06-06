@@ -7,11 +7,16 @@ using Venus.Core.Domain.Entities.Base;
 
 namespace Venus.Core.Domain.Entities.Systems
 {
-    public partial class VenusWidget : VenusEntityBase
+    public partial class VenusPageZone : VenusEntityBase
     {
         public string Key { get; set; }
-        public string Template { get; set; }
-        public string TemplateDataSchema { get; set; }
     }
+
+    public partial class VenusPageZone
+    {
+        public Guid PageId { get; set; }
+        public ICollection<VenusPageZoneWidget> ZoneWidgets { get; set; }
+    }
+
 
 }

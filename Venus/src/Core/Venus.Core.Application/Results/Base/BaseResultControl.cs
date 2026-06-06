@@ -23,6 +23,11 @@ namespace Venus.Core.Application.Results.Base
         public string ErrorCode {
             get
             {
+                if (this._isSuccess)
+                {
+                    return "";
+                }
+
                 if (this.Exception is VenusExceptionBase)
                 {
                     return (this.Exception as VenusExceptionBase).ErrorCode;

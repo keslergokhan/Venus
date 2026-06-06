@@ -22,12 +22,16 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
             Context = db;
         }
 
-        protected DbSet<T> GetTable()
+        protected virtual DbSet<T> GetTable()
         {
             return Context.Set<T>();
         }
 
-        
+        protected virtual IQueryable<T> GetQueryable(bool tracking = false)
+        {
+            return tracking ? GetTable().AsTracking() : GetTable().AsNoTracking();
+        }
+
         public virtual async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
             entity.CreateDate = DateTime.Now;
@@ -36,10 +40,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
         }
 
 
-        protected IQueryable<T> GetQueryable()
-        {
-            return GetTable().AsNoTracking();
-        }
+        
 
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> where = null)
         {
@@ -73,7 +74,7 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
 
         public virtual async Task RemoveAsync(Guid Id, CancellationToken cancellationToken = default)
         {
-            var entity = await GetTable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+            var entity = await GetQueryable(true).FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
             if (entity != null)
             {
                 await RemoveAsync(entity, cancellationToken);
@@ -83,13 +84,29 @@ namespace Venus.Infrastructure.Persistence.Repositories.Base
 
         public virtual Task<T> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default)
         {
-            return GetTable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+            return GetQueryable().FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             entity.ModifiedDate = DateTime.Now;
             GetTable().Update(entity);  
+        }
+
+        public virtual Task<T> GetByIdTrackingAsync(Guid Id, CancellationToken cancellationToken = default)
+        {
+            return GetQueryable(true).FirstOrDefaultAsync(e => e.Id == Id, cancellationToken);
+        }
+
+        public virtual async Task<List<T>> GetAllTrackingAsync(Expression<Func<T, bool>> where = null, CancellationToken cancellationToken = default)
+        {
+            var query = this.GetQueryable(true);
+            if (where != null)
+            {
+                query = query.Where(where);
+            }
+
+            return await query.ToListAsync();
         }
 
         //public Task<List<T>> GetAllByOnlineAsync(Guid languageId)
