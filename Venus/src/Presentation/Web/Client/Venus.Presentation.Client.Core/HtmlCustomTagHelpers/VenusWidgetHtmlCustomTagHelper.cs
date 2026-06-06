@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Scriban;
+using Scriban.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,19 +42,27 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
         {
             var content = HtmlNode.CreateNode(htmlResult);
 
-            foreach (var childItem in content.SelectNodes($"//{HtmlTargetElement}"))
+            var childs = content.SelectNodes($"//{HtmlTargetElement}");
+            if (childs==null)
+                return htmlResult;
+
+            bool isChild = false;
+            foreach (var childItem in childs)
             {
                 var keyAttr = childItem.GetAttributeValue("key-data", null);
                 if (keyAttr == Key)
                 {
+                    isChild = true;
                     await ErrorRender(childItem, "AGAIN_ERROR", "İç içe widget");
                     childItem.Name = "div";
                     childItem.Attributes.Add("widget-data", HtmlTargetElement);
                 }
-                
             }
 
-            return content.OuterHtml;
+            if (isChild)
+                return content.OuterHtml;
+            else
+                return htmlResult;
         }
     }
 }
