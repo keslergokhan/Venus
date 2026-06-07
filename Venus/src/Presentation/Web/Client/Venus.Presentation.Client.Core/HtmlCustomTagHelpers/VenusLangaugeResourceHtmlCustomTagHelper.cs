@@ -21,7 +21,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 
         protected override async Task<string> GetTemplateAsync()
         {
-            return "<span></span>";
+            return "<span>{{Model.message}}</span>";
         }
 
         

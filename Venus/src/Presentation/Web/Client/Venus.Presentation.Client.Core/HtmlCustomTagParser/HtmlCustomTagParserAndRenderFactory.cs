@@ -12,9 +12,6 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
 {
-
-    
-
     public class HtmlCustomTagParserAndRenderFactory : IHtmlCustomTagParserAndRenderFactory
     {
         private readonly IEnumerable<IVenusHtmlCustomTagHelper> _venusHtmlCustomTagHelpers;

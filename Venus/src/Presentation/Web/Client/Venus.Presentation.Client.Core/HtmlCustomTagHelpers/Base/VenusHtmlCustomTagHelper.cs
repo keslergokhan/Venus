@@ -74,7 +74,6 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
             htmlWidget.AppendChild(widgetContent);
             htmlWidget.RemoveChild(htmlWidget.SelectSingleNode(".//script[@type='application/json']"));
             htmlWidget.Name = "div";
-            htmlWidget.Attributes.Add("widget-data", HtmlTargetElement);
         }
 
         protected VenusHtmlCustomTagHelper LoadPropertySetData(HtmlNode cutomTagNode)
@@ -138,7 +137,6 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
             var content = HtmlNode.CreateNode(html);
             cutomTagNode.AppendChild(content);
             cutomTagNode.Name = "div";
-            cutomTagNode.Attributes.Add("widget-data", HtmlTargetElement);
 
             return html;
         }
