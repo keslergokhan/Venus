@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
 {
-    public interface IHtmlCustomTagParserFactory
+    public interface IHtmlCustomTagParserAndRenderFactory
     {
-        public TagParserResult ParserAsync(string html);
+        public Task<string> ParserAsync(string html);
     }
 }

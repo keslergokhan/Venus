@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
 {
-    public interface IHtmlCustomTagRenderFactory
+    public interface HtmlCustomTagIterator<T>
     {
+        public bool HasNext();
+        T Next();
+        void Reset();
     }
 }
