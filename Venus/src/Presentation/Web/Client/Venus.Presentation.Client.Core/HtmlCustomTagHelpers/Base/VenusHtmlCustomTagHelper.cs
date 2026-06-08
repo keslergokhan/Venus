@@ -1,20 +1,14 @@
 ﻿using HtmlAgilityPack;
 using MediatR;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Logging;
 using Scriban;
 using Scriban.Runtime;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Xml.Linq;
-using Venus.Core.Application.Dtos.Systems.Widget;
 using Venus.Core.Application.Exceptions.Base;
-using Venus.Core.Application.Features.Systems.Widget.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.Results.Interfaces;
 
@@ -30,6 +24,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
         private readonly IServiceProvider _serviceProvider;
 
         public abstract string HtmlTargetElement { get; }
+        public abstract short RenderOrder { get; }
 
         public VenusHtmlCustomTagHelper(IServiceProvider serviceProvider)
         {

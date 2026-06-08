@@ -21,6 +21,8 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
         public string Key { get; set; }
         public override string HtmlTargetElement => "venus-widget";
 
+        public override short RenderOrder => 0;
+
         public VenusWidgetHtmlCustomTagHelper(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }

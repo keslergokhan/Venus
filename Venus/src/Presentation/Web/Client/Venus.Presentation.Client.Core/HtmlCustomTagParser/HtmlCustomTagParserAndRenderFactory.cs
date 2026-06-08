@@ -28,7 +28,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
 
             htmlDocument.LoadHtml(html);
 
-            foreach (IVenusHtmlCustomTagHelper tagHelper in _venusHtmlCustomTagHelpers)
+            foreach (IVenusHtmlCustomTagHelper tagHelper in _venusHtmlCustomTagHelpers.OrderBy(x=>x.RenderOrder).ToArray())
             {
 
                 HtmlCustomTagIterator iterator = new HtmlCustomTagIterator(htmlDocument, tagHelper);

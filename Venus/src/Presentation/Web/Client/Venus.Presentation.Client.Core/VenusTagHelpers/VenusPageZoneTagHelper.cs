@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Features.Systems.Page.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
+using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 
 namespace Venus.Presentation.Client.Core.VenusTagHelpers
 {
@@ -18,11 +19,13 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
 
         private readonly IMediator _mediator;
         private readonly IVenusHttpContext _venusHttpContext;
+        private readonly IHtmlCustomTagParserAndRenderFactory _htmlCustomTagParserAndRenderFactory;
 
-        public VenusPageZoneTagHelper(IMediator mediator, IVenusHttpContext venusHttpContext)
+        public VenusPageZoneTagHelper(IMediator mediator, IVenusHttpContext venusHttpContext, IHtmlCustomTagParserAndRenderFactory htmlCustomTagParserAndRenderFactory)
         {
             _mediator = mediator;
             _venusHttpContext = venusHttpContext;
+            _htmlCustomTagParserAndRenderFactory = htmlCustomTagParserAndRenderFactory;
         }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
@@ -38,10 +41,14 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
                 if (!result.IsSuccess)
                     throw result.Exception;
 
+                foreach (var widget in result.Data.ZoneWidgets)
+                {
+
+                }
+
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }

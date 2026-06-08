@@ -17,7 +17,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 
         public override string HtmlTargetElement => "venus-lan-resource";
 
-       
+        public override short RenderOrder => 99;
 
         protected override async Task<string> GetTemplateAsync()
         {
