@@ -63,7 +63,9 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
                 foreach (var zoneWidget in result.Data.ZoneWidgets)
                 {
                     var renderHtmlResult = await VenusWidgetManager.ExecuteAsync(zoneWidget.Widget.Template,zoneWidget.WidgetData);
-                    zoneDiv.AppendChild(HtmlNode.CreateNode(renderHtmlResult));
+                    var widget = HtmlNode.CreateNode(renderHtmlResult);
+                    widget.Attributes.Add("key-data",Key);
+                    zoneDiv.AppendChild(widget);
                 }
 
                 htmlDocument.DocumentNode.AppendChild(zoneDiv);
