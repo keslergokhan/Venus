@@ -11,6 +11,8 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 {
     public class VenusLangaugeResourceHtmlCustomTagHelper : VenusHtmlCustomTagHelper, IVenusHtmlCustomTagHelper
     {
+        [VenusHtmlCustomTagNameAttribute("key-data", "")]
+        public string Key { get; set; }
         public VenusLangaugeResourceHtmlCustomTagHelper(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
@@ -21,7 +23,7 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 
         protected override async Task<string> GetTemplateAsync()
         {
-            return "<span>{{Model.message}}</span>";
+            return $"<span>{Key}</span>";
         }
 
         

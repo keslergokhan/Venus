@@ -16,6 +16,7 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers;
 using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 using Venus.Presentation.Client.Core.PageTypeServices;
 using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
+using Venus.Presentation.Client.Core.VenusTagHelpers;
 
 namespace Venus.Presentation.Client.Core
 {
@@ -35,6 +36,7 @@ namespace Venus.Presentation.Client.Core
             services.AddScoped<IVenusHtmlCustomTagHelper, VenusWidgetHtmlCustomTagHelper>();
             services.AddScoped<IVenusHtmlCustomTagHelper, VenusLangaugeResourceHtmlCustomTagHelper>();
             services.AddScoped<IHtmlCustomTagParserAndRenderFactory, HtmlCustomTagParserAndRenderFactory>();
+            services.AddScoped<IVenusWidgetManager, VenusWidgetManager>();
             return services;
         }
     }

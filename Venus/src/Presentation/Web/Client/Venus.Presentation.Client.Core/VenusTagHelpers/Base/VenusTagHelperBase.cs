@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Scriban;
 using Scriban.Runtime;
 using System;
@@ -9,14 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Widget;
 using Venus.Core.Application.Exceptions.Base;
-using Venus.Core.Application.Exceptions.Systems;
 using Venus.Core.Application.Features.Systems.Widget.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Core.Application.Results.Interfaces;
+using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 
 namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
 {
@@ -24,56 +22,43 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
     {
         protected readonly IMediator Mediator;
         protected readonly IVenusHttpContext VenusHttpContext;
+        protected readonly IHtmlCustomTagParserAndRenderFactory CustomTagParserAndRenderFactory;
+        protected IServiceProvider ServiceProvider;
+        protected IVenusWidgetManager VenusWidgetManager;
 
-        [HtmlAttributeName("json-data")]
-        public string JsonData { get; set; }
-        [HtmlAttributeName("key-data")]
-        public string Key { get; set; }
-
-        public VenusTagHelperBase(IVenusHttpContext venusHttpContext, IMediator mediator)
+        public VenusTagHelperBase(IServiceProvider serviceProvider)
         {
-            VenusHttpContext = venusHttpContext;
-            if (string.IsNullOrEmpty(JsonData))
-            {
-                JsonData = "{}";
-            }
-
-            Mediator = mediator;
+            ServiceProvider = serviceProvider;
+            Mediator = ServiceProvider.GetRequiredService<IMediator>();
+            CustomTagParserAndRenderFactory = ServiceProvider.GetRequiredService<IHtmlCustomTagParserAndRenderFactory>();
+            VenusHttpContext = ServiceProvider.GetRequiredService<IVenusHttpContext>();
+            VenusWidgetManager = ServiceProvider.GetRequiredService<IVenusWidgetManager>();
         }
 
-        public Dictionary<string, object> GetData()
+        public virtual Dictionary<string, object> GetData()
         {
-            return JsonSerializer.Deserialize<Dictionary<string, object>>(JsonData);
+            return null;
         }
+
+        protected abstract Task<string> GetTemplateAsync();
 
         public virtual TemplateContext TemplateContext()
         {
-            var context = new TemplateContext();
-
-            var dataJson = JsonSerializer.Serialize(new { Context = VenusHttpContext, Model = GetData() });
-            var dataObject = JsonSerializer.Deserialize<Dictionary<string, object>>(dataJson);
-            context.PushGlobal(ScriptObject.From(dataObject));
-            return context;
+            return VenusWidgetManager.CreateTemplateContext(GetData());
         }
 
-        public abstract Task ExecuteAsync(TagHelperContext context, TagHelperOutput output,TemplateContext templateContext, ReadVenusWidgetDto widget);
+        public abstract Task RenderBeforeAsync(TagHelperContext context, TagHelperOutput output,TemplateContext templateContext);
 
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public virtual async Task RenderWidgetAsync(TagHelperContext context, TagHelperOutput output)
         {
             try
             {
-                IResultDataControl<ReadVenusWidgetDto> result = await Mediator.Send(new GetVenusWidgetByKeyQuery()
+                Func<TemplateContext,Task> before = (tempalteContext) =>
                 {
-                    Key = Key
-                });
+                    return RenderBeforeAsync(context, output, tempalteContext);
+                };
 
-                if (!result.IsSuccess)
-                    throw result.Exception;
-
-                var templateContext = TemplateContext();
-                await ExecuteAsync(context, output, templateContext, result.Data);
-                var templateHtml = Template.Parse(result.Data.Template);
-                var renderedHtml = templateHtml.Render(templateContext);
+                var renderedHtml = await VenusWidgetManager.ExecuteAsync(await GetTemplateAsync(), GetData(), before);
                 output.Content.SetHtmlContent(renderedHtml);
             }
             catch (Exception ex)
@@ -87,12 +72,17 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
                     await ErrorProcessAsync(context, output, "ERROR", "SYSTEM");
                 }
             }
+        } 
+
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            await RenderWidgetAsync(context, output);
         }
 
 
         public async Task ErrorProcessAsync(TagHelperContext context, TagHelperOutput output, string errorCode,string errorMessage)
         {
-            var container = new TagBuilder("venus-widget-result");
+            var container = new TagBuilder("venus-widget-error");
             container.Attributes.Add("error-data", errorCode);
             container.Attributes.Add("error-message", errorMessage);
             output.Content.SetHtmlContent(container);

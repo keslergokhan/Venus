@@ -131,6 +131,8 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
 
             var content = HtmlNode.CreateNode(html);
             cutomTagNode.AppendChild(content);
+            cutomTagNode.Attributes.Remove("key-data");
+            cutomTagNode.Attributes.Add("custom-tag-name-data", HtmlTargetElement);
             cutomTagNode.Name = "div";
 
             return html;
