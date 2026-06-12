@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Base;
+using Venus.Core.Application.Enums.Systems;
 
 namespace Venus.Core.Application.Dtos.Systems.Widget
 {
@@ -12,5 +13,6 @@ namespace Venus.Core.Application.Dtos.Systems.Widget
         public string Key { get; set; }
         public string Template { get; set; }
         public string TemplateDataSchema { get; set; }
+        public WidgetTypeEnum WidgetType { get; set; }
     }
 }

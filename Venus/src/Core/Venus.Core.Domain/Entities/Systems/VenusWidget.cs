@@ -12,6 +12,7 @@ namespace Venus.Core.Domain.Entities.Systems
         public string Key { get; set; }
         public string Template { get; set; }
         public string TemplateDataSchema { get; set; }
+        public short WidgetType { get; set; }
     }
 
 }

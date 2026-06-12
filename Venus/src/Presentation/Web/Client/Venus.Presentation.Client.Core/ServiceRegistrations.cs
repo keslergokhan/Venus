@@ -36,7 +36,7 @@ namespace Venus.Presentation.Client.Core
             services.AddScoped<IVenusHtmlCustomTagHelper, VenusWidgetHtmlCustomTagHelper>();
             services.AddScoped<IVenusHtmlCustomTagHelper, VenusLangaugeResourceHtmlCustomTagHelper>();
             services.AddScoped<IHtmlCustomTagParserAndRenderFactory, HtmlCustomTagParserAndRenderFactory>();
-            services.AddScoped<IVenusWidgetManager, VenusWidgetManager>();
+            services.AddScoped<IVenusScribanManager, VenusScribanManager>();
             return services;
         }
     }

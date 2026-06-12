@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Repositories.Base;
@@ -18,9 +19,9 @@ namespace Venus.Infrastructure.Persistence.Repositories
         }
 
 
-        public Task<VenusWidget> GetWidgetAndByKeyAsync(string key)
+        public Task<VenusWidget> GetCustomWidgetAndByKeyAsync(string key)
         {
-            return GetQueryable().Where(x => x.Key == key).FirstOrDefaultAsync();
+            return GetQueryable().Where(x => x.Key == key && x.WidgetType == (short)WidgetTypeEnum.Custom).FirstOrDefaultAsync();
         }
     }
 }

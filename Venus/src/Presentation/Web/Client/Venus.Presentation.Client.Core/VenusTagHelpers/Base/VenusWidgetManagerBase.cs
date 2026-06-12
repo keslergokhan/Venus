@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 
 namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
 {
-    public abstract class VenusWidgetManagerBase : IVenusWidgetManager
+    public abstract class VenusWidgetManagerBase : IVenusScribanManager
     {
         protected readonly IHtmlCustomTagParserAndRenderFactory CustomTagParserAndRenderFactory;
         protected readonly IVenusHttpContext VenusHttpContext;
@@ -24,15 +25,22 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
             VenusHttpContext = venusHttpContext;
         }
 
-        public Dictionary<string, object> GetData(string jsonData)
+        public object GetData(string widgetData,WidgetTypeEnum widgetType)
         {
-            return JsonSerializer.Deserialize<Dictionary<string, object>>(jsonData);
+            if (widgetType== WidgetTypeEnum.Custom)
+            {
+                return JsonSerializer.Deserialize<Dictionary<string, object>>(widgetData);
+            }
+            else
+            {
+                return widgetData;
+            }
         }
 
-        public TemplateContext CreateTemplateContext(string jsonData)
+        public TemplateContext CreateTemplateContext(string widgetData,WidgetTypeEnum widgetType)
         {
             var context = new TemplateContext();
-            var model = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonData);
+            object model = GetData(widgetData,widgetType);
             return CreateTemplateContext(model);
         }
 
@@ -52,12 +60,12 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
             return templateHtml.Render(templateContext);
         }
 
-        public virtual Task<string> ExecuteAsync(string templateHtml, string jsonData, Func<TemplateContext, Task> renderBefore = null)
+        public virtual Task<string> ExecuteAsync(string templateHtml, string widgetData,WidgetTypeEnum widgetType, Func<TemplateContext, Task> renderBefore = null)
         {
-            return ExecuteAsync(templateHtml,GetData(jsonData), renderBefore);
+            return ExecuteAsync(templateHtml,GetData(widgetData,widgetType),widgetType, renderBefore);
         }
 
-        public virtual async Task<string> ExecuteAsync(string templateHtml, object model, Func<TemplateContext, Task> renderBefore = null)
+        public virtual async Task<string> ExecuteAsync(string templateHtml, object model, WidgetTypeEnum widgetTyp, Func<TemplateContext, Task> renderBefore = null)
         {
             var context = CreateTemplateContext(model);
             if (renderBefore!=null)

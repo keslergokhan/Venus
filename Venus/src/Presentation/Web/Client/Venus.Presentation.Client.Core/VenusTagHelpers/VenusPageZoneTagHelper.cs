@@ -25,7 +25,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
 
         protected readonly IMediator Mediator;
         protected readonly IVenusHttpContext VenusHttpContext;
-        protected readonly IVenusWidgetManager VenusWidgetManager;
+        protected readonly IVenusScribanManager VenusWidgetManager;
         protected IServiceProvider ServiceProvider;
 
         public VenusPageZoneTagHelper(IServiceProvider serviceProvider)
@@ -33,7 +33,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
             ServiceProvider = serviceProvider;
             Mediator = ServiceProvider.GetRequiredService<IMediator>();
             VenusHttpContext = ServiceProvider.GetRequiredService<IVenusHttpContext>();
-            VenusWidgetManager = ServiceProvider.GetRequiredService<IVenusWidgetManager>();
+            VenusWidgetManager = ServiceProvider.GetRequiredService<IVenusScribanManager>();
         }
 
 
@@ -62,10 +62,13 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
 
                 foreach (var zoneWidget in result.Data.ZoneWidgets)
                 {
-                    var renderHtmlResult = await VenusWidgetManager.ExecuteAsync(zoneWidget.Widget.Template,zoneWidget.WidgetData);
-                    var widget = HtmlNode.CreateNode(renderHtmlResult);
-                    widget.Attributes.Add("key-data",Key);
-                    zoneDiv.AppendChild(widget);
+                    var renderHtmlResult = await VenusWidgetManager.ExecuteAsync(zoneWidget.Widget.Template,zoneWidget.WidgetData,zoneWidget.Widget.WidgetType);
+                    if (!string.IsNullOrEmpty(renderHtmlResult))
+                    {
+                        var widget = HtmlNode.CreateNode(renderHtmlResult);
+                        widget.Attributes.Add("key-data", Key);
+                        zoneDiv.AppendChild(widget);
+                    }
                 }
 
                 htmlDocument.DocumentNode.AppendChild(zoneDiv);

@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
 using Venus.Core.Application.Dtos.Systems.Widget;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Base;
 using Venus.Core.Application.Features.Systems.Widget.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
@@ -26,7 +27,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
         protected readonly IVenusHttpContext VenusHttpContext;
         protected readonly IHtmlCustomTagParserAndRenderFactory CustomTagParserAndRenderFactory;
         protected IServiceProvider ServiceProvider;
-        protected IVenusWidgetManager VenusWidgetManager;
+        protected IVenusScribanManager ScribanManager;
 
         public VenusTagHelperBase(IServiceProvider serviceProvider)
         {
@@ -34,7 +35,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
             Mediator = ServiceProvider.GetRequiredService<IMediator>();
             CustomTagParserAndRenderFactory = ServiceProvider.GetRequiredService<IHtmlCustomTagParserAndRenderFactory>();
             VenusHttpContext = ServiceProvider.GetRequiredService<IVenusHttpContext>();
-            VenusWidgetManager = ServiceProvider.GetRequiredService<IVenusWidgetManager>();
+            ScribanManager = ServiceProvider.GetRequiredService<IVenusScribanManager>();
         }
 
         public virtual Dictionary<string, object> GetData()
@@ -46,7 +47,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
 
         public virtual TemplateContext TemplateContext()
         {
-            return VenusWidgetManager.CreateTemplateContext(GetData());
+            return ScribanManager.CreateTemplateContext(GetData());
         }
 
         public abstract Task RenderBeforeAsync(TagHelperContext context, TagHelperOutput output,TemplateContext templateContext);
@@ -60,7 +61,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
                     return RenderBeforeAsync(context, output, tempalteContext);
                 };
 
-                var renderedHtml = await VenusWidgetManager.ExecuteAsync(await GetTemplateAsync(), GetData(), before);
+                var renderedHtml = await ScribanManager.ExecuteAsync(await GetTemplateAsync(), GetData(),WidgetTypeEnum.Custom, before);
                 output.Content.SetHtmlContent(renderedHtml);
             }
             catch (Exception ex)

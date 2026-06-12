@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Domain.Entities.Systems;
 using Venus.Infrastructure.Persistence.Constants;
 using Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Base;
@@ -20,6 +21,7 @@ namespace Venus.Infrastructure.Persistence.EntityFrameworkConfiguration.Systems
             builder.Property(x => x.Key).HasMaxLength(EntityConfigurationConstants.MaxStringLv4).IsRequired();
 
             builder.Property(x => x.TemplateDataSchema).HasDefaultValue<string>("{}");
+            builder.Property(x => x.WidgetType).IsRequired().HasDefaultValue<short>((short)WidgetTypeEnum.Custom);
 
         }
     }

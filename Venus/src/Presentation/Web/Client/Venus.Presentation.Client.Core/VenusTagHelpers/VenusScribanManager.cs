@@ -14,9 +14,9 @@ using Venus.Presentation.Client.Core.VenusTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.VenusTagHelpers
 {
-    public class VenusWidgetManager : VenusWidgetManagerBase, IVenusWidgetManager
+    public class VenusScribanManager : VenusWidgetManagerBase, IVenusScribanManager
     {
-        public VenusWidgetManager(IHtmlCustomTagParserAndRenderFactory htmlCustomTagParserAndRenderFactory, IVenusHttpContext venusHttpContext) : base(htmlCustomTagParserAndRenderFactory, venusHttpContext)
+        public VenusScribanManager(IHtmlCustomTagParserAndRenderFactory htmlCustomTagParserAndRenderFactory, IVenusHttpContext venusHttpContext) : base(htmlCustomTagParserAndRenderFactory, venusHttpContext)
         {
         }
     }
