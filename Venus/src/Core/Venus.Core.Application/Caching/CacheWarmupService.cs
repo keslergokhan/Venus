@@ -29,13 +29,13 @@ namespace Venus.Core.Application.Caching
             {
                 using (var scope = _scopeFactory.CreateScope())
                 {
-                    await VeriYenilemeSüreciAsync(scope);
+                    await CacheRefreshAsync(scope);
                 }
                 isFirstRun = false;
             }
         }
 
-        private async Task VeriYenilemeSüreciAsync(IServiceScope scope)
+        private async Task CacheRefreshAsync(IServiceScope scope)
         {
             var cacheManagerList = new List<Type>()
             {
