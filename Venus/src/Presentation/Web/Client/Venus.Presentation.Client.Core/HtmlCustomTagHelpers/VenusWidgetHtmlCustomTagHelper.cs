@@ -1,8 +1,4 @@
 ﻿using HtmlAgilityPack;
-using MediatR;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Scriban;
-using Scriban.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +11,18 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 {
+    /// <summary>
+    /// <see cref="Venus.Core.Domain.Entities.Systems.VenusWidget"/> tablosunda kayıtlı olan widget şablonlarını Scriban aracılığı ile birlikte 
+    /// dinamik Html çıktısı alınır. <br></br>
+    /// </summary>
+    /// <remarks>
+    /// <para></para>Html kaynağını inceler <see cref="VenusHtmlCustomTagHelper.HtmlTargetElement"/>'den implemente edilen etiketi html kaynağından
+    /// filtreler. <para></para>
+    /// 
+    /// <para>Tespit edilen etiketler okunur attributes değerleri alınır key değeri 
+    /// üzerinden <see cref="Venus.Core.Domain.Entities.Systems.VenusWidget"/> kaydı tespit edilir, template ve data alınarak yeni html 
+    /// çıktısı üretilir.</para>
+    /// </remarks>
     public class VenusWidgetHtmlCustomTagHelper : VenusHtmlCustomTagHelper
     {
         [VenusHtmlCustomTagNameAttribute("key-data","")]

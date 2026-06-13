@@ -14,6 +14,43 @@ using Venus.Core.Application.Results.Interfaces;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
 {
+    /// <summary>
+    /// Venüs sistemine özel dinamik HTML etiketlerinin tanımlanmasını ve
+    /// render sürecine katılan bileşenlerin iş mantığının yürütülmesini sağlayan temel sınıftır.<br></br>
+    ///
+    /// Çalışma prensibi ASP.NET Core TagHelper yapısına benzer.
+    /// </summary>
+    /// <example>
+    /// 
+    /// <see cref="VenusHtmlCustomTagNameAttribute"/> ile belirtilen etiketin içerisinde girilmesi beklenen attributes değerlerini temsil edder.
+    /// <code>
+    /// public class VenusLanguageResourceHtmlCustomTagHelper : VenusHtmlCustomTagHelper
+    /// {
+    ///     [VenusHtmlCustomTagName("key-data", "")]
+    ///     public string Key { get; set; }
+    ///
+    ///     public VenusLanguageResourceHtmlCustomTagHelper(
+    ///         IServiceProvider serviceProvider)
+    ///         : base(serviceProvider)
+    ///     {
+    ///     }
+    ///
+    ///     public override string HtmlTargetElement => "venus-lang-resource";
+    ///
+    ///     public override short RenderOrder => 99;
+    ///
+    ///     protected override async Task&lt;string&gt; GetTemplateAsync()
+    ///     {
+    ///         return "<div></div>";
+    ///     }
+    /// }
+    /// </code>
+    /// 
+    /// İmplemente edilen alt sınıflar aracılığı ile özel html etiketleri render edilebilir duruma gelir.
+    /// <code>
+    ///     <venus-lan-resource key-data="Carousel"></venus-lan-resource>
+    /// </code>
+    /// </example>
     public abstract class VenusHtmlCustomTagHelper: IVenusHtmlCustomTagHelper
     {
         [VenusHtmlCustomTagNameAttribute("json-data","{}")]

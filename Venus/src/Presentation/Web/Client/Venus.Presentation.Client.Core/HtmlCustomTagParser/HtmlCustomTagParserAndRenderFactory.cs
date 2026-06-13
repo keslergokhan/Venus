@@ -12,6 +12,13 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagParser
 {
+    /// <summary>
+    /// İç içe özel etiketlerin render edilmesini sağlar
+    /// </summary>
+    /// <remarks>
+    /// <para><see cref="IVenusHtmlCustomTagHelper"/> impemente etmiş olan servisler ile html kaynağını okur.</para>
+    /// <para>Html kaynağını <see cref="HtmlCustomTagIterator"/> ile gezer ve özel etiketlerin oluşturulmasını sağlar, yeni oluşturulan html kaynaklarını tekrar kontrol eder ve iç içe tanımlanmış özel etiketlerin yakalanmasını ve oluşturulmasını sağlar. </para>
+    /// </remarks>
     public class HtmlCustomTagParserAndRenderFactory : IHtmlCustomTagParserAndRenderFactory
     {
         private readonly IEnumerable<IVenusHtmlCustomTagHelper> _venusHtmlCustomTagHelpers;
