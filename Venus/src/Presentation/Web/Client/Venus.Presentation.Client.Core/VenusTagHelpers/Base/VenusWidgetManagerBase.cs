@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Scriban;
+﻿using Scriban;
 using Scriban.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.HttpRequests.Interfaces;
 using Venus.Presentation.Client.Core.HtmlCustomTagParser;

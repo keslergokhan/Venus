@@ -16,7 +16,7 @@ using Venus.Presentation.Client.Core.VenusTagHelpers.Base;
 namespace Venus.Presentation.Client.Core.VenusTagHelpers
 {
     [HtmlTargetElement("venus-widget")]
-    public class VenusWidgetTagHelper : VenusTagHelperBase
+    public class VenusWidgetTagHelper : VenusWidgetTagHelperBase
     {
         public VenusWidgetTagHelper(IServiceProvider serviceProvider) : base(serviceProvider)
         {

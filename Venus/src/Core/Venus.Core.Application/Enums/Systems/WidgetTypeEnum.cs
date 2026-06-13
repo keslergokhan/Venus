@@ -9,6 +9,6 @@ namespace Venus.Core.Application.Enums.Systems
     public enum WidgetTypeEnum
     {
         Custom = 1,
-        Content = 2
+        ZoneContent = 2
     }
 }

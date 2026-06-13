@@ -3,25 +3,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban;
-using Scriban.Runtime;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
-using Venus.Core.Application.Dtos.Systems.Widget;
 using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Exceptions.Base;
-using Venus.Core.Application.Features.Systems.Widget.Queries;
 using Venus.Core.Application.HttpRequests.Interfaces;
-using Venus.Core.Application.Results.Interfaces;
 using Venus.Presentation.Client.Core.HtmlCustomTagParser;
 
 namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
 {
-    public abstract class VenusTagHelperBase : TagHelper
+    public abstract class VenusWidgetTagHelperBase : TagHelper
     {
         protected readonly IMediator Mediator;
         protected readonly IVenusHttpContext VenusHttpContext;
@@ -29,7 +24,7 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers.Base
         protected IServiceProvider ServiceProvider;
         protected IVenusScribanManager ScribanManager;
 
-        public VenusTagHelperBase(IServiceProvider serviceProvider)
+        public VenusWidgetTagHelperBase(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
             Mediator = ServiceProvider.GetRequiredService<IMediator>();

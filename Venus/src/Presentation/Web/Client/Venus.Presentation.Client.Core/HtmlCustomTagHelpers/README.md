@@ -60,3 +60,68 @@ public class VenusLangaugeResourceHtmlCustomTagHelper : VenusHtmlCustomTagHelper
     <span>Carousel</span>
 </div>
 ```
+
+## Scriban sistemi
+
+> Scriban paketi ile birlikte özel etiketlerin oluşturulması sırasında ilgili html kodları içerisinde döngü koşul vs gibi dinamik imkanları sunmaktadır.
+
+> Aşağıdaki örnekte dikkat edileceği üzere bu html render edilmeden önce belirli verilere ihtiyaç duymaktadır, user verisi ve is_admin gibi verilere ihtiyaç duyumakta ve bunları html içerisinde kullanmaktadır.
+
+> Aynı zamanda if gibi koşul ifadesi kullanılabilmektedir bunun gibi döngü ve birçok özellik scriban ile kullanılabilmektedir.
+
+````html
+<div>
+    <div class="user-card">
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.email }}</p>
+    </div>
+
+    {{ if is_admin }}
+    <span class="badge badge-danger">Yönetici</span>
+    {{ end }}
+</div>
+
+````
+
+
+## Widget ve Scriban Sistemi
+
+> Venus sistemi **`Venus.Core.Domain.Entities.Systems.VenusWidget`** tablosu ile birlikte `Template` yani Html kayıtları tutulur, özel tanımladığımız Html kayıtları **`VenusWidgetHtmlCustomTagHelper`** sistemi ile birlikte render edilmektedir.
+
+#### Örnek :
+````html
+<venus-widget key-data="Test.Sablonu">
+    <script type="application/json">
+    {
+        "Title": "Merhaba Dünya",
+        "Description":"Bu veri dışarıdan eklendi"
+    }
+    </script>
+</venus-widget>
+````
+
+> Yukarıdaki örnekte **`VenusWidgetHtmlCustomTagHelper`** servisi Html kaynağı içindeki `venus-widget` etiketini derler, `key-data`.
+
+> Derleme sırasında attributes değerleri okunur `key-data` temsil edilecek `VenusWidget` kaydını belirtir, `<script>` etiketleri arasında gönderilen json değerleri `key-data="Test.Sablonu"` temsil eden Html içindeki Scriban tanımlamalarını karşılamak amaçlıdır.
+
+### Derlenecek olan widget = Test.Sablonu
+
+````html
+<div>
+    <div class="user-card">
+        <h3>{{ Model.Title }}</h3>
+        <p>{{ Model.Description }}</p>
+    </div>
+</div>
+````
+
+### Derleme Sonrası
+
+````html
+<div>
+    <div class="user-card">
+        <h3>Merhaba Dünya</h3>
+        <p>Bu veri dışarıdan eklendi</p>
+    </div>
+</div>
+````
