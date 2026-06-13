@@ -19,6 +19,12 @@ using static Venus.Core.Application.HttpRequests.VenusHttpContext;
 
 namespace Venus.Presentation.Client.Core.RouterHandler
 {
+    /// <summary>
+    /// Url bilgisi üzerinden Sayfa tespit edilir.
+    /// </summary>
+    /// <remarks>
+    /// Ayrıştırılan bilgiler ile <see cref="IVenusHttpContext"/> nesnesi oluşturulur.
+    /// </remarks>
     public class RoutePageHandler : RouterHandlerBase
     {
         public override async Task<IVenusHttpContext> HandleAsync(HttpContext httpContext, object request = null)

@@ -57,6 +57,11 @@ namespace Venus.Presentation.Client.Core.VenusTagHelpers
                     LanguageId = VenusHttpContext.Language.Id
                 });
 
+                if (result.Data == null)
+                {
+                    return;
+                }
+
                 var htmlDocument = new HtmlDocument();
                 var zoneDiv = HtmlNode.CreateNode($"<div zone-key-data='{Key}'></div>");
 

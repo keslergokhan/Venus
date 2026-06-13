@@ -38,7 +38,7 @@ namespace Venus.Core.Application.Features.Systems.Widget.Queries
 
             try
             {
-                var widget = await _venusWidgetRepository.GetWidgetAndByKeyAsync(request.Key);
+                var widget = await _venusWidgetRepository.GetCustomWidgetAndByKeyAsync(request.Key);
 
                 if (widget == null)
                     throw new VenusNotFoundWidgetSystemException(request.Key);

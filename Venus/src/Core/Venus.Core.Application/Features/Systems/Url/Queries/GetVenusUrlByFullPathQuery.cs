@@ -9,6 +9,12 @@ using Venus.Core.Domain.Entities.Systems;
 
 namespace Venus.Core.Application.Features.Systems.Queries
 {
+    /// <summary>
+    /// <c>FullPath</c> dikkat ederek <see cref="VenusUrl"/> getirir.
+    /// </summary>
+    /// <remarks>
+    /// <c>FullPath</c> değerini <see cref="IVenusUrlRepository.GetUrlByFullPathAsync(string)"/> filtresinden geçirir.
+    /// </remarks>
     public class GetVenusUrlByFullPathQuery : IRequest<IResultDataControl<List<ReadVenusUrlDto>>>
     {
         public string FullPath { get; set; }

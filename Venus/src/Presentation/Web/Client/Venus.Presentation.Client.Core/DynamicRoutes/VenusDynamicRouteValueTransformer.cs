@@ -8,6 +8,11 @@ using Venus.Presentation.Client.Core.RouterHandler;
 
 namespace Venus.Presentation.Client.Core.DynamicRoutes
 {
+    /// <summary>
+    /// <para>Gelen URL'yi Venus routing pipeline'ı üzerinden işleyerek
+    /// çalıştırılacak controller ve action bilgisini dinamik olarak belirler.</para>
+    /// <see cref="Venus.Presentation.Client.Core.Extensions.VenusEndpointRouteBuilderExtension.VenusDynamicRoute(IEndpointRouteBuilder)"/> uygulanmış olması gerekir.
+    /// </summary>
     public class VenusDynamicRouteValueTransformer : DynamicRouteValueTransformer
     {
         private readonly IMediator _m;

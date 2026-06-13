@@ -13,6 +13,17 @@ using Venus.Presentation.Client.Core.RequestHandler.Interfaces;
 
 namespace Venus.Presentation.Client.Core.RouterHandler
 {
+    /// <summary>
+    /// <see cref="Venus.Core.Domain.Entities.Systems.VenusPageType"/> üzerinden sayfaya bağlı olan tip servisi çalıştırılır. 
+    /// </summary>
+    /// <remarks>
+    ///     <para><see cref="Venus.Core.Application.Enums.Systems.PageTypeEnum"/> Belirli sayfa tipleri vardır, sayfanın tipine göre servis çalıştırılır.</para>
+    ///     <list type="bullet">
+    ///         <item>VenusDefaultPage</item>
+    ///         <item>VenusEntityListPage</item>
+    ///         <item>VenusEntityDetailPage</item>
+    ///     </list>
+    /// </remarks>
     public class RouterPageTypeServiceHandler : RouterHandlerBase
     {
         public override async Task<IVenusHttpContext> HandleAsync(HttpContext context, object reqeust)

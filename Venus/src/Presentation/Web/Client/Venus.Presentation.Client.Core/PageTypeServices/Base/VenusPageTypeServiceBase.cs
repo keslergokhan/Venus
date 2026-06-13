@@ -11,6 +11,9 @@ using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
 
 namespace Venus.Presentation.Client.Core.PageTypeServices.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class VenusPageTypeServiceBase : IVenusPageTypeService
     {
 

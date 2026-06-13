@@ -9,16 +9,18 @@ using static Venus.Core.Application.HttpRequests.VenusHttpContext;
 
 namespace Venus.Presentation.Client.Core.RouterHandler
 {
+    /// <summary>
+    /// URL bilgisi tespit edilir.
+    /// </summary>
+    /// <remarks>
+    /// <para><see cref="GetVenusUrlByFullPathQuery"/> ile sayfa yönlendirme kararı belirlenir.</para>
+    /// </remarks>
     public class RouterUrlHandler : RouterHandlerBase
     {
         public override async Task<IVenusHttpContext> HandleAsync(HttpContext httpContext,object request = null)
         {
             base.ServiceRegistration(httpContext);
             string Path = httpContext.Request.Path;
-            string Schema = httpContext.Request.Scheme;
-            string FullPath = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}{Path}";
-            string BaseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
-            string Host = httpContext.Request.Host.Value;
 
             IResultDataControl<List<ReadVenusUrlDto>> urlResult = await base.Mediator.Send(new GetVenusUrlByFullPathQuery()
             {

@@ -9,15 +9,33 @@ using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Pages;
 using Venus.Core.Application.Dtos.Systems.Urls;
 using Venus.Core.Application.HttpRequests.Interfaces;
+using Venus.Presentation.Client.Core.RouterHandler;
 
 namespace Venus.Presentation.Client.Core.RequestHandler.Interfaces
 {
+    /// <summary>
+    /// <para>Handler'lar için temel altyapıyı sağlar.
+    /// Handler zincirinin oluşturulması, servis çözümleme işlemleri ve
+    /// isteğin bir sonraki handler'a aktarılmasından sorumludur.</para>
+    /// </summary>
+    /// <example>
+    /// <c>
+    ///     RouterHandlerBase urlHandler = new RouterUrlHandler();
+    ///     urlHandler.Next(new RoutePageHandler()).Next(new RouterPageTypeServiceHandler());
+    ///     await urlHandler.HandleAsync(context);
+    /// </c>
+    /// </example>
+
     public abstract class RouterHandlerBase : IRouterHandler
     {
         private IRouterHandler _nextHandler;
         protected IVenusHttpContext VenusContext;
         protected IMediator Mediator;
 
+        /// <summary>
+        /// <seealso cref=""/>
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void ServiceRegistration(HttpContext context)
         {
             if (this.Mediator == null)
