@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Application.Caching.Interfaces
 {
+    /// <summary>
+    /// Temel cache arayüzü
+    /// </summary>
     public interface ICacheService
     {
         Task<string> GetAsync(string key);

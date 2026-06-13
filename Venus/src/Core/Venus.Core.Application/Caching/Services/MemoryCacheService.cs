@@ -9,6 +9,9 @@ using Venus.Core.Application.Caching.Interfaces;
 
 namespace Venus.Core.Application.Caching.Services
 {
+    /// <summary>
+    /// Mermory cache servisi, verilerin ram üzerinde tutulmasını sağlar
+    /// </summary>
     public class MemoryCacheService : ICacheService
     {
         private readonly IMemoryCache _memoryCache;

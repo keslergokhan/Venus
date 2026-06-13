@@ -17,33 +17,33 @@ namespace Venus.Core.Application.Caching.Interfaces
         Task DataCacheUploadAsync();
     }
 
-    public interface ICacheManagerRefresh<TDto, TKeyType> : ICacheManagerUpload
-        where TDto : IReadDtoBase
+    public interface ICacheManagerRefresh<TModel, TKeyType> : ICacheManagerUpload
+        where TModel : class,new()
     {
         /// <summary>
-        /// Key olarak kullanılacak property'i belirtir. Örneğin, eğer TDto'nun Id property'si key olarak kullanılacaksa, 
+        /// Key olarak kullanılacak property'i belirtir. Örneğin, eğer TModel'nun Id property'si key olarak kullanılacaksa, 
         /// GetKeyProperty => x => x.Id şeklinde implement edilir.
         /// </summary>
-        protected Func<TDto, TKeyType> GetKeyProperty { get; }
-        public Task<TDto> GetOrCreateAsync(TKeyType key);
+        protected Func<TModel, TKeyType> GetKeyProperty { get; }
+        public Task<TModel> GetOrCreateAsync(TKeyType key);
     }
 
-    public interface ICacheManager<TDto,TKeyType> where TDto : IReadDtoBase
+    public interface ICacheManager<TModel,TKeyType> where TModel : class, new()
     {
-        Task<TDto> GetAsync(TKeyType key);
-        Task SetAsync(TDto value);
-        Task RemoveAsync(TDto value);
-        public Task<List<TDto>> GetAllAsync();
+        Task<TModel> GetAsync(TKeyType key);
+        Task SetAsync(TModel value);
+        Task RemoveAsync(TModel value);
+        public Task<List<TModel>> GetAllAsync();
         public HashSet<string> GetKeys();
     }
 
-    public interface IBasicCacheManager<TDto, TKeyType> : ICacheManager<TDto, TKeyType>, ICacheManagerUpload
-        where TDto : IReadDtoBase
+    public interface IBasicCacheManager<TModel, TKeyType> : ICacheManager<TModel, TKeyType>, ICacheManagerUpload
+        where TModel : class, new()
     {
     }
 
-    public interface IAdvancedCacheManager<TDto, TKeyType> : ICacheManager<TDto, TKeyType>, ICacheManagerRefresh<TDto, TKeyType>, ICacheManagerUpload
-        where TDto : IReadDtoBase
+    public interface IAdvancedCacheManager<TModel, TKeyType> : ICacheManager<TModel, TKeyType>, ICacheManagerRefresh<TModel, TKeyType>, ICacheManagerUpload
+        where TModel : class, new()
     {
     }
 
