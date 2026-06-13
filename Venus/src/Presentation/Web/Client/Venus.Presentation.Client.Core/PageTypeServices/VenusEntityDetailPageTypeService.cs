@@ -12,10 +12,6 @@ namespace Venus.Presentation.Client.Core.PageTypeServices
 {
     public class VenusEntityDetailPageTypeService : VenusPageTypeServiceBase, IVenusEntityDetailPageTypeService
     {
-        public override async Task ExecuteAsync(IVenusHttpContext venusHttpContext, HttpContext httpContext)
-        {
-            base.ExecuteAsync(venusHttpContext, httpContext);
-
-        }
+        
     }
 }

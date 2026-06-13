@@ -11,15 +11,12 @@ using Venus.Presentation.Client.Core.PageTypeServices.Interfaces;
 
 namespace Venus.Presentation.Client.Core.PageTypeServices.Base
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public abstract class VenusPageTypeServiceBase : IVenusPageTypeService
     {
 
-        public virtual async Task ExecuteAsync(IVenusHttpContext venusHttpContext,HttpContext httpContext)
+        public virtual Task ExecuteAsync(IVenusHttpContext venusHttpContext,HttpContext httpContext)
         {
-
+            return Task.CompletedTask;
         }
     }
 }

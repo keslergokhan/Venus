@@ -13,6 +13,14 @@ namespace Venus.Presentation.Client.Core.DynamicRoutes
     /// çalıştırılacak controller ve action bilgisini dinamik olarak belirler.</para>
     /// <see cref="Venus.Presentation.Client.Core.Extensions.VenusEndpointRouteBuilderExtension.VenusDynamicRoute(IEndpointRouteBuilder)"/> uygulanmış olması gerekir.
     /// </summary>
+    /// <remarks>
+    /// <list type="number">
+    ///     <item><see cref="RouterUrlHandler"/> UrlPath ile <see cref="Venus.Core.Domain.Entities.Systems.VenusUrl"/> kaydını tespit eder.</item>
+    ///     <item><see cref="IVenusHttpContext"/> nesnesini oluşturur.</item>
+    ///     <item><see cref="RouterPageTypeServiceHandler"/> sayfanın <see cref="Venus.Core.Domain.Entities.Systems.VenusPageType"/> üzerinde tanımlı servisi çalıştırır.</item>
+    ///     <item> Sayfanın <see cref="Venus.Core.Domain.Entities.Systems.VenusPageAbout"/> tablosunda tanımlı Controller ve Action yönlendirmesi yapılır </item>
+    /// </list>
+    /// </remarks>
     public class VenusDynamicRouteValueTransformer : DynamicRouteValueTransformer
     {
         private readonly IMediator _m;

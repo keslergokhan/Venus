@@ -20,6 +20,9 @@ using Venus.Presentation.Client.Core.VenusTagHelpers;
 
 namespace Venus.Presentation.Client.Core
 {
+    /// <summary>
+    /// Venus.Presentation.Client.Core sisteminin servis kayıtları.
+    /// </summary>
     public static class ServiceRegistrationExtensions
     {
         public static IServiceCollection AddVenusPresentationCoreServiceRegistration(this IServiceCollection services, IConfiguration configuration)
