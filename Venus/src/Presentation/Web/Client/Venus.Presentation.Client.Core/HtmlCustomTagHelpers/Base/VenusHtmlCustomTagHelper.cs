@@ -14,7 +14,7 @@ using Venus.Core.Application.Results.Interfaces;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base
 {
-    public abstract class VenusHtmlCustomTagHelper
+    public abstract class VenusHtmlCustomTagHelper: IVenusHtmlCustomTagHelper
     {
         [VenusHtmlCustomTagNameAttribute("json-data","{}")]
         public string JsonData { get; set; }

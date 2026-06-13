@@ -9,7 +9,7 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 {
-    public class VenusLangaugeResourceHtmlCustomTagHelper : VenusHtmlCustomTagHelper, IVenusHtmlCustomTagHelper
+    public class VenusLangaugeResourceHtmlCustomTagHelper : VenusHtmlCustomTagHelper
     {
         [VenusHtmlCustomTagNameAttribute("key-data", "")]
         public string Key { get; set; }
@@ -25,7 +25,6 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
         {
             return $"<span>{Key}</span>";
         }
-
         
     }
 }

@@ -9,8 +9,9 @@ namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 {
     public interface IVenusHtmlCustomTagHelper
     {
-        public abstract string HtmlTargetElement { get; }
+        public string HtmlTargetElement { get; }
         public short RenderOrder { get; }
+
         public Task<string> RenderTemplateAsync(HtmlNode cutomTagNode);
     }
 }

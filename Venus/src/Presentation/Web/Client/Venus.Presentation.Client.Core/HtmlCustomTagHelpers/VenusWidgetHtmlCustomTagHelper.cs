@@ -15,7 +15,7 @@ using Venus.Presentation.Client.Core.HtmlCustomTagHelpers.Base;
 
 namespace Venus.Presentation.Client.Core.HtmlCustomTagHelpers
 {
-    public class VenusWidgetHtmlCustomTagHelper : VenusHtmlCustomTagHelper, IVenusHtmlCustomTagHelper
+    public class VenusWidgetHtmlCustomTagHelper : VenusHtmlCustomTagHelper
     {
         [VenusHtmlCustomTagNameAttribute("key-data","")]
         public string Key { get; set; }
