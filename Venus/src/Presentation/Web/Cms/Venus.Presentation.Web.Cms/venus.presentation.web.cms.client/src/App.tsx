@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import DefaultLayout from './layouts/defaultLayout';
 import { AuthenticationContextProvider } from './contexts/AuthenticationContext';
-import PageManagerPage from './pages/PageManager';
+import PageManagerPage from './pages/PageManagerPage';
 import { FileManagerContextProvider } from './contexts/FileManagerContext';
 import { AppContextProvider } from './contexts/AppContext';
 import IconComponent from './pages/IconComponent';
@@ -13,6 +13,7 @@ import 'ckeditor5/ckeditor5.css';
 import { BlogPage } from './pages/BlogPage';
 import { ConfirmModal } from './components';
 import LanguageResourceManagerPage from './pages/LanguageResourceManagerPage';
+import WidgetManagerPage from './pages/WidgetManagerPage';
 function App() {
     return (
         <div className='overflow-x-hidden p-0 m-0'>
@@ -22,7 +23,6 @@ function App() {
                         <BrowserRouter>
                             <Routes>
                                 <Route path="/login" element={<LoginPage></LoginPage>}></Route>
-
                                 {/* DefaultLayout i�inde olacak sayfalar */}
                                 <Route element={<DefaultLayout />}>
                                     <Route path="/home" element={<HomePage />} />
@@ -30,6 +30,7 @@ function App() {
                                     <Route path='/blog' element={<BlogPage></BlogPage>}></Route>
                                     {/* ba�ka child sayfalar buraya */}
                                     <Route path='/languagekey-manager' element={<LanguageResourceManagerPage></LanguageResourceManagerPage>}></Route>
+                                    <Route path="/widget-manager" element={<WidgetManagerPage />} />
                                 </Route>
                                 <Route path="/icon" element={<IconComponent></IconComponent>}></Route>
                             </Routes>

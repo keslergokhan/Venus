@@ -35,8 +35,6 @@ function LanguageResourceComponent() {
                 <LanguageResourceUpdateComponent updateResourceHandler={updateResourceHandler} languageList={languageList} currentLangaugeResourceKey={selectUpdateResourceKey} ></LanguageResourceUpdateComponent>
             </ZoneControlItem>
         </ZoneControlComponent>
-       
-        
     </>);
 }
 

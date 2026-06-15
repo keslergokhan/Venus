@@ -9,3 +9,4 @@ export {useSwitchModal} from "./useSwichModal"
 export type {CreateBlogType,UpdateBlogType} from "./useBlogContainer"
 export {useLanguageResourceContainer} from "./useLanguageResourceContainer"
 export {useConfigurationSettings} from "./useConfigurationSettings"
+export {useWidgetManagerContainer} from './useWidgetManagerContainer';
