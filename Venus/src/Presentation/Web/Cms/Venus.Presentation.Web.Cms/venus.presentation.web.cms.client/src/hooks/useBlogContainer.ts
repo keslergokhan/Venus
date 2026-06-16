@@ -27,7 +27,7 @@ interface useBlogContainerResult{
     blogs:Array<ReadBlogDto>;
     removeHandler:(data:ReadBlogDto)=>Promise<void>;
     addHandler:(data:CreateBlogType)=>Promise<void>;
-    updateSelectHandler:(data:ReadBlogDto)=>Promise<void>;
+    goToUpdateHandler:(data:ReadBlogDto)=>Promise<void>;
     setShowContainer:(data:string[])=>void;
     refreshTable:()=>void;
     showContainer:string[];
@@ -122,7 +122,7 @@ export function useBlogContainer():useBlogContainerResult {
      * Seçilen satırı güncelle
      * @param data 
      */
-    async function updateSelectHandler(data:ReadBlogDto):Promise<void>{
+    async function goToUpdateHandler(data:ReadBlogDto):Promise<void>{
         setContainer(["update"]);
         getBlogById(data.id);
     }
@@ -176,7 +176,7 @@ export function useBlogContainer():useBlogContainerResult {
         blogPage:blogPage.current,
         blogs:blogs.current,
         removeHandler,
-        updateSelectHandler,
+        goToUpdateHandler,
         addHandler,
         setShowContainer,
         showContainer:containers,

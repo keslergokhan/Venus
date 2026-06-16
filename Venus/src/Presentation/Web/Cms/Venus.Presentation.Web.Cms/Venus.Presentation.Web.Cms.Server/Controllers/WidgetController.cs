@@ -14,10 +14,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetBlogs(CancellationToken cancellationToken)
         {
-            var getBlogsResult = await base.Mediator.Send(new GetBlogQuery()
-            {
-                LanguageId = HttpContext.GetLanguageId(),
-            }, cancellationToken);
+            var getBlogsResult = await base.Mediator.Send(new GetWidgetsQueriy(), cancellationToken);
             return getBlogsResult.ToActionResult(this);
         }
     }

@@ -8,7 +8,7 @@ function BlogContainer(){
     const {
         blogs,
         removeHandler,
-        updateSelectHandler,
+        goToUpdateHandler,
         addHandler,
         setShowContainer,
         showContainer,
@@ -39,7 +39,7 @@ function BlogContainer(){
                     <UpdateBlogComponent onSubmit={updateHandler} currentUpdateBlog={selectUpdateBlog} blogPage={blogPage} ></UpdateBlogComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey="table">
-                    <BlogTableComponent blogs={blogs} toggleStateHandler={toggleStateHandler}  updateOnHandler={updateSelectHandler} removeOnHandler={removeHandler}></BlogTableComponent>
+                    <BlogTableComponent blogs={blogs} toggleStateHandler={toggleStateHandler}  goToUpdateHandler={goToUpdateHandler} removeOnHandler={removeHandler}></BlogTableComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

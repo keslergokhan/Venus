@@ -30,7 +30,7 @@ export {DynamicPropertiesComponentEnum,DynamicPropertyComponentProps, type Dynam
 export {CreateBlogComponent, type CreateBlogComponentProps, BlogDynamicInputFields} from './blogManager/CreateBlogComponent'
 export {BlogTableComponent} from './blogManager/BlogTableComponent'
 
-export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/zoneControlComponent"
+export {ZoneControlComponent,ZoneControlItem} from "./zoneControl/ZoneControlComponent"
 
 export {CTableComponent, type CTableComponentProps} from "./table/CTableComponent"
 export {CTableHeaderComponent,CTableBodyRow} from "./table/CTableComponentItem"
@@ -39,3 +39,5 @@ export {ConfirmModal} from "./modals/ConfirmModal";
 
 export {LanguageResourceTableComponent} from "./languageResourceManager/LanguageResourceTableComponent";
 export {LanguageResourceUpdateComponent} from "./languageResourceManager/LanguageResourceUpdateComponent"
+
+export {WidgetTableComponent} from './widgetManager/WidgetTableComponent'

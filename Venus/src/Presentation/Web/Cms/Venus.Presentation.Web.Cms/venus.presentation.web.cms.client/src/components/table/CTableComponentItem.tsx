@@ -25,7 +25,7 @@ export interface CTableBodyRowProps<TData extends DtoBase>{
     children:ReactNode;
     toggleStateHandler?:(id:string)=>Promise<void>;
     removeOnHandler?:(data:TData)=>Promise<void>;
-    updateOnHandler?:(data:TData)=>Promise<void>;
+    goToUpdateHandler?:(data:TData)=>Promise<void>;
 }
 
 export function CTableBodyRow<TData extends DtoBase>(props:CTableBodyRowProps<TData>) {
@@ -47,8 +47,8 @@ export function CTableBodyRow<TData extends DtoBase>(props:CTableBodyRowProps<TD
                 <Dropdown label="İşlem" className="font-bold !border-0 !active:border-0" size="xs">
                     
                     <DropdownItem onClick={async ()=>{
-                        if(props.updateOnHandler){
-                            await props.updateOnHandler(props.data) 
+                        if(props.goToUpdateHandler){
+                            await props.goToUpdateHandler(props.data) 
                         }
                     }}>Güncelle</DropdownItem>
 

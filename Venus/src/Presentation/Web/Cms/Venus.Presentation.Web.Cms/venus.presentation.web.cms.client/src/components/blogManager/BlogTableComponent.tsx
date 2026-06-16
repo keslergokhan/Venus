@@ -5,7 +5,7 @@ import type { ReadBlogDto } from "../../dtos"
 interface BlogTableComponentProps {
     blogs:Array<ReadBlogDto>
     removeOnHandler?:(data:ReadBlogDto)=>Promise<void>;
-    updateOnHandler?:(data:ReadBlogDto)=>Promise<void>;
+    goToUpdateHandler?:(data:ReadBlogDto)=>Promise<void>;
     toggleStateHandler?:(id:string)=>Promise<void>;
 }
 
@@ -16,7 +16,12 @@ export function BlogTableComponent(props:BlogTableComponentProps){
     function row(props:{index:number,data:ReadBlogDto}){
         const {data} = props;
         return (
-            <CTableBodyRow {...props} key={props.index} toggleStateHandler={baseProps.toggleStateHandler} removeOnHandler={baseProps.removeOnHandler} updateOnHandler={baseProps.updateOnHandler} >
+            <CTableBodyRow 
+                {...props} key={props.index} 
+                toggleStateHandler={baseProps.toggleStateHandler} 
+                removeOnHandler={baseProps.removeOnHandler} 
+                goToUpdateHandler={baseProps.goToUpdateHandler} >
+                
                 <TableCell>{data.title}</TableCell>
                 <TableCell >{data.description}</TableCell>
                 <TableCell>Laptop</TableCell>

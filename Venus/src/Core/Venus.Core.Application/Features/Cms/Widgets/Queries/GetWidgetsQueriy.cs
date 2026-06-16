@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Venus.Core.Application.Dtos.Systems.Widget;
+using Venus.Core.Application.Enums.Systems;
 using Venus.Core.Application.Features.Interfaces;
 using Venus.Core.Application.Repositories.Interfaces.Systems;
 using Venus.Core.Application.Results;
 using Venus.Core.Application.Results.Interfaces;
 
-namespace Venus.Core.Application.Features.Cms.Widgets.Queries
+namespace Venus.Core.Application.Features.Cms.Queries
 {
-    public class GetWidgetsQueriy : IRequest<IResultDataControl<List<ReadVenusWidgetDto>>>, ILanguageRequest
+    public class GetWidgetsQueriy : IRequest<IResultDataControl<List<ReadVenusWidgetDto>>>
     {
-        public Guid LanguageId { get; set; }
     }
 
     public class GetWidgetsQueriyHandler : IRequestHandler<GetWidgetsQueriy, IResultDataControl<List<ReadVenusWidgetDto>>>
@@ -34,8 +34,8 @@ namespace Venus.Core.Application.Features.Cms.Widgets.Queries
             IResultDataControl<List<ReadVenusWidgetDto>> result = new ResultDataControl<List<ReadVenusWidgetDto>>();
             try
             {
-                var getAllResult = await _widgetRepository.GetAllAsync();
-                result.SuccessSetData(_mapper.Map<List<ReadVenusWidgetDto>>(getAllResult));
+                var getAllResult = await _widgetRepository.GetAllAsync(x=>x.State == (int)EntityStateEnum.Online);
+                result.SuccessSetData(_mapper.Map<List<ReadVenusWidgetDto>>(getAllResult).OrderBy(x=>x.Key).ToList());
             }
             catch (Exception ex)
             {
