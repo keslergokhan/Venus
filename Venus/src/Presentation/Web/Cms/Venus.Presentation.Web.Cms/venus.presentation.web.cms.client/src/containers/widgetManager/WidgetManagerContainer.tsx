@@ -1,5 +1,9 @@
 import { CButtonField, WidgetTableComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
 import { useWidgetManagerContainer } from "../../hooks";
+import CodeMirror from "@uiw/react-codemirror";
+import { html } from "@codemirror/lang-html";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+
 
 function WidgetManagerContainer(){
 
@@ -24,7 +28,12 @@ function WidgetManagerContainer(){
                     <WidgetTableComponent widgets={widgets} goToUpdateHandler={goToUpdateHandler}></WidgetTableComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"update"}>
-                    düzenle
+                <CodeMirror
+                    value={widgets.find(x=>x.key == "Deneme.Sablonu")?.template}
+                    height="300px"
+                    theme={vscodeDark }
+                    extensions={[html()]}
+                    />
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"add"}>
                     Yeni ekle
