@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react"
 import { WidgetService } from "../services/WidgetService"
 import { ToastHelper } from "../helpers";
-import type { ReadWidgetDto } from "../dtos/widgets/ReadWidgetDto";
+import type { ReadWidgetDto } from "../dtos";
 
 interface useWidgetManagerContainerResult{
     widgets:ReadWidgetDto[],
     showContainer:(showComponents?:string[])=>string[]|undefined,
     goToUpdateHandler:(data:ReadWidgetDto)=>Promise<void>,
     refreshTable:()=>Promise<void>
+    selectWidget:ReadWidgetDto|null
 }
 
 export function useWidgetManagerContainer():useWidgetManagerContainerResult{
 
     const [containers,setContainer] = useState<string[]>(["table"]);
     const [widgets,setWidgets] = useState<ReadWidgetDto[]>([]);
+    const [selectWidget,setSelectWidget] = useState<ReadWidgetDto | null>(null);
+
     const service = new WidgetService();
     
     function showContainer(showComponents?:string[]){
@@ -36,13 +39,14 @@ export function useWidgetManagerContainer():useWidgetManagerContainerResult{
         }
     }
 
-    async function goToUpdateHandler(){
+    async function goToUpdateHandler(data:ReadWidgetDto){
         setContainer(["update"]);
+        setSelectWidget(data);
     }
 
     useEffect(()=>{
         refreshTable();
     },[]);
 
-    return {widgets,showContainer,goToUpdateHandler,refreshTable}
+    return {widgets,showContainer,goToUpdateHandler,refreshTable,selectWidget}
 }

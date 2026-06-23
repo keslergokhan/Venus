@@ -41,3 +41,4 @@ export {LanguageResourceTableComponent} from "./languageResourceManager/Language
 export {LanguageResourceUpdateComponent} from "./languageResourceManager/LanguageResourceUpdateComponent"
 
 export {WidgetTableComponent} from './widgetManager/WidgetTableComponent'
+export {WidgetUpdateComponent} from "./widgetManager/WidgetUpdateComponent"

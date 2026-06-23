@@ -12,3 +12,4 @@ export {ReadBlogDto} from "./blogs/ReadBlogDto"
 export {ReadLanguageResourceKeyDto} from "./languageResource/ReadLanguageResourceKeyDto";
 export {ReadLanguageResourceValueDto} from "./languageResource/ReadLanguageResourceValueDto";
 export {ReadConfigurationSettingDto} from "./settings/ReadConfigurationSettingDto"
+export {ReadWidgetDto} from "./widgets/ReadWidgetDto"
