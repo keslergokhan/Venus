@@ -8,14 +8,15 @@ interface useWidgetManagerContainerResult{
     showContainer:(showComponents?:string[])=>string[]|undefined,
     goToUpdateHandler:(data:ReadWidgetDto)=>Promise<void>,
     refreshTable:()=>Promise<void>
-    selectWidget:ReadWidgetDto|null
+    selectWidget:ReadWidgetDto|undefined,
+    updateHandler:(data:ReadWidgetDto)=>Promise<void>
 }
 
 export function useWidgetManagerContainer():useWidgetManagerContainerResult{
 
     const [containers,setContainer] = useState<string[]>(["table"]);
     const [widgets,setWidgets] = useState<ReadWidgetDto[]>([]);
-    const [selectWidget,setSelectWidget] = useState<ReadWidgetDto | null>(null);
+    const [selectWidget,setSelectWidget] = useState<ReadWidgetDto>();
 
     const service = new WidgetService();
     
@@ -44,9 +45,21 @@ export function useWidgetManagerContainer():useWidgetManagerContainerResult{
         setSelectWidget(data);
     }
 
+    async function updateHandler(data:ReadWidgetDto){
+        ToastHelper.Success("İşlem başarıyla güncellendi !");
+        try {
+            const result = await service.updateWidget(data);
+            ToastHelper.Success(`${data.key}, güncellendi.`)
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
+        
+        console.log(data);
+    }
+
     useEffect(()=>{
         refreshTable();
     },[]);
 
-    return {widgets,showContainer,goToUpdateHandler,refreshTable,selectWidget}
+    return {widgets,showContainer,goToUpdateHandler,refreshTable,selectWidget,updateHandler}
 }

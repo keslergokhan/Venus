@@ -1,4 +1,4 @@
-import { CButtonField, WidgetTableComponent, WidgetUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
+import { CButtonField, LoadingComponent, WidgetTableComponent, WidgetUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
 import { useWidgetManagerContainer } from "../../hooks";
 
 function WidgetManagerContainer(){
@@ -7,7 +7,8 @@ function WidgetManagerContainer(){
         showContainer,
         goToUpdateHandler,
         refreshTable,
-        selectWidget
+        selectWidget,
+        updateHandler
     } = useWidgetManagerContainer();
 
     const isTable = (showContainer() ?? []).find(x=>x=="table")?true:false;
@@ -23,12 +24,14 @@ function WidgetManagerContainer(){
             
             <ZoneControlComponent className="mt-4" zoneKeys={showContainer() ?? []}>
                 <ZoneControlItem zoneKey={"table"}>
-                    <WidgetTableComponent widgets={widgets} goToUpdateHandler={goToUpdateHandler}></WidgetTableComponent>
+                    <LoadingComponent loading={(widgets==null)} class="w-full min-h-[100px]">
+                        <WidgetTableComponent widgets={widgets} goToUpdateHandler={goToUpdateHandler}></WidgetTableComponent>
+                    </LoadingComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"update"}>
-                    <div className="w-full min-h-[100px]">
-                        {selectWidget != null ? <WidgetUpdateComponent selectUpdateWidget={selectWidget}></WidgetUpdateComponent> : "Yükleniyor..."}
-                    </div>
+                    <LoadingComponent class="w-full min-h-[100px]" loading={selectWidget == undefined}>
+                        <WidgetUpdateComponent updateHandler={updateHandler} selectUpdateWidget={selectWidget}></WidgetUpdateComponent>
+                    </LoadingComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"add"}>
                     Yeni ekle
