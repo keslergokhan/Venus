@@ -13,7 +13,7 @@ export function CSmButtonField(props:CButtonFieldProps){
     return (
         <button 
         onClick={(e)=>{(props.onClick && props?.onClick(e))}}
-        type={props.type ? props.type:"button"} className={`${className}`}>
+        type={props.type ? props.type:"submit"} className={`${className}`}>
               {props.children}
         </button>
     )

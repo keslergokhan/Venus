@@ -8,7 +8,7 @@ export function CButtonField(props:CButtonFieldProps) {
 
     let className = `cursor-pointer w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${props.className} ${props.disabled && "opacity-50"}`;
     return (
-        <button type={props.type ? props.type:"button"} className={`${className}`} onClick={props.onClick} disabled={props.disabled}>
+        <button type={props.type ? props.type:"submit"} className={`${className}`} onClick={props.onClick} disabled={props.disabled}>
               {props.children}
         </button>
     )
