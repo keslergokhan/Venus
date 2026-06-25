@@ -2,3 +2,65 @@ body {
     margin: 0;
     padding: 0;
   }
+
+
+ /* ANA MENU */
+.menu {
+  width: 220px;
+  background: #111827;
+  color: white;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+/* ANA ITEM */
+.menu > li {
+  position: relative;
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #2b2b2b;
+}
+
+.menu > li:hover {
+  background: #1f2937;
+}
+
+/* SUBMENU (SAĞA AÇILAN) */
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;   /* 👉 sağa açılır */
+  
+  width: 180px;
+  background: #1f2937;
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+
+  /* gizli başlangıç */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* hover olunca göster */
+.menu > li:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* SUB ITEM */
+.submenu li {
+  padding: 8px 10px;
+  color: #d1d5db;
+}
+
+.submenu li:hover {
+  background: #374151;
+  color: white;
+}
