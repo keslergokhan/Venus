@@ -66,13 +66,23 @@ export function WidgetUpdateComponent(props:WidgetUpdateComponentProps)
             
             <ul className="menu">
                 <li>
+                    Temel Bilgileri 
+                    <ul className="submenu">
+                        <li><Btn html={`{{Context.Language.Currency}}`}>Para Birimi</Btn></li>
+                        <li><Btn html={`{{Context.Language.CountryCode}}`}>Ülke Kodu</Btn></li>
+                        <li><Btn html={`{{Context.Url.FullPath}}`}>Sayfa Tam Adresi</Btn></li>
+                        <li><Btn html={`{{Context.Url.Host}}`}>Sitenin Adresi</Btn></li>
+                        <li><Btn html={`{{Context.Page.Name}}`}>Sayfa Adı</Btn></li>
+                    </ul>
+                </li>
+                <li>
                     Yardımcılar
                     <ul className="submenu">
                         <li><Btn html={`<venus-lan-resource key-data=""></venus-lan-resource>`}>Çoklu Dil Parçacığı</Btn></li>
                     </ul>
                 </li>
                 
-                </ul>
+            </ul>
         </div>);
     }
 
@@ -100,3 +110,39 @@ export function WidgetUpdateComponent(props:WidgetUpdateComponentProps)
         </form>
     );
 }
+
+
+/**
+ 
+
+{
+    "Language": {
+        "Id": "47c696f8-5066-4094-a89f-6b52c9c24694",
+        "Name": "T\u00FCrk\u00E7e",
+        "CountryCode": "tr",
+        "Culture": "tr-TR",
+        "Currency": "TL"
+    },
+    "Url": {
+        "IsEntity": false,
+        "Schema": "https",
+        "Host": "localhost:7092",
+        "Region": "",
+        "Path": "/bugunun-testi",
+        "FullPath": "https://localhost:7092/bugunun-testi",
+        "BaseUrl": "https://localhost:7092",
+        "Id": "7a03fba5-c457-4d3e-9a58-f425ac4ecfd8",
+        "ParentId": null
+    },
+    "Page": {
+        "Id": "74292325-ea66-4049-bf39-16f553924dee",
+        "Name": "/bugunun-testi",
+        "Description": "/bugunun-testi",
+        "Controller": "VenusDefaultPageController",
+        "Action": "Index",
+        "EntityClassType": null,
+        "Entity": null,
+        "PageType": 0
+    }
+}
+ */
