@@ -10,7 +10,7 @@ export enum DynamicPropertiesComponentEnum{
     Url = 7,
     File = 8,
     Image = 9,
-    HtmlEditor = 10
+    RichTextEditorField = 10
     
 }
 

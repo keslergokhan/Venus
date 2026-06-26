@@ -1,6 +1,6 @@
 import { useEffect, useState, type JSX } from "react";
 import type { ReadLanguageDto, ReadLanguageResourceKeyDto, ReadLanguageResourceValueDto } from "../../dtos";
-import { CButtonField, CTextField, HtmlEditor, IconFlag } from "../commons";
+import { CButtonField, CTextField, RichTextEditorField, IconFlag } from "../commons";
 import { CTextAreaField } from "../commons";
 import z from "zod";
 import type { UpdateLanguageResourceType } from "../../hooks/useLanguageResourceContainer";
@@ -101,7 +101,7 @@ export function LanguageResourceUpdateComponent(props:LanguageResourceUpdateComp
                             {   htmlSoruce==false ?
                                 <CTextAreaField name="languageResourceValue" id="languageResourceValue"  formRegister={form.register("languageResourceValue")} fieldErrors={errors.languageResourceValue} ></CTextAreaField>
                                 :
-                                <HtmlEditor name="languageResourceValue" control={form.control} ></HtmlEditor>
+                                <RichTextEditorField name="languageResourceValue" control={form.control} ></RichTextEditorField>
                             }
                             <CButtonField>Kaydet</CButtonField>
                         </form>

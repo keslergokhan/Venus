@@ -21,8 +21,8 @@ export type {PageAboutListComponentProps} from "./pageManager/PageAboutListCompo
 export {UrlInputField} from "./commons/textFields/UrlInputField"
 export type {UrlInputFieldProps} from "./commons/textFields/UrlInputField"
 
-export {HtmlEditor} from "./commons/textFields/HtmlEditor"
-export type {HtmlEditorProps} from "./commons/textFields/HtmlEditor"
+export {RichTextEditorField} from "./commons/textFields/RichTextEditorField"
+export type {RichTextEditorFieldProps} from "./commons/textFields/RichTextEditorField"
 
 export {DynamicPropertiesComponent} from "./dynamicProperties/DynamicPropertiesComponent"
 export {DynamicPropertiesComponentEnum,DynamicPropertyComponentProps, type DynamicPropertiesComponentProps} from "./dynamicProperties/DynamicPropertiesComponentProps"
@@ -42,3 +42,4 @@ export {LanguageResourceUpdateComponent} from "./languageResourceManager/Languag
 
 export {WidgetTableComponent} from './widgetManager/WidgetTableComponent'
 export {WidgetUpdateComponent} from "./widgetManager/WidgetUpdateComponent"
+export {WidgetAddComponent} from "./widgetManager/WidgetAddComponent"

@@ -1,4 +1,4 @@
-import { CButtonField, LoadingComponent, WidgetTableComponent, WidgetUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
+import { CButtonField, LoadingComponent, WidgetAddComponent, WidgetTableComponent, WidgetUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
 import { useWidgetManagerContainer } from "../../hooks";
 
 function WidgetManagerContainer(){
@@ -34,7 +34,7 @@ function WidgetManagerContainer(){
                     </LoadingComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"add"}>
-                    Yeni ekle
+                    <WidgetAddComponent></WidgetAddComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

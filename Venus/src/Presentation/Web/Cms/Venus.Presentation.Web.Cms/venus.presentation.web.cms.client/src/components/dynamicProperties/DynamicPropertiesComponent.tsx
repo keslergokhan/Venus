@@ -1,6 +1,6 @@
 import type { FieldValues } from "react-hook-form"
 import { DynamicPropertiesComponentEnum, type DynamicPropertiesComponentProps } from "./DynamicPropertiesComponentProps"
-import { CTextField, HtmlEditor } from "../commons";
+import { CTextField, RichTextEditorField } from "../commons";
 
 
 export function DynamicPropertiesComponent<T extends FieldValues>(props:DynamicPropertiesComponentProps<T>){
@@ -22,8 +22,8 @@ export function DynamicPropertiesComponent<T extends FieldValues>(props:DynamicP
                     {field.type == DynamicPropertiesComponentEnum.Text && 
                     <CTextField id={field.name} key={index} name={field.name} type="text" label={field.label} formRegister={register(field.name)} ></CTextField>}
     
-                    {field.type == DynamicPropertiesComponentEnum.HtmlEditor && 
-                    <HtmlEditor label={field.label} key={index} control={control} name={field.name} ></HtmlEditor>}
+                    {field.type == DynamicPropertiesComponentEnum.RichTextEditorField && 
+                    <RichTextEditorField label={field.label} key={index} control={control} name={field.name} ></RichTextEditorField>}
     
                     {(errors[field.name]) && <p className="text-red-500 text-sm mt-1">{errors[field.name]?.message?.toString()}</p>}
                 </div>

@@ -22,7 +22,7 @@ export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<UpdateBl
     {
         label:"Blog içeriği",
         name:"blogContent",
-        type:DynamicPropertiesComponentEnum.HtmlEditor,
+        type:DynamicPropertiesComponentEnum.RichTextEditorField,
     }
 ];
 

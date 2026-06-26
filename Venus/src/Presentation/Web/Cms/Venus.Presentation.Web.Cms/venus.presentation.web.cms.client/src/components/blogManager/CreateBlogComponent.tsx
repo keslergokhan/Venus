@@ -20,7 +20,7 @@ export const BlogDynamicInputFields:Array<DynamicPropertyComponentProps<CreateBl
     {
         label:"Blog içeriği",
         name:"blogContent",
-        type:DynamicPropertiesComponentEnum.HtmlEditor,
+        type:DynamicPropertiesComponentEnum.RichTextEditorField,
     }
 ];
 

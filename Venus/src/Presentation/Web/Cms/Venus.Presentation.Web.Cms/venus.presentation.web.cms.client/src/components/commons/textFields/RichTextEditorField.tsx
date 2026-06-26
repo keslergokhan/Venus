@@ -63,7 +63,7 @@ import { Controller, type Control, type FieldError, type FieldValues, type Path,
 
 
 
-export interface HtmlEditorProps<T extends FieldValues>{
+export interface RichTextEditorFieldProps<T extends FieldValues>{
     fieldErrors?:FieldError|undefined,
     control?:Control<T>,
     name:Path<T>
@@ -72,7 +72,7 @@ export interface HtmlEditorProps<T extends FieldValues>{
 }
 
 
-export function HtmlEditor<T extends FieldValues>(props:HtmlEditorProps<T>) {
+export function RichTextEditorField<T extends FieldValues>(props:RichTextEditorFieldProps<T>) {
     
     const config:EditorConfig = {
         licenseKey: 'GPL', // Ücretsiz kullanım anahtarı
