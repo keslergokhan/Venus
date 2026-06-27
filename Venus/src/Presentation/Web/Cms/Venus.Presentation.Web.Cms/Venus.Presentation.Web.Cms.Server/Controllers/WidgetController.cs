@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Features.Cms.Queries;
 using Venus.Core.Application.Features.Cms.Widgets.Commands;
 using Venus.Core.Application.Results.Extensions;
+using Venus.Core.Application.Services;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
 using Venus.Presentation.Web.Cms.Server.Extensions;
 using Venus.Presentation.Web.Cms.Server.Models.Widgets;
@@ -30,6 +31,16 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             },cancellationToken);
 
             return updateResult.ToActionResult(this);
+        }
+
+        [HttpGet("bu-bir-deneme")]
+        public async Task<IActionResult> Test()
+        {
+            HtmlTemplateEngineService ss = new HtmlTemplateEngineService();
+
+            await ss.HtmlTemplateSchemaExtractAsync("");
+
+            return Ok();
         }
     }
 }
