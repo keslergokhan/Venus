@@ -77,7 +77,7 @@ namespace Venus.Core.Application.Features.Cms.Command
             }
             catch (Exception ex)
             {
-                result.Fail(ex);
+                throw new VenusCmsHtmlTemplateSchemaException("Tasrım verileri okunamadı !",ex);
             }
 
             return result;

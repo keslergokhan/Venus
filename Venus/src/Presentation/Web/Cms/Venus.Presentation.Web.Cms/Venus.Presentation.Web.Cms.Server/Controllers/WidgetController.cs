@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Venus.Core.Application.Features.Cms.Queries;
 using Venus.Core.Application.Features.Cms.Widgets.Commands;
+using Venus.Core.Application.Features.Cms.Widgets.Queries;
 using Venus.Core.Application.Results.Extensions;
 using Venus.Core.Application.Services;
 using Venus.Presentation.Web.Cms.Server.Controllers.Base;
@@ -33,14 +34,15 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return updateResult.ToActionResult(this);
         }
 
-        [HttpGet("bu-bir-deneme")]
-        public async Task<IActionResult> Test()
+        [HttpPost("create-template-schema")]
+        public async Task<IActionResult> CreateTemplateSchema([FromBody]Guid id)
         {
-            HtmlTemplateEngineService ss = new HtmlTemplateEngineService();
+            var result = await base.Mediator.Send(new GetWidgetTemplateDataSchemaQuery()
+            {
+                WidgetId = id
+            });
 
-            await ss.HtmlTemplateSchemaExtractAsync("");
-
-            return Ok();
+            return result.ToActionResult(this);
         }
     }
 }

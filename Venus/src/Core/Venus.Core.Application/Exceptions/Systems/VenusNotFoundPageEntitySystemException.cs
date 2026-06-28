@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Exceptions.Base;
 
 namespace Venus.Core.Application.Exceptions.Systems
 {
-    public class VenusNotFoundPageEntitySystemException : Exception
+    public class VenusNotFoundPageEntitySystemException : VenusExceptionBase
     {
-        public VenusNotFoundPageEntitySystemException(string entityName) : base($"${entityName} bağlı bir sayfa bulunamadı !")
+        public VenusNotFoundPageEntitySystemException(string entityName) : base("NOT_FOUND_PAGE_ENTITY",$"${entityName} bağlı bir sayfa bulunamadı !")
         {
         }
     }

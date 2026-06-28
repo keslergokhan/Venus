@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Exceptions.Base;
+using Venus.Core.Domain.Entities.Base;
 
 namespace Venus.Core.Application.Exceptions.Cms
 {
-    public class VenusDataCreationFailedCmsException : Exception
+    public class VenusDataCreationFailedCmsException : VenusExceptionBase
     {
         public VenusDataCreationFailedCmsException()
-            : base("Veri veritabanına kaydedilirken beklenmedik bir hata oluştu.")
+            : base("DATA_NOT_CREATION","Veri veritabanına kaydedilirken beklenmedik bir hata oluştu.")
         { }
 
         public VenusDataCreationFailedCmsException(string entityName)
-            : base($"{entityName} kaydı oluşturulamadı.")
+            : base("DATA_NOT_CREATION", $"{entityName} kaydı oluşturulamadı.")
         { }
 
         public VenusDataCreationFailedCmsException(string message, Exception innerException)
-            : base(message, innerException)
+            : base("DATA_NOT_CREATION", message, innerException)
         { }
     }
 }

@@ -12,15 +12,15 @@ namespace Venus.Core.Application.Services
 {
     public class CustomScriptVisitor : ScriptVisitor
     {
-        public List<ScriptVisitModel> Variables = new List<ScriptVisitModel>();
-
+        public List<ScriptVisitModel> Variables => variables;
+        private List<ScriptVisitModel> variables = new List<ScriptVisitModel>();
 
         private void AddVariable(ScriptVisitModel item)
         {
-            var variable = Variables.FirstOrDefault(x => x.PropertyRoute == item.PropertyRoute);
+            var variable = variables.FirstOrDefault(x => x.PropertyRoute == item.PropertyRoute);
             if (variable == null)
             {
-                Variables.Add(item);
+                variables.Add(item);
             }else if((variable.Type == null && variable.Label == null) && (item.Label != null && item.Type != null))
             {
                 variable = item;
@@ -81,10 +81,6 @@ namespace Venus.Core.Application.Services
 
         public override void Visit(ScriptFunctionCall node)
         {
-            string typeKey = "type=";
-            string nameKey = "name=";
-            string labelKey = "label=";
-
             if (node.Target.ToString() == "field")
             {
                 ScriptVisitModel item = new ScriptVisitModel();
@@ -107,7 +103,6 @@ namespace Venus.Core.Application.Services
                         }
                     }
                 }
-
                 AddVariable(item);
             }
         }
