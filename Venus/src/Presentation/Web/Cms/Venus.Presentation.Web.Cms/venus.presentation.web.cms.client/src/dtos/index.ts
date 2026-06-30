@@ -13,3 +13,4 @@ export {ReadLanguageResourceKeyDto} from "./languageResource/ReadLanguageResourc
 export {ReadLanguageResourceValueDto} from "./languageResource/ReadLanguageResourceValueDto";
 export {ReadConfigurationSettingDto} from "./settings/ReadConfigurationSettingDto"
 export {ReadWidgetDto} from "./widgets/ReadWidgetDto"
+export {WriteWidgetDto} from "./widgets/WriteWidgetDto"

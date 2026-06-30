@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { WidgetService } from "../services/WidgetService"
 import { ToastHelper } from "../helpers";
-import type { ReadWidgetDto } from "../dtos";
+import type { ReadWidgetDto, WriteWidgetDto } from "../dtos";
 
 interface useWidgetManagerContainerResult{
     widgets:ReadWidgetDto[],
@@ -10,6 +10,7 @@ interface useWidgetManagerContainerResult{
     refreshTable:()=>Promise<void>
     selectWidget:ReadWidgetDto|undefined,
     updateHandler:(data:ReadWidgetDto)=>Promise<void>
+    addHandler:(data:WriteWidgetDto)=>Promise<void>
 }
 
 export function useWidgetManagerContainer():useWidgetManagerContainerResult{
@@ -57,9 +58,13 @@ export function useWidgetManagerContainer():useWidgetManagerContainerResult{
         console.log(data);
     }
 
+    async function addHandler(data:WriteWidgetDto){
+
+    }
+
     useEffect(()=>{
         refreshTable();
     },[]);
 
-    return {widgets,showContainer,goToUpdateHandler,refreshTable,selectWidget,updateHandler}
+    return {widgets,showContainer,goToUpdateHandler,refreshTable,selectWidget,updateHandler,addHandler}
 }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Venus.Core.Application.Exceptions.Cms;
 using Venus.Core.Application.Services.Models;
 
 namespace Venus.Core.Application.Services
@@ -29,24 +30,16 @@ namespace Venus.Core.Application.Services
         }
         public override void Visit(ScriptNode node)
         {
-            try
+            // Member access (person.name, a.b.c)
+            if (node is ScriptMemberExpression member)
             {
-                // Member access (person.name, a.b.c)
-                if (node is ScriptMemberExpression member)
-                {
-                    var path = BuildPath(member);
-                    
-                    ScriptVisitModel item = new ScriptVisitModel()
-                    {
-                        PropertyRoute = path
-                    };
-                    AddVariable(item);
-                }
-            }
-            catch (Exception ex)
-            {
+                var path = BuildPath(member);
 
-                throw;
+                ScriptVisitModel item = new ScriptVisitModel()
+                {
+                    PropertyRoute = path
+                };
+                AddVariable(item);
             }
 
             base.Visit(node);
@@ -54,29 +47,21 @@ namespace Venus.Core.Application.Services
 
         private string BuildPath(ScriptExpression expr)
         {
-            try
+            var parts = new Stack<string>();
+
+            while (expr is ScriptMemberExpression member)
             {
-                var parts = new Stack<string>();
-
-                while (expr is ScriptMemberExpression member)
-                {
-                    parts.Push(member.Member.Name);
-                    expr = member.Target;
-                }
-
-                if (expr is ScriptVariableGlobal global)
-                {
-                    parts.Push(global.Name);
-                }
-
-                return string.Join(".", parts);
+                parts.Push(member.Member.Name);
+                expr = member.Target;
             }
-            catch (Exception ex)
+
+            if (expr is ScriptVariableGlobal global)
             {
-
-                throw;
+                parts.Push(global.Name);
             }
-            
+
+            return string.Join(".", parts);
+
         }
 
         public override void Visit(ScriptFunctionCall node)

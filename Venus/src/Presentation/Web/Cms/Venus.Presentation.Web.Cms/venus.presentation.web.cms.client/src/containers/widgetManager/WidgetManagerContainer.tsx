@@ -8,7 +8,8 @@ function WidgetManagerContainer(){
         goToUpdateHandler,
         refreshTable,
         selectWidget,
-        updateHandler
+        updateHandler,
+        addHandler
     } = useWidgetManagerContainer();
 
     const isTable = (showContainer() ?? []).find(x=>x=="table")?true:false;
@@ -34,7 +35,7 @@ function WidgetManagerContainer(){
                     </LoadingComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"add"}>
-                    <WidgetAddComponent></WidgetAddComponent>
+                    <WidgetAddComponent addHandler={addHandler}></WidgetAddComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>
