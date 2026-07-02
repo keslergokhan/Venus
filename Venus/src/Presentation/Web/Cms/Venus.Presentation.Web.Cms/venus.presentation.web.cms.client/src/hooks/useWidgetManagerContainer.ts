@@ -59,7 +59,8 @@ export function useWidgetManagerContainer():useWidgetManagerContainerResult{
     }
 
     async function addHandler(data:WriteWidgetDto){
-
+        console.log("Bu bir deneme");
+        console.log(data)
     }
 
     useEffect(()=>{

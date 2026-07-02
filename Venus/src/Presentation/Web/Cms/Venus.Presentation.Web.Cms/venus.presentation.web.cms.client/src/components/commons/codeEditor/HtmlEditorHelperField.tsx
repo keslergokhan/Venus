@@ -28,6 +28,7 @@ export function HtmlEditorHelperField(props:HtmlEditorHelperFieldProps){
                 Yardımcılar
                 <ul className="submenu">
                     <li><Btn html={`<venus-lan-resource key-data=""></venus-lan-resource>`}>Çoklu Dil Parçacığı</Btn></li>
+                    <li><Btn html={`{{field label:"" name:"" type:"text"}}`}>Form Elemanı Ekle</Btn></li>
                 </ul>
             </li>
             

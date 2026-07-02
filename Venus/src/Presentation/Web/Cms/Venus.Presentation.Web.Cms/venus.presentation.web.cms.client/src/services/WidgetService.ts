@@ -10,7 +10,7 @@ export class WidgetService extends ServiceBase{
         return super.post<ReadWidgetDto>("widget/update",data);
     }
 
-    createTemplateSchema(widgetId:string){
-        return super.post<ReadWidgetDto>("widget/create-template-schema",{id:widgetId});
+    createTemplateSchema(htmlTemplate:string){
+        return super.post<ReadWidgetDto>("widget/create-template-schema",{HtmlTemplate:htmlTemplate});
     }
 }

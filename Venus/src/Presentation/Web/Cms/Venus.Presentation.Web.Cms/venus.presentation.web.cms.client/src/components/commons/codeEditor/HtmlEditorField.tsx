@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { HtmlEditorHelperField } from "./HtmlEditorHelperField";
 
 export interface HtmlEditorFieldProps{
-    value:string
+    value:string,
     setValue:(value:string)=>void,
     onContextMenuHandler?:(e: React.MouseEvent<HTMLDivElement>)=>Promise<void>
     handleOnclickHandler?:(e: React.MouseEvent<HTMLDivElement>)=>Promise<void>

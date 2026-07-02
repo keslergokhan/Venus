@@ -34,7 +34,7 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
             return updateResult.ToActionResult(this);
         }
 
-        [HttpPost("create-template-schema")]
+        [HttpPost("get-template-schema")]
         public async Task<IActionResult> CreateTemplateSchema([FromBody]Guid id)
         {
             var result = await base.Mediator.Send(new GetWidgetTemplateDataSchemaQuery()
@@ -44,5 +44,17 @@ namespace Venus.Presentation.Web.Cms.Server.Controllers
 
             return result.ToActionResult(this);
         }
+
+        [HttpPost("create-template-schema")]
+        public async Task<IActionResult> CreateTemplateSchema([FromBody] CreateTemplateSchemaRequest req)
+        {
+            var result = await base.Mediator.Send(new GetCreateWidgetTemplateDataSchemaQuery()
+            {
+                Template = req.HtmlTemplate
+            });
+
+            return result.ToActionResult(this);
+        }
+
     }
 }

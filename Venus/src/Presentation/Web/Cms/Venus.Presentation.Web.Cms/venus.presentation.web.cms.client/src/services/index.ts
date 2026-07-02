@@ -7,3 +7,4 @@ export {PageService} from "./PageService"
 export {BlogService} from './BlogService'
 export {LanguageResourceService} from "./LanguageResourceService";
 export {ConfigurationSettingService} from "./ConfigurationSetting"
+export {WidgetService} from "./WidgetService"

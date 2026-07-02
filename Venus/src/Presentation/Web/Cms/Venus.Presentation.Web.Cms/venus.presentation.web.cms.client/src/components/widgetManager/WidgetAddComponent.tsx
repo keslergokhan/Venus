@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { HtmlEditorField } from "../commons";
+import React, { useState } from "react";
+import { CButtonField, HtmlEditorField } from "../commons";
 import { WriteWidgetDto } from "../../dtos";
 import { useForm } from "react-hook-form";
 import {z} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
+import { WidgetService } from "../../services";
+import { ToastHelper } from "../../helpers";
 
 export interface WidgetAddComponentProps{
     addHandler:(data:WriteWidgetDto)=>Promise<void>
 }
 
 export function WidgetAddComponent(props:WidgetAddComponentProps){
+    const widgetService = new WidgetService();
     const [html,setHtml] = useState<string>("");
 
     const schema = z.object({
@@ -31,11 +34,23 @@ export function WidgetAddComponent(props:WidgetAddComponentProps){
     }
 
 
-    const widgetUserFormik = useForm<WriteWidgetDto>({resolver:zodResolver(schema),defaultValues:defaultValue});
+    async function submitHandler(e:React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+
+        try {
+            const result = await widgetService.createTemplateSchema(html);
+            console.log(result);
+        } catch (error) {
+            ToastHelper.DefaultCatchError(error);
+        }
+        console.log(html);
+    }
+
 
     return (
-        <form>
+        <form onSubmit={submitHandler}>
             <HtmlEditorField value={html} setValue={setHtml}></HtmlEditorField>
+            <CButtonField type="submit">Kaydet</CButtonField>
         </form>
     )
 }
