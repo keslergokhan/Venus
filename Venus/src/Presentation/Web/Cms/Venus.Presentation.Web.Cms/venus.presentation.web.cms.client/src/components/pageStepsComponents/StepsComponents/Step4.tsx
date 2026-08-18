@@ -1,7 +1,7 @@
-import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
+import type { PageStep, PageStepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
 
-function StepContent(props:StepContentProps){
+function StepContent(props:PageStepContentProps){
     
     return (
         <div className="container">
@@ -35,13 +35,13 @@ function StepContent(props:StepContentProps){
     )
 }
 
-export const Step4:Step = {
+export const Step4:PageStep = {
     Key:"step_4",
     StepContent:StepContent,
     Title:"Sayfa Kontrolü",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:function(step:Step) {
+    FormSutmitHandler:function(step:PageStep) {
         step.FormFinsh = true;
         step.NextStep("");
         setTimeout(() => {

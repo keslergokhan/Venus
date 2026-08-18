@@ -14,3 +14,4 @@ export {ReadLanguageResourceValueDto} from "./languageResource/ReadLanguageResou
 export {ReadConfigurationSettingDto} from "./settings/ReadConfigurationSettingDto"
 export {ReadWidgetDto} from "./widgets/ReadWidgetDto"
 export {WriteWidgetDto} from "./widgets/WriteWidgetDto"
+export {TemplateVariableSchema} from "./widgets/ReadScriptVisitDto"

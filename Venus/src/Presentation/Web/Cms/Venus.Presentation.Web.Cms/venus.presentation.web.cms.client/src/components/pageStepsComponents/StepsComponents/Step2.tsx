@@ -1,12 +1,12 @@
 import type { JSX } from "react";
-import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
+import type { PageStep, PageStepContentProps } from "../NewPageStepsManagerComponent";
 import { useUrlPathControl } from "../../../hooks";
 import {z} from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CButtonField, CTextField, UrlInputField } from "../..";
 
-function StepContent(props:StepContentProps){
+function StepContent(props:PageStepContentProps){
     const schema = z.object({
         url:z.string().min(3,"Lütfen biraz daha anlamlı adres giriniz."),
         title:z.string().min(5,"Lütfen daha fazla detay giriniz.").max(65,"Başlık en fazla 65 karakter olabilir."),
@@ -60,13 +60,13 @@ function StepContent(props:StepContentProps){
     </div>)
 }
 
-export const Step2:Step = {
+export const Step2:PageStep = {
     Key:"step_2",
     StepContent:StepContent,
     Title:"Sayfa Bilgileri",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:function(step:Step){
+    FormSutmitHandler:function(step:PageStep){
         step.FormFinsh = true;
         step.NextStep("step_3");
     }

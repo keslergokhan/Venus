@@ -24,7 +24,7 @@ namespace Venus.Core.Application.Services
             _customScript = customScript;
         }
 
-        public async Task<List<ScriptVisitModel>> HtmlTemplateSchemaExtractAsync(string html)
+        public async Task<List<TemplateVariableSchema>> HtmlTemplateSchemaExtractAsync(string html)
         {
             try
             {

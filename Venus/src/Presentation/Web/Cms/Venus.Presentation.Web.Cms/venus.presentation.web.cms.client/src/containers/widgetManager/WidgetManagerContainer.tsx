@@ -1,7 +1,12 @@
 import { CButtonField, LoadingComponent, WidgetAddComponent, WidgetTableComponent, WidgetUpdateComponent, ZoneControlComponent, ZoneControlItem } from "../../components";
+import { StepManagerComponent, type StepContentProp, type StepManagerComponentProps } from "../../components/steps/StepManagerComponent";
+import { addWidgetStep } from "../../components/widgetManager/widgetAddSetps/WidgetAddStep";
+import { schemaWidgetStep } from "../../components/widgetManager/widgetAddSetps/WidgetSchemaControlStep";
 import { useWidgetManagerContainer } from "../../hooks";
 
 function WidgetManagerContainer(){
+
+    var widgetManager = useWidgetManagerContainer();
 
     var {widgets,
         showContainer,
@@ -10,10 +15,19 @@ function WidgetManagerContainer(){
         selectWidget,
         updateHandler,
         addHandler
-    } = useWidgetManagerContainer();
+    } = widgetManager;
 
     const isTable = (showContainer() ?? []).find(x=>x=="table")?true:false;
 
+    
+
+    const stepManagerProp:StepManagerComponentProps<ReturnType<typeof useWidgetManagerContainer>> = {
+        stepProp:{
+            data:widgetManager
+        },
+        steps:[addWidgetStep,schemaWidgetStep]
+    }
+    
     return (
         <div>
             <div className="flex gap-4">
@@ -35,7 +49,8 @@ function WidgetManagerContainer(){
                     </LoadingComponent>
                 </ZoneControlItem>
                 <ZoneControlItem zoneKey={"add"}>
-                    <WidgetAddComponent addHandler={addHandler}></WidgetAddComponent>
+                    {/** <WidgetAddComponent addHandler={addHandler}></WidgetAddComponent> */}
+                    <StepManagerComponent {...stepManagerProp}></StepManagerComponent>
                 </ZoneControlItem>
             </ZoneControlComponent>
         </div>

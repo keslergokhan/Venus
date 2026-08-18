@@ -9,23 +9,23 @@ export interface AllStepPostData{
     description:string|undefined;
 }
 
-export interface StepData{
+export interface PageStepData{
     pageAbouts:ReadPageAboutDto[]
 }
 
-export interface StepContentProps{
+export interface PageStepContentProps{
     /** Mevcut step verisi */
-    step:Step;
+    step:PageStep;
     /** Tüm steps değerleri */
-    steps?:Step[]|undefined;
+    steps?:PageStep[]|undefined;
     /** Steps yapıların ihtiyaç duyduğu ortak veriler */
-    data:StepData
+    data:PageStepData
     allStepPostData:AllStepPostData
 }
 
-export interface Step {
+export interface PageStep {
     /** Step component */
-    StepContent:React.FunctionComponent<StepContentProps>;
+    StepContent:React.FunctionComponent<PageStepContentProps>;
     /** Step başlığı */
     Title:string;
     /** Step benzersiz anahtar */
@@ -35,18 +35,18 @@ export interface Step {
     /** Başka stepler arası geçiş eventi */
     NextStep:(key:string)=>void;
     /** Step form submit */
-    FormSutmitHandler:(step:Step)=>void;
+    FormSutmitHandler:(step:PageStep)=>void;
 }
 
 export interface NewPageStepsManagerComponentProps{
-    Steps:Step[],
-    stepData:StepData
+    Steps:PageStep[],
+    stepData:PageStepData
 }
 
 export function NewPageStepsComponent(props:NewPageStepsManagerComponentProps){
 
     const findStep = props.Steps.find(x=>x.Key=="step_1");
-    const [currentStep,setCurrentStep] = useState<Step | undefined>(findStep);
+    const [currentStep,setCurrentStep] = useState<PageStep | undefined>(findStep);
     const allStepPostData = useRef<AllStepPostData>(
         {
             pageAboutId:undefined,
@@ -56,7 +56,7 @@ export function NewPageStepsComponent(props:NewPageStepsManagerComponentProps){
         }
     );
 
-    function tabOnClickHandler(x:Step){
+    function tabOnClickHandler(x:PageStep){
         setCurrentStep(x)
     }
 
@@ -68,7 +68,7 @@ export function NewPageStepsComponent(props:NewPageStepsManagerComponentProps){
         x.NextStep = nextStep;
     })
 
-    function StepBarItem({ step, index }: { step: Step; index: number }){
+    function StepBarItem({ step, index }: { step: PageStep; index: number }){
         const activeClass = (currentStep?.Key == step.Key) 
         ? "bg-blue-700 "
         :"bg-gray-400 ";
@@ -85,7 +85,7 @@ export function NewPageStepsComponent(props:NewPageStepsManagerComponentProps){
                     </div>
                 </div>
         </div>
-      }
+    }
 
     const StepContentFun = currentStep?.StepContent;
     return (

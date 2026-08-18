@@ -13,7 +13,7 @@ namespace Venus.Core.Application.Features.Cms.Widgets.Queries
 {
     public class GetCreateWidgetTemplateDataSchemaQueryResponse
     {
-        public List<ScriptVisitModel> TemplateDataSchemaList { get; set; }
+        public List<TemplateVariableSchema> TemplateDataSchemaList { get; set; }
     }
    
 

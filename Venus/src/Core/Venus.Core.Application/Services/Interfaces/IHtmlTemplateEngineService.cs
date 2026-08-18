@@ -10,6 +10,6 @@ namespace Venus.Core.Application.Services.Interfaces
 {
     public interface IHtmlTemplateEngineReview
     {
-        public Task<List<ScriptVisitModel>> HtmlTemplateSchemaExtractAsync(string html);
+        public Task<List<TemplateVariableSchema>> HtmlTemplateSchemaExtractAsync(string html);
     }
 }

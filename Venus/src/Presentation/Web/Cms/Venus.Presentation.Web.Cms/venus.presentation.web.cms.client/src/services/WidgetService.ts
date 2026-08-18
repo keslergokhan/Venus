@@ -1,4 +1,5 @@
 import { ReadWidgetDto } from "../dtos/widgets/ReadWidgetDto";
+import type { CreateTemplateSchemaRes } from "../models";
 import { ServiceBase } from "./base/ServiceBase";
 
 export class WidgetService extends ServiceBase{
@@ -11,6 +12,6 @@ export class WidgetService extends ServiceBase{
     }
 
     createTemplateSchema(htmlTemplate:string){
-        return super.post<ReadWidgetDto>("widget/create-template-schema",{HtmlTemplate:htmlTemplate});
+        return super.post<CreateTemplateSchemaRes>("widget/create-template-schema",{HtmlTemplate:htmlTemplate});
     }
 }

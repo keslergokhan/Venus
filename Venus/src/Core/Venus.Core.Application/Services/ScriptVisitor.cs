@@ -13,10 +13,10 @@ namespace Venus.Core.Application.Services
 {
     public class CustomScriptVisitor : ScriptVisitor
     {
-        public List<ScriptVisitModel> Variables => variables;
-        private List<ScriptVisitModel> variables = new List<ScriptVisitModel>();
+        public List<TemplateVariableSchema> Variables => variables;
+        private List<TemplateVariableSchema> variables = new List<TemplateVariableSchema>();
 
-        private void AddVariable(ScriptVisitModel item)
+        private void AddVariable(TemplateVariableSchema item)
         {
             var variable = variables.FirstOrDefault(x => x.PropertyRoute == item.PropertyRoute);
             if (variable == null)
@@ -35,7 +35,7 @@ namespace Venus.Core.Application.Services
             {
                 var path = BuildPath(member);
 
-                ScriptVisitModel item = new ScriptVisitModel()
+                TemplateVariableSchema item = new TemplateVariableSchema()
                 {
                     PropertyRoute = path
                 };
@@ -68,7 +68,7 @@ namespace Venus.Core.Application.Services
         {
             if (node.Target.ToString() == "field")
             {
-                ScriptVisitModel item = new ScriptVisitModel();
+                TemplateVariableSchema item = new TemplateVariableSchema();
                 foreach (var argument in node.Arguments)
                 {
                     if (argument is ScriptNamedArgument namedArg)

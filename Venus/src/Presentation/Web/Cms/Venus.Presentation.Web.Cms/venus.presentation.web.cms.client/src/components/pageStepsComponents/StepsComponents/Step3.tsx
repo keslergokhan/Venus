@@ -1,12 +1,12 @@
 import type { JSX } from "react";
-import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
+import type { PageStep, PageStepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField } from "../../commons";
 import { PageService } from "../../../services";
 import { CreatePageRequest } from "../../../models";
 import { ToastHelper } from "../../../helpers";
 
 
-function StepContent(props:StepContentProps) {
+function StepContent(props:PageStepContentProps) {
     
     const pageService = new PageService();
     function onSubmitHandler(){
@@ -100,13 +100,13 @@ function StepContent(props:StepContentProps) {
     )
 }
 
-export const Step3:Step = {
+export const Step3:PageStep = {
     Key:"step_3",
     StepContent:StepContent,
     Title:"Sayfayı oluştur",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:function(step:Step){
+    FormSutmitHandler:function(step:PageStep){
         step.FormFinsh = true;
         step.NextStep("step_4");
     }

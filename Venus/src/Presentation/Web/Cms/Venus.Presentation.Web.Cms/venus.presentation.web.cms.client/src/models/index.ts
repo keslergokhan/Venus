@@ -2,3 +2,4 @@ export type { LoginFormRequest } from "./login/LoginFormRequest"
 export type { LoginValidationReuqest } from "./login/LoginValidationRequest"
 export { FileManagerGetFolderRes} from "./fileManager/FileManagerGetFolderRes"
 export {CreatePageRequest} from './pageManager/CreatePageRequest'
+export {CreateTemplateSchemaRes} from "./widget/CreateTemplateSchemaRes"

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { CButtonField, HtmlEditorField } from "../commons";
-import { WriteWidgetDto } from "../../dtos";
-import { useForm } from "react-hook-form";
+import { TemplateVariableSchema, WriteWidgetDto } from "../../dtos";
 import {z} from "zod"
-import {zodResolver} from "@hookform/resolvers/zod"
 import { WidgetService } from "../../services";
 import { ToastHelper } from "../../helpers";
+import { StepManagerComponent } from "../steps/StepManagerComponent";
 
 export interface WidgetAddComponentProps{
     addHandler:(data:WriteWidgetDto)=>Promise<void>
@@ -14,6 +13,8 @@ export interface WidgetAddComponentProps{
 export function WidgetAddComponent(props:WidgetAddComponentProps){
     const widgetService = new WidgetService();
     const [html,setHtml] = useState<string>("");
+    const [variableSchema,setVariableSchema] = useState<TemplateVariableSchema[]>([]);
+    
 
     const schema = z.object({
         id:z.string(),
@@ -39,7 +40,8 @@ export function WidgetAddComponent(props:WidgetAddComponentProps){
 
         try {
             const result = await widgetService.createTemplateSchema(html);
-            console.log(result);
+            setVariableSchema(result.templateDataSchemaList);
+            
         } catch (error) {
             ToastHelper.DefaultCatchError(error);
         }
@@ -49,8 +51,13 @@ export function WidgetAddComponent(props:WidgetAddComponentProps){
 
     return (
         <form onSubmit={submitHandler}>
+
             <HtmlEditorField value={html} setValue={setHtml}></HtmlEditorField>
-            <CButtonField type="submit">Kaydet</CButtonField>
+
+            <CButtonField type="submit">Tamam</CButtonField>
+            
         </form>
     )
 }
+
+

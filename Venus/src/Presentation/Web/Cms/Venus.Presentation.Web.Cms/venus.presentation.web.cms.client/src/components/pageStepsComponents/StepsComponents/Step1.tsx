@@ -1,12 +1,12 @@
 import { useState, type JSX } from "react";
-import type { Step, StepContentProps } from "../NewPageStepsManagerComponent";
+import type { PageStep, PageStepContentProps } from "../NewPageStepsManagerComponent";
 import { CButtonField, IconCheck } from "../../commons";
 import { ReadPageAboutDto } from "../../../dtos";
 import { ToastHelper } from "../../../helpers";
 
 
 
-function StepContent(props:StepContentProps) {
+function StepContent(props:PageStepContentProps) {
     const allStepPostData = props.allStepPostData;
     const [selectedPageAbout,setSelectedPageAbout] = useState<ReadPageAboutDto>();
 
@@ -60,13 +60,13 @@ function StepContent(props:StepContentProps) {
     </div>)
 }
 
-export const Step1:Step = {
+export const Step1:PageStep = {
     Key:"step_1",
     StepContent:StepContent,
     Title:"Sayfa Tipi",
     FormFinsh:false,
     NextStep:()=>{},
-    FormSutmitHandler:function (step:Step){
+    FormSutmitHandler:function (step:PageStep){
         step.FormFinsh = true;
         step.NextStep("step_2");
     }

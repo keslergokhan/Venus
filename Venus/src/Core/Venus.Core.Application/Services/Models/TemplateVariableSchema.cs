@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Venus.Core.Application.Services.Models
 {
-    public class ScriptVisitModel
+    public class TemplateVariableSchema
     {
         public string PropertyRoute { get; set; }
         public string Type { get; set; }
